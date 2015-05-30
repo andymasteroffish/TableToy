@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		0A5718671B07BC97005C31BB /* VectorField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5718651B07BC97005C31BB /* VectorField.cpp */; };
 		0A57186B1B0C1259005C31BB /* Ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5718691B0C1259005C31BB /* Ball.cpp */; };
-		0A5718701B0C2275005C31BB /* CupTower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A57186E1B0C2275005C31BB /* CupTower.cpp */; };
+		0A5718701B0C2275005C31BB /* Cup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A57186E1B0C2275005C31BB /* Cup.cpp */; };
+		0A60DC171B1A0FA10073D720 /* CupRock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A60DC151B1A0FA10073D720 /* CupRock.cpp */; };
+		0A60DC1C1B1A10460073D720 /* CupRepeller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */; };
 		0A78354E1B1A024F0030E2F6 /* FieldParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -68,8 +70,12 @@
 		0A5718681B07C37D005C31BB /* GridPos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridPos.h; sourceTree = "<group>"; };
 		0A5718691B0C1259005C31BB /* Ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ball.cpp; sourceTree = "<group>"; };
 		0A57186A1B0C1259005C31BB /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
-		0A57186E1B0C2275005C31BB /* CupTower.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTower.cpp; sourceTree = "<group>"; };
-		0A57186F1B0C2275005C31BB /* CupTower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTower.h; sourceTree = "<group>"; };
+		0A57186E1B0C2275005C31BB /* Cup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cup.cpp; sourceTree = "<group>"; };
+		0A57186F1B0C2275005C31BB /* Cup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cup.h; sourceTree = "<group>"; };
+		0A60DC151B1A0FA10073D720 /* CupRock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupRock.cpp; sourceTree = "<group>"; };
+		0A60DC161B1A0FA10073D720 /* CupRock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupRock.h; sourceTree = "<group>"; };
+		0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupRepeller.cpp; sourceTree = "<group>"; };
+		0A60DC1B1B1A10460073D720 /* CupRepeller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupRepeller.h; sourceTree = "<group>"; };
 		0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FieldParticle.cpp; sourceTree = "<group>"; };
 		0A78354D1B1A024F0030E2F6 /* FieldParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldParticle.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -124,6 +130,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A60DC141B1A0F860073D720 /* Cups */ = {
+			isa = PBXGroup;
+			children = (
+				0A57186F1B0C2275005C31BB /* Cup.h */,
+				0A57186E1B0C2275005C31BB /* Cup.cpp */,
+				0A60DC1B1B1A10460073D720 /* CupRepeller.h */,
+				0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */,
+				0A60DC161B1A0FA10073D720 /* CupRock.h */,
+				0A60DC151B1A0FA10073D720 /* CupRock.cpp */,
+			);
+			name = Cups;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,8 +222,7 @@
 				0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */,
 				0A57186A1B0C1259005C31BB /* Ball.h */,
 				0A5718691B0C1259005C31BB /* Ball.cpp */,
-				0A57186F1B0C2275005C31BB /* CupTower.h */,
-				0A57186E1B0C2275005C31BB /* CupTower.cpp */,
+				0A60DC141B1A0F860073D720 /* Cups */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -308,8 +326,10 @@
 				0A57186B1B0C1259005C31BB /* Ball.cpp in Sources */,
 				0A5718671B07BC97005C31BB /* VectorField.cpp in Sources */,
 				0A78354E1B1A024F0030E2F6 /* FieldParticle.cpp in Sources */,
+				0A60DC1C1B1A10460073D720 /* CupRepeller.cpp in Sources */,
+				0A60DC171B1A0FA10073D720 /* CupRock.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
-				0A5718701B0C2275005C31BB /* CupTower.cpp in Sources */,
+				0A5718701B0C2275005C31BB /* Cup.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

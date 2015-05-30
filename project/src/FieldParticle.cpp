@@ -27,6 +27,8 @@ void FieldParticle::setup(float x, float y){
     timer = 0;
     
     killFlag = false;
+    
+    setAlpha();
 
 }
 
@@ -40,13 +42,7 @@ void FieldParticle::update(float deltaTime, VectorField * field){
         killFlag = true;
     }
     
-    float maxVel = MAX( abs(vel.x), abs(vel.y) );
-    if (maxVel < velToStartFading){
-        float prct = maxVel/velToStartFading;
-        col.a = prct * 255;
-    }else{
-        col.a = 255;
-    }
+    setAlpha();
 }
 
 void FieldParticle::draw(){
@@ -55,3 +51,23 @@ void FieldParticle::draw(){
     ofCircle(pos, 2);
     
 }
+
+void FieldParticle::setAlpha(){
+    float maxVel = MAX( abs(vel.x), abs(vel.y) );
+    if (maxVel < velToStartFading){
+        float prct = maxVel/velToStartFading;
+        col.a = prct * 255;
+    }else{
+        col.a = 255;
+    }
+
+    //also start to fade if it is running out of time
+    float timeLeft = killTime-timer;
+    float timeToFade = 0.4;
+    if ( timeLeft < timeToFade ){
+        float newAlpha = (timeLeft/timeToFade) * 255;
+        col.a = MIN(newAlpha, col.a);
+    }
+    
+}
+

@@ -48,6 +48,9 @@ public:
     
     //affecting the field
     void addOutwardCircle(float x, float y, float radius, float strength);
+    void addOutwardSemiCircle(float x, float y, float radius, float strength, bool onLeft);
+    
+    void setStreamForce(); //pushes the enitre field towards the right semi randomly. Used in stream mode.
     
     
     

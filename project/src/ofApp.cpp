@@ -12,13 +12,42 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     ofBackground(10);
     
-    
     field.setupField(ofGetWidth(),ofGetHeight());
     
     ballRepulsionRange = 20;
     ballRepulsionMaxForce = 1;
     
-    //testing
+    startBallMode();
+    
+    showField = false;
+    showDebugInfo = true;
+    
+    deltaTime = 0;
+    prevFrameTime = ofGetElapsedTimef();
+}
+
+//--------------------------------------------------------------
+//clears everythign and gets the toy ready for a new mode
+void ofApp::reset(){
+    
+    //kill all towers if there are any
+    for (int i=0; i<towers.size(); i++){
+        delete towers[i];
+    }
+    towers.clear();
+    
+    //kill all balls if there are any
+    for (int i=0; i<balls.size(); i++){
+        delete balls[i];
+    }
+    balls.clear();
+    
+}
+
+//--------------------------------------------------------------
+void ofApp:: startBallMode(){
+    curMode = MODE_BALL;
+    
     for (int i=0; i<20; i++){
         Ball * newBall = new Ball();
         newBall->setup();
@@ -27,17 +56,26 @@ void ofApp::setup(){
     }
     
     for (int i=0; i<5; i++){
-        CupTower * newTower = new CupTower();
-        newTower->setup( 200+i*200, ofGetHeight()/2, &field);
+        CupRepeller * newTower = new CupRepeller();
+        float startX = ofRandom(100, ofGetWidth()-100);
+        float startY = ofRandom(100, ofGetHeight()-100);
+        newTower->setup( startX, startY, &field);
         towers.push_back(newTower);
     }
+
+}
+
+//--------------------------------------------------------------
+void ofApp:: startStreamMode(){
+    curMode = MODE_STREAM;
     
-    
-    showField = false;
-    showDebugInfo = true;
-    
-    deltaTime = 0;
-    prevFrameTime = ofGetElapsedTimef();
+    for (int i=0; i<5; i++){
+        CupRock * newTower = new CupRock();
+        float startX = ofRandom(100, ofGetWidth()-100);
+        float startY = ofRandom(100, ofGetHeight()-100);
+        newTower->setup( startX, startY, &field);
+        towers.push_back(newTower);
+    }
 }
 
 //--------------------------------------------------------------
@@ -48,6 +86,10 @@ void ofApp::update(){
     prevFrameTime = ofGetElapsedTimef();
     
     field.clear();
+    
+    if (curMode == MODE_STREAM){
+        field.setStreamForce();
+    }
     
     //sort the balls from left to right
     sort(balls.begin(), balls.end(), ballSort );
@@ -122,10 +164,17 @@ void ofApp::draw(){
     }
 
     if(showDebugInfo){
+        string modeName = "";
+        if (curMode == MODE_BALL)   modeName = "ball";
+        if (curMode == MODE_STREAM)   modeName = "stream";
+        
         ofSetColor(255,0,0);
         string debugInfo =  "fps: "+ofToString(ofGetFrameRate());
+        debugInfo +=        "\nmode: "+modeName;
         debugInfo +=        "\nf - toggle field";
         debugInfo +=        "\nh - toggle info";
+        debugInfo +=        "\nm - toggle mode";
+        debugInfo +=        "\na - add cup";
         ofDrawBitmapString(debugInfo, 10,15);
     }
 }
@@ -138,6 +187,18 @@ void ofApp::keyPressed(int key){
     }
     if (key == 'h'){
         showDebugInfo = !showDebugInfo;
+    }
+    
+    if (key == 'a'){
+        addCup();
+    }
+    
+    if (key == 'm'){
+        reset();
+        curMode = (ModeType) ((curMode+1)%NUM_MODES);
+        
+        if (curMode == MODE_BALL)   startBallMode();
+        if (curMode == MODE_STREAM) startStreamMode();
     }
 
 }
@@ -212,7 +273,25 @@ void ofApp::makeFieldParticles(){
         FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y );
         fieldParticles.push_back(newP);
     }
+}
+
+//--------------------------------------------------------------
+void ofApp::addCup(){
     
+    float startX = ofRandom(100, ofGetWidth()-100);
+    float startY = ofRandom(100, ofGetHeight()-100);
+    
+    if (curMode == MODE_BALL){
+        CupRepeller * newTower = new CupRepeller();
+        newTower->setup( startX, startY, &field);
+        towers.push_back(newTower);
+    }
+    
+    if (curMode == MODE_STREAM){
+        CupRock * newTower = new CupRock();
+        newTower->setup( startX, startY, &field);
+        towers.push_back(newTower);
+    }
     
 }
 

@@ -107,7 +107,6 @@ void VectorField::addOutwardCircle(float x, float y, float radius, float strengt
     float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
     
     //figure out how far we have to go
-    
     int startX  = MAX(fieldPos.x - fieldRadius, 0);
     int startY  = MAX(fieldPos.y - fieldRadius, 0);
     int endX    = MIN(fieldPos.x + fieldRadius, FIELD_WIDTH);
@@ -118,7 +117,6 @@ void VectorField::addOutwardCircle(float x, float y, float radius, float strengt
             
             float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) +
                                           (fieldPos.y-y) * (fieldPos.y-y));
-            
             //no divide by 0, pls
             if (distance < 0.0001)  distance = 0.0001;
             
@@ -131,14 +129,81 @@ void VectorField::addOutwardCircle(float x, float y, float radius, float strengt
                 float unit_py = ( fieldPos.y - y) / distance;
                 field[x][y].x -= unit_px * strongness;
                 field[x][y].y -= unit_py * strongness;
-                
             }
+        }
+    }
+}
+
+//-------------------------------------------------------------
+//THIS IS DUMB AND REDUNDANT. IF YOU KEEP IT, WRAP IT UP IN OUTWARD CIRCLE SOMEHOW
+void VectorField::addOutwardSemiCircle(float x, float y, float radius, float strength, bool onLeft){
+    
+    //get our center
+    GridPos fieldPos = getInternalPointFromExternal(x, y);
+    //and the radius in field size
+    float radiusPrct = radius / (float)externalWidth;
+    float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
+    
+    //figure out how far we have to go
+    int startX  = MAX(fieldPos.x - fieldRadius, 0);
+    int startY  = MAX(fieldPos.y - fieldRadius, 0);
+    int endX    = MIN(fieldPos.x + fieldRadius, FIELD_WIDTH);
+    int endY    = MIN(fieldPos.y + fieldRadius, FIELD_HEIGHT);
+    
+    if (onLeft){
+        endX = fieldPos.x;
+    }else{
+        startX = fieldPos.x;
+    }
+    
+    for (int x=startX; x < endX; x++){
+        for (int y=startY; y< endY; y++){
             
+            float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) +
+                                          (fieldPos.y-y) * (fieldPos.y-y));
+            //no divide by 0, pls
+            if (distance < 0.0001)  distance = 0.0001;
+            
+            if (distance < fieldRadius){
+                
+                float prct = 1.0f - (distance / fieldRadius);
+                float strongness = strength * prct;
+                
+                float unit_px = ( fieldPos.x - x) / distance;
+                float unit_py = ( fieldPos.y - y) / distance;
+                field[x][y].x -= unit_px * strongness;
+                field[x][y].y -= unit_py * strongness;
+            }
+        }
+    }
+}
+
+//-------------------------------------------------------------
+void VectorField::setStreamForce(){
+    
+    float minX = 0.1;
+    float maxX = 3;
+    
+    float yRange = 1;
+    
+    float noiseScale = 0.5;
+    float noiseSpeed = 0.2;
+    
+    for (int x=0; x<FIELD_WIDTH; x++){
+        for (int y=0; y<FIELD_HEIGHT; y++){
+            ofVec2f thisForce;
+            
+            float xPrc = ofNoise( x*noiseScale, y*noiseScale, ofGetElapsedTimef() * noiseSpeed );
+            thisForce.x =  xPrc * maxX + (1-xPrc) * minX;
+            
+            float yPrc = ofNoise( x*noiseScale, y*noiseScale, ofGetElapsedTimef() * noiseSpeed, 1000 );
+            thisForce.y = yPrc * yRange + (1-yPrc) * (-yRange);
+            
+            field[x][y] += thisForce;
         }
     }
     
 }
-
 
 
 //-------------------------------------------------------------

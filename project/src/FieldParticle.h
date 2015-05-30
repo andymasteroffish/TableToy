@@ -29,6 +29,7 @@ public:
     void setup(float x, float y);
     void update(float deltaTime, VectorField * field);
     void draw();
+    void setAlpha();
     
 };
 

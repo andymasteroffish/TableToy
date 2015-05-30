@@ -6,11 +6,21 @@
 #include "FieldParticle.h"
 #include "Ball.h"
 
-#include "CupTower.h"
+#include "Cup.h"
+#include "CupRepeller.h"
+#include "CupRock.h"
+
+enum ModeType { MODE_BALL, MODE_STREAM, NUM_MODES };
 
 class ofApp : public ofBaseApp{
 public:
+    
     void setup();
+    
+    void reset();
+    void startBallMode();
+    void startStreamMode();
+    
     void update();
     void draw();
     
@@ -26,8 +36,13 @@ public:
     
     void makeFieldParticles();
     
+    void addCup();
+    
     //general
     float deltaTime, prevFrameTime;
+    
+    //modes
+    ModeType curMode;
     
     
     //the field
@@ -40,7 +55,7 @@ public:
     float ballRepulsionRange;
     float ballRepulsionMaxForce;
     
-    vector<CupTower *> towers;
+    vector<Cup *> towers;
     
     
     //debug values
