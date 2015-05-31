@@ -24,12 +24,14 @@ public:
     
     VectorField * field;
     
+    float deltaTime;
+    
     bool hasBeenRemoved; //flag to kill
     
     void setup(float startX, float startY, VectorField * _field);
     virtual void customSetup(){}
     
-    void update();
+    void update(float _deltaTime);
     virtual void customUpdate(){}
     
     void draw();

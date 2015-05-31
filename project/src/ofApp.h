@@ -10,6 +10,7 @@
 #include "CupRepeller.h"
 #include "CupRock.h"
 #include "CupFlow.h"
+#include "CupPulse.h";
 
 enum ModeType { MODE_BALL, MODE_STREAM, NUM_MODES };
 

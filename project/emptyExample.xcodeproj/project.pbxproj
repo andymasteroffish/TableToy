@@ -13,6 +13,7 @@
 		0A5718701B0C2275005C31BB /* Cup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A57186E1B0C2275005C31BB /* Cup.cpp */; };
 		0A60DC171B1A0FA10073D720 /* CupRock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A60DC151B1A0FA10073D720 /* CupRock.cpp */; };
 		0A60DC1C1B1A10460073D720 /* CupRepeller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */; };
+		0A7343A91B1B7616008B1890 /* CupPulse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A7343A71B1B7616008B1890 /* CupPulse.cpp */; };
 		0A78354E1B1A024F0030E2F6 /* FieldParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -79,6 +80,8 @@
 		0A60DC161B1A0FA10073D720 /* CupRock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupRock.h; sourceTree = "<group>"; };
 		0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupRepeller.cpp; sourceTree = "<group>"; };
 		0A60DC1B1B1A10460073D720 /* CupRepeller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupRepeller.h; sourceTree = "<group>"; };
+		0A7343A71B1B7616008B1890 /* CupPulse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupPulse.cpp; sourceTree = "<group>"; };
+		0A7343A81B1B7616008B1890 /* CupPulse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupPulse.h; sourceTree = "<group>"; };
 		0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FieldParticle.cpp; sourceTree = "<group>"; };
 		0A78354D1B1A024F0030E2F6 /* FieldParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldParticle.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 				0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */,
 				0A0D24AF1B1B5A7400E40800 /* CupFlow.h */,
 				0A0D24AE1B1B5A7400E40800 /* CupFlow.cpp */,
+				0A7343A81B1B7616008B1890 /* CupPulse.h */,
+				0A7343A71B1B7616008B1890 /* CupPulse.cpp */,
 			);
 			name = Cups;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				0A78354E1B1A024F0030E2F6 /* FieldParticle.cpp in Sources */,
 				0A60DC1C1B1A10460073D720 /* CupRepeller.cpp in Sources */,
 				0A60DC171B1A0FA10073D720 /* CupRock.cpp in Sources */,
+				0A7343A91B1B7616008B1890 /* CupPulse.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				0A5718701B0C2275005C31BB /* Cup.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,

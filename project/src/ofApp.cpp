@@ -89,7 +89,7 @@ void ofApp::update(){
     
     //have the towers do their thing on the field
     for (int i=towers.size()-1; i>=0; i--){
-        towers[i]->update();
+        towers[i]->update(deltaTime);
     }
     
     //actually update the balls
@@ -269,6 +269,10 @@ void ofApp::makeFieldParticles(){
         }
     }
     
+    if (gridPosAffectedThisFrame.size() == 0){
+        return;
+    }
+    
     
     for (int i=0; i<10; i++){
         ofVec2f thisPos = gridPosAffectedThisFrame[ ofRandom( (int)gridPosAffectedThisFrame.size() )];
@@ -284,7 +288,7 @@ void ofApp::addCup(){
     float startY = ofRandom(100, ofGetHeight()-100);
     
     if (curMode == MODE_BALL){
-        int rand = (int)ofRandom(2);
+        int rand = (int)ofRandom(3);
         
         if (rand == 0){
             CupRepeller * newTower = new CupRepeller();
@@ -293,6 +297,11 @@ void ofApp::addCup(){
         }
         if (rand == 1) {
             CupFlow * newTower = new CupFlow();
+            newTower->setup( startX, startY, &field);
+            towers.push_back(newTower);
+        }
+        if (rand == 2) {
+            CupPulse * newTower = new CupPulse();
             newTower->setup( startX, startY, &field);
             towers.push_back(newTower);
         }

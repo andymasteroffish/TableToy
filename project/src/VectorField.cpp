@@ -204,9 +204,6 @@ void VectorField::addFlowCircle(float x, float y, float radius, float strength, 
     startY  = MAX(fieldPos.y - fieldRadius, 0);
     endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
     endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
-    //getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
-    
-    //first find everything that could be inside
     
     for (int x=startX; x <= endX; x++){
         for (int y=startY; y<= endY; y++){
@@ -255,6 +252,53 @@ void VectorField::addFlowCircle(float x, float y, float radius, float strength, 
         }
     }
 }
+
+//-------------------------------------------------------------
+void VectorField::addPulseCircle(float x, float y, float radius, float strength, float externalPulseDist, float externalPulseSize){
+    //get our center
+    GridPos fieldPos = getInternalPointFromExternal(x, y);
+    //and the radius in field size
+    float radiusPrct = radius / (float)externalWidth;
+    float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
+    
+    //figure out how far we have to go
+    int startX, startY, endX, endY;
+    startX  = MAX(fieldPos.x - fieldRadius, 0);
+    startY  = MAX(fieldPos.y - fieldRadius, 0);
+    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
+    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
+    
+    float fieldPulseDistPrc = externalPulseDist / (float)externalWidth;
+    float fieldPulseDist = (float) (fieldPulseDistPrc * FIELD_WIDTH);
+    
+    float fieldPulseSizePrc = externalPulseSize / (float)externalWidth;
+    float fieldPulseSize = (float) (fieldPulseSizePrc * FIELD_WIDTH);
+    
+    float maxFieldDist = fieldPulseDist + fieldPulseSize;
+    float minFieldDist = fieldPulseDist - fieldPulseSize;
+    
+    for (int x=startX; x <= endX; x++){
+        for (int y=startY; y<= endY; y++){
+            
+            float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) + (fieldPos.y-y) * (fieldPos.y-y) );
+            //no divide by 0, pls
+            if (distance < 0.0001)  distance = 0.0001;
+            
+            if (distance < maxFieldDist && distance > minFieldDist){
+                
+                float prct = 1;// 1.0f - (distance / fieldRadius);
+                float strongness = strength * prct;
+                
+                float unit_px = ( fieldPos.x - x) / distance;
+                float unit_py = ( fieldPos.y - y) / distance;
+                field[x][y].x -= unit_px * strongness;
+                field[x][y].y -= unit_py * strongness;
+            }
+            
+        }
+    }
+}
+
 
 //-------------------------------------------------------------
 //by using x, y (instead of y, x) in atan2, I created a cool effect

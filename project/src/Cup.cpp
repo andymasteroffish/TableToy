@@ -27,7 +27,8 @@ void Cup::setup(float startX, float startY, VectorField * _field){
     customSetup();
 }
 
-void Cup::update(){
+void Cup::update(float _deltaTime){
+    deltaTime = _deltaTime;
     
     customUpdate();
 }
