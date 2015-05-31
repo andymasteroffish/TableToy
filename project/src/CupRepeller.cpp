@@ -10,6 +10,7 @@
 
 void CupRepeller::customUpdate(){
     float testStrength = 4;
+    //cout<<"testo "<<field->externalWidth<<endl;
     field->addOutwardCircle(pos.x, pos.y, range, testStrength);
 }
 

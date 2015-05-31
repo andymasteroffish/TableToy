@@ -16,6 +16,8 @@ class Cup{
 public:
     
     ofVec2f pos;
+    float angle;
+    
     float radius;
     
     float range;

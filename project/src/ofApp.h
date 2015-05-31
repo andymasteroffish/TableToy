@@ -9,6 +9,7 @@
 #include "Cup.h"
 #include "CupRepeller.h"
 #include "CupRock.h"
+#include "CupFlow.h"
 
 enum ModeType { MODE_BALL, MODE_STREAM, NUM_MODES };
 
@@ -59,7 +60,7 @@ public:
     
     
     //debug values
-    bool showField, showDebugInfo;
+    bool showField, showFieldParticles, showDebugInfo;
     
     
 };

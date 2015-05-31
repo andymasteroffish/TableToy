@@ -47,8 +47,13 @@ public:
     ofVec2f getExternalPointFromInternal(int internalX, int internalY);
     
     //affecting the field
+    void getFieldBounds(GridPos fieldPos, float fieldRadius, int &startX, int &startY, int &endX, int &endY);
+    
     void addOutwardCircle(float x, float y, float radius, float strength);
     void addOutwardSemiCircle(float x, float y, float radius, float strength, bool onLeft);
+    
+    void addFlowCircle(float x, float y, float radius,  float strength, float angle);
+    void addFlowCircleFuckUp(float x, float y, float radius); //I fucked somehting up and it was kind of cool
     
     void setStreamForce(); //pushes the enitre field towards the right semi randomly. Used in stream mode.
     

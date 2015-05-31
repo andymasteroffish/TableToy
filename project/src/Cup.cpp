@@ -11,6 +11,8 @@
 
 void Cup::setup(float startX, float startY, VectorField * _field){
     
+    angle = 0;
+    
     pos.set(startX, startY);
     field = _field;
     
@@ -18,8 +20,12 @@ void Cup::setup(float startX, float startY, VectorField * _field){
     
     isDebugSelected = false;
     
+    radius = 30;    //how big the physical cup is
+    
     range = 100;
-    radius = 30;
+    
+    
+    customSetup();
 }
 
 void Cup::update(){

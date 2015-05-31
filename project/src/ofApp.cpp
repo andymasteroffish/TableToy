@@ -21,6 +21,7 @@ void ofApp::setup(){
     
     showField = false;
     showDebugInfo = true;
+    showFieldParticles = true;
     
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
@@ -56,11 +57,7 @@ void ofApp:: startBallMode(){
     }
     
     for (int i=0; i<5; i++){
-        CupRepeller * newTower = new CupRepeller();
-        float startX = ofRandom(100, ofGetWidth()-100);
-        float startY = ofRandom(100, ofGetHeight()-100);
-        newTower->setup( startX, startY, &field);
-        towers.push_back(newTower);
+        addCup();
     }
 
 }
@@ -151,8 +148,10 @@ void ofApp::draw(){
         balls[i]->draw();
     }
     
-    for (int i=fieldParticles.size()-1; i>=0; i--){
-        fieldParticles[i]->draw();
+    if (showFieldParticles){
+        for (int i=fieldParticles.size()-1; i>=0; i--){
+            fieldParticles[i]->draw();
+        }
     }
     
     //draw balls
@@ -172,6 +171,7 @@ void ofApp::draw(){
         string debugInfo =  "fps: "+ofToString(ofGetFrameRate());
         debugInfo +=        "\nmode: "+modeName;
         debugInfo +=        "\nf - toggle field";
+        debugInfo +=        "\np - toggle particles";
         debugInfo +=        "\nh - toggle info";
         debugInfo +=        "\nm - toggle mode";
         debugInfo +=        "\na - add cup";
@@ -184,6 +184,9 @@ void ofApp::keyPressed(int key){
     
     if (key == 'f'){
         showField = !showField;
+    }
+    if (key == 'p'){
+        showFieldParticles = !showFieldParticles;
     }
     if (key == 'h'){
         showDebugInfo = !showDebugInfo;
@@ -282,9 +285,18 @@ void ofApp::addCup(){
     float startY = ofRandom(100, ofGetHeight()-100);
     
     if (curMode == MODE_BALL){
-        CupRepeller * newTower = new CupRepeller();
-        newTower->setup( startX, startY, &field);
-        towers.push_back(newTower);
+        int rand = (int)ofRandom(2);
+        
+        if (rand == 0){
+            CupRepeller * newTower = new CupRepeller();
+            newTower->setup( startX, startY, &field);
+            towers.push_back(newTower);
+        }
+        if (rand == 1) {
+            CupFlow * newTower = new CupFlow();
+            newTower->setup( startX, startY, &field);
+            towers.push_back(newTower);
+        }
     }
     
     if (curMode == MODE_STREAM){

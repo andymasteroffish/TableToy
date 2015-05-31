@@ -13,6 +13,8 @@
 //-------------------------------------------------------------
 void VectorField::setupField(int outerW, int outerH){
     
+    cout<<"we set it"<<endl;
+    
     externalWidth = outerW;
     externalHeight = outerH;
     
@@ -70,6 +72,8 @@ ofVec2f VectorField::getForceFromPos(float xPos, float yPos){
 //-------------------------------------------------------------
 GridPos VectorField::getInternalPointFromExternal(float externalX, float externalY){
     
+    //cout<<"externalW "<<externalWidth<<endl;
+    
     //convert from xpos and ypos to percentages
     float xPrct = externalX / (float)externalWidth;
     float yPrct = externalY / (float)externalHeight;
@@ -98,6 +102,14 @@ ofVec2f VectorField::getExternalPointFromInternal(int internalX, int internalY){
 
 
 //-------------------------------------------------------------
+void VectorField::getFieldBounds(GridPos fieldPos, float fieldRadius, int &startX, int &startY, int &endX, int &endY){
+    startX  = MAX(fieldPos.x - fieldRadius, 0);
+    startY  = MAX(fieldPos.y - fieldRadius, 0);
+    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
+    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
+}
+
+//-------------------------------------------------------------
 void VectorField::addOutwardCircle(float x, float y, float radius, float strength){
     
     //get our center
@@ -107,13 +119,11 @@ void VectorField::addOutwardCircle(float x, float y, float radius, float strengt
     float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
     
     //figure out how far we have to go
-    int startX  = MAX(fieldPos.x - fieldRadius, 0);
-    int startY  = MAX(fieldPos.y - fieldRadius, 0);
-    int endX    = MIN(fieldPos.x + fieldRadius, FIELD_WIDTH);
-    int endY    = MIN(fieldPos.y + fieldRadius, FIELD_HEIGHT);
+    int startX, startY, endX, endY;
+    getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
     
-    for (int x=startX; x < endX; x++){
-        for (int y=startY; y< endY; y++){
+    for (int x=startX; x <= endX; x++){
+        for (int y=startY; y  <= endY; y++){
             
             float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) +
                                           (fieldPos.y-y) * (fieldPos.y-y));
@@ -145,10 +155,8 @@ void VectorField::addOutwardSemiCircle(float x, float y, float radius, float str
     float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
     
     //figure out how far we have to go
-    int startX  = MAX(fieldPos.x - fieldRadius, 0);
-    int startY  = MAX(fieldPos.y - fieldRadius, 0);
-    int endX    = MIN(fieldPos.x + fieldRadius, FIELD_WIDTH);
-    int endY    = MIN(fieldPos.y + fieldRadius, FIELD_HEIGHT);
+    int startX, startY, endX, endY;
+    getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
     
     if (onLeft){
         endX = fieldPos.x;
@@ -156,8 +164,8 @@ void VectorField::addOutwardSemiCircle(float x, float y, float radius, float str
         startX = fieldPos.x;
     }
     
-    for (int x=startX; x < endX; x++){
-        for (int y=startY; y< endY; y++){
+    for (int x=startX; x <= endX; x++){
+        for (int y=startY; y<= endY; y++){
             
             float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) +
                                           (fieldPos.y-y) * (fieldPos.y-y));
@@ -174,6 +182,95 @@ void VectorField::addOutwardSemiCircle(float x, float y, float radius, float str
                 field[x][y].x -= unit_px * strongness;
                 field[x][y].y -= unit_py * strongness;
             }
+        }
+    }
+}
+
+//-------------------------------------------------------------
+void VectorField::addFlowCircle(float x, float y, float radius, float strength, float angle){
+    //get our center
+    GridPos fieldPos = getInternalPointFromExternal(x, y);
+    //and the radius in field size
+    float radiusPrct = radius / (float)externalWidth;
+    float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
+    
+    //figure out how far we have to go
+    int startX, startY, endX, endY;
+    getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
+    
+    //first find everything that could be inside
+    
+    for (int x=startX; x <= endX; x++){
+        for (int y=startY; y<= endY; y++){
+            
+            float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) +
+                                          (fieldPos.y-y) * (fieldPos.y-y));
+            //no divide by 0, pls
+            if (distance < 0.0001)  distance = 0.0001;
+            
+            if (distance < fieldRadius){
+            
+                //get the relative positions
+                float relX = fieldPos.x - x;
+                float relY = fieldPos.y - y;
+                
+                float angleToCenter = atan2( relY, relX );
+                float distToCenter = sqrt( relX*relX + relY*relY );
+                
+                
+                //adjust the position (for calculations) based on the angle offset
+                relX = cos(angleToCenter + angle) * distToCenter;
+                relY = sin(angleToCenter + angle) * distToCenter;
+                
+                if ( relY < powf((relX/fieldRadius),2.0f) * fieldRadius + 1 ){
+                    if ( relY > -powf((relX/fieldRadius),2.0f) * fieldRadius + 1 ){
+                        float strengthPrct = 1.0f - (distance / fieldRadius);
+                
+                        field[x][y].x = cos(angleToCenter) * strength * strengthPrct;
+                        field[x][y].y = sin(angleToCenter) * strength * strengthPrct;
+                        
+                        if (relX < 0){
+                            field[x][y] *= -1;
+                        }
+                    }
+                }
+                
+            }
+            
+            
+        }
+    }
+}
+
+//-------------------------------------------------------------
+//by using x, y (instead of y, x) in atan2, I created a cool effect
+void VectorField::addFlowCircleFuckUp(float x, float y, float radius){
+    //get our center
+    GridPos fieldPos = getInternalPointFromExternal(x, y);
+    //and the radius in field size
+    float radiusPrct = radius / (float)externalWidth;
+    float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
+    
+    //figure out how far we have to go
+    int startX, startY, endX, endY;
+    getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
+    
+    
+    //some test values
+    float strength = 4;
+    float baseAngle = 0;
+    
+    //first find everything that could be inside
+    
+    for (int x=startX; x < endX; x++){
+        for (int y=startY; y< endY; y++){
+            
+            //for each point get the angle to the center
+            float angleToCenter = atan2( x-fieldPos.x, y-fieldPos.y);   //this is the line that fucked it up!
+            
+            field[x][y].x = cos(angleToCenter) * strength;
+            field[x][y].y = sin(angleToCenter) * strength;
+            
         }
     }
 }

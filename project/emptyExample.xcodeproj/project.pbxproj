@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0D24B01B1B5A7400E40800 /* CupFlow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A0D24AE1B1B5A7400E40800 /* CupFlow.cpp */; };
 		0A5718671B07BC97005C31BB /* VectorField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5718651B07BC97005C31BB /* VectorField.cpp */; };
 		0A57186B1B0C1259005C31BB /* Ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5718691B0C1259005C31BB /* Ball.cpp */; };
 		0A5718701B0C2275005C31BB /* Cup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A57186E1B0C2275005C31BB /* Cup.cpp */; };
@@ -65,6 +66,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A0D24AE1B1B5A7400E40800 /* CupFlow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupFlow.cpp; sourceTree = "<group>"; };
+		0A0D24AF1B1B5A7400E40800 /* CupFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupFlow.h; sourceTree = "<group>"; };
 		0A5718651B07BC97005C31BB /* VectorField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorField.cpp; sourceTree = "<group>"; };
 		0A5718661B07BC97005C31BB /* VectorField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorField.h; sourceTree = "<group>"; };
 		0A5718681B07C37D005C31BB /* GridPos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridPos.h; sourceTree = "<group>"; };
@@ -135,10 +138,12 @@
 			children = (
 				0A57186F1B0C2275005C31BB /* Cup.h */,
 				0A57186E1B0C2275005C31BB /* Cup.cpp */,
-				0A60DC1B1B1A10460073D720 /* CupRepeller.h */,
-				0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */,
 				0A60DC161B1A0FA10073D720 /* CupRock.h */,
 				0A60DC151B1A0FA10073D720 /* CupRock.cpp */,
+				0A60DC1B1B1A10460073D720 /* CupRepeller.h */,
+				0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */,
+				0A0D24AF1B1B5A7400E40800 /* CupFlow.h */,
+				0A0D24AE1B1B5A7400E40800 /* CupFlow.cpp */,
 			);
 			name = Cups;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0D24B01B1B5A7400E40800 /* CupFlow.cpp in Sources */,
 				0A57186B1B0C1259005C31BB /* Ball.cpp in Sources */,
 				0A5718671B07BC97005C31BB /* VectorField.cpp in Sources */,
 				0A78354E1B1A024F0030E2F6 /* FieldParticle.cpp in Sources */,
