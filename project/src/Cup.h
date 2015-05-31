@@ -43,6 +43,9 @@ public:
     //debug stuff
     bool isDebugSelected;
     ofVec2f distFromMouseWhenSelected;
+    ofColor debugColor;
+    
+    bool isDebugSelectedForAngle;
     
     
     

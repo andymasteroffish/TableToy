@@ -8,6 +8,11 @@
 
 #include "CupRock.h"
 
+void CupRock::customSetup(){
+    range = 100;
+    debugColor.set(200, 220);
+}
+
 void CupRock::customUpdate(){
     float leftSideStrength = 3;
     float rightSideStrength = 4.5;

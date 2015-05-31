@@ -17,7 +17,7 @@ void ofApp::setup(){
     ballRepulsionRange = 20;
     ballRepulsionMaxForce = 1;
     
-    startStreamMode();
+    startBallMode();
     
     showField = false;
     showDebugInfo = true;
@@ -171,6 +171,8 @@ void ofApp::draw(){
         debugInfo +=        "\nh - toggle info";
         debugInfo +=        "\nm - toggle mode";
         debugInfo +=        "\na - add cup";
+        debugInfo +=        "\nclick & drag to move";
+        debugInfo +=        "\nright click & drag to spin";
         ofDrawBitmapString(debugInfo, 10,15);
     }
 }

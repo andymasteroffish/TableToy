@@ -15,6 +15,7 @@
 class CupRock : public Cup{
 public:
     
+    void customSetup();
     void customUpdate();
     
 };

@@ -17,6 +17,7 @@
 class CupRepeller : public Cup{
 public:
     
+    void customSetup();
     void customUpdate();
     
 };

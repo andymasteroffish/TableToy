@@ -10,9 +10,12 @@
 
 
 void CupFlow::customSetup(){
-    range = 200;
+    range = 150;
+    debugColor.set(138,130,21, 220);
 }
 
 void CupFlow::customUpdate(){
-    field->addFlowCircle(pos.x, pos.y, range, 4, angle + ofGetElapsedTimef()*0.75);
+    float strength = 1.5;
+    float spread = 1.5;// abs(cos(ofGetElapsedTimef())) * 4;
+    field->addFlowCircle(pos.x, pos.y, range, strength, -angle, spread);
 }

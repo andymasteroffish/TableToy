@@ -13,8 +13,6 @@
 //-------------------------------------------------------------
 void VectorField::setupField(int outerW, int outerH){
     
-    cout<<"we set it"<<endl;
-    
     externalWidth = outerW;
     externalHeight = outerH;
     
@@ -193,7 +191,7 @@ void VectorField::addOutwardSemiCircle(float x, float y, float radius, float str
 }
 
 //-------------------------------------------------------------
-void VectorField::addFlowCircle(float x, float y, float radius, float strength, float angle){
+void VectorField::addFlowCircle(float x, float y, float radius, float strength, float angle, float spread){
     //get our center
     GridPos fieldPos = getInternalPointFromExternal(x, y);
     //and the radius in field size
@@ -232,16 +230,22 @@ void VectorField::addFlowCircle(float x, float y, float radius, float strength, 
                 relX = cos(angleToCenter + angle) * distToCenter;
                 relY = sin(angleToCenter + angle) * distToCenter;
                 
-                if ( relY < powf((relX/fieldRadius),2.0f) * fieldRadius + 1 ){
-                    if ( relY > -powf((relX/fieldRadius),2.0f) * fieldRadius + 1 ){
+                if ( relY < powf((relX/fieldRadius),2.0f) * fieldRadius + spread ){
+                    if ( relY > -powf((relX/fieldRadius),2.0f) * fieldRadius - spread ){
                         float strengthPrct = 1.0f - (distance / fieldRadius);
+                        
+                        ofVec2f forceToAdd;
                 
-                        field[x][y].x = cos(angleToCenter) * strength * strengthPrct;
-                        field[x][y].y = sin(angleToCenter) * strength * strengthPrct;
+                        forceToAdd.x += cos(angleToCenter) * strength * strengthPrct;
+                        forceToAdd.y += sin(angleToCenter) * strength * strengthPrct;
                         
                         if (relX < 0){
-                            field[x][y] *= -1;
+                            forceToAdd *= -1;
                         }
+                        
+                        field[x][y] += forceToAdd;
+                        
+                        
                     }
                 }
                 
