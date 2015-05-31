@@ -47,7 +47,7 @@ public:
     ofVec2f getExternalPointFromInternal(int internalX, int internalY);
     
     //affecting the field
-    void getFieldBounds(GridPos fieldPos, float fieldRadius, int &startX, int &startY, int &endX, int &endY);
+    //void getFieldBounds(GridPos fieldPos, float fieldRadius, int &startX, int &startY, int &endX, int &endY);
     
     void addOutwardCircle(float x, float y, float radius, float strength);
     void addOutwardSemiCircle(float x, float y, float radius, float strength, bool onLeft);

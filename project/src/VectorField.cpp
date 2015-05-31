@@ -72,8 +72,6 @@ ofVec2f VectorField::getForceFromPos(float xPos, float yPos){
 //-------------------------------------------------------------
 GridPos VectorField::getInternalPointFromExternal(float externalX, float externalY){
     
-    //cout<<"externalW "<<externalWidth<<endl;
-    
     //convert from xpos and ypos to percentages
     float xPrct = externalX / (float)externalWidth;
     float yPrct = externalY / (float)externalHeight;
@@ -102,12 +100,12 @@ ofVec2f VectorField::getExternalPointFromInternal(int internalX, int internalY){
 
 
 //-------------------------------------------------------------
-void VectorField::getFieldBounds(GridPos fieldPos, float fieldRadius, int &startX, int &startY, int &endX, int &endY){
-    startX  = MAX(fieldPos.x - fieldRadius, 0);
-    startY  = MAX(fieldPos.y - fieldRadius, 0);
-    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
-    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
-}
+//void VectorField::getFieldBounds(GridPos fieldPos, float fieldRadius, int &startX, int &startY, int &endX, int &endY){
+//    startX  = MAX(fieldPos.x - fieldRadius, 0);
+//    startY  = MAX(fieldPos.y - fieldRadius, 0);
+//    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
+//    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
+//}
 
 //-------------------------------------------------------------
 void VectorField::addOutwardCircle(float x, float y, float radius, float strength){
@@ -120,7 +118,11 @@ void VectorField::addOutwardCircle(float x, float y, float radius, float strengt
     
     //figure out how far we have to go
     int startX, startY, endX, endY;
-    getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
+    startX  = MAX(fieldPos.x - fieldRadius, 0);
+    startY  = MAX(fieldPos.y - fieldRadius, 0);
+    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
+    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
+    //getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
     
     for (int x=startX; x <= endX; x++){
         for (int y=startY; y  <= endY; y++){
@@ -156,7 +158,11 @@ void VectorField::addOutwardSemiCircle(float x, float y, float radius, float str
     
     //figure out how far we have to go
     int startX, startY, endX, endY;
-    getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
+    startX  = MAX(fieldPos.x - fieldRadius, 0);
+    startY  = MAX(fieldPos.y - fieldRadius, 0);
+    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
+    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
+    //getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
     
     if (onLeft){
         endX = fieldPos.x;
@@ -196,7 +202,11 @@ void VectorField::addFlowCircle(float x, float y, float radius, float strength, 
     
     //figure out how far we have to go
     int startX, startY, endX, endY;
-    getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
+    startX  = MAX(fieldPos.x - fieldRadius, 0);
+    startY  = MAX(fieldPos.y - fieldRadius, 0);
+    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
+    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
+    //getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
     
     //first find everything that could be inside
     
@@ -253,7 +263,11 @@ void VectorField::addFlowCircleFuckUp(float x, float y, float radius){
     
     //figure out how far we have to go
     int startX, startY, endX, endY;
-    getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
+    startX  = MAX(fieldPos.x - fieldRadius, 0);
+    startY  = MAX(fieldPos.y - fieldRadius, 0);
+    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
+    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
+    //getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
     
     
     //some test values

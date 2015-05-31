@@ -17,7 +17,7 @@ void ofApp::setup(){
     ballRepulsionRange = 20;
     ballRepulsionMaxForce = 1;
     
-    startBallMode();
+    startStreamMode();
     
     showField = false;
     showDebugInfo = true;
@@ -59,7 +59,7 @@ void ofApp:: startBallMode(){
     for (int i=0; i<5; i++){
         addCup();
     }
-
+    
 }
 
 //--------------------------------------------------------------
@@ -67,11 +67,7 @@ void ofApp:: startStreamMode(){
     curMode = MODE_STREAM;
     
     for (int i=0; i<5; i++){
-        CupRock * newTower = new CupRock();
-        float startX = ofRandom(100, ofGetWidth()-100);
-        float startY = ofRandom(100, ofGetHeight()-100);
-        newTower->setup( startX, startY, &field);
-        towers.push_back(newTower);
+        addCup();
     }
 }
 
@@ -198,6 +194,7 @@ void ofApp::keyPressed(int key){
     
     if (key == 'm'){
         reset();
+        
         curMode = (ModeType) ((curMode+1)%NUM_MODES);
         
         if (curMode == MODE_BALL)   startBallMode();

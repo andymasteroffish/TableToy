@@ -12,7 +12,7 @@ void CupRock::customUpdate(){
     float leftSideStrength = 3;
     float rightSideStrength = 4.5;
     
-    
+    //cout<<"testo "<<field->externalWidth<<endl;
     field->addOutwardSemiCircle(pos.x, pos.y, range, rightSideStrength, false);
     field->addOutwardSemiCircle(pos.x, pos.y, range, leftSideStrength, true);
 }
