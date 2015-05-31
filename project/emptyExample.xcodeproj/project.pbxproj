@@ -71,7 +71,7 @@
 		0A0D24AF1B1B5A7400E40800 /* CupFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupFlow.h; sourceTree = "<group>"; };
 		0A5718651B07BC97005C31BB /* VectorField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorField.cpp; sourceTree = "<group>"; };
 		0A5718661B07BC97005C31BB /* VectorField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorField.h; sourceTree = "<group>"; };
-		0A5718681B07C37D005C31BB /* GridPos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridPos.h; sourceTree = "<group>"; };
+		0A5718681B07C37D005C31BB /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		0A5718691B0C1259005C31BB /* Ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ball.cpp; sourceTree = "<group>"; };
 		0A57186A1B0C1259005C31BB /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
 		0A57186E1B0C2275005C31BB /* Cup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cup.cpp; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				0A5718681B07C37D005C31BB /* GridPos.h */,
+				0A5718681B07C37D005C31BB /* Utils.h */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				0A5718661B07BC97005C31BB /* VectorField.h */,

@@ -13,6 +13,9 @@
 //-------------------------------------------------------------
 void VectorField::setupField(int outerW, int outerH){
     
+    fieldWidth = FIELD_WIDTH;
+    fieldHeight = FIELD_HEIGHT;
+    
     externalWidth = outerW;
     externalHeight = outerH;
     
@@ -98,205 +101,15 @@ ofVec2f VectorField::getExternalPointFromInternal(int internalX, int internalY){
 
 
 //-------------------------------------------------------------
-//void VectorField::getFieldBounds(GridPos fieldPos, float fieldRadius, int &startX, int &startY, int &endX, int &endY){
-//    startX  = MAX(fieldPos.x - fieldRadius, 0);
-//    startY  = MAX(fieldPos.y - fieldRadius, 0);
-//    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
-//    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
-//}
-
-//-------------------------------------------------------------
-void VectorField::addOutwardCircle(float x, float y, float radius, float strength){
+Bounds VectorField::getFieldBounds(GridPos fieldPos, float fieldRadius){
+    Bounds bounds;
     
-    //get our center
-    GridPos fieldPos = getInternalPointFromExternal(x, y);
-    //and the radius in field size
-    float radiusPrct = radius / (float)externalWidth;
-    float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
+    bounds.topLeft.x  = MAX(fieldPos.x - fieldRadius, 0);
+    bounds.topLeft.y  = MAX(fieldPos.y - fieldRadius, 0);
+    bounds.bottomRight.x    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
+    bounds.bottomRight.y    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
     
-    //figure out how far we have to go
-    int startX, startY, endX, endY;
-    startX  = MAX(fieldPos.x - fieldRadius, 0);
-    startY  = MAX(fieldPos.y - fieldRadius, 0);
-    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
-    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
-    //getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
-    
-    for (int x=startX; x <= endX; x++){
-        for (int y=startY; y  <= endY; y++){
-            
-            float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) +
-                                          (fieldPos.y-y) * (fieldPos.y-y));
-            //no divide by 0, pls
-            if (distance < 0.0001)  distance = 0.0001;
-            
-            if (distance < fieldRadius){
-                
-                float prct = 1.0f - (distance / fieldRadius);
-                float strongness = strength * prct;
-                
-                float unit_px = ( fieldPos.x - x) / distance;
-                float unit_py = ( fieldPos.y - y) / distance;
-                field[x][y].x -= unit_px * strongness;
-                field[x][y].y -= unit_py * strongness;
-            }
-        }
-    }
-}
-
-//-------------------------------------------------------------
-//THIS IS DUMB AND REDUNDANT. IF YOU KEEP IT, WRAP IT UP IN OUTWARD CIRCLE SOMEHOW
-void VectorField::addOutwardSemiCircle(float x, float y, float radius, float strength, bool onLeft){
-    
-    //get our center
-    GridPos fieldPos = getInternalPointFromExternal(x, y);
-    //and the radius in field size
-    float radiusPrct = radius / (float)externalWidth;
-    float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
-    
-    //figure out how far we have to go
-    int startX, startY, endX, endY;
-    startX  = MAX(fieldPos.x - fieldRadius, 0);
-    startY  = MAX(fieldPos.y - fieldRadius, 0);
-    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
-    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
-    //getFieldBounds(fieldPos, fieldRadius, startX, startY, endX, endY);
-    
-    if (onLeft){
-        endX = fieldPos.x;
-    }else{
-        startX = fieldPos.x;
-    }
-    
-    for (int x=startX; x <= endX; x++){
-        for (int y=startY; y<= endY; y++){
-            
-            float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) +
-                                          (fieldPos.y-y) * (fieldPos.y-y));
-            //no divide by 0, pls
-            if (distance < 0.0001)  distance = 0.0001;
-            
-            if (distance < fieldRadius){
-                
-                float prct = 1.0f - (distance / fieldRadius);
-                float strongness = strength * prct;
-                
-                float unit_px = ( fieldPos.x - x) / distance;
-                float unit_py = ( fieldPos.y - y) / distance;
-                field[x][y].x -= unit_px * strongness;
-                field[x][y].y -= unit_py * strongness;
-            }
-        }
-    }
-}
-
-//-------------------------------------------------------------
-void VectorField::addFlowCircle(float x, float y, float radius, float strength, float angle, float spread){
-    //get our center
-    GridPos fieldPos = getInternalPointFromExternal(x, y);
-    //and the radius in field size
-    float radiusPrct = radius / (float)externalWidth;
-    float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
-    
-    //figure out how far we have to go
-    int startX, startY, endX, endY;
-    startX  = MAX(fieldPos.x - fieldRadius, 0);
-    startY  = MAX(fieldPos.y - fieldRadius, 0);
-    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
-    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
-    
-    for (int x=startX; x <= endX; x++){
-        for (int y=startY; y<= endY; y++){
-            
-            float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) +
-                                          (fieldPos.y-y) * (fieldPos.y-y));
-            //no divide by 0, pls
-            if (distance < 0.0001)  distance = 0.0001;
-            
-            if (distance < fieldRadius){
-            
-                //get the relative positions
-                float relX = fieldPos.x - x;
-                float relY = fieldPos.y - y;
-                
-                float angleToCenter = atan2( relY, relX );
-                float distToCenter = sqrt( relX*relX + relY*relY );
-                
-                
-                //adjust the position (for calculations) based on the angle offset
-                relX = cos(angleToCenter + angle) * distToCenter;
-                relY = sin(angleToCenter + angle) * distToCenter;
-                
-                if ( relY < powf((relX/fieldRadius),2.0f) * fieldRadius + spread ){
-                    if ( relY > -powf((relX/fieldRadius),2.0f) * fieldRadius - spread ){
-                        float strengthPrct = 1.0f - (distance / fieldRadius);
-                        
-                        ofVec2f forceToAdd;
-                
-                        forceToAdd.x += cos(angleToCenter) * strength * strengthPrct;
-                        forceToAdd.y += sin(angleToCenter) * strength * strengthPrct;
-                        
-                        if (relX < 0){
-                            forceToAdd *= -1;
-                        }
-                        
-                        field[x][y] += forceToAdd;
-                        
-                        
-                    }
-                }
-                
-            }
-            
-            
-        }
-    }
-}
-
-//-------------------------------------------------------------
-void VectorField::addPulseCircle(float x, float y, float radius, float strength, float externalPulseDist, float externalPulseSize){
-    //get our center
-    GridPos fieldPos = getInternalPointFromExternal(x, y);
-    //and the radius in field size
-    float radiusPrct = radius / (float)externalWidth;
-    float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
-    
-    //figure out how far we have to go
-    int startX, startY, endX, endY;
-    startX  = MAX(fieldPos.x - fieldRadius, 0);
-    startY  = MAX(fieldPos.y - fieldRadius, 0);
-    endX    = MIN(fieldPos.x + fieldRadius + 1, FIELD_WIDTH-1);
-    endY    = MIN(fieldPos.y + fieldRadius + 1, FIELD_HEIGHT-1);
-    
-    float fieldPulseDistPrc = externalPulseDist / (float)externalWidth;
-    float fieldPulseDist = (float) (fieldPulseDistPrc * FIELD_WIDTH);
-    
-    float fieldPulseSizePrc = externalPulseSize / (float)externalWidth;
-    float fieldPulseSize = (float) (fieldPulseSizePrc * FIELD_WIDTH);
-    
-    float maxFieldDist = fieldPulseDist + fieldPulseSize;
-    float minFieldDist = fieldPulseDist - fieldPulseSize;
-    
-    for (int x=startX; x <= endX; x++){
-        for (int y=startY; y<= endY; y++){
-            
-            float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) + (fieldPos.y-y) * (fieldPos.y-y) );
-            //no divide by 0, pls
-            if (distance < 0.0001)  distance = 0.0001;
-            
-            if (distance < maxFieldDist && distance > minFieldDist){
-                
-                float prct = 1;// 1.0f - (distance / fieldRadius);
-                float strongness = strength * prct;
-                
-                float unit_px = ( fieldPos.x - x) / distance;
-                float unit_py = ( fieldPos.y - y) / distance;
-                field[x][y].x -= unit_px * strongness;
-                field[x][y].y -= unit_py * strongness;
-            }
-            
-        }
-    }
+    return bounds;
 }
 
 

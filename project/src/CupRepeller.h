@@ -20,6 +20,8 @@ public:
     void customSetup();
     void customUpdate();
     
+    void addOutwardCircle(float strength);
+    
 };
 
 #endif /* defined(__emptyExample__CupRepeller__) */

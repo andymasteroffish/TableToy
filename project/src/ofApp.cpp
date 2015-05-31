@@ -171,6 +171,7 @@ void ofApp::draw(){
         debugInfo +=        "\nh - toggle info";
         debugInfo +=        "\nm - toggle mode";
         debugInfo +=        "\na - add cup";
+        debugInfo +=        "\nr - randomize balls";
         debugInfo +=        "\nclick & drag to move";
         debugInfo +=        "\nright click & drag to spin";
         ofDrawBitmapString(debugInfo, 10,15);
@@ -201,6 +202,12 @@ void ofApp::keyPressed(int key){
         
         if (curMode == MODE_BALL)   startBallMode();
         if (curMode == MODE_STREAM) startStreamMode();
+    }
+    
+    if (key == 'r'){
+        for (int i=0; i<balls.size(); i++){
+            balls[i]->pos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+        }
     }
 
 }

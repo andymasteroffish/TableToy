@@ -11,7 +11,7 @@
 
 void Cup::setup(float startX, float startY, VectorField * _field){
     
-    angle = 0;
+    angle = ofRandom(TWO_PI);
     
     pos.set(startX, startY);
     field = _field;
@@ -21,16 +21,26 @@ void Cup::setup(float startX, float startY, VectorField * _field){
     isDebugSelected = false;
     isDebugSelectedForAngle = false;
     
-    radius = 30;    //how big the physical cup is
+    cupSize = 30;    //how big the physical cup is
     
     
     customSetup();
+    
+    calculateFieldRange();
 }
 
 void Cup::update(float _deltaTime){
     deltaTime = _deltaTime;
     
+    fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
+    
     customUpdate();
+}
+
+//call this any time you change the range
+void Cup::calculateFieldRange(){
+    float radiusPrct = range / (float)field->externalWidth;
+    fieldRange = (float)(radiusPrct * field->fieldWidth);
 }
 
 void Cup::draw(){
@@ -39,13 +49,13 @@ void Cup::draw(){
     
     //show a debug cup image
     ofSetColor(debugColor);
-    ofCircle(pos.x, pos.y, radius);
+    ofCircle(pos.x, pos.y, cupSize);
     ofSetColor(0);
-    ofLine(pos.x, pos.y, pos.x+cos(angle)*radius*0.8, pos.y+sin(angle)*radius*0.8);
+    ofLine(pos.x, pos.y, pos.x+cos(angle)*cupSize*0.8, pos.y+sin(angle)*cupSize*0.8);
 }
 
 void Cup::onMouseDown(int x, int y, int button){
-    if ( ofDistSquared(x,y, pos.x, pos.y) < radius*radius){
+    if ( ofDistSquared(x,y, pos.x, pos.y) < cupSize*cupSize){
         
         if (button == 0){
             isDebugSelected = true;

@@ -18,6 +18,8 @@ public:
     void customSetup();
     void customUpdate();
     
+    void addPulseCircle(float strength, float externalPulseDist, float externalPulseSize);
+    
     float timer;
     float timeBetweenPulses;
     float timeForPulse;

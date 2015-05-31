@@ -36,6 +36,42 @@ void CupPulse::customUpdate(){
         float prc = timer/timeForPulse;
         
         float pulseDist = range*prc;
-        field->addPulseCircle(pos.x, pos.y, range, strength, pulseDist, pulseWidth);
+        addPulseCircle(strength, pulseDist, pulseWidth);
+        //field->addPulseCircle(pos.x, pos.y, range, strength, pulseDist, pulseWidth);
+    }
+}
+
+
+void CupPulse::addPulseCircle(float strength, float externalPulseDist, float externalPulseSize){
+    Bounds bounds = field->getFieldBounds(fieldPos, fieldRange);
+    
+    float fieldPulseDistPrc = externalPulseDist / (float)field->externalWidth;
+    float fieldPulseDist = (float) (fieldPulseDistPrc * field->fieldWidth);
+    
+    float fieldPulseSizePrc = externalPulseSize / (float)field->externalWidth;
+    float fieldPulseSize = (float) (fieldPulseSizePrc * field->fieldWidth);
+    
+    float maxFieldDist = fieldPulseDist + fieldPulseSize;
+    float minFieldDist = fieldPulseDist - fieldPulseSize;
+    
+    for (int x=bounds.topLeft.x; x <= bounds.bottomRight.x; x++){
+        for (int y=bounds.topLeft.y; y  <= bounds.bottomRight.y; y++){
+            
+            float distance =  (float)sqrt( (fieldPos.x-x) * (fieldPos.x-x) + (fieldPos.y-y) * (fieldPos.y-y) );
+            //no divide by 0, pls
+            if (distance < 0.0001)  distance = 0.0001;
+            
+            if (distance < maxFieldDist && distance > minFieldDist){
+                float prct = 1;//1.0f - (distance / fieldRange);
+                
+                ofVec2f dif;
+                dif.x = (x - fieldPos.x);
+                dif.y = (y - fieldPos.y);
+                dif.normalize();
+                
+                field->field[x][y] += dif * strength * prct;
+            }
+            
+        }
     }
 }

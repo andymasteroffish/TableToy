@@ -9,6 +9,7 @@
 #ifndef emptyExample_GridPos_h
 #define emptyExample_GridPos_h
 
+
 class GridPos{
 public:
     int x, y;
@@ -35,6 +36,12 @@ public:
         return x >= 0 && x < boundsWidth && y >= 0 && y < boundsHeight;
         
     }
+};
+
+
+class Bounds{
+public:
+    GridPos topLeft, bottomRight;
 };
 
 

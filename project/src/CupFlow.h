@@ -18,6 +18,8 @@ public:
     void customSetup();
     void customUpdate();
     
+    void addFlowCircle(float strength, float thisAngle, float spread);
+    
 };
 
 #endif /* defined(__emptyExample__CupFlow__) */

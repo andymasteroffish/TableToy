@@ -18,6 +18,8 @@ public:
     void customSetup();
     void customUpdate();
     
+    void addOutwardSemiCircle(float strength, bool onLeft);
+    
 };
 
 #endif /* defined(__emptyExample__CupRock__) */

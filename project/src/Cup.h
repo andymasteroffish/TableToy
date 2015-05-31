@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "VectorField.h"
+#include "Utils.h"
 
 class Cup{
 public:
@@ -18,13 +19,16 @@ public:
     ofVec2f pos;
     float angle;
     
-    float radius;
+    float cupSize;
     
     float range;
+    float fieldRange;
     
     VectorField * field;
     
     float deltaTime;
+    
+    GridPos fieldPos;
     
     bool hasBeenRemoved; //flag to kill
     
@@ -33,6 +37,8 @@ public:
     
     void update(float _deltaTime);
     virtual void customUpdate(){}
+    
+    void calculateFieldRange();
     
     void draw();
     virtual void customDraw(){}
