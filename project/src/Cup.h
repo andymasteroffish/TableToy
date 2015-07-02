@@ -44,10 +44,6 @@ public:
     virtual void customDraw(){}
     
     
-    void onMouseDown(int x, int y, int button);
-    void onMouseDrag(int x, int y, int button);
-    void onMouseRelease(int x, int y, int button);
-    
     //debug stuff
     bool isDebugSelected;
     ofVec2f distFromMouseWhenSelected;

@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project_test/src/SportsScene.cpp \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/SportsScene.cpp \
   src/SportsScene.h ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \

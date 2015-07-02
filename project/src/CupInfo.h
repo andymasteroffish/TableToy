@@ -10,8 +10,12 @@
 #define emptyExample_CupInfo_h
 
 class CupInfo{
-    int idNum;
-    ofVec2f Pos;
+public:
+    int typeID;
+    int uniqueID;
+    ofVec2f pos;
+    float angle;
+    float startTime;
 };
 
 

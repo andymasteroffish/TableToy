@@ -28,6 +28,7 @@ public:
     void draw();
     virtual void drawCustom(){}
     
+    virtual void keyPressed(int key){}
     
     
     virtual void addCup(CupInfo thisInfo){}

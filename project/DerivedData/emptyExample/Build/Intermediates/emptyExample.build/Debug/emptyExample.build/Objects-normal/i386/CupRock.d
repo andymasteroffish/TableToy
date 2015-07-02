@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project_test/src/CupRock.cpp \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/CupRock.cpp \
   src/CupRock.h ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \

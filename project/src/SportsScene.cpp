@@ -22,10 +22,10 @@ void SportsScene::setupCustom(){
     ballRepulsionMaxForce = 1;
     
     //testing
-    for (int i=0; i<5; i++){
-        CupInfo thisInfo;
-        addCup(thisInfo);
-    }
+//    for (int i=0; i<5; i++){
+//        CupInfo thisInfo;
+//        addCup(thisInfo);
+//    }
 }
 
 
@@ -54,19 +54,12 @@ void SportsScene::resetCustom(){
     }
     
     
-    //testing
-    for (int i=0; i<6; i++){
-        CupInfo thisInfo;
-        addCup(thisInfo);
-    }
 }
 
 
 
 void SportsScene::updateCustom(){
     field.clear();
-    
-    cout<<"updat"<<endl;
     
     //sort the balls from left to right
     sort(balls.begin(), balls.end(), ballSort );
@@ -108,7 +101,6 @@ void SportsScene::updateCustom(){
 
 
 void SportsScene::drawCustom(){
-    cout<<"draw"<<endl;
     for (int i=cups.size()-1; i>=0; i--){
         cups[i]->draw();
     }
@@ -127,6 +119,15 @@ void SportsScene::drawCustom(){
     for (int i=0; i<balls.size(); i++){
         balls[i]->draw();
         ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
+    }
+}
+
+
+void SportsScene::keyPressed(int key){
+    if (key == 'r'){
+        for (int i=0; i<balls.size(); i++){
+            balls[i]->pos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+        }
     }
 }
 

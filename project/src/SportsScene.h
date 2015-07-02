@@ -28,6 +28,8 @@ public:
     void updateCustom();
     void drawCustom();
     
+    void keyPressed(int key);
+    
     
     void makeFieldParticles();
     

@@ -14,7 +14,7 @@
 		<string>https://github.com/andymasteroffish/TableToy.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>project_test/emptyExample.xcodeproj</string>
+	<string>project/emptyExample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>8E528D444806433AEFDD407BB1A3CA7B14F96AA7</key>

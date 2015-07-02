@@ -7,7 +7,7 @@
 #include "Scene.h"
 #include "SportsScene.h"
 
-#include "CamManager.h"
+#include "CupTracker.h"
 
 /*
 #include "Cup.h"
@@ -45,13 +45,13 @@ public:
     float deltaTime, prevFrameTime;
     
     //reading form the cam
-    CamManager camManager;
+    CupTracker cupTracker;
     
     //scene
     Scene * curScene;
     
     //debug values
-    bool showField, showFieldParticles, showDebugInfo;
+    bool showField, showFieldParticles, showDebugInfo, showCupDebug;
     
     
 };

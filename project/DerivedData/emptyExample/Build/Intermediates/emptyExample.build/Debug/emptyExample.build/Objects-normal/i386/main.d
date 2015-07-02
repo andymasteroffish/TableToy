@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project_test/src/main.cpp \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/main.cpp \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \
@@ -172,4 +172,4 @@ dependencies: \
   ../../../libs/openFrameworks/3d/ofEasyCam.h src/ofApp.h \
   src/VectorField.h src/Utils.h src/Scene.h src/FieldParticle.h \
   src/CupInfo.h src/Cup.h src/SportsScene.h src/Ball.h src/CupRepeller.h \
-  src/CupRock.h src/CupFlow.h src/CupPulse.h src/CamManager.h
+  src/CupRock.h src/CupFlow.h src/CupPulse.h src/CupTracker.h

@@ -54,6 +54,7 @@ void Cup::draw(){
     ofLine(pos.x, pos.y, pos.x+cos(angle)*cupSize*0.8, pos.y+sin(angle)*cupSize*0.8);
 }
 
+/*
 void Cup::onMouseDown(int x, int y, int button){
     if ( ofDistSquared(x,y, pos.x, pos.y) < cupSize*cupSize){
         
@@ -82,3 +83,4 @@ void Cup::onMouseRelease(int x, int y, int button){
     isDebugSelected = false;
     isDebugSelectedForAngle = false;
 }
+*/
