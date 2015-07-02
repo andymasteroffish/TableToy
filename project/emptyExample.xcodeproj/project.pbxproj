@@ -15,6 +15,9 @@
 		0A60DC1C1B1A10460073D720 /* CupRepeller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A60DC1A1B1A10460073D720 /* CupRepeller.cpp */; };
 		0A7343A91B1B7616008B1890 /* CupPulse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A7343A71B1B7616008B1890 /* CupPulse.cpp */; };
 		0A78354E1B1A024F0030E2F6 /* FieldParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */; };
+		0AE560381B3F0A290081156C /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE560361B3F0A290081156C /* Scene.cpp */; };
+		0AE5603B1B3F0B600081156C /* CamManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE560391B3F0B600081156C /* CamManager.cpp */; };
+		0AE560401B3F0CEB0081156C /* SportsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5603E1B3F0CEB0081156C /* SportsScene.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -84,6 +87,13 @@
 		0A7343A81B1B7616008B1890 /* CupPulse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupPulse.h; sourceTree = "<group>"; };
 		0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FieldParticle.cpp; sourceTree = "<group>"; };
 		0A78354D1B1A024F0030E2F6 /* FieldParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldParticle.h; sourceTree = "<group>"; };
+		0AE560361B3F0A290081156C /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		0AE560371B3F0A290081156C /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		0AE560391B3F0B600081156C /* CamManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CamManager.cpp; sourceTree = "<group>"; };
+		0AE5603A1B3F0B600081156C /* CamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamManager.h; sourceTree = "<group>"; };
+		0AE5603C1B3F0C300081156C /* CupInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CupInfo.h; sourceTree = "<group>"; };
+		0AE5603E1B3F0CEB0081156C /* SportsScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SportsScene.cpp; sourceTree = "<group>"; };
+		0AE5603F1B3F0CEB0081156C /* SportsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportsScene.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -151,6 +161,17 @@
 				0A7343A71B1B7616008B1890 /* CupPulse.cpp */,
 			);
 			name = Cups;
+			sourceTree = "<group>";
+		};
+		0AE5603D1B3F0CCA0081156C /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				0AE560371B3F0A290081156C /* Scene.h */,
+				0AE560361B3F0A290081156C /* Scene.cpp */,
+				0AE5603F1B3F0CEB0081156C /* SportsScene.h */,
+				0AE5603E1B3F0CEB0081156C /* SportsScene.cpp */,
+			);
+			name = Scenes;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
@@ -222,6 +243,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				0AE5603D1B3F0CCA0081156C /* Scenes */,
+				0A60DC141B1A0F860073D720 /* Cups */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				0A5718681B07C37D005C31BB /* Utils.h */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
@@ -232,7 +255,9 @@
 				0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */,
 				0A57186A1B0C1259005C31BB /* Ball.h */,
 				0A5718691B0C1259005C31BB /* Ball.cpp */,
-				0A60DC141B1A0F860073D720 /* Cups */,
+				0AE560391B3F0B600081156C /* CamManager.cpp */,
+				0AE5603A1B3F0B600081156C /* CamManager.h */,
+				0AE5603C1B3F0C300081156C /* CupInfo.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -340,8 +365,11 @@
 				0A60DC1C1B1A10460073D720 /* CupRepeller.cpp in Sources */,
 				0A60DC171B1A0FA10073D720 /* CupRock.cpp in Sources */,
 				0A7343A91B1B7616008B1890 /* CupPulse.cpp in Sources */,
+				0AE5603B1B3F0B600081156C /* CamManager.cpp in Sources */,
+				0AE560381B3F0A290081156C /* Scene.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				0A5718701B0C2275005C31BB /* Cup.cpp in Sources */,
+				0AE560401B3F0CEB0081156C /* SportsScene.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

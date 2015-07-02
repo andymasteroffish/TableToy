@@ -3,14 +3,20 @@
 #include "ofMain.h"
 
 #include "VectorField.h"
-#include "FieldParticle.h"
-#include "Ball.h"
 
+#include "Scene.h"
+#include "SportsScene.h"
+
+#include "CamManager.h"
+
+/*
 #include "Cup.h"
 #include "CupRepeller.h"
 #include "CupRock.h"
 #include "CupFlow.h"
-#include "CupPulse.h";
+#include "CupPulse.h"
+ */
+
 
 enum ModeType { MODE_BALL, MODE_STREAM, NUM_MODES };
 
@@ -20,8 +26,6 @@ public:
     void setup();
     
     void reset();
-    void startBallMode();
-    void startStreamMode();
     
     void update();
     void draw();
@@ -36,29 +40,15 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    void makeFieldParticles();
-    
-    void addCup();
     
     //general
     float deltaTime, prevFrameTime;
     
-    //modes
-    ModeType curMode;
+    //reading form the cam
+    CamManager camManager;
     
-    
-    //the field
-    VectorField field;
-    
-    vector<FieldParticle *> fieldParticles;
-    
-    //the balls
-    vector<Ball *> balls;
-    float ballRepulsionRange;
-    float ballRepulsionMaxForce;
-    
-    vector<Cup *> towers;
-    
+    //scene
+    Scene * curScene;
     
     //debug values
     bool showField, showFieldParticles, showDebugInfo;
