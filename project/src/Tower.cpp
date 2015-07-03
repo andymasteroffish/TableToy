@@ -25,7 +25,7 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     isDebugSelected = false;
     isDebugSelectedForAngle = false;
     
-    towerSize = 30;    //how big the physical cup is
+    towerSize = 40;    //how big the physical cup is
     
     
     customSetup();

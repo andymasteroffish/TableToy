@@ -1,10 +1,14 @@
 #include "ofMain.h"
 #include "ofApp.h"
 
+
+//ASPECT RATIO FOR THIS THING IS 1:3
+
+
 //========================================================================
 int main( ){
 
-	ofSetupOpenGL(1600,400, OF_WINDOW);			// <-------- setup the GL context
+	ofSetupOpenGL(1500,500, OF_WINDOW);			// <-------- setup the GL context
 
 	// this kicks off the running of my app
 	// can be OF_WINDOW or OF_FULLSCREEN

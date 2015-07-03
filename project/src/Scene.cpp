@@ -63,8 +63,6 @@ void Scene::update(float _deltaTime){
         fadeTimer -= deltaTime;
         fadePrc = fadeTimer/fadeTime;
         
-        cout<<sceneName<< " fade "<<fadePrc<<endl;
-        
         if (fadePrc <= 0){
             fadePrc = 0;
             isDoneFading = true;

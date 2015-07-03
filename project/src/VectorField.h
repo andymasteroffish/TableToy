@@ -18,7 +18,7 @@ public:
     
     //the internal dimensions
     #define FIELD_WIDTH 120
-    #define FIELD_HEIGHT 30
+    #define FIELD_HEIGHT 40
     int fieldWidth, fieldHeight; //and some variables ot make it more accessible
     
     //external dimensions (screen pixel size ie 1024x768)

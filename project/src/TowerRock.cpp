@@ -9,7 +9,7 @@
 #include "TowerRock.h"
 
 void TowerRock::customSetup(){
-    range = 70;
+    range = 90;
     debugColor.set(200, 220);
 }
 

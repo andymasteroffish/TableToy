@@ -13,7 +13,7 @@
 
 
 
-//enum ModeType { MODE_BALL, MODE_STREAM, NUM_MODES };
+
 
 class ofApp : public ofBaseApp{
 public:

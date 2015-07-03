@@ -13,7 +13,7 @@ void CupTracker::setup(){
     
     activeCups.clear();
     
-    aproxCupSize = 30;
+    aproxCupSize = 40;
     debugDraggingCupID = -1;
     nextUniqueID = 0;
     
