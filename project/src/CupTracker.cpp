@@ -17,7 +17,7 @@ void CupTracker::setup(){
     debugDraggingCupID = -1;
     nextUniqueID = 0;
     
-    usingMouseAndKeyboard = true;
+    usingMouseAndKeyboard = true;  //TURN THIS THE FUCK OFF IF YOU PUT TUIO STUFF IN
     
 }
 

@@ -173,10 +173,22 @@
 				0AE560361B3F0A290081156C /* Scene.cpp */,
 				0AE5603F1B3F0CEB0081156C /* SportsScene.h */,
 				0AE5603E1B3F0CEB0081156C /* SportsScene.cpp */,
+				0A57186A1B0C1259005C31BB /* Ball.h */,
+				0A5718691B0C1259005C31BB /* Ball.cpp */,
 				0A49948C1B460DF300430BD4 /* StreamScene.h */,
 				0A49948B1B460DF300430BD4 /* StreamScene.cpp */,
 			);
 			name = Scenes;
+			sourceTree = "<group>";
+		};
+		0AE901AA1B461763006730B9 /* RealWorldTracking */ = {
+			isa = PBXGroup;
+			children = (
+				0AE5603A1B3F0B600081156C /* CupTracker.h */,
+				0AE560391B3F0B600081156C /* CupTracker.cpp */,
+				0AE5603C1B3F0C300081156C /* CupInfo.h */,
+			);
+			name = RealWorldTracking;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
@@ -248,21 +260,17 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				0A5718681B07C37D005C31BB /* Utils.h */,
+				0AE901AA1B461763006730B9 /* RealWorldTracking */,
 				0AE5603D1B3F0CCA0081156C /* Scenes */,
 				0A60DC141B1A0F860073D720 /* Tower */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				0A5718681B07C37D005C31BB /* Utils.h */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				0A5718661B07BC97005C31BB /* VectorField.h */,
 				0A5718651B07BC97005C31BB /* VectorField.cpp */,
 				0A78354D1B1A024F0030E2F6 /* FieldParticle.h */,
 				0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */,
-				0A57186A1B0C1259005C31BB /* Ball.h */,
-				0A5718691B0C1259005C31BB /* Ball.cpp */,
-				0AE5603A1B3F0B600081156C /* CupTracker.h */,
-				0AE560391B3F0B600081156C /* CupTracker.cpp */,
-				0AE5603C1B3F0C300081156C /* CupInfo.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
