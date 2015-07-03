@@ -12,14 +12,18 @@
 #include "ofMain.h"
 #include "VectorField.h"
 #include "FieldParticle.h"
+
+#include "CupTracker.h"
 #include "CupInfo.h"
+
 #include "Cup.h"
+
 
 class Scene{
 public:
     
     
-    void setup();
+    void setup(CupTracker * _cupTracker);
     virtual void setupCustom(){}
     void reset();
     virtual void resetCustom(){}
@@ -33,12 +37,16 @@ public:
     
     virtual void addCup(CupInfo thisInfo){}
     
+    void removeTower(int vectorLoc);
+    
     float deltaTime;
     
     
     string sceneName;
     
     VectorField field;
+    
+    CupTracker * cupTracker;
     
     vector<FieldParticle *> fieldParticles;
     

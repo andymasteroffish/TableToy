@@ -11,7 +11,7 @@ void ofApp::setup(){
     cupTracker.setup();
     
     curScene = new SportsScene();
-    curScene->setup();
+    curScene->setup(&cupTracker);
     curScene->reset();
     
     showField = false;

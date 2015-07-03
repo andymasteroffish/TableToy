@@ -8,7 +8,8 @@
 
 #include "Scene.h"
 
-void Scene::setup(){
+void Scene::setup(CupTracker * _cupTracker){
+    cupTracker = _cupTracker;
     setupCustom();
 }
 void Scene::reset(){
@@ -22,3 +23,9 @@ void Scene::draw(){
     drawCustom();
 }
 
+
+
+void Scene::removeTower(int vectorLoc){
+    delete cups[vectorLoc];
+    cups.erase( cups.begin()+vectorLoc);
+}

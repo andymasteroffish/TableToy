@@ -9,14 +9,18 @@
 #include "Cup.h"
 
 
-void Cup::setup(float startX, float startY, VectorField * _field){
+void Cup::setup(float startX, float startY, int _uniqueID, float _startTime, VectorField * _field){
     
     angle = ofRandom(TWO_PI);
+    
+    uniqueID = _uniqueID;
+    startTime = _startTime;
     
     pos.set(startX, startY);
     field = _field;
     
     hasBeenRemoved = false;
+    hasBeenCheckedThisFrame = true;
     
     isDebugSelected = false;
     isDebugSelectedForAngle = false;
@@ -27,6 +31,12 @@ void Cup::setup(float startX, float startY, VectorField * _field){
     customSetup();
     
     calculateFieldRange();
+}
+
+void Cup::setFromCupInfo(CupInfo thisInfo){
+    pos.set(thisInfo.pos);
+    angle = thisInfo.angle;
+    
 }
 
 void Cup::update(float _deltaTime){

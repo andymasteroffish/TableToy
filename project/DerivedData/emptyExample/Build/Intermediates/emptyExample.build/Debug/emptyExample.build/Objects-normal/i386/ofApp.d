@@ -170,6 +170,6 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h src/VectorField.h \
-  src/Utils.h src/Scene.h src/FieldParticle.h src/CupInfo.h src/Cup.h \
-  src/SportsScene.h src/Ball.h src/CupRepeller.h src/CupRock.h \
-  src/CupFlow.h src/CupPulse.h src/CupTracker.h
+  src/Utils.h src/Scene.h src/FieldParticle.h src/CupTracker.h \
+  src/CupInfo.h src/Cup.h src/SportsScene.h src/Ball.h src/CupRepeller.h \
+  src/CupRock.h src/CupFlow.h src/CupPulse.h

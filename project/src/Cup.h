@@ -12,12 +12,15 @@
 #include "ofMain.h"
 #include "VectorField.h"
 #include "Utils.h"
+#include "CupInfo.h"
 
 class Cup{
 public:
     
     ofVec2f pos;
     float angle;
+    int uniqueID;   //this is what links it to a physical cup
+    float startTime;
     
     float cupSize;
     
@@ -31,9 +34,12 @@ public:
     GridPos fieldPos;
     
     bool hasBeenRemoved; //flag to kill
+    bool hasBeenCheckedThisFrame;
     
-    void setup(float startX, float startY, VectorField * _field);
+    void setup(float startX, float startY, int _uniqueID, float _startTime, VectorField * _field);
     virtual void customSetup(){}
+    
+    void setFromCupInfo(CupInfo thisInfo);
     
     void update(float _deltaTime);
     virtual void customUpdate(){}

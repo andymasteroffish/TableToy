@@ -26,6 +26,7 @@ public:
     void setupCustom();
     void resetCustom();
     void updateCustom();
+    void checkCups();
     void drawCustom();
     
     void keyPressed(int key);
@@ -33,7 +34,7 @@ public:
     
     void makeFieldParticles();
     
-    void addCup(CupInfo thisInfo);
+    void addCup(CupInfo thisCup);
     
     
     
