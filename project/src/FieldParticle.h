@@ -28,7 +28,7 @@ public:
     FieldParticle(float x, float y);
     void setup(float x, float y);
     void update(float deltaTime, VectorField * field);
-    void draw();
+    void draw(float alphaPrc);
     void setAlpha();
     
 };

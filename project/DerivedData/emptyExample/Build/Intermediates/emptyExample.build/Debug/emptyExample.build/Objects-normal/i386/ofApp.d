@@ -172,4 +172,5 @@ dependencies: \
   ../../../libs/openFrameworks/3d/ofEasyCam.h src/VectorField.h \
   src/Utils.h src/Scene.h src/FieldParticle.h src/CupTracker.h \
   src/CupInfo.h src/Tower.h src/SportsScene.h src/Ball.h \
-  src/TowerRepeller.h src/TowerFlow.h src/TowerPulse.h
+  src/TowerRepeller.h src/TowerFlow.h src/TowerPulse.h src/StreamScene.h \
+  src/TowerRock.h

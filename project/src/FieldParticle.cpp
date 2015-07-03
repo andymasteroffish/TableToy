@@ -45,9 +45,9 @@ void FieldParticle::update(float deltaTime, VectorField * field){
     setAlpha();
 }
 
-void FieldParticle::draw(){
+void FieldParticle::draw(float alphaPrc){
     
-    ofSetColor(col);
+    ofSetColor(col.r, col.g, col.b, col.a * alphaPrc);
     ofCircle(pos, 2);
     
 }

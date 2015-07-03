@@ -43,6 +43,8 @@ public:
     virtual void addTower(CupInfo thisInfo){}
     void removeTower(int vectorLoc);
     
+    void startFade();
+    
     
     void makeFieldParticles();
     
@@ -59,6 +61,12 @@ public:
     
     
     vector<Tower *> towers;
+    
+    //fading out when switched
+    bool isFading, isDoneFading;
+    float fadeTime;
+    float fadeTimer;
+    float fadePrc;
     
     
     

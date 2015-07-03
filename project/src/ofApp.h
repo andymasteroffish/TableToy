@@ -6,20 +6,21 @@
 
 #include "Scene.h"
 #include "SportsScene.h"
+#include "StreamScene.h"
 
 #include "CupTracker.h"
 
 
 
 
-enum ModeType { MODE_BALL, MODE_STREAM, NUM_MODES };
+//enum ModeType { MODE_BALL, MODE_STREAM, NUM_MODES };
 
 class ofApp : public ofBaseApp{
 public:
     
     void setup();
     
-    void reset();
+    void scrollModes();
     
     void update();
     void draw();
@@ -42,7 +43,11 @@ public:
     CupTracker cupTracker;
     
     //scene
+#define NUM_SCENES 2
+    Scene * scenes[NUM_SCENES];
     Scene * curScene;
+    Scene * fadingScene;
+    int curSceneID;
     
     //debug values
     bool showField, showDebugInfo, showCupDebug;

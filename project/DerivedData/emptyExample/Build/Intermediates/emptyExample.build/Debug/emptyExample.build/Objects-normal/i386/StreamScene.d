@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/CupRock.cpp \
-  src/CupRock.h ../../../libs/openFrameworks/ofMain.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/StreamScene.cpp \
+  src/StreamScene.h ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \
   ../../../libs/tess2/include/tesselator.h \
@@ -169,5 +169,6 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofVideoPlayer.h \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
-  ../../../libs/openFrameworks/3d/ofEasyCam.h src/Cup.h \
-  src/VectorField.h src/Utils.h src/CupInfo.h
+  ../../../libs/openFrameworks/3d/ofEasyCam.h src/Scene.h \
+  src/VectorField.h src/Utils.h src/FieldParticle.h src/CupTracker.h \
+  src/CupInfo.h src/Tower.h src/Ball.h src/TowerRock.h

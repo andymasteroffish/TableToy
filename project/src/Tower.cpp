@@ -9,14 +9,14 @@
 #include "Tower.h"
 
 
-void Tower::setup(float startX, float startY, int _uniqueID, float _startTime, VectorField * _field){
+void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     angle = ofRandom(TWO_PI);
     
-    uniqueID = _uniqueID;
-    startTime = _startTime;
+    uniqueID = thisCup.uniqueID;
+    startTime = thisCup.startTime;
     
-    pos.set(startX, startY);
+    pos.set(thisCup.pos.x, thisCup.pos.y);
     field = _field;
     
     hasBeenRemoved = false;
@@ -53,12 +53,12 @@ void Tower::calculateFieldRange(){
     fieldRange = (float)(radiusPrct * field->fieldWidth);
 }
 
-void Tower::draw(){
+void Tower::draw(float alphaPrc){
     
     customDraw();
     
     //show a debug image
-    ofSetColor(debugColor);
+    ofSetColor(debugColor.r, debugColor.g, debugColor.b, debugColor.a * alphaPrc);
     ofCircle(pos.x, pos.y, towerSize);
     ofSetColor(0);
     ofLine(pos.x, pos.y, pos.x+cos(angle)*towerSize*0.8, pos.y+sin(angle)*towerSize*0.8);

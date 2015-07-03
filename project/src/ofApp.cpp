@@ -10,9 +10,16 @@ void ofApp::setup(){
     
     cupTracker.setup();
     
-    curScene = new SportsScene();
-    curScene->setup(&cupTracker);
-    curScene->reset();
+    scenes[0] = new SportsScene();
+    scenes[1] = new StreamScene();
+    
+    for (int i=0; i<NUM_SCENES; i++){
+        scenes[i]->setup(&cupTracker);
+    }
+    
+    curSceneID = -1;
+    scrollModes();
+    
     
     showField = false;
     showDebugInfo = true;
@@ -24,8 +31,21 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 //clears everythign and gets the toy ready for a new mode
-void ofApp::reset(){
+void ofApp::scrollModes(){
     
+    if (curSceneID >= 0 && curSceneID <= NUM_SCENES){
+        fadingScene = scenes[curSceneID];
+        fadingScene->startFade();
+    }else{
+        fadingScene = NULL;
+    }
+    
+    curSceneID++;
+    if (curSceneID >= NUM_SCENES){
+        curSceneID = 0;
+    }
+    
+    curScene = scenes[curSceneID];
     curScene->reset();
     
 }
@@ -38,6 +58,14 @@ void ofApp::update(){
     prevFrameTime = ofGetElapsedTimef();
     
     curScene->update(deltaTime);
+    
+    //if we have a scene fading out, keep updating it until it is done
+    if (fadingScene != NULL){
+        fadingScene->update(deltaTime);
+        if (fadingScene->isDoneFading){
+            fadingScene = NULL;
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -50,6 +78,10 @@ void ofApp::draw(){
     
     
     curScene->draw();
+    
+    if (fadingScene != NULL){
+        fadingScene->draw();
+    }
     
     
     if (showCupDebug){
@@ -68,7 +100,7 @@ void ofApp::draw(){
         debugInfo +=        "\nf - toggle field";
         debugInfo +=        "\nh - toggle info";
         debugInfo +=        "\nc - show cup tracker";
-        debugInfo +=        "\nm - toggle mode";
+        debugInfo +=        "\nm - scroll mode";
         debugInfo +=        "\n0-9 - add cup";
         debugInfo +=        "\nr - randomize balls";
         debugInfo +=        "\nclick & drag to move";
@@ -91,23 +123,15 @@ void ofApp::keyPressed(int key){
     if (key == 'c'){
         showCupDebug = !showCupDebug;
     }
+    if (key == 'm'){
+        scrollModes();
+    }
     
     cupTracker.keyPressed(key);
     
     curScene->keyPressed(key);
     
-    /*
     
-    if (key == 'm'){
-        reset();
-        
-        curMode = (ModeType) ((curMode+1)%NUM_MODES);
-        
-        if (curMode == MODE_BALL)   startBallMode();
-        if (curMode == MODE_STREAM) startStreamMode();
-    }
-    
-     */
 
 }
 

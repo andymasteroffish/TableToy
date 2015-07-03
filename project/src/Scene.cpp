@@ -11,11 +11,22 @@
 //--------------------------------------------------------------------------------------------
 void Scene::setup(CupTracker * _cupTracker){
     cupTracker = _cupTracker;
+    
+    field.setupField(ofGetWidth(),ofGetHeight());
+    
+    fadeTime = 3;
+    
     setupCustom();
 }
 
 //--------------------------------------------------------------------------------------------
 void Scene::reset(){
+    
+    isFading = false;
+    isDoneFading = false;
+    fadeTimer = fadeTime;
+    fadePrc = 1;
+    
     resetCustom();
 }
 
@@ -45,6 +56,18 @@ void Scene::update(float _deltaTime){
         if (fieldParticles[i]->killFlag){
             delete fieldParticles[i];
             fieldParticles.erase( fieldParticles.begin() + i);
+        }
+    }
+    
+    if (isFading){
+        fadeTimer -= deltaTime;
+        fadePrc = fadeTimer/fadeTime;
+        
+        cout<<sceneName<< " fade "<<fadePrc<<endl;
+        
+        if (fadePrc <= 0){
+            fadePrc = 0;
+            isDoneFading = true;
         }
     }
 }
@@ -97,12 +120,12 @@ void Scene::draw(){
     
     //draw the field particles
     for (int i=fieldParticles.size()-1; i>=0; i--){
-        fieldParticles[i]->draw();
+        fieldParticles[i]->draw(fadePrc);
     }
     
     //draw the towers
     for (int i=towers.size()-1; i>=0; i--){
-        towers[i]->draw();
+        towers[i]->draw(fadePrc);
     }
     
     //draw anything special for this scene
@@ -141,3 +164,13 @@ void Scene::makeFieldParticles(){
         fieldParticles.push_back(newP);
     }
 }
+
+
+//--------------------------------------------------------------------------------------------
+void Scene::startFade(){
+    isFading = true;
+}
+
+
+
+

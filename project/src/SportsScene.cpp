@@ -17,7 +17,6 @@ bool ballSort(  Ball * a, Ball * b ) {
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::setupCustom(){
-    field.setupField(ofGetWidth(),ofGetHeight());
     
     ballRepulsionRange = 20;
     ballRepulsionMaxForce = 1;
@@ -83,7 +82,7 @@ void SportsScene::drawCustom(){
     
     
     //testing
-    ofSetColor(198,123,233);
+    ofSetColor(198,123,233, fadePrc*255);
     ofFill();
     for (int i=0; i<balls.size(); i++){
         ofCircle(balls[i]->pos, ballRepulsionRange/2);
@@ -91,7 +90,7 @@ void SportsScene::drawCustom(){
     }
     
     //draw balls
-    ofSetColor(233,123,180);
+    ofSetColor(233,123,180, fadePrc*255);
     ofFill();
     for (int i=0; i<balls.size(); i++){
         balls[i]->draw();
@@ -112,22 +111,20 @@ void SportsScene::keyPressed(int key){
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::addTower(CupInfo thisCup){
-    float startX = ofRandom(100, ofGetWidth()-100);
-    float startY = ofRandom(100, ofGetHeight()-100);
     
     if (thisCup.typeID == 0 || thisCup.typeID > 2){
         TowerRepeller * newTower = new TowerRepeller();
-        newTower->setup( startX, startY, thisCup.uniqueID, thisCup.startTime, &field);
+        newTower->setup( thisCup, &field);
         towers.push_back(newTower);
     }
     if (thisCup.typeID == 1) {
         TowerFlow * newTower = new TowerFlow();
-        newTower->setup( startX, startY, thisCup.uniqueID, thisCup.startTime, &field);
+        newTower->setup( thisCup, &field);
         towers.push_back(newTower);
     }
     if (thisCup.typeID == 2) {
         TowerPulse * newTower = new TowerPulse();
-        newTower->setup( startX, startY, thisCup.uniqueID, thisCup.startTime, &field);
+        newTower->setup( thisCup, &field);
         towers.push_back(newTower);
     }
     
