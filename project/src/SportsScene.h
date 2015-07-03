@@ -13,11 +13,10 @@
 #include "Scene.h"
 #include "Ball.h"
 
-#include "Cup.h"
-#include "CupRepeller.h"
-#include "CupRock.h"
-#include "CupFlow.h"
-#include "CupPulse.h"
+#include "Tower.h"
+#include "TowerRepeller.h"
+#include "TowerFlow.h"
+#include "TowerPulse.h"
 
 class SportsScene : public Scene{
 public:
@@ -34,7 +33,7 @@ public:
     
     void makeFieldParticles();
     
-    void addCup(CupInfo thisCup);
+    void addTower(CupInfo thisCup);
     
     
     

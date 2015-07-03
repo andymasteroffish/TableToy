@@ -26,6 +26,6 @@ void Scene::draw(){
 
 
 void Scene::removeTower(int vectorLoc){
-    delete cups[vectorLoc];
-    cups.erase( cups.begin()+vectorLoc);
+    delete towers[vectorLoc];
+    towers.erase( towers.begin()+vectorLoc);
 }

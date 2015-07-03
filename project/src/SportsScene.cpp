@@ -32,11 +32,6 @@ void SportsScene::setupCustom(){
 //clears everything and gets the toy ready for a new round
 void SportsScene::resetCustom(){
     
-    //kill all cups if there are any
-    for (int i=0; i<cups.size(); i++){
-        delete cups[i];
-    }
-    cups.clear();
     
     //kill all balls if there are any
     for (int i=0; i<balls.size(); i++){
@@ -45,7 +40,7 @@ void SportsScene::resetCustom(){
     balls.clear();
     
     
-    
+    //make some balls! SPORTS!
     for (int i=0; i<20; i++){
         Ball * newBall = new Ball();
         newBall->setup();
@@ -66,14 +61,13 @@ void SportsScene::updateCustom(){
     //sort the balls from left to right
     sort(balls.begin(), balls.end(), ballSort );
     
-    //have the cups do their thing on the field
-    for (int i=cups.size()-1; i>=0; i--){
-        cups[i]->update(deltaTime);
+    //have the towers do their thing on the field
+    for (int i=towers.size()-1; i>=0; i--){
+        towers[i]->update(deltaTime);
     }
     
     //actually update the balls
     for (int i=balls.size()-1; i>=0; i--){
-        //cout<<"ball "<<i<<" vel "<<balls[i].vel.x<<" , "<<balls[i].vel.y<<endl;
         
         //for each ball, get the repulsion form any nearby balls
         for (int j= i-1; j >= 0; j--){
@@ -106,8 +100,8 @@ void SportsScene::checkCups(){
     //make sure our colleciton of towers matches up with cups in the real world
     
     //first, mark each tower as having not yet been checked this frame
-    for (int i=0; i<cups.size(); i++){
-        cups[i]->hasBeenCheckedThisFrame = false;
+    for (int i=0; i<towers.size(); i++){
+        towers[i]->hasBeenCheckedThisFrame = false;
     }
     
     //go through the list of real world cups
@@ -117,10 +111,10 @@ void SportsScene::checkCups(){
         bool foundTower = false;
         
         //check if there is a coresponding tower
-        for (int k=0; k<cups.size(); k++){
-            if (cups[k]->uniqueID == thisCup.uniqueID){
-                cups[k]->setFromCupInfo(thisCup);
-                cups[k]->hasBeenCheckedThisFrame = true;    //mark that we checked it so it doesn't get killed
+        for (int k=0; k<towers.size(); k++){
+            if (towers[k]->uniqueID == thisCup.uniqueID){
+                towers[k]->setFromCupInfo(thisCup);
+                towers[k]->hasBeenCheckedThisFrame = true;    //mark that we checked it so it doesn't get killed
                 foundTower = true;                          //and mark that this cup is accounted for
                 break;
             }
@@ -128,14 +122,14 @@ void SportsScene::checkCups(){
         
         //if no tower was found, it is a new cup, and we need a tower for it!
         if ( !foundTower ){
-            addCup(thisCup);
+            addTower(thisCup);
         }
         
     }
     
     //now that we've gone through all cups, go through and remove any towers not accounted for
-    for (int i=cups.size()-1; i>=0; i--){
-        if ( !cups[i]->hasBeenCheckedThisFrame ){
+    for (int i=towers.size()-1; i>=0; i--){
+        if ( !towers[i]->hasBeenCheckedThisFrame ){
             removeTower(i);
         }
     }
@@ -145,8 +139,8 @@ void SportsScene::checkCups(){
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::drawCustom(){
-    for (int i=cups.size()-1; i>=0; i--){
-        cups[i]->draw();
+    for (int i=towers.size()-1; i>=0; i--){
+        towers[i]->draw();
     }
     
     //testing
@@ -202,24 +196,24 @@ void SportsScene::makeFieldParticles(){
 }
 
 //--------------------------------------------------------------------------------------------
-void SportsScene::addCup(CupInfo thisCup){
+void SportsScene::addTower(CupInfo thisCup){
     float startX = ofRandom(100, ofGetWidth()-100);
     float startY = ofRandom(100, ofGetHeight()-100);
     
     if (thisCup.typeID == 0 || thisCup.typeID > 2){
-        CupRepeller * newTower = new CupRepeller();
+        TowerRepeller * newTower = new TowerRepeller();
         newTower->setup( startX, startY, thisCup.uniqueID, thisCup.startTime, &field);
-        cups.push_back(newTower);
+        towers.push_back(newTower);
     }
     if (thisCup.typeID == 1) {
-        CupFlow * newTower = new CupFlow();
+        TowerFlow * newTower = new TowerFlow();
         newTower->setup( startX, startY, thisCup.uniqueID, thisCup.startTime, &field);
-        cups.push_back(newTower);
+        towers.push_back(newTower);
     }
     if (thisCup.typeID == 2) {
-        CupPulse * newTower = new CupPulse();
+        TowerPulse * newTower = new TowerPulse();
         newTower->setup( startX, startY, thisCup.uniqueID, thisCup.startTime, &field);
-        cups.push_back(newTower);
+        towers.push_back(newTower);
     }
     
 

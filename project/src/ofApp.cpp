@@ -109,9 +109,6 @@ void ofApp::keyPressed(int key){
     curScene->keyPressed(key);
     
     /*
-    if (key == 'a'){
-        addCup();
-    }
     
     if (key == 'm'){
         reset();
@@ -122,11 +119,6 @@ void ofApp::keyPressed(int key){
         if (curMode == MODE_STREAM) startStreamMode();
     }
     
-    if (key == 'r'){
-        for (int i=0; i<balls.size(); i++){
-            balls[i]->pos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
-        }
-    }
      */
 
 }
@@ -147,21 +139,12 @@ void ofApp::mousePressed(int x, int y, int button){
     
     cupTracker.mousePressed(x, y, button);
     
-//    for (int i=0; i<towers.size(); i++){
-//        towers[i]->onMouseDown(x, y, button);
-//    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
     
     cupTracker.mouseDragged(x, y, button);
-    
-    //field.addOutwardCircle((float)x, (float)y, 100, 1);
-    //
-    //    for (int i=0; i<towers.size(); i++){
-    //        towers[i]->onMouseDrag(x, y, button);
-    //    }
     
 }
 
@@ -170,9 +153,6 @@ void ofApp::mouseReleased(int x, int y, int button){
     
     cupTracker.mouseReleased(x, y, button);
     
-//    for (int i=0; i<towers.size(); i++){
-//        towers[i]->onMouseRelease(x, y, button);
-//    }
 }
 
 //--------------------------------------------------------------

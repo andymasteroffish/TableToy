@@ -16,7 +16,7 @@
 #include "CupTracker.h"
 #include "CupInfo.h"
 
-#include "Cup.h"
+#include "Tower.h"
 
 
 class Scene{
@@ -35,8 +35,7 @@ public:
     virtual void keyPressed(int key){}
     
     
-    virtual void addCup(CupInfo thisInfo){}
-    
+    virtual void addTower(CupInfo thisInfo){}
     void removeTower(int vectorLoc);
     
     float deltaTime;
@@ -51,7 +50,7 @@ public:
     vector<FieldParticle *> fieldParticles;
     
     
-    vector<Cup *> cups;
+    vector<Tower *> towers;
     
     
     
