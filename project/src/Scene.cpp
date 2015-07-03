@@ -8,24 +8,136 @@
 
 #include "Scene.h"
 
+//--------------------------------------------------------------------------------------------
 void Scene::setup(CupTracker * _cupTracker){
     cupTracker = _cupTracker;
     setupCustom();
 }
+
+//--------------------------------------------------------------------------------------------
 void Scene::reset(){
     resetCustom();
 }
+
+//--------------------------------------------------------------------------------------------
 void Scene::update(float _deltaTime){
     deltaTime = _deltaTime;
+    
+    field.clear();
+    
+    //make sure cups and towers match
+    checkCups();
+    
+    //have the towers do their thing on the field
+    for (int i=towers.size()-1; i>=0; i--){
+        towers[i]->update(deltaTime);
+    }
+    
+    //let the scene do what it does
     updateCustom();
+    
+    //make some field particles so we cna see what the fuck's going on in here!
+    makeFieldParticles();
+    
+    //update the field particles
+    for (int i=fieldParticles.size()-1; i>=0; i--){
+        fieldParticles[i]->update(deltaTime, &field);
+        if (fieldParticles[i]->killFlag){
+            delete fieldParticles[i];
+            fieldParticles.erase( fieldParticles.begin() + i);
+        }
+    }
 }
+
+
+
+//--------------------------------------------------------------------------------------------
+void Scene::checkCups(){
+    //make sure our colleciton of towers matches up with cups in the real world
+    
+    //first, mark each tower as having not yet been checked this frame
+    for (int i=0; i<towers.size(); i++){
+        towers[i]->hasBeenCheckedThisFrame = false;
+    }
+    
+    //go through the list of real world cups
+    for (int i=0; i<cupTracker->activeCups.size(); i++){
+        CupInfo thisCup = cupTracker->activeCups[i];
+        
+        bool foundTower = false;
+        
+        //check if there is a coresponding tower
+        for (int k=0; k<towers.size(); k++){
+            if (towers[k]->uniqueID == thisCup.uniqueID){
+                towers[k]->setFromCupInfo(thisCup);
+                towers[k]->hasBeenCheckedThisFrame = true;    //mark that we checked it so it doesn't get killed
+                foundTower = true;                          //and mark that this cup is accounted for
+                break;
+            }
+        }
+        
+        //if no tower was found, it is a new cup, and we need a tower for it!
+        if ( !foundTower ){
+            addTower(thisCup);
+        }
+        
+    }
+    
+    //now that we've gone through all cups, go through and remove any towers not accounted for
+    for (int i=towers.size()-1; i>=0; i--){
+        if ( !towers[i]->hasBeenCheckedThisFrame ){
+            removeTower(i);
+        }
+    }
+    
+}
+
+//--------------------------------------------------------------------------------------------
 void Scene::draw(){
+    
+    //draw the field particles
+    for (int i=fieldParticles.size()-1; i>=0; i--){
+        fieldParticles[i]->draw();
+    }
+    
+    //draw the towers
+    for (int i=towers.size()-1; i>=0; i--){
+        towers[i]->draw();
+    }
+    
+    //draw anything special for this scene
     drawCustom();
 }
 
 
-
+//--------------------------------------------------------------------------------------------
 void Scene::removeTower(int vectorLoc){
     delete towers[vectorLoc];
     towers.erase( towers.begin()+vectorLoc);
+}
+
+
+//--------------------------------------------------------------------------------------------
+void Scene::makeFieldParticles(){
+    vector<ofVec2f> gridPosAffectedThisFrame;
+    float minStrengthToCount = 0.01;
+    
+    for (int x=0; x<FIELD_WIDTH; x++){
+        for (int y=0; y<FIELD_HEIGHT; y++){
+            if ( abs(field.field[x][y].x) > minStrengthToCount || abs(field.field[x][y].y > minStrengthToCount) ){
+                gridPosAffectedThisFrame.push_back( field.getExternalPointFromInternal(x,y) );
+            }
+        }
+    }
+    
+    if (gridPosAffectedThisFrame.size() == 0){
+        return;
+    }
+    
+    
+    for (int i=0; i<10; i++){
+        ofVec2f thisPos = gridPosAffectedThisFrame[ ofRandom( (int)gridPosAffectedThisFrame.size() )];
+        FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y );
+        fieldParticles.push_back(newP);
+    }
 }

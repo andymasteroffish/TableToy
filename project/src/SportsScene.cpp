@@ -23,8 +23,6 @@ void SportsScene::setupCustom(){
     ballRepulsionMaxForce = 1;
     
     sceneName = "Sports";
-    
-
 }
 
 
@@ -48,23 +46,15 @@ void SportsScene::resetCustom(){
         balls.push_back(newBall);
     }
     
-    
 }
 
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::updateCustom(){
-    field.clear();
-    
-    checkCups();
     
     //sort the balls from left to right
     sort(balls.begin(), balls.end(), ballSort );
     
-    //have the towers do their thing on the field
-    for (int i=towers.size()-1; i>=0; i--){
-        towers[i]->update(deltaTime);
-    }
     
     //actually update the balls
     for (int i=balls.size()-1; i>=0; i--){
@@ -82,66 +72,15 @@ void SportsScene::updateCustom(){
         
     }
     
-    //update the field particles
-    for (int i=fieldParticles.size()-1; i>=0; i--){
-        fieldParticles[i]->update(deltaTime, &field);
-        if (fieldParticles[i]->killFlag){
-            delete fieldParticles[i];
-            fieldParticles.erase( fieldParticles.begin() + i);
-        }
-    }
     
     
-    makeFieldParticles();
 }
 
-//--------------------------------------------------------------------------------------------
-void SportsScene::checkCups(){
-    //make sure our colleciton of towers matches up with cups in the real world
-    
-    //first, mark each tower as having not yet been checked this frame
-    for (int i=0; i<towers.size(); i++){
-        towers[i]->hasBeenCheckedThisFrame = false;
-    }
-    
-    //go through the list of real world cups
-    for (int i=0; i<cupTracker->activeCups.size(); i++){
-        CupInfo thisCup = cupTracker->activeCups[i];
-        
-        bool foundTower = false;
-        
-        //check if there is a coresponding tower
-        for (int k=0; k<towers.size(); k++){
-            if (towers[k]->uniqueID == thisCup.uniqueID){
-                towers[k]->setFromCupInfo(thisCup);
-                towers[k]->hasBeenCheckedThisFrame = true;    //mark that we checked it so it doesn't get killed
-                foundTower = true;                          //and mark that this cup is accounted for
-                break;
-            }
-        }
-        
-        //if no tower was found, it is a new cup, and we need a tower for it!
-        if ( !foundTower ){
-            addTower(thisCup);
-        }
-        
-    }
-    
-    //now that we've gone through all cups, go through and remove any towers not accounted for
-    for (int i=towers.size()-1; i>=0; i--){
-        if ( !towers[i]->hasBeenCheckedThisFrame ){
-            removeTower(i);
-        }
-    }
-    
-}
 
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::drawCustom(){
-    for (int i=towers.size()-1; i>=0; i--){
-        towers[i]->draw();
-    }
+    
     
     //testing
     ofSetColor(198,123,233);
@@ -170,30 +109,6 @@ void SportsScene::keyPressed(int key){
     }
 }
 
-//--------------------------------------------------------------------------------------------
-void SportsScene::makeFieldParticles(){
-    vector<ofVec2f> gridPosAffectedThisFrame;
-    float minStrengthToCount = 0.01;
-    
-    for (int x=0; x<FIELD_WIDTH; x++){
-        for (int y=0; y<FIELD_HEIGHT; y++){
-            if ( abs(field.field[x][y].x) > minStrengthToCount || abs(field.field[x][y].y > minStrengthToCount) ){
-                gridPosAffectedThisFrame.push_back( field.getExternalPointFromInternal(x,y) );
-            }
-        }
-    }
-    
-    if (gridPosAffectedThisFrame.size() == 0){
-        return;
-    }
-    
-    
-    for (int i=0; i<10; i++){
-        ofVec2f thisPos = gridPosAffectedThisFrame[ ofRandom( (int)gridPosAffectedThisFrame.size() )];
-        FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y );
-        fieldParticles.push_back(newP);
-    }
-}
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::addTower(CupInfo thisCup){

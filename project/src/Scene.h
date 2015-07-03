@@ -25,10 +25,15 @@ public:
     
     void setup(CupTracker * _cupTracker);
     virtual void setupCustom(){}
+    
     void reset();
     virtual void resetCustom(){}
+    
     void update(float _deltaTime);
     virtual void updateCustom(){}
+    
+    void checkCups();
+    
     void draw();
     virtual void drawCustom(){}
     
@@ -37,6 +42,9 @@ public:
     
     virtual void addTower(CupInfo thisInfo){}
     void removeTower(int vectorLoc);
+    
+    
+    void makeFieldParticles();
     
     float deltaTime;
     

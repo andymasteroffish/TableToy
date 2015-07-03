@@ -45,7 +45,7 @@ public:
     Scene * curScene;
     
     //debug values
-    bool showField, showFieldParticles, showDebugInfo, showCupDebug;
+    bool showField, showDebugInfo, showCupDebug;
     
     
 };

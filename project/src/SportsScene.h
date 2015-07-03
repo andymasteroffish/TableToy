@@ -25,13 +25,11 @@ public:
     void setupCustom();
     void resetCustom();
     void updateCustom();
-    void checkCups();
+    
     void drawCustom();
     
     void keyPressed(int key);
     
-    
-    void makeFieldParticles();
     
     void addTower(CupInfo thisCup);
     

@@ -16,8 +16,7 @@ void ofApp::setup(){
     
     showField = false;
     showDebugInfo = true;
-    showFieldParticles = true;
-    showCupDebug = true;
+    showCupDebug = false;
     
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
@@ -53,13 +52,6 @@ void ofApp::draw(){
     curScene->draw();
     
     
-    
-    if (showFieldParticles){
-        for (int i=curScene->fieldParticles.size()-1; i>=0; i--){
-            curScene->fieldParticles[i]->draw();
-        }
-    }
-    
     if (showCupDebug){
         cupTracker.debugDraw();
     }
@@ -74,7 +66,6 @@ void ofApp::draw(){
         string debugInfo =  "fps: "+ofToString(ofGetFrameRate());
         debugInfo +=        "\nmode: "+modeName;
         debugInfo +=        "\nf - toggle field";
-        debugInfo +=        "\np - toggle particles";
         debugInfo +=        "\nh - toggle info";
         debugInfo +=        "\nc - show cup tracker";
         debugInfo +=        "\nm - toggle mode";
@@ -93,9 +84,6 @@ void ofApp::keyPressed(int key){
     
     if (key == 'f'){
         showField = !showField;
-    }
-    if (key == 'p'){
-        showFieldParticles = !showFieldParticles;
     }
     if (key == 'h'){
         showDebugInfo = !showDebugInfo;
