@@ -171,6 +171,8 @@ dependencies: \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h src/ofApp.h \
   src/VectorField.h src/Utils.h src/Scene.h src/FieldParticle.h \
-  src/CupTracker.h src/CupInfo.h src/Tower.h src/SportsScene.h \
-  src/Ball.h src/TowerRepeller.h src/TowerFlow.h src/TowerPulse.h \
-  src/StreamScene.h src/TowerRock.h
+  src/CupTracker.h src/CupInfo.h src/Tower.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxXmlSettings/src/ofxXmlSettings.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxXmlSettings/libs/tinyxml.h \
+  src/SportsScene.h src/Ball.h src/TowerRepeller.h src/TowerFlow.h \
+  src/TowerPulse.h src/StreamScene.h src/TowerRock.h

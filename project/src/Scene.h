@@ -18,6 +18,8 @@
 
 #include "Tower.h"
 
+#include "ofxXmlSettings.h"
+
 
 class Scene{
 public:
@@ -48,6 +50,10 @@ public:
     
     void makeFieldParticles();
     
+    void readXML();
+    virtual void readXMLCustom(ofxXmlSettings xml){}
+    int stringToHex(string input);
+    
     float deltaTime;
     
     
@@ -61,6 +67,10 @@ public:
     
     
     vector<Tower *> towers;
+    
+    //some fucking color info
+    ofColor bgCol;
+    vector<ofColor> particleColors;
     
     //fading out when switched
     bool isFading, isDoneFading;

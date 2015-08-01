@@ -21,7 +21,7 @@ void SportsScene::setupCustom(){
     ballRepulsionRange = 20;
     ballRepulsionMaxForce = 1;
     
-    sceneName = "Sports";
+    sceneName = "sports";
 }
 
 
@@ -127,6 +127,13 @@ void SportsScene::addTower(CupInfo thisCup){
         newTower->setup( thisCup, &field);
         towers.push_back(newTower);
     }
+    
+
+}
+
+
+//--------------------------------------------------------------------------------------------
+void SportsScene::readXMLCustom(ofxXmlSettings xml){
     
 
 }

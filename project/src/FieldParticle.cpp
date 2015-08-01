@@ -9,11 +9,11 @@
 #include "FieldParticle.h"
 
 
-FieldParticle::FieldParticle(float x, float y){
-    setup(x,y);
+FieldParticle::FieldParticle(float x, float y, ofColor _col){
+    setup(x,y, _col);
 }
 
-void FieldParticle::setup(float x, float y){
+void FieldParticle::setup(float x, float y, ofColor _col){
     killTime = 3;
     killVel = 0.01;
     
@@ -22,7 +22,7 @@ void FieldParticle::setup(float x, float y){
     pos.set(x,y);
     vel.set(0,0);
     fric = 0.8;
-    col.set( ofRandom(255), ofRandom(255), ofRandom(255) );
+    col.set( _col );
     
     timer = 0;
     

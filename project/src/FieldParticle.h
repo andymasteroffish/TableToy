@@ -25,8 +25,8 @@ public:
     float killVel;
     bool killFlag;
     
-    FieldParticle(float x, float y);
-    void setup(float x, float y);
+    FieldParticle(float x, float y, ofColor _col);
+    void setup(float x, float y, ofColor _col);
     void update(float deltaTime, VectorField * field);
     void draw(float alphaPrc);
     void setAlpha();

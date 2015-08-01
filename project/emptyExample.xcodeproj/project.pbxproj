@@ -16,6 +16,10 @@
 		0A60DC1C1B1A10460073D720 /* TowerRepeller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A60DC1A1B1A10460073D720 /* TowerRepeller.cpp */; };
 		0A7343A91B1B7616008B1890 /* TowerPulse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A7343A71B1B7616008B1890 /* TowerPulse.cpp */; };
 		0A78354E1B1A024F0030E2F6 /* FieldParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */; };
+		0AC0BD361B6D492B008356D9 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0BD2F1B6D492B008356D9 /* tinyxml.cpp */; };
+		0AC0BD371B6D492B008356D9 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0BD311B6D492B008356D9 /* tinyxmlerror.cpp */; };
+		0AC0BD381B6D492B008356D9 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0BD321B6D492B008356D9 /* tinyxmlparser.cpp */; };
+		0AC0BD391B6D492B008356D9 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0BD341B6D492B008356D9 /* ofxXmlSettings.cpp */; };
 		0AE560381B3F0A290081156C /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE560361B3F0A290081156C /* Scene.cpp */; };
 		0AE5603B1B3F0B600081156C /* CupTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE560391B3F0B600081156C /* CupTracker.cpp */; };
 		0AE560401B3F0CEB0081156C /* SportsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5603E1B3F0CEB0081156C /* SportsScene.cpp */; };
@@ -90,6 +94,12 @@
 		0A7343A81B1B7616008B1890 /* TowerPulse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerPulse.h; sourceTree = "<group>"; };
 		0A78354C1B1A024F0030E2F6 /* FieldParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FieldParticle.cpp; sourceTree = "<group>"; };
 		0A78354D1B1A024F0030E2F6 /* FieldParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldParticle.h; sourceTree = "<group>"; };
+		0AC0BD2F1B6D492B008356D9 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
+		0AC0BD301B6D492B008356D9 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
+		0AC0BD311B6D492B008356D9 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
+		0AC0BD321B6D492B008356D9 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
+		0AC0BD341B6D492B008356D9 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
+		0AC0BD351B6D492B008356D9 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		0AE560361B3F0A290081156C /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		0AE560371B3F0A290081156C /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		0AE560391B3F0B600081156C /* CupTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTracker.cpp; sourceTree = "<group>"; };
@@ -166,6 +176,36 @@
 			name = Tower;
 			sourceTree = "<group>";
 		};
+		0AC0BD2D1B6D492B008356D9 /* ofxXmlSettings */ = {
+			isa = PBXGroup;
+			children = (
+				0AC0BD2E1B6D492B008356D9 /* libs */,
+				0AC0BD331B6D492B008356D9 /* src */,
+			);
+			name = ofxXmlSettings;
+			path = src/addons/ofxXmlSettings;
+			sourceTree = "<group>";
+		};
+		0AC0BD2E1B6D492B008356D9 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				0AC0BD2F1B6D492B008356D9 /* tinyxml.cpp */,
+				0AC0BD301B6D492B008356D9 /* tinyxml.h */,
+				0AC0BD311B6D492B008356D9 /* tinyxmlerror.cpp */,
+				0AC0BD321B6D492B008356D9 /* tinyxmlparser.cpp */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		0AC0BD331B6D492B008356D9 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				0AC0BD341B6D492B008356D9 /* ofxXmlSettings.cpp */,
+				0AC0BD351B6D492B008356D9 /* ofxXmlSettings.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		0AE5603D1B3F0CCA0081156C /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +234,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				0AC0BD2D1B6D492B008356D9 /* ofxXmlSettings */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -371,7 +412,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AC0BD391B6D492B008356D9 /* ofxXmlSettings.cpp in Sources */,
+				0AC0BD381B6D492B008356D9 /* tinyxmlparser.cpp in Sources */,
+				0AC0BD371B6D492B008356D9 /* tinyxmlerror.cpp in Sources */,
 				0A0D24B01B1B5A7400E40800 /* TowerFlow.cpp in Sources */,
+				0AC0BD361B6D492B008356D9 /* tinyxml.cpp in Sources */,
 				0A57186B1B0C1259005C31BB /* Ball.cpp in Sources */,
 				0A49948D1B460DF300430BD4 /* StreamScene.cpp in Sources */,
 				0A5718671B07BC97005C31BB /* VectorField.cpp in Sources */,

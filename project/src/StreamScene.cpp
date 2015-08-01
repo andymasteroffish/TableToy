@@ -11,7 +11,7 @@
 
 //--------------------------------------------------------------------------------------------
 void StreamScene::setupCustom(){
-    sceneName = "Stream";
+    sceneName = "stream";
 }
 
 //--------------------------------------------------------------------------------------------
@@ -65,4 +65,11 @@ void StreamScene::addTower(CupInfo thisCup){
     TowerRock * newTower = new TowerRock();
     newTower->setup( thisCup, &field);
     towers.push_back(newTower);
+}
+
+//--------------------------------------------------------------------------------------------
+void StreamScene::readXMLCustom(ofxXmlSettings xml){
+    string bgHexString = xml.getValue("BGCOLOR", "000000");
+    bgCol.setHex( stringToHex(bgHexString) );
+    
 }

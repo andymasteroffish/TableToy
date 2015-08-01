@@ -17,6 +17,8 @@ void Scene::setup(CupTracker * _cupTracker){
     fadeTime = 3;
     
     setupCustom();
+    
+    readXML();
 }
 
 //--------------------------------------------------------------------------------------------
@@ -115,6 +117,10 @@ void Scene::checkCups(){
 
 //--------------------------------------------------------------------------------------------
 void Scene::draw(){
+    //background
+    ofSetColor(bgCol);
+    ofFill();
+    ofRect(0, 0, ofGetWidth(),ofGetHeight());
     
     //draw the field particles
     for (int i=fieldParticles.size()-1; i>=0; i--){
@@ -158,7 +164,8 @@ void Scene::makeFieldParticles(){
     
     for (int i=0; i<10; i++){
         ofVec2f thisPos = gridPosAffectedThisFrame[ ofRandom( (int)gridPosAffectedThisFrame.size() )];
-        FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y );
+        ofColor thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
+        FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y, thisCol );
         fieldParticles.push_back(newP);
     }
 }
@@ -169,6 +176,46 @@ void Scene::startFade(){
     isFading = true;
 }
 
+
+//--------------------------------------------------------------------------------------------
+void Scene::readXML(){
+    ofxXmlSettings xml;
+    
+    cout<<"loading xml for "<<sceneName<<" scene"<<endl;
+    
+    if (xml.loadFile(sceneName+".xml")){
+        
+        string bgHexString = xml.getValue("BGCOLOR", "000000");
+        bgCol.setHex( stringToHex(bgHexString) );
+        readXMLCustom(xml);
+        
+        int particleColNum = 0;
+        while (xml.tagExists("PARTICLECOL"+ofToString(particleColNum))){
+            particleColNum++;
+            ofColor thisCol;
+            thisCol.setHex( stringToHex( xml.getValue("PARTICLECOL"+ofToString(particleColNum), "ffffff")) );
+            particleColors.push_back(thisCol);
+        }
+        
+        readXMLCustom(xml);
+        
+    }else{
+        cout<<"your XML didn't load"<<endl;
+        return false;
+    }
+    
+    
+}
+
+
+//--------------------------------------------------------------------------------------------
+int Scene::stringToHex(string input){
+    unsigned int hexVal;
+    std::stringstream ss;
+    ss << std::hex << input;
+    ss >> hexVal;
+    return hexVal;
+}
 
 
 
