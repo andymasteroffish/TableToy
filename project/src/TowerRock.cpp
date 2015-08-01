@@ -10,7 +10,6 @@
 
 void TowerRock::customSetup(){
     range = 90;
-    debugColor.set(200, 220);
 }
 
 void TowerRock::customUpdate(){

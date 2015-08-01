@@ -11,7 +11,6 @@
 
 void TowerPulse::customSetup(){
     range = 200;
-    debugColor.set(222,35,222, 220);
     
     strength = 0.75;
     pulseWidth = 15;

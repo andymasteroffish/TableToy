@@ -82,15 +82,16 @@ void SportsScene::drawCustom(){
     
     
     //testing
-    ofSetColor(198,123,233, fadePrc*255);
-    ofFill();
-    for (int i=0; i<balls.size(); i++){
-        ofCircle(balls[i]->pos, ballRepulsionRange/2);
-        balls[i]->draw();
-    }
+//    ofSetColor(198,123,233, fadePrc*255);
+//    ofFill();
+//    for (int i=0; i<balls.size(); i++){
+//        ofCircle(balls[i]->pos, ballRepulsionRange/2);
+//        balls[i]->draw();
+//    }
     
     //draw balls
-    ofSetColor(233,123,180, fadePrc*255);
+    ofSetColor(ballColor, fadePrc*255);
+    //ofSetColor(233,123,180, fadePrc*255);
     ofFill();
     for (int i=0; i<balls.size(); i++){
         balls[i]->draw();
@@ -115,16 +116,19 @@ void SportsScene::addTower(CupInfo thisCup){
     if (thisCup.typeID == 0 || thisCup.typeID > 2){
         TowerRepeller * newTower = new TowerRepeller();
         newTower->setup( thisCup, &field);
+        newTower->debugColor = cupDebugColors[0];
         towers.push_back(newTower);
     }
     if (thisCup.typeID == 1) {
         TowerFlow * newTower = new TowerFlow();
         newTower->setup( thisCup, &field);
+        newTower->debugColor = cupDebugColors[1];
         towers.push_back(newTower);
     }
     if (thisCup.typeID == 2) {
         TowerPulse * newTower = new TowerPulse();
         newTower->setup( thisCup, &field);
+        newTower->debugColor = cupDebugColors[2];
         towers.push_back(newTower);
     }
     
@@ -134,8 +138,18 @@ void SportsScene::addTower(CupInfo thisCup){
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::readXMLCustom(ofxXmlSettings xml){
-    
+    ballColor.setHex( stringToHex( xml.getValue("BALLS", "ffffff")) );
 
+    int cupDebugColorNum = 0;
+    string cupDebugColorName = "CUPDEBUG"+ofToString(cupDebugColorNum);
+    while (xml.tagExists(cupDebugColorName)){
+        ofColor thisCol;
+        thisCol.setHex( stringToHex( xml.getValue(cupDebugColorName, "ffffff")) );
+        thisCol.a = cupDebugAlpha;
+        cupDebugColors.push_back(thisCol);
+        cupDebugColorNum++;
+        cupDebugColorName = "CUPDEBUG"+ofToString(cupDebugColorNum);
+    }
 }
 
 

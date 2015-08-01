@@ -56,7 +56,6 @@ void Tower::calculateFieldRange(){
 void Tower::draw(float alphaPrc){
     
     customDraw();
-    
     //show a debug image
     ofSetColor(debugColor.r, debugColor.g, debugColor.b, debugColor.a * alphaPrc);
     ofCircle(pos.x, pos.y, towerSize);

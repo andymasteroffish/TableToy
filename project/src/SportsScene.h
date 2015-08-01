@@ -41,6 +41,7 @@ public:
     vector<Ball *> balls;
     float ballRepulsionRange;
     float ballRepulsionMaxForce;
+    ofColor ballColor;
     
 };
 

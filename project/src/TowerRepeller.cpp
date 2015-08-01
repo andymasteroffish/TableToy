@@ -10,7 +10,6 @@
 
 void TowerRepeller::customSetup(){
     range = 100;
-    debugColor.set(0, 230, 80, 220);
 }
 
 void TowerRepeller::customUpdate(){

@@ -118,7 +118,7 @@ void Scene::checkCups(){
 //--------------------------------------------------------------------------------------------
 void Scene::draw(){
     //background
-    ofSetColor(bgCol);
+    ofSetColor(bgCol, 255*fadePrc);
     ofFill();
     ofRect(0, 0, ofGetWidth(),ofGetHeight());
     
@@ -164,7 +164,10 @@ void Scene::makeFieldParticles(){
     
     for (int i=0; i<10; i++){
         ofVec2f thisPos = gridPosAffectedThisFrame[ ofRandom( (int)gridPosAffectedThisFrame.size() )];
-        ofColor thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
+        ofColor thisCol(ofRandom(255), ofRandom(255), ofRandom(255));
+        if (particleColors.size() > 0){
+            thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
+        }
         FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y, thisCol );
         fieldParticles.push_back(newP);
     }
@@ -181,20 +184,32 @@ void Scene::startFade(){
 void Scene::readXML(){
     ofxXmlSettings xml;
     
-    cout<<"loading xml for "<<sceneName<<" scene"<<endl;
+    string fileName = sceneName+".xml";
     
-    if (xml.loadFile(sceneName+".xml")){
+    cout<<"loading xml "<<fileName<<endl;
+
+    //TESTING
+//    ofImage pic;
+//    pic.loadImage("testo.png");
+//    cout<<"pic width "<<pic.width<<endl;
+    
+    if (xml.loadFile(fileName)){
+        cout<<"got it"<<endl;
         
         string bgHexString = xml.getValue("BGCOLOR", "000000");
         bgCol.setHex( stringToHex(bgHexString) );
-        readXMLCustom(xml);
+        
+        cupDebugAlpha = xml.getValue("CUPDEBUG_ALPHA", 255);
         
         int particleColNum = 0;
-        while (xml.tagExists("PARTICLECOL"+ofToString(particleColNum))){
-            particleColNum++;
+        string particleColorFieldName = "PARTICLECOL"+ofToString(particleColNum);
+        while (xml.tagExists(particleColorFieldName)){
+            cout<<"add "<<particleColorFieldName<<endl;
             ofColor thisCol;
-            thisCol.setHex( stringToHex( xml.getValue("PARTICLECOL"+ofToString(particleColNum), "ffffff")) );
+            thisCol.setHex( stringToHex( xml.getValue(particleColorFieldName, "ffffff")) );
             particleColors.push_back(thisCol);
+            particleColNum++;
+            particleColorFieldName = "PARTICLECOL"+ofToString(particleColNum);
         }
         
         readXMLCustom(xml);

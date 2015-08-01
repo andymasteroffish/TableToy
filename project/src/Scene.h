@@ -71,6 +71,8 @@ public:
     //some fucking color info
     ofColor bgCol;
     vector<ofColor> particleColors;
+    float cupDebugAlpha;
+    vector<ofColor> cupDebugColors;
     
     //fading out when switched
     bool isFading, isDoneFading;
