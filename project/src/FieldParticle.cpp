@@ -42,6 +42,13 @@ void FieldParticle::update(float deltaTime, VectorField * field){
         killFlag = true;
     }
     
+    //tetting - this does make a kind of good wiggle
+//    float curAngle = atan2(vel.y, vel.y);
+//    float power = vel.length() * 0.3;
+//    float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*3, pos.x, pos.y ), 0, 1, -PI, PI);
+//    vel.x += sin(newAngle) * power;
+//    vel.y += cos(newAngle) * power;
+    
     setAlpha();
 }
 
