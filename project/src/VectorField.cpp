@@ -195,6 +195,7 @@ void VectorField::debugDraw(){
             float px2 = px + field[x][y].x * drawingStrengthAdjust;
             float py2 = py + field[x][y].y * drawingStrengthAdjust;
             
+            
             ofLine( px, py, px2, py2 );
             
             // draw a baseline to show direction

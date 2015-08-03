@@ -60,5 +60,6 @@ void Tower::draw(float alphaPrc){
     ofSetColor(debugColor.r, debugColor.g, debugColor.b, debugColor.a * alphaPrc);
     ofCircle(pos.x, pos.y, towerSize);
     ofSetColor(0);
+    ofSetLineWidth(1);
     ofLine(pos.x, pos.y, pos.x+cos(angle)*towerSize*0.8, pos.y+sin(angle)*towerSize*0.8);
 }

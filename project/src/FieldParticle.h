@@ -33,9 +33,17 @@ public:
     bool killFlag;
     
     //trying out different effects
+    bool showDot;
+    float dotSize;
+    
     bool useNoiseWiggle;
     float noiseWiggleRange, noiseWigglePower;
     float noiseSeed;
+    
+    bool useTrails;
+    int numTrailPositions;
+    float trailStartWidth, trailEndWidth;
+    vector<ofVec2f> trailPos;
     
     
     

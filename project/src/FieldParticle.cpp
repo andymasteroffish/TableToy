@@ -9,7 +9,8 @@
 #include "FieldParticle.h"
 
 
-FieldParticle::FieldParticle(float x, float y, ofColor _col){
+FieldParticle::FieldParticle(float x,
+                             float y, ofColor _col){
     setup(x,y, _col);
 }
 
@@ -18,7 +19,6 @@ void FieldParticle::setup(float x, float y, ofColor _col){
     killVel = 0.01;
     
     velToStartFading = 1;
-    
     pos.set(x,y);
     vel.set(0,0);
     fric = 0.8;
@@ -33,10 +33,19 @@ void FieldParticle::setup(float x, float y, ofColor _col){
     setAlpha();
     
     
-    //tetsing effects
+    //testing effects
+    showDot = false;
+    dotSize = 2;
+    
     useNoiseWiggle = true;
     noiseWiggleRange = PI;
     noiseWigglePower = 0.2f;
+    
+    useTrails = true;
+    numTrailPositions = 40;
+    trailStartWidth = 0.5;  //making either trail start or end very big is interesting
+    trailEndWidth = 2.5;
+    trailPos.clear();
 
 }
 
@@ -59,13 +68,31 @@ void FieldParticle::update(float deltaTime, VectorField * field){
         vel.y += cos(newAngle) * power;
     }
     
+    if (useTrails){
+        trailPos.push_back(pos);
+        if (trailPos.size() > numTrailPositions){
+            trailPos.erase(trailPos.begin());
+        }
+    }
+    
     setAlpha();
 }
 
 void FieldParticle::draw(float alphaPrc){
     
-    ofSetColor(col.r, col.g, col.b, col.a * alphaPrc);
-    ofCircle(pos, 2);
+    if (showDot){
+        ofSetColor(col.r, col.g, col.b, col.a * alphaPrc);
+        ofCircle(pos, dotSize);
+    }
+    
+    if (useTrails && trailPos.size() > 2){
+        float fadeVal = (col.a * alphaPrc) / numTrailPositions;
+        for (int i=trailPos.size()-1; i>=1; i--){
+            ofSetColor(col.r, col.g, col.b, fadeVal*i);
+            ofSetLineWidth( ofMap(i, 0, trailPos.size(), trailStartWidth, trailEndWidth));
+            ofLine(trailPos[i], trailPos[i-1]);
+        }
+    }
     
 }
 

@@ -127,6 +127,7 @@ void Scene::draw(){
         fieldParticles[i]->draw(fadePrc);
     }
     
+    
     //draw the towers
     for (int i=towers.size()-1; i>=0; i--){
         towers[i]->draw(fadePrc);
@@ -186,7 +187,6 @@ void Scene::readXML(){
     
     string fileName = sceneName+".xml";
     
-    cout<<"loading xml "<<fileName<<endl;
 
     //TESTING
 //    ofImage pic;
@@ -194,7 +194,6 @@ void Scene::readXML(){
 //    cout<<"pic width "<<pic.width<<endl;
     
     if (xml.loadFile(fileName)){
-        cout<<"got it"<<endl;
         
         string bgHexString = xml.getValue("BGCOLOR", "000000");
         bgCol.setHex( stringToHex(bgHexString) );
@@ -204,7 +203,6 @@ void Scene::readXML(){
         int particleColNum = 0;
         string particleColorFieldName = "PARTICLECOL"+ofToString(particleColNum);
         while (xml.tagExists(particleColorFieldName)){
-            cout<<"add "<<particleColorFieldName<<endl;
             ofColor thisCol;
             thisCol.setHex( stringToHex( xml.getValue(particleColorFieldName, "ffffff")) );
             particleColors.push_back(thisCol);

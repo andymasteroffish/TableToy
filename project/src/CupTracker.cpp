@@ -56,6 +56,7 @@ void CupTracker::debugDraw(){
         float lineEndX =  activeCups[i].pos.x + cos(activeCups[i].angle) * aproxCupSize;
         float lineEndY =  activeCups[i].pos.y + sin(activeCups[i].angle) * aproxCupSize;
         
+        ofSetLineWidth(1);
         ofLine( activeCups[i].pos.x, activeCups[i].pos.y, lineEndX, lineEndY);
         
         ofSetColor(0);
