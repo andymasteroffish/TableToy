@@ -34,18 +34,21 @@ void FieldParticle::setup(float x, float y, ofColor _col){
     
     
     //testing effects
-    showDot = false;
-    dotSize = 2;
-    
-    useNoiseWiggle = true;
-    noiseWiggleRange = PI;
-    noiseWigglePower = 0.2f;
-    
-    useTrails = true;
-    numTrailPositions = 40;
-    trailStartWidth = 0.5;  //making either trail start or end very big is interesting
-    trailEndWidth = 2.5;
-    trailPos.clear();
+//    showDot = false;
+//    dotSize = 2;
+//    
+//    useNoiseWiggle = false;
+//    noiseWiggleRange = PI;
+//    noiseWigglePower = 0.2f;
+//    
+//    useTrails = false;
+//    numTrailPositions = 40;
+//    trailStartWidth = 0.5;  //making either trail start or end very big is interesting
+//    trailEndWidth = 2.5;
+//    trailPos.clear();
+//    
+//    usePic = true;
+//    picScale = 1;
 
 }
 
@@ -92,6 +95,16 @@ void FieldParticle::draw(float alphaPrc){
             ofSetLineWidth( ofMap(i, 0, trailPos.size(), trailStartWidth, trailEndWidth));
             ofLine(trailPos[i], trailPos[i-1]);
         }
+    }
+    
+    if (usePic){
+        ofSetColor(col.r, col.g, col.b, col.a * alphaPrc);
+        ofPushMatrix();
+        ofTranslate(pos.x, pos.y);
+        ofRotate(noiseSeed);
+        ofScale(picScale, picScale);
+        pic->draw(0,0, pic->width/2, pic->height/2);
+        ofPopMatrix();
     }
     
 }

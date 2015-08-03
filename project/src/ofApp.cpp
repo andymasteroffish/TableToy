@@ -24,6 +24,7 @@ void ofApp::setup(){
     showField = false;
     showDebugInfo = true;
     showCupDebug = false;
+    showPanel = true;
     
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
@@ -32,6 +33,32 @@ void ofApp::setup(){
     for (int i=0; i<4; i++){
         cupTracker.debugAddCup(0);
     }
+    
+    panel.setup("settings", ofGetWidth()-310, 0, 300, 1000);
+    
+    panel.addPanel("Particle Settings", 1, false);
+    panel.setWhichPanel("Particle Settings");
+    panel.setWhichColumn(0);
+    
+    panel.addLabel("Dot");
+    panel.addToggle("Show Dot", "SHOW_DOT", true);
+    panel.addSlider("Dot Size", "DOT_SIZE", 2, 0, 10, false);
+   
+    panel.addLabel("Wiggle");
+    panel.addToggle("Use Noise Wiggle", "USE_NOISE_WIGGLE", true);
+    panel.addSlider("Wiggle Range", "NOISE_WIGGLE_RANGE", PI, 0, TWO_PI, false);
+    panel.addSlider("Wiggle Power", "NOISE_WIGGLE_POWER", 0.2, 0, 0.75, false);
+    
+    panel.addLabel("Tail");
+    panel.addToggle("Use Trail", "USE_TRAIL", true);
+    panel.addSlider("Trail Length", "TRAIL_LENGTH", 40, 1, 100, true);
+    panel.addSlider("Trail Start Thickness", "TRAIL_START_THICKNESS", 0.5, 0, 25, false);
+    panel.addSlider("Trail End Thickness", "TRAIL_END_THICKNESS", 2.5, 0, 25, false);
+    
+    panel.addLabel("Image");
+    panel.addToggle("Use Pic", "USE_PIC", false);
+    panel.addSlider("Pic Scale", "PIC_SCALE", 1, 0, 5, false);
+    
 }
 
 //--------------------------------------------------------------
@@ -59,14 +86,17 @@ void ofApp::scrollModes(){
 void ofApp::update(){
     ofShowCursor(); //the mouse was being hidden for some reason
     
+    //update the panel
+    panel.update();
+    
     deltaTime = ofGetElapsedTimef() - prevFrameTime;
     prevFrameTime = ofGetElapsedTimef();
     
-    curScene->update(deltaTime);
+    curScene->update(deltaTime, &panel);
     
     //if we have a scene fading out, keep updating it until it is done
     if (fadingScene != NULL){
-        fadingScene->update(deltaTime);
+        fadingScene->update(deltaTime, &panel);
         if (fadingScene->isDoneFading){
             fadingScene = NULL;
         }
@@ -75,8 +105,6 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
-    
     
     
     curScene->draw();
@@ -106,6 +134,7 @@ void ofApp::draw(){
         debugInfo +=        "\nmode: "+modeName;
         debugInfo +=        "\nf - toggle field";
         debugInfo +=        "\nh - toggle info";
+        debugInfo +=        "\np - toggle panel";
         debugInfo +=        "\nc - show cup tracker";
         debugInfo +=        "\nm - scroll mode";
         debugInfo +=        "\n0-9 - add cup";
@@ -114,6 +143,13 @@ void ofApp::draw(){
         debugInfo +=        "\nDEL while draging to remove";
         debugInfo +=        "\nright click & drag to spin";
         ofDrawBitmapString(debugInfo, 10,15);
+    }
+    
+    if (showPanel){
+        ofSetColor(255);
+        ofFill();
+        //panel.setPosition( ofGetWidth()-310, 0 );
+        panel.draw();
     }
 }
 
@@ -132,6 +168,12 @@ void ofApp::keyPressed(int key){
     }
     if (key == 'm'){
         scrollModes();
+    }
+    if (key == 'p'){
+        showPanel = !showPanel;
+        if (!showPanel){
+            panel.mouseReleased();
+        }
     }
     
     cupTracker.keyPressed(key);
@@ -158,6 +200,9 @@ void ofApp::mousePressed(int x, int y, int button){
     
     cupTracker.mousePressed(x, y, button);
     
+    if (showPanel){
+        panel.mousePressed(x,y,button);
+    }
 }
 
 //--------------------------------------------------------------
@@ -165,6 +210,9 @@ void ofApp::mouseDragged(int x, int y, int button){
     
     cupTracker.mouseDragged(x, y, button);
     
+    if (showPanel){
+        panel.mouseDragged(x,y,button);
+    }
 }
 
 //--------------------------------------------------------------
@@ -172,6 +220,9 @@ void ofApp::mouseReleased(int x, int y, int button){
     
     cupTracker.mouseReleased(x, y, button);
     
+    if (showPanel){
+        panel.mouseReleased();
+    }
 }
 
 //--------------------------------------------------------------

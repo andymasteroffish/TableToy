@@ -45,6 +45,10 @@ public:
     float trailStartWidth, trailEndWidth;
     vector<ofVec2f> trailPos;
     
+    bool usePic;
+    ofImage * pic;
+    float picScale;
+    
     
     
     

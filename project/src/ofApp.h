@@ -10,6 +10,7 @@
 
 #include "CupTracker.h"
 
+#include "ofxControlPanel.h"
 
 
 
@@ -51,6 +52,11 @@ public:
     
     //debug values
     bool showField, showDebugInfo, showCupDebug;
+    
+    
+    //control panel
+    bool showPanel;
+    ofxControlPanel	panel;
     
     
 };

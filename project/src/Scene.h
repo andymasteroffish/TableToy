@@ -19,6 +19,7 @@
 #include "Tower.h"
 
 #include "ofxXmlSettings.h"
+#include "ofxControlPanel.h"
 
 
 class Scene{
@@ -31,8 +32,9 @@ public:
     void reset();
     virtual void resetCustom(){}
     
-    void update(float _deltaTime);
+    void update(float _deltaTime, ofxControlPanel * panel);
     virtual void updateCustom(){}
+    void checkPanelValues(ofxControlPanel * panel);
     
     void checkCups();
     
@@ -80,6 +82,21 @@ public:
     float fadeTimer;
     float fadePrc;
     
+    
+    //testing different particle options
+    bool p_showDot;
+    float p_dotSize;
+    
+    bool p_useNoiseWiggle;
+    float p_noiseWiggleRange, p_noiseWigglePower;
+    
+    bool p_useTrails;
+    int p_numTrailPositions;
+    float p_trailStartWidth, p_trailEndWidth;
+    
+    bool p_usePic;
+    float p_picScale;
+    ofImage particlePic;
     
     
 };

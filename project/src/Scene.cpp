@@ -16,6 +16,8 @@ void Scene::setup(CupTracker * _cupTracker){
     
     fadeTime = 3;
     
+    particlePic.loadImage("pic/smoke.png");
+    
     setupCustom();
     
     readXML();
@@ -33,8 +35,10 @@ void Scene::reset(){
 }
 
 //--------------------------------------------------------------------------------------------
-void Scene::update(float _deltaTime){
+void Scene::update(float _deltaTime, ofxControlPanel * panel){
     deltaTime = _deltaTime;
+    
+    checkPanelValues(panel);
     
     field.clear();
     
@@ -72,6 +76,23 @@ void Scene::update(float _deltaTime){
     }
 }
 
+//--------------------------------------------------------------------------------------------
+void Scene::checkPanelValues(ofxControlPanel *panel){
+    p_showDot = panel->getValueB("SHOW_DOT");
+    p_dotSize = panel->getValueF("DOT_SIZE");
+    
+    p_useNoiseWiggle = panel->getValueB("USE_NOISE_WIGGLE");
+    p_noiseWiggleRange = panel->getValueF("NOISE_WIGGLE_RANGE");
+    p_noiseWigglePower = panel->getValueF("NOISE_WIGGLE_POWER");
+    
+    p_useTrails = panel->getValueB("USE_TRAIL");
+    p_numTrailPositions = panel->getValueF("TRAIL_LENGTH");
+    p_trailStartWidth = panel->getValueF("TRAIL_START_THICKNESS");
+    p_trailEndWidth = panel->getValueF("TRAIL_END_THICKNESS");
+    
+    p_usePic = panel->getValueB("USE_PIC");
+    p_picScale = panel->getValueF("PIC_SCALE");
+}
 
 
 //--------------------------------------------------------------------------------------------
@@ -170,6 +191,24 @@ void Scene::makeFieldParticles(){
             thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
         }
         FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y, thisCol );
+        //set all the debug values
+        newP->showDot = p_showDot;
+        newP->dotSize = p_dotSize;
+        
+        newP->useNoiseWiggle = p_useNoiseWiggle;
+        newP->noiseWiggleRange = p_noiseWiggleRange;
+        newP->noiseWigglePower = p_noiseWigglePower;
+        
+        newP->useTrails = p_useTrails;
+        newP->numTrailPositions = p_numTrailPositions;
+        newP->trailStartWidth = p_trailStartWidth;
+        newP->trailEndWidth = p_trailEndWidth;
+        
+        newP->usePic = p_usePic;
+        newP->picScale = p_picScale;
+        newP->pic = &particlePic;
+        
+        //add it to the list
         fieldParticles.push_back(newP);
     }
 }

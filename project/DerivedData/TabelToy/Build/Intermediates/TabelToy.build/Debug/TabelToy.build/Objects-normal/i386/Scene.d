@@ -173,4 +173,35 @@ dependencies: \
   src/Utils.h src/FieldParticle.h src/CupTracker.h src/CupInfo.h \
   src/Tower.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxXmlSettings/src/ofxXmlSettings.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxXmlSettings/libs/tinyxml.h
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxXmlSettings/libs/tinyxml.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/ofxControlPanel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiIncludes.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiValue.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiBaseObject.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/simpleColor.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiColor.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTextBase.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiCallback.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiCallbackValue.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiVariablePointer.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypePanel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeText.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeToggle.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeMultiToggle.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiType2DSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeDrawable.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeButtonSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeTextDropDown.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeCustom.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiCustomImpl.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeVideo.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeVairableLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeChartPlotter.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeLogger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/simpleLogger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeFileLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/simpleFileLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxDirList/src/ofxDirList.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeLabel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeTextInput.h
