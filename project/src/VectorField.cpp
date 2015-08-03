@@ -19,7 +19,7 @@ void VectorField::setupField(int outerW, int outerH){
     externalWidth = outerW;
     externalHeight = outerH;
     
-    drawingStrengthAdjust = 5;
+    drawingStrengthAdjust = 15;
     
     clear();
     

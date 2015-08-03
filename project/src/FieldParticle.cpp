@@ -28,7 +28,15 @@ void FieldParticle::setup(float x, float y, ofColor _col){
     
     killFlag = false;
     
+    noiseSeed = ofRandom(99999);
+    
     setAlpha();
+    
+    
+    //tetsing effects
+    useNoiseWiggle = true;
+    noiseWiggleRange = PI;
+    noiseWigglePower = 0.2f;
 
 }
 
@@ -42,12 +50,14 @@ void FieldParticle::update(float deltaTime, VectorField * field){
         killFlag = true;
     }
     
-    //tetting - this does make a kind of good wiggle
-//    float curAngle = atan2(vel.y, vel.y);
-//    float power = vel.length() * 0.3;
-//    float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*3, pos.x, pos.y ), 0, 1, -PI, PI);
-//    vel.x += sin(newAngle) * power;
-//    vel.y += cos(newAngle) * power;
+    //testing - this does make a kind of good wiggle
+    if (useNoiseWiggle){
+        float curAngle = atan2(vel.y, vel.y);
+        float power = vel.length() * noiseWigglePower;
+        float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*3, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
+        vel.x += sin(newAngle) * power;
+        vel.y += cos(newAngle) * power;
+    }
     
     setAlpha();
 }

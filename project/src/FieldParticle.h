@@ -15,6 +15,13 @@
 class FieldParticle{
 public:
     
+    FieldParticle(float x, float y, ofColor _col);
+    void setup(float x, float y, ofColor _col);
+    void update(float deltaTime, VectorField * field);
+    void draw(float alphaPrc);
+    void setAlpha();
+    
+    
     ofVec2f pos, vel;
     float fric;
     
@@ -25,11 +32,14 @@ public:
     float killVel;
     bool killFlag;
     
-    FieldParticle(float x, float y, ofColor _col);
-    void setup(float x, float y, ofColor _col);
-    void update(float deltaTime, VectorField * field);
-    void draw(float alphaPrc);
-    void setAlpha();
+    //trying out different effects
+    bool useNoiseWiggle;
+    float noiseWiggleRange, noiseWigglePower;
+    float noiseSeed;
+    
+    
+    
+    
     
 };
 

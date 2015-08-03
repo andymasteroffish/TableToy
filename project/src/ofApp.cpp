@@ -27,6 +27,11 @@ void ofApp::setup(){
     
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
+    
+    //testing
+    for (int i=0; i<4; i++){
+        cupTracker.debugAddCup(0);
+    }
 }
 
 //--------------------------------------------------------------
@@ -71,13 +76,15 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    
+    
+    
+    curScene->draw();
+    
     if(showField){
         ofSetColor(0,130,130, 200);
         curScene->field.debugDraw();
     }
-    
-    
-    curScene->draw();
     
     if (fadingScene != NULL){
         fadingScene->draw();
