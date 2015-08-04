@@ -38,7 +38,7 @@ void ofApp::setup(){
     }
     
     //panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
-    panel.setup("settings", ofGetWidth()-310, 0, 300, 1000);
+    panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
     
     panel.addPanel("Particle Settings", 1, false);
     panel.setWhichPanel("Particle Settings");
