@@ -78,6 +78,8 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
 
 //--------------------------------------------------------------------------------------------
 void Scene::checkPanelValues(ofxControlPanel *panel){
+    p_friction = panel->getValueF("PARTICLE_FRICTION");
+    p_killTime = panel->getValueF("PARTICLE_KILL_TIME");
     p_showDot = panel->getValueB("SHOW_DOT");
     p_dotSize = panel->getValueF("DOT_SIZE");
     
@@ -192,6 +194,9 @@ void Scene::makeFieldParticles(){
         }
         FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y, thisCol );
         //set all the debug values
+        newP->fric = (1.0f-p_friction);
+        newP->killTime = p_killTime;
+        
         newP->showDot = p_showDot;
         newP->dotSize = p_dotSize;
         

@@ -36,6 +36,8 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
+    void setPreset(int idNum);
+    
     
     //general
     float deltaTime, prevFrameTime;

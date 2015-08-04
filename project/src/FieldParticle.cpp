@@ -15,13 +15,13 @@ FieldParticle::FieldParticle(float x,
 }
 
 void FieldParticle::setup(float x, float y, ofColor _col){
-    killTime = 3;
+    //killTime = 3;
     killVel = 0.01;
     
     velToStartFading = 1;
     pos.set(x,y);
     vel.set(0,0);
-    fric = 0.8;
+    //fric = 0.8;
     col.set( _col );
     
     timer = 0;
@@ -59,6 +59,7 @@ void FieldParticle::update(float deltaTime, VectorField * field){
     
     timer += deltaTime;
     if (timer > killTime || ( abs(vel.x) < killVel && abs(vel.y) < killVel) ){
+        //cout<<"kill it at "<<timer<<endl;
         killFlag = true;
     }
     

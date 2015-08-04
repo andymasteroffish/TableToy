@@ -84,6 +84,9 @@ public:
     
     
     //testing different particle options
+    float p_friction;
+    float p_killTime;
+    
     bool p_showDot;
     float p_dotSize;
     
