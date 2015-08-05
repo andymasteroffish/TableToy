@@ -59,6 +59,7 @@ public:
     //control panel
     bool showPanel;
     ofxControlPanel	panel;
+    int curPanel;
     
     
 };

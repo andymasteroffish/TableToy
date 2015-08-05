@@ -78,6 +78,9 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
 
 //--------------------------------------------------------------------------------------------
 void Scene::checkPanelValues(ofxControlPanel *panel){
+    //colors
+    bgCol.setHsb(panel->getValueF("BG_HUE"), panel->getValueF("BG_SAT"), panel->getValueF("BG_BRI"));
+    
     //particle shit
     p_friction = panel->getValueF("PARTICLE_FRICTION");
     p_killTime = panel->getValueF("PARTICLE_KILL_TIME");
@@ -97,6 +100,10 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     
     p_usePic = panel->getValueB("USE_PIC");
     p_picScale = panel->getValueF("PIC_SCALE");
+    
+    for (int i=0; i<particleColors.size(); i++){
+        particleColors[i].setHsb(panel->getValueF("PARTICLE_HUE_"+ofToString(i)), panel->getValueF("PARTICLE_SAT"), panel->getValueF("PARTICLE_BRI"));
+    }
     
     //grid shit
     
@@ -119,6 +126,10 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     
     field.showVerticalGridCurved = panel->getValueB("SHOW_VERTICAL_GRID_CURVED");
     field.showHorizontalGridCurved = panel->getValueB("SHOW_HORIZONTAL_GRID_CURVED");
+    
+    field.gridColor.setHsb(panel->getValueF("GRID_HUE"), panel->getValueF("GRID_SAT"), panel->getValueF("GRID_BRI"));
+    
+    checkPanelValuesCustom(panel);
 }
 
 

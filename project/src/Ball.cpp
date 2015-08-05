@@ -56,5 +56,5 @@ void Ball::update(VectorField * field){
 }
 
 void Ball::draw(){
-    ofCircle(pos.x, pos.y, 10);
+    ofCircle(pos.x, pos.y, 15);
 }

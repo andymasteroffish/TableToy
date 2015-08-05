@@ -18,7 +18,7 @@ bool ballSort(  Ball * a, Ball * b ) {
 //--------------------------------------------------------------------------------------------
 void SportsScene::setupCustom(){
     
-    ballRepulsionRange = 20;
+    ballRepulsionRange = 30;
     ballRepulsionMaxForce = 1;
     
     sceneName = "sports";
@@ -75,7 +75,10 @@ void SportsScene::updateCustom(){
     
 }
 
-
+//--------------------------------------------------------------------------------------------
+void SportsScene::checkPanelValuesCustom(ofxControlPanel *panel){
+    ballColor.setHsb(panel->getValueF("BALL_HUE"), panel->getValueF("BALL_SAT"), panel->getValueF("BALL_BRI"));
+}
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::drawCustom(){
@@ -91,11 +94,10 @@ void SportsScene::drawCustom(){
     
     //draw balls
     ofSetColor(ballColor, fadePrc*255);
-    //ofSetColor(233,123,180, fadePrc*255);
     ofFill();
     for (int i=0; i<balls.size(); i++){
         balls[i]->draw();
-        ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
+        //ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
     }
 }
 

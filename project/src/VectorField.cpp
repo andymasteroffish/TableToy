@@ -220,7 +220,7 @@ void VectorField::debugDraw(){
 void VectorField::drawGrid(float alphaPrc){
     
     //these should be set via panel
-    gridColor = ofColor::black;
+//    gridColor = ofColor::black;
 //    gridDrawingAdjust = 15;
 //    
 //    showVerticalGrid = false;
@@ -284,6 +284,21 @@ void VectorField::drawGrid(float alphaPrc){
     for (int x=1; x<FIELD_WIDTH; x++){
         for (int y=1; y<FIELD_HEIGHT; y++){
             ofVec2f anchor = points[x][y];
+            
+            if (showGridFill){
+                float fillAlphaPrc = (strengthPrc[x][y] + strengthPrc[x-1][y] + strengthPrc[x][y-1] + strengthPrc[x-1][y-1]) / 4.0f;
+                if (fillAlphaPrc > 0){
+                    ofSetColor(gridColor, 255*alphaPrc*fillAlphaPrc);
+                    ofFill();
+                    ofBeginShape();
+                    ofVertex(points[x][y].x, points[x][y].y);
+                    ofVertex(points[x-1][y].x, points[x-1][y].y);
+                    ofVertex(points[x-1][y-1].x, points[x-1][y-1].y);
+                    ofVertex(points[x][y-1].x, points[x][y-1].y);
+                    ofEndShape();
+                }
+            }
+            
             if (showHorizontalGrid){
                 float alphaVal = 1;
                 float lineWidth = 1;
@@ -314,20 +329,6 @@ void VectorField::drawGrid(float alphaPrc){
                     ofLine(anchor, points[x][y-1]);
                 }
             }
-            
-            if (showGridFill){
-                float fillAlphaPrc = (strengthPrc[x][y] + strengthPrc[x-1][y] + strengthPrc[x][y-1] + strengthPrc[x-1][y-1]) / 4.0f;
-                if (fillAlphaPrc > 0){
-                    ofSetColor(gridColor, 255*alphaPrc*fillAlphaPrc);
-                    ofFill();
-                    ofBeginShape();
-                    ofVertex(points[x][y].x, points[x][y].y);
-                    ofVertex(points[x-1][y].x, points[x-1][y].y);
-                    ofVertex(points[x-1][y-1].x, points[x-1][y-1].y);
-                    ofVertex(points[x][y-1].x, points[x][y-1].y);
-                    ofEndShape();
-                }
-            }
         }
     }
     
@@ -336,7 +337,7 @@ void VectorField::drawGrid(float alphaPrc){
         ofNoFill();
         for (int x=0; x<FIELD_WIDTH; x++){
             ofBeginShape();
-            for (int y=1; y<FIELD_HEIGHT; y++){
+            for (int y=0; y<FIELD_HEIGHT; y++){
                 ofCurveVertex(points[x][y].x, points[x][y].y);
             }
             ofEndShape();
@@ -346,7 +347,7 @@ void VectorField::drawGrid(float alphaPrc){
         ofNoFill();
         for (int y=0; y<FIELD_HEIGHT; y++){
             ofBeginShape();
-            for (int x=1; x<FIELD_WIDTH; x++){
+            for (int x=0; x<FIELD_WIDTH; x++){
                 ofCurveVertex(points[x][y].x, points[x][y].y);
             }
             ofEndShape();

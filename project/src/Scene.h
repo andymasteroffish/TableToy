@@ -35,6 +35,7 @@ public:
     void update(float _deltaTime, ofxControlPanel * panel);
     virtual void updateCustom(){}
     void checkPanelValues(ofxControlPanel * panel);
+    virtual void checkPanelValuesCustom(ofxControlPanel * panel){}
     
     void checkCups();
     

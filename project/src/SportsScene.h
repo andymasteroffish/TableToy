@@ -25,6 +25,7 @@ public:
     void setupCustom();
     void resetCustom();
     void updateCustom();
+    void checkPanelValuesCustom(ofxControlPanel * panel);
     
     void drawCustom();
     
