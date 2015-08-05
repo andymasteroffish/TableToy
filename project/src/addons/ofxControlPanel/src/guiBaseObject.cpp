@@ -42,7 +42,7 @@ guiBaseObject::guiBaseObject(){
 	
 	//these need to be setable at some point
 	fontSize     = 11;
-	titleSpacing = 5;
+    titleSpacing = 5;
 }
 
 //------------------------------------------

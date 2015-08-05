@@ -30,6 +30,22 @@ public:
     //drawing
     float drawingStrengthAdjust;
     
+    //trying out displays
+    ofColor gridColor;
+    float gridDrawingAdjust;
+    bool showVerticalGrid;
+    bool showHorizontalGrid;
+    bool showGridFill;
+    bool useGridWiggle;
+    float gridWiggleSpeed;
+    float gridWiggleStrength;
+    bool useGridFade;
+    bool useVarryingWidths;
+    float gridValThreshold;
+    float gridValCeiling;
+    float gridMinLineWidth, gridMaxLineWidth;
+    bool showVerticalGridCurved;
+    bool showHorizontalGridCurved;
     
     //**************
     //functions
@@ -58,6 +74,10 @@ public:
     
     //test funcitons
     void debugDraw();
+    
+    //trying out displays
+    void drawGrid(float alphaPrc);
+    
     
     
     

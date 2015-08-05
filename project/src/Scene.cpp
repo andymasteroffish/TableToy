@@ -78,14 +78,17 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
 
 //--------------------------------------------------------------------------------------------
 void Scene::checkPanelValues(ofxControlPanel *panel){
+    //particle shit
     p_friction = panel->getValueF("PARTICLE_FRICTION");
     p_killTime = panel->getValueF("PARTICLE_KILL_TIME");
     p_showDot = panel->getValueB("SHOW_DOT");
+    p_fillDot = panel->getValueF("FILL_DOT");
     p_dotSize = panel->getValueF("DOT_SIZE");
     
     p_useNoiseWiggle = panel->getValueB("USE_NOISE_WIGGLE");
     p_noiseWiggleRange = panel->getValueF("NOISE_WIGGLE_RANGE");
     p_noiseWigglePower = panel->getValueF("NOISE_WIGGLE_POWER");
+    p_noiseWiggleRate = panel->getValueF("NOISE_WIGGLE_RATE");
     
     p_useTrails = panel->getValueB("USE_TRAIL");
     p_numTrailPositions = panel->getValueF("TRAIL_LENGTH");
@@ -94,6 +97,28 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     
     p_usePic = panel->getValueB("USE_PIC");
     p_picScale = panel->getValueF("PIC_SCALE");
+    
+    //grid shit
+    
+    field.gridDrawingAdjust = panel->getValueF("GRID_DRAWING_ADJUST");
+    field.showVerticalGrid = panel->getValueB("SHOW_VERTICAL_GRID");
+    field.showHorizontalGrid = panel->getValueB("SHOW_HORIZONTAL_GRID");
+    field.showGridFill = panel->getValueB("SHOW_GRID_FILL");
+    
+    field.gridValThreshold = panel->getValueF("GRID_VAL_THRESHOLD");
+    field.gridValCeiling = panel->getValueF("GRID_VAL_CEILING");
+    
+    field.useGridWiggle = panel->getValueB("USE_GRID_WIGGLE");
+    field.gridWiggleSpeed = panel->getValueF("GRID_WIGGLE_SPEED");
+    field.gridWiggleStrength = panel->getValueF("GRID_WIGGLE_STRENGTH");
+    
+    field.useGridFade = panel->getValueB("USE_GRID_LINE_FADE");
+    field.useVarryingWidths = panel->getValueB("USE_GRID_VARRYING_LINE_WIDTH");
+    field.gridMinLineWidth = panel->getValueF("GRID_MIN_LINE_WIDTH");
+    field.gridMaxLineWidth = panel->getValueF("GRID_MAX_LINE_WIDTH");
+    
+    field.showVerticalGridCurved = panel->getValueB("SHOW_VERTICAL_GRID_CURVED");
+    field.showHorizontalGridCurved = panel->getValueB("SHOW_HORIZONTAL_GRID_CURVED");
 }
 
 
@@ -144,6 +169,9 @@ void Scene::draw(){
     ofSetColor(bgCol, 255*fadePrc);
     ofFill();
     ofRect(0, 0, ofGetWidth(),ofGetHeight());
+    
+    //testing
+    field.drawGrid(fadePrc);
     
     //draw the field particles
     for (int i=fieldParticles.size()-1; i>=0; i--){
@@ -198,11 +226,13 @@ void Scene::makeFieldParticles(){
         newP->killTime = p_killTime;
         
         newP->showDot = p_showDot;
+        newP->fillDot = p_fillDot;
         newP->dotSize = p_dotSize;
         
         newP->useNoiseWiggle = p_useNoiseWiggle;
         newP->noiseWiggleRange = p_noiseWiggleRange;
         newP->noiseWigglePower = p_noiseWigglePower;
+        newP->noiseWiggleRate = p_noiseWiggleRate;
         
         newP->useTrails = p_useTrails;
         newP->numTrailPositions = p_numTrailPositions;

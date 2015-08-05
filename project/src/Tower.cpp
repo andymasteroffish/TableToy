@@ -57,6 +57,7 @@ void Tower::draw(float alphaPrc){
     
     customDraw();
     //show a debug image
+    ofFill();
     ofSetColor(debugColor.r, debugColor.g, debugColor.b, debugColor.a * alphaPrc);
     ofCircle(pos.x, pos.y, towerSize);
     ofSetColor(0);

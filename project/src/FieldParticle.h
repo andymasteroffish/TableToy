@@ -32,13 +32,16 @@ public:
     float killVel;
     bool killFlag;
     
+    float noiseSeed;
+    
     //trying out different effects
     bool showDot;
+    bool fillDot;
     float dotSize;
     
     bool useNoiseWiggle;
     float noiseWiggleRange, noiseWigglePower;
-    float noiseSeed;
+    float noiseWiggleRate;
     
     bool useTrails;
     int numTrailPositions;

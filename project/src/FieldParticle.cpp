@@ -67,9 +67,10 @@ void FieldParticle::update(float deltaTime, VectorField * field){
     if (useNoiseWiggle){
         float curAngle = atan2(vel.y, vel.y);
         float power = vel.length() * noiseWigglePower;
-        float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*3, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
+        float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
         vel.x += sin(newAngle) * power;
         vel.y += cos(newAngle) * power;
+        
     }
     
     if (useTrails){
@@ -86,6 +87,11 @@ void FieldParticle::draw(float alphaPrc){
     
     if (showDot){
         ofSetColor(col.r, col.g, col.b, col.a * alphaPrc);
+        if (fillDot){
+            ofFill();
+        }else{
+            ofNoFill();
+        }
         ofCircle(pos, dotSize);
     }
     

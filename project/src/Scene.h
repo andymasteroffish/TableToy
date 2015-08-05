@@ -88,10 +88,12 @@ public:
     float p_killTime;
     
     bool p_showDot;
+    bool p_fillDot;
     float p_dotSize;
     
     bool p_useNoiseWiggle;
     float p_noiseWiggleRange, p_noiseWigglePower;
+    float p_noiseWiggleRate;
     
     bool p_useTrails;
     int p_numTrailPositions;

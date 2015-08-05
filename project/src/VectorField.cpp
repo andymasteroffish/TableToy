@@ -216,6 +216,145 @@ void VectorField::debugDraw(){
 }
 
 
+//-------------------------------------------------------------
+void VectorField::drawGrid(float alphaPrc){
+    
+    //these should be set via panel
+    gridColor = ofColor::black;
+//    gridDrawingAdjust = 15;
+//    
+//    showVerticalGrid = false;
+//    showHorizontalGrid = false;
+//    showGridFill = false;
+//    
+//    useGridWiggle = false;
+//    gridWiggleSpeed = 1;
+//    gridWiggleStrength = 4;
+//    
+//    useGridFade = false;
+//    gridValThreshold = 0.1;
+//    gridValCeiling = 3;
+//    
+//    useVarryingWidths = false;
+//    gridMinLineWidth = 0.5;
+//    gridMaxLineWidth = 4;
+//    
+//    showVerticalGridCurved = true;
+//    showHorizontalGridCurved = true;
+
+    ofSetLineWidth(1);
+    ofSetColor(gridColor, 255*alphaPrc);
+    
+    ofVec2f points[FIELD_WIDTH][FIELD_HEIGHT];
+    float strengthPrc[FIELD_WIDTH][FIELD_HEIGHT];
+    
+    float scaleX = (float)externalWidth / (float)FIELD_WIDTH;
+    float scaleY = (float)externalHeight / (float)FIELD_HEIGHT;
+    
+    for (int x=0; x<FIELD_WIDTH; x++){
+        for (int y=0; y<FIELD_HEIGHT; y++){
+            
+            //figure out where this line will be
+            float px = x * scaleX;
+            float py = y * scaleY;
+            float px2 = px + field[x][y].x * gridDrawingAdjust;
+            float py2 = py + field[x][y].y * gridDrawingAdjust;
+            
+            points[x][y].set(px2, py2);
+            
+            if (useGridFade || useVarryingWidths || showGridFill){
+                if (field[x][y].x != 0 || field[x][y].y != 0){
+                    strengthPrc[x][y] = ofMap(field[x][y].length(), gridValThreshold, gridValCeiling, 0, 1, true);
+                }else{
+                    strengthPrc[x][y] = 0;
+                }
+            }
+            
+            if (useGridWiggle){
+                points[x][y].x += ofNoise( ofGetElapsedTimef()*gridWiggleSpeed, x, y ) * gridWiggleStrength;
+                points[x][y].y += ofNoise( ofGetElapsedTimef()*gridWiggleSpeed, x, y ) * gridWiggleStrength;
+            }
+            
+            
+            
+        }
+    }
+    
+    //connect all of these bastards
+    for (int x=1; x<FIELD_WIDTH; x++){
+        for (int y=1; y<FIELD_HEIGHT; y++){
+            ofVec2f anchor = points[x][y];
+            if (showHorizontalGrid){
+                float alphaVal = 1;
+                float lineWidth = 1;
+                if (useGridFade){
+                    alphaVal = MAX(strengthPrc[x][y], strengthPrc[x-1][y]);
+                }
+                if (useVarryingWidths){
+                    lineWidth = ofMap( MAX(strengthPrc[x][y], strengthPrc[x-1][y]), 0 , 1, gridMinLineWidth, gridMaxLineWidth);
+                }
+                if (alphaVal > 0 && lineWidth > 0){
+                    ofSetColor(gridColor, 255*alphaPrc*alphaVal);
+                    ofSetLineWidth(lineWidth);
+                    ofLine(anchor, points[x-1][y]);
+                }
+            }
+            if (showVerticalGrid){
+                float alphaVal = 1;
+                float lineWidth = 1;
+                if (useGridFade){
+                    alphaVal = MAX(strengthPrc[x][y], strengthPrc[x][y-1]);
+                }
+                if (useVarryingWidths){
+                    lineWidth = ofMap( MAX(strengthPrc[x][y], strengthPrc[x-1][y]), 0 , 1, gridMinLineWidth, gridMaxLineWidth);
+                }
+                if (alphaVal > 0 && lineWidth > 0){
+                    ofSetColor(gridColor, 255*alphaPrc*alphaVal);
+                    ofSetLineWidth(lineWidth);
+                    ofLine(anchor, points[x][y-1]);
+                }
+            }
+            
+            if (showGridFill){
+                float fillAlphaPrc = (strengthPrc[x][y] + strengthPrc[x-1][y] + strengthPrc[x][y-1] + strengthPrc[x-1][y-1]) / 4.0f;
+                if (fillAlphaPrc > 0){
+                    ofSetColor(gridColor, 255*alphaPrc*fillAlphaPrc);
+                    ofFill();
+                    ofBeginShape();
+                    ofVertex(points[x][y].x, points[x][y].y);
+                    ofVertex(points[x-1][y].x, points[x-1][y].y);
+                    ofVertex(points[x-1][y-1].x, points[x-1][y-1].y);
+                    ofVertex(points[x][y-1].x, points[x][y-1].y);
+                    ofEndShape();
+                }
+            }
+        }
+    }
+    
+    //curved line?
+    if (showVerticalGridCurved){
+        ofNoFill();
+        for (int x=0; x<FIELD_WIDTH; x++){
+            ofBeginShape();
+            for (int y=1; y<FIELD_HEIGHT; y++){
+                ofCurveVertex(points[x][y].x, points[x][y].y);
+            }
+            ofEndShape();
+        }
+    }
+    if (showHorizontalGridCurved){
+        ofNoFill();
+        for (int y=0; y<FIELD_HEIGHT; y++){
+            ofBeginShape();
+            for (int x=1; x<FIELD_WIDTH; x++){
+                ofCurveVertex(points[x][y].x, points[x][y].y);
+            }
+            ofEndShape();
+        }
+    }
+    
+}
+
 
 
 
