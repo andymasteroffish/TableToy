@@ -30,6 +30,8 @@ public:
     
     bool isLeft;
     int score;
+    float smoothScore, smoothScoreXeno;
+    int scoreToWin;
     
     VectorField * field;
     float deltaTime;
