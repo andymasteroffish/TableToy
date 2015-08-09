@@ -206,4 +206,5 @@ dependencies: \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeLabel.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeTextInput.h \
   src/SportsScene.h src/Ball.h src/Goal.h src/TowerRepeller.h \
-  src/TowerFlow.h src/TowerPulse.h src/StreamScene.h src/TowerRock.h
+  src/TowerFlow.h src/TowerPulse.h src/StreamScene.h src/TowerRock.h \
+  src/FlyersScene.h src/Flyer.h

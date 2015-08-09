@@ -12,12 +12,13 @@ void ofApp::setup(){
     
     scenes[0] = new SportsScene();
     scenes[1] = new StreamScene();
+    scenes[2] = new FlyersScene();
     
     for (int i=0; i<NUM_SCENES; i++){
         scenes[i]->setup(&cupTracker);
     }
     
-    curSceneID = -1;
+    curSceneID = 1;
     scrollModes();
     
     

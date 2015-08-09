@@ -44,6 +44,8 @@
 		0A9419B61B701FCE006CDAFD /* simpleColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A9419981B701FCE006CDAFD /* simpleColor.cpp */; };
 		0A9419B71B701FCE006CDAFD /* simpleFileLister.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A94199A1B701FCE006CDAFD /* simpleFileLister.cpp */; };
 		0A9419B81B701FCE006CDAFD /* simpleLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A94199C1B701FCE006CDAFD /* simpleLogger.cpp */; };
+		0AB754DD1B77B8A900B0AD0C /* FlyersScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AB754DB1B77B8A900B0AD0C /* FlyersScene.cpp */; };
+		0AB754E11B77BA9500B0AD0C /* Flyer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AB754DF1B77BA9500B0AD0C /* Flyer.cpp */; };
 		0AC0BD361B6D492B008356D9 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0BD2F1B6D492B008356D9 /* tinyxml.cpp */; };
 		0AC0BD371B6D492B008356D9 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0BD311B6D492B008356D9 /* tinyxmlerror.cpp */; };
 		0AC0BD381B6D492B008356D9 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0BD321B6D492B008356D9 /* tinyxmlparser.cpp */; };
@@ -185,6 +187,10 @@
 		0A9419BC1B7021B0006CDAFD /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
 		0A9419BD1B7021B0006CDAFD /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		0A9419BF1B7021B0006CDAFD /* ofxDirList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDirList.h; sourceTree = "<group>"; };
+		0AB754DB1B77B8A900B0AD0C /* FlyersScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlyersScene.cpp; sourceTree = "<group>"; };
+		0AB754DC1B77B8A900B0AD0C /* FlyersScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyersScene.h; sourceTree = "<group>"; };
+		0AB754DF1B77BA9500B0AD0C /* Flyer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Flyer.cpp; sourceTree = "<group>"; };
+		0AB754E01B77BA9500B0AD0C /* Flyer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flyer.h; sourceTree = "<group>"; };
 		0AC0BD2F1B6D492B008356D9 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		0AC0BD301B6D492B008356D9 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
 		0AC0BD311B6D492B008356D9 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
@@ -389,6 +395,17 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		0AB754DE1B77B8AE00B0AD0C /* Flyers */ = {
+			isa = PBXGroup;
+			children = (
+				0AB754DC1B77B8A900B0AD0C /* FlyersScene.h */,
+				0AB754DB1B77B8A900B0AD0C /* FlyersScene.cpp */,
+				0AB754E01B77BA9500B0AD0C /* Flyer.h */,
+				0AB754DF1B77BA9500B0AD0C /* Flyer.cpp */,
+			);
+			name = Flyers;
+			sourceTree = "<group>";
+		};
 		0AC0BD2D1B6D492B008356D9 /* ofxXmlSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +443,7 @@
 				0AE560361B3F0A290081156C /* Scene.cpp */,
 				0A46F2D81B779EE900F8E30F /* Sports */,
 				0A46F2D91B779EF000F8E30F /* Stream */,
+				0AB754DE1B77B8AE00B0AD0C /* Flyers */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -646,11 +664,13 @@
 				0A9419A61B701FCE006CDAFD /* guiTypeCustom.cpp in Sources */,
 				0A9419A71B701FCE006CDAFD /* guiTypeDrawable.cpp in Sources */,
 				0A9419AC1B701FCE006CDAFD /* guiTypePanel.cpp in Sources */,
+				0AB754DD1B77B8A900B0AD0C /* FlyersScene.cpp in Sources */,
 				0A9419A91B701FCE006CDAFD /* guiTypeLabel.cpp in Sources */,
 				0A78354E1B1A024F0030E2F6 /* FieldParticle.cpp in Sources */,
 				0A60DC1C1B1A10460073D720 /* TowerRepeller.cpp in Sources */,
 				0A9419AE1B701FCE006CDAFD /* guiTypeText.cpp in Sources */,
 				0A60DC171B1A0FA10073D720 /* TowerRock.cpp in Sources */,
+				0AB754E11B77BA9500B0AD0C /* Flyer.cpp in Sources */,
 				0A9419B21B701FCE006CDAFD /* guiTypeVairableLister.cpp in Sources */,
 				0A9419B71B701FCE006CDAFD /* simpleFileLister.cpp in Sources */,
 				0A7343A91B1B7616008B1890 /* TowerPulse.cpp in Sources */,

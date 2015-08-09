@@ -11,7 +11,6 @@
 
 #include "ofMain.h"
 #include "Scene.h"
-#include "Ball.h"
 
 #include "Tower.h"
 #include "TowerRock.h"
