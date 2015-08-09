@@ -32,6 +32,8 @@ public:
     
     void keyPressed(int key);
     
+    void spawnBall();
+    void killBall(int idNum);
     
     void addTower(CupInfo thisCup);
     
@@ -44,6 +46,11 @@ public:
     float ballRepulsionRange;
     float ballRepulsionMaxForce;
     ofColor ballColor;
+    
+    int maxNumBalls;
+    float ballSpawnTimer;
+    float timeBetweenBallSpawns;
+    bool nextBallSpawnsOnTop;
     
     //goals
 #define NUM_GOALS 2

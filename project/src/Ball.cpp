@@ -8,26 +8,54 @@
 
 #include "Ball.h"
 
+Ball::Ball(){
+    setup(false);
+}
 
-void Ball::setup(){
-    friction = 0.99;
+Ball::Ball(bool spawnOnTop){
+    setup(spawnOnTop);
+}
+
+void Ball::setup(bool spawnOnTop){
     
-    vel.set(0,0);
+    friction = 0.995;
+    
+    float startVel = 1;
+    float startPadding = 10;
+    float startingXOffset = ofRandom(-10,10);
+    
+    if (spawnOnTop){
+        pos.set(ofGetWidth()/2+startingXOffset, -startPadding);
+        vel.set(0,startVel);
+    }else{
+        pos.set(ofGetWidth()/2+startingXOffset, ofGetHeight() + startPadding);
+        vel.set(0,-startVel);
+    }
+    
+    justSpawned = true;
 }
 
 void Ball::addRepulsionForce(Ball * other, float radius, float maxForce){
+    if (justSpawned){
+        return;
+    }
+    
     ofVec2f diff = pos - other->pos;
     
     if (diff.length() < radius){
         float prc = 1 - (diff.length() / radius);
         diff.normalize();
+        
         vel += diff * prc * maxForce;
+        other->vel -= diff * prc * maxForce;
     }
 }
 
 void Ball::update(VectorField * field){
     
-    vel += field->getForceFromPos(pos);
+    if (!justSpawned){
+        vel += field->getForceFromPos(pos);
+    }
     
     vel *= friction;
     
@@ -36,21 +64,27 @@ void Ball::update(VectorField * field){
     
     
     //simple bounce
-    if (pos.x < 0){
-        pos.x = 0;
-        vel.x = MAX(vel.x, -vel.x);
-    }
-    if (pos.x > ofGetWidth()){
-        pos.x = ofGetWidth();
-        vel.x = MIN(vel.x, -vel.x);
-    }
-    if (pos.y < 0){
-        pos.y = 0;
-        vel.y = MAX(vel.y, -vel.y);
-    }
-    if (pos.y > ofGetHeight()){
-        pos.y = ofGetHeight();
-        vel.y = MIN(vel.y, -vel.y);
+    if (!justSpawned){
+        if (pos.x < 0){
+            pos.x = 0;
+            vel.x = MAX(vel.x, -vel.x);
+        }
+        if (pos.x > ofGetWidth()){
+            pos.x = ofGetWidth();
+            vel.x = MIN(vel.x, -vel.x);
+        }
+        if (pos.y < 0){
+            pos.y = 0;
+            vel.y = MAX(vel.y, -vel.y);
+        }
+        if (pos.y > ofGetHeight()){
+            pos.y = ofGetHeight();
+            vel.y = MIN(vel.y, -vel.y);
+        }
+    }else{
+        if (pos.x > 1 && pos.x < ofGetWidth()-1 && pos.y > 1 && pos.y < ofGetHeight()-1){
+            justSpawned = false;
+        }
     }
     
 }

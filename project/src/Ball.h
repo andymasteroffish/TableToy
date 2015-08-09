@@ -15,14 +15,20 @@
 class Ball{
 public:
     
+    Ball();
+    Ball(bool spawnOnTop);
+    
+    void setup(bool spawnOnTop);
+    void addRepulsionForce(Ball * other, float radius, float maxForce);
+    void update(VectorField * field);
+    void draw();
+    
     ofVec2f pos, vel;
     
     float friction;
     
-    void setup();
-    void addRepulsionForce(Ball * other, float radius, float maxForce);
-    void update(VectorField * field);
-    void draw();
+    bool justSpawned;
+    
     
 };
 

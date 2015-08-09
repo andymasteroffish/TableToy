@@ -29,13 +29,15 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
     
     //strength in field units
-    closeFieldStrength = 1;
-    farFieldStrength = 0.3;
+    closeFieldStrength = 1.5;
+    farFieldStrength = 0.5;
     
+    //killing
+    killRange = closeRange / 2;
     
+    //position this thing
     pos.y = ofGetHeight()/2;
     pos.x = isLeft ? 70 : ofGetWidth()-70;
-    
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
 }
@@ -59,8 +61,28 @@ void Goal::draw(float alphaPrc){
     ofSetColor(baseCol, 200*alphaPrc);
     ofCircle(pos.x, pos.y, closeRange);
     
+    ofSetColor(0);
+    ofDrawBitmapString(ofToString(score), pos.x, pos.y);
+    
 }
 
+
+bool Goal::checkIsBallDead(Ball * ball){
+    
+    float distSq = ofDistSquared(ball->pos.x, ball->pos.y, pos.x, pos.y);
+    
+    if (distSq < powf(killRange,2)){
+        markScore();
+        return true;
+    }
+    
+    return false;
+    
+}
+
+void Goal::markScore(){
+    score++;
+}
 
 
 void Goal::addInwardCircle(float strength, float range){

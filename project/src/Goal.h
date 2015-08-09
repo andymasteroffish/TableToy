@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "Utils.h"
 #include "VectorField.h"
+#include "Ball.h"
 
 class Goal{
 public:
@@ -21,6 +22,9 @@ public:
     
     void update(float _deltaTime);
     void draw(float alphaPrc);
+    
+    bool checkIsBallDead(Ball * ball);
+    void markScore();
     
     void addInwardCircle(float strength, float range);
     
@@ -33,10 +37,15 @@ public:
     ofVec2f pos;
     GridPos fieldPos;
     
+    //affecting the field
     float farRange, closeRange;
     float farFieldRange, closeFieldRange;
     float farFieldStrength, closeFieldStrength;
     
+    //killin' balls like it's murder christams
+    float killRange;
+    
+    //display
     ofColor baseCol;
     
 };

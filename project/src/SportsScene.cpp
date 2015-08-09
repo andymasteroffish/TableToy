@@ -25,6 +25,11 @@ void SportsScene::setupCustom(){
         goals[i].setup(i==0, &field);
     }
     
+    maxNumBalls = 15;
+    timeBetweenBallSpawns = 1;
+    
+    nextBallSpawnsOnTop = true; //this just flips with each spawn
+    
     sceneName = "sports";
 }
 
@@ -45,13 +50,7 @@ void SportsScene::resetCustom(){
     }
     
     
-    //make some balls! SPORTS!
-    for (int i=0; i<20; i++){
-        Ball * newBall = new Ball();
-        newBall->setup();
-        newBall->pos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
-        balls.push_back(newBall);
-    }
+    ballSpawnTimer = 0;
     
 }
 
@@ -64,9 +63,15 @@ void SportsScene::updateCustom(){
         goals[i].update(deltaTime);
     }
     
+    //spawn balls?
+    ballSpawnTimer += deltaTime;
+    
+    if (ballSpawnTimer > timeBetweenBallSpawns && balls.size() < maxNumBalls){
+        spawnBall();
+    }
+    
     //sort the balls from left to right
     sort(balls.begin(), balls.end(), ballSort );
-    
     
     //actually update the balls
     for (int i=balls.size()-1; i>=0; i--){
@@ -82,10 +87,13 @@ void SportsScene::updateCustom(){
         
         balls[i]->update(&field);
         
+        //ready to die in a goal?
+        for (int g=0; g<NUM_GOALS; g++){
+            if (goals[g].checkIsBallDead(balls[i])){
+                killBall(i);
+            }
+        }
     }
-    
-    
-    
     
     
 }
@@ -131,6 +139,21 @@ void SportsScene::keyPressed(int key){
     }
 }
 
+//--------------------------------------------------------------------------------------------
+void SportsScene::spawnBall(){
+    Ball * newBall = new Ball(nextBallSpawnsOnTop);
+    balls.push_back(newBall);
+    nextBallSpawnsOnTop = !nextBallSpawnsOnTop;
+    ballSpawnTimer = 0;
+}
+
+//--------------------------------------------------------------------------------------------
+void SportsScene::killBall(int idNum){
+    //add some sparks or some shit
+    
+    //remove the ball
+    balls.erase( balls.begin() + idNum );
+}
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::addTower(CupInfo thisCup){
