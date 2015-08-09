@@ -22,9 +22,9 @@ void ofApp::setup(){
     
     
     showField = false;
-    showDebugInfo = true;
+    showDebugInfo = false;
     showCupDebug = false;
-    showPanel = true;
+    showPanel = false;
     
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();

@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "Scene.h"
 #include "Ball.h"
+#include "Goal.h"
 
 #include "Tower.h"
 #include "TowerRepeller.h"
@@ -43,6 +44,10 @@ public:
     float ballRepulsionRange;
     float ballRepulsionMaxForce;
     ofColor ballColor;
+    
+    //goals
+#define NUM_GOALS 2
+    Goal goals[NUM_GOALS];
     
 };
 

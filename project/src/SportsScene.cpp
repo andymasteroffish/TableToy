@@ -21,6 +21,10 @@ void SportsScene::setupCustom(){
     ballRepulsionRange = 30;
     ballRepulsionMaxForce = 1;
     
+    for (int i=0; i<NUM_GOALS; i++){
+        goals[i].setup(i==0, &field);
+    }
+    
     sceneName = "sports";
 }
 
@@ -36,6 +40,10 @@ void SportsScene::resetCustom(){
     }
     balls.clear();
     
+    for (int i=0; i<NUM_GOALS; i++){
+        goals[i].reset();
+    }
+    
     
     //make some balls! SPORTS!
     for (int i=0; i<20; i++){
@@ -50,6 +58,11 @@ void SportsScene::resetCustom(){
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::updateCustom(){
+    
+    //update goals
+    for (int i=0; i<NUM_GOALS; i++){
+        goals[i].update(deltaTime);
+    }
     
     //sort the balls from left to right
     sort(balls.begin(), balls.end(), ballSort );
@@ -73,6 +86,8 @@ void SportsScene::updateCustom(){
     
     
     
+    
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -84,6 +99,11 @@ void SportsScene::checkPanelValuesCustom(ofxControlPanel *panel){
 void SportsScene::drawCustom(){
     
     
+    for (int i=0; i<NUM_GOALS; i++){
+        goals[i].draw(alphaPrc);
+    }
+    
+    
     //testing
 //    ofSetColor(198,123,233, fadePrc*255);
 //    ofFill();
@@ -93,7 +113,7 @@ void SportsScene::drawCustom(){
 //    }
     
     //draw balls
-    ofSetColor(ballColor, fadePrc*255);
+    ofSetColor(ballColor, alphaPrc*255);
     ofFill();
     for (int i=0; i<balls.size(); i++){
         balls[i]->draw();

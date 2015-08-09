@@ -29,7 +29,7 @@ void Scene::reset(){
     isFading = false;
     isDoneFading = false;
     fadeTimer = fadeTime;
-    fadePrc = 1;
+    alphaPrc = 1;
     
     resetCustom();
 }
@@ -67,10 +67,10 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
     
     if (isFading){
         fadeTimer -= deltaTime;
-        fadePrc = fadeTimer/fadeTime;
+        alphaPrc = fadeTimer/fadeTime;
         
-        if (fadePrc <= 0){
-            fadePrc = 0;
+        if (alphaPrc <= 0){
+            alphaPrc = 0;
             isDoneFading = true;
         }
     }
@@ -177,22 +177,22 @@ void Scene::checkCups(){
 //--------------------------------------------------------------------------------------------
 void Scene::draw(){
     //background
-    ofSetColor(bgCol, 255*fadePrc);
+    ofSetColor(bgCol, 255*alphaPrc);
     ofFill();
     ofRect(0, 0, ofGetWidth(),ofGetHeight());
     
     //testing
-    field.drawGrid(fadePrc);
+    field.drawGrid(alphaPrc);
     
     //draw the field particles
     for (int i=fieldParticles.size()-1; i>=0; i--){
-        fieldParticles[i]->draw(fadePrc);
+        fieldParticles[i]->draw(alphaPrc);
     }
     
     
     //draw the towers
     for (int i=towers.size()-1; i>=0; i--){
-        towers[i]->draw(fadePrc);
+        towers[i]->draw(alphaPrc);
     }
     
     //draw anything special for this scene

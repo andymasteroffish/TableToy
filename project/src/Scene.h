@@ -81,7 +81,7 @@ public:
     bool isFading, isDoneFading;
     float fadeTime;
     float fadeTimer;
-    float fadePrc;
+    float alphaPrc;
     
     
     //testing different particle options
