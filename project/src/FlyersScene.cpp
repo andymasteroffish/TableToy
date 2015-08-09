@@ -19,9 +19,10 @@ void FlyersScene::resetCustom(){
     
     flyers.clear();
     
-    for (int i=0; i<40; i++){
+    for (int i=0; i<100; i++){
         Flyer testo;
         testo.setup(&field);
+        
         flyers.push_back(testo);
     }
     
@@ -40,6 +41,10 @@ void FlyersScene::updateCustom(){
     //update the flyers
     for (int i=flyers.size()-1; i>=0; i--){
         flyers[i].update(deltaTime);
+        if (flyers[i].needsTower){
+            int idNum = ofRandom(towers.size());
+            flyers[i].setTower(towers[idNum]);
+        }
     }
     
 }

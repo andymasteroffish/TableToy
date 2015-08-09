@@ -15,14 +15,14 @@ void Flyer::setup(VectorField * _field){
 
     speed = 0.1;
     bonusTargetForce = 0;
-    bonusTrargetForceIncreasePerFrame = 0.0003;
+    bonusTrargetForceIncreasePerFrame = 0.001;
     curAngle = 0;
     
     fric = 0.95;
     
-    fieldForceAdjust = 0.3;
+    fieldForceAdjust = 0.1;
     
-    distToTargetToCount = 2;
+    distToTargetToCount = 15;
     
     repelRange = 30;
     repelForce = 2;
@@ -31,13 +31,31 @@ void Flyer::setup(VectorField * _field){
     
     isFree = true;
     targetTower = NULL;
+    needsTower = false;
+    orbitDist = ofRandom(70,120);
     
-    targetPos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+    maxTimeToOrbit = 40;
+    maxTimeToBeFree = 10;
+    
+    orbitTimer = 3; //this is dumb
+    
+    targetPos.set( pos.x, pos.y);
+    resetTarget = true;
     
 }
 
 void Flyer::update(float _deltaTime){
     deltaTime = _deltaTime;
+    
+    orbitTimer -= deltaTime;
+    
+    if (orbitTimer < 0){
+        if (isFree){
+            needsTower = true;
+        }else{
+            setFree();
+        }
+    }
     
     
     //friction
@@ -54,10 +72,27 @@ void Flyer::update(float _deltaTime){
     //actually adjust position
     pos += vel;
     
-    if ( ofDistSquared(pos.x, pos.y, targetPos.x, targetPos.y) < powf(distToTargetToCount, 2)){
-        targetPos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+    //are we clsoe enough to the target?
+    if (resetTarget || ofDistSquared(pos.x, pos.y, targetPos.x, targetPos.y) < powf(distToTargetToCount, 2)){
+        
+        if (isFree){
+            targetPos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+        }else{
+            ofVec2f towerPos = targetTower->pos;
+            targetPos = towerPos;
+            
+            
+            //get the line from the tower
+            ofVec2f fromTower = pos-towerPos;
+            fromTower.normalize();
+            fromTower.rotate(15*orbitDir);
+            
+            targetPos = towerPos + fromTower * orbitDist;
+        }
+        
         bonusTargetForce = 0;
-        //cout<<"ding dong "<<targetPos.x<<" , "<<targetPos.y<<endl;
+        
+        resetTarget = false;
     }
     
     bonusTargetForce += bonusTrargetForceIncreasePerFrame;
@@ -91,7 +126,16 @@ void Flyer::draw(float alphaPrc){
 //    ofSetColor(255, 10, 10, 100*alphaPrc);
 //    ofLine(targetPos.x, targetPos.y, pos.x, pos.y);
 //    
+//    if (isFree){
+//        ofNoFill();
+//    }else{
+//        ofFill();
+//    }
+//    
 //    ofCircle(pos.x, pos.y, repelRange);
+//    
+//    ofSetColor(0);
+//    ofDrawBitmapString(ofToString(orbitTimer), pos.x, pos.y);
     
 }
 
@@ -109,6 +153,23 @@ void Flyer::addRepulsionForce(Flyer * other){
         
         other->vel -= diff * prc * repelForce;
     }
+}
+
+
+void Flyer::setFree(){
+    isFree = true;
+    targetTower = NULL;
+    orbitTimer = ofRandom(1, maxTimeToBeFree);
+    resetTarget = true;
+}
+
+void Flyer::setTower(Tower *newTarget){
+    isFree = false;
+    needsTower = false;
+    targetTower = newTarget;
+    orbitTimer = ofRandom(1, maxTimeToOrbit);
+    orbitDir = 1;//ofRandom(100) > 50 ? 1 : -1;
+    resetTarget = true;
 }
 
 

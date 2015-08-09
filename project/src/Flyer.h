@@ -22,6 +22,9 @@ public:
     
     void addRepulsionForce(Flyer * other);
     
+    void setFree();
+    void setTower(Tower * newTarget);
+    
     ofVec2f pos;
     ofVec2f vel;
     
@@ -38,9 +41,16 @@ public:
     bool isFree; //when not free, it's orbitting around a tower
     Tower * targetTower;
     float orbitDist; //how far from the center of the tower to orbit
+    float orbitDir;
+    bool needsTower;
+    
+    float maxTimeToOrbit;
+    float maxTimeToBeFree;
+    float orbitTimer;
     
     ofVec2f targetPos;
     float distToTargetToCount;
+    bool resetTarget;
     
     float bonusTargetForce;
     float bonusTrargetForceIncreasePerFrame;
