@@ -65,15 +65,22 @@ void FieldParticle::update(float deltaTime, VectorField * field){
     
     //testing - this does make a kind of good wiggle
     if (useNoiseWiggle){
-        float curAngle = atan2(vel.y, vel.y);
-        float power = vel.length() * noiseWigglePower;
-        float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
-        vel.x += sin(newAngle) * power;
-        vel.y += cos(newAngle) * power;
+//        float curAngle = atan2(vel.y, vel.y);
+//        float power = vel.length() * noiseWigglePower;
+//        float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
+//        vel.x += sin(newAngle) * power;
+//        vel.y += cos(newAngle) * power;
+        
+//        noiseWiggleRange = 0.3;//0.52;
+//        noiseWigglePower = 0.13;
+        
+        float angleAdjust = ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
+        vel *= 1+noiseWigglePower;
+        vel.rotateRad( angleAdjust );
         
     }
     
-    if (useTrails){
+    if (useTrails && ofGetFrameNum()%2==0){
         trailPos.push_back(pos);
         if (trailPos.size() > numTrailPositions){
             trailPos.erase(trailPos.begin());

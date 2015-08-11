@@ -57,6 +57,7 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
     makeFieldParticles();
     
     //update the field particles
+    //float updateStartTime = ofGetElapsedTimef();
     for (int i=fieldParticles.size()-1; i>=0; i--){
         fieldParticles[i]->update(deltaTime, &field);
         if (fieldParticles[i]->killFlag){
@@ -64,6 +65,7 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
             fieldParticles.erase( fieldParticles.begin() + i);
         }
     }
+    //cout<<"update time: "<<(ofGetElapsedTimef()-updateStartTime)<<endl;
     
     if (isFading){
         fadeTimer -= deltaTime;
@@ -185,9 +187,11 @@ void Scene::draw(){
     field.drawGrid(alphaPrc);
     
     //draw the field particles
+    //float drawStartTime = ofGetElapsedTimef();
     for (int i=fieldParticles.size()-1; i>=0; i--){
         fieldParticles[i]->draw(alphaPrc);
     }
+    //cout<<"draw time : "<<(ofGetElapsedTimef()-drawStartTime)<<endl;
     
     
     //draw the towers

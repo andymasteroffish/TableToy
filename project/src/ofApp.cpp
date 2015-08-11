@@ -18,12 +18,12 @@ void ofApp::setup(){
         scenes[i]->setup(&cupTracker);
     }
     
-    curSceneID = 1;
+    curSceneID = -1;
     scrollModes();
     
     
     showField = false;
-    showDebugInfo = false;
+    showDebugInfo = true;
     showCupDebug = false;
     showPanel = false;
     
@@ -49,7 +49,7 @@ void ofApp::setup(){
     panel.addLabel("PRESETS");
     
     panel.addToggle("Pastel", "PRESET_0", false);
-    panel.addToggle("wiggler", "PRESET_1", false);
+    panel.addToggle("wiggler", "PRESET_1", true); //using wiggler for now
     panel.addToggle("Cyber Adventure", "PRESET_2", false);
     panel.addToggle("Blazing Suns", "PRESET_3", false);
     panel.addToggle("Desert", "PRESET_4", false);
@@ -462,15 +462,15 @@ void ofApp::setPreset(int idNum){
         panel.setValueB("FILL_DOT", true);
         panel.setValueF("DOT_SIZE", 2);
         panel.setValueB("USE_TRAIL", true);
-        panel.setValueF("TRAIL_LENGTH", 40);
+        panel.setValueF("TRAIL_LENGTH", 10);//40);
         panel.setValueF("TRAIL_START_THICKNESS", 0.5);
         panel.setValueF("TRAIL_END_THICKNESS", 2.5);
         panel.setValueB("USE_PIC", false);
         panel.setValueF("PIC_SCALE", 1);
         panel.setValueB("USE_NOISE_WIGGLE", true);
-        panel.setValueF("NOISE_WIGGLE_RANGE", PI);
-        panel.setValueF("NOISE_WIGGLE_POWER", 0.2);
-        panel.setValueF("NOISE_WIGGLE_RATE", 3);
+        panel.setValueF("NOISE_WIGGLE_RANGE", 0.3);//PI);
+        panel.setValueF("NOISE_WIGGLE_POWER", 0.1);//0.2);
+        panel.setValueF("NOISE_WIGGLE_RATE", 2);//3);
         
         //grid
         panel.setValueB("SHOW_VERTICAL_GRID", false);
