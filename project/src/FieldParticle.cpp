@@ -71,9 +71,6 @@ void FieldParticle::update(float deltaTime, VectorField * field){
 //        vel.x += sin(newAngle) * power;
 //        vel.y += cos(newAngle) * power;
         
-//        noiseWiggleRange = 0.3;//0.52;
-//        noiseWigglePower = 0.13;
-        
         float angleAdjust = ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
         vel *= 1+noiseWigglePower;
         vel.rotateRad( angleAdjust );
