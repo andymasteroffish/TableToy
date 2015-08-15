@@ -10,6 +10,8 @@
 
 void TowerRock::customSetup(){
     range = 90;
+    
+    debugColor.setHex(0xabb1a9);
 }
 
 void TowerRock::customUpdate(){

@@ -205,4 +205,4 @@ dependencies: \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxDirList/src/ofxDirList.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeLabel.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/project/src/addons/ofxControlPanel/src/guiTypeTextInput.h \
-  src/Ball.h src/TowerRock.h
+  src/TowerRock.h

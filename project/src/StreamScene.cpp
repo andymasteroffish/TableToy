@@ -66,15 +66,3 @@ void StreamScene::addTower(CupInfo thisCup){
     newTower->setup( thisCup, &field);
     towers.push_back(newTower);
 }
-
-//--------------------------------------------------------------------------------------------
-void StreamScene::readXMLCustom(ofxXmlSettings xml){
-    string bgHexString = xml.getValue("BGCOLOR", "000000");
-    bgCol.setHex( stringToHex(bgHexString) );
-    
-    ofColor thisCol;
-    thisCol.setHex( stringToHex( xml.getValue("CUPDEBUG0", "ffffff")) );
-    thisCol.a = cupDebugAlpha;
-    cupDebugColors.push_back(thisCol);
-    
-}

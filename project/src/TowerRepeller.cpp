@@ -10,6 +10,7 @@
 
 void TowerRepeller::customSetup(){
     range = 100;
+    debugColor.setHex(0x49df20);
 }
 
 void TowerRepeller::customUpdate(){

@@ -53,8 +53,6 @@ public:
     
     void makeFieldParticles();
     
-    void readXML();
-    virtual void readXMLCustom(ofxXmlSettings xml){}
     int stringToHex(string input);
     
     float deltaTime;

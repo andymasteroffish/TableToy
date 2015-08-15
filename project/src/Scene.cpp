@@ -20,7 +20,6 @@ void Scene::setup(CupTracker * _cupTracker){
     
     setupCustom();
     
-    readXML();
 }
 
 //--------------------------------------------------------------------------------------------
@@ -267,46 +266,6 @@ void Scene::makeFieldParticles(){
 //--------------------------------------------------------------------------------------------
 void Scene::startFade(){
     isFading = true;
-}
-
-
-//--------------------------------------------------------------------------------------------
-void Scene::readXML(){
-    ofxXmlSettings xml;
-    
-    string fileName = sceneName+".xml";
-    
-
-    //TESTING
-//    ofImage pic;
-//    pic.loadImage("testo.png");
-//    cout<<"pic width "<<pic.width<<endl;
-    
-    if (xml.loadFile(fileName)){
-        
-        string bgHexString = xml.getValue("BGCOLOR", "000000");
-        bgCol.setHex( stringToHex(bgHexString) );
-        
-        cupDebugAlpha = xml.getValue("CUPDEBUG_ALPHA", 255);
-        
-        int particleColNum = 0;
-        string particleColorFieldName = "PARTICLECOL"+ofToString(particleColNum);
-        while (xml.tagExists(particleColorFieldName)){
-            ofColor thisCol;
-            thisCol.setHex( stringToHex( xml.getValue(particleColorFieldName, "ffffff")) );
-            particleColors.push_back(thisCol);
-            particleColNum++;
-            particleColorFieldName = "PARTICLECOL"+ofToString(particleColNum);
-        }
-        
-        readXMLCustom(xml);
-        
-    }else{
-        cout<<"your XML didn't load"<<endl;
-        return false;
-    }
-    
-    
 }
 
 

@@ -37,9 +37,6 @@ public:
     
     void addTower(CupInfo thisCup);
     
-    virtual void readXMLCustom(ofxXmlSettings xml);
-    
-    
     
     //the balls
     vector<Ball *> balls;

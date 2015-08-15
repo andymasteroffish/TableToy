@@ -66,12 +66,5 @@ void FlyersScene::keyPressed(int key){
 void FlyersScene::addTower(CupInfo thisCup){
     TowerRepeller * newTower = new TowerRepeller();
     newTower->setup( thisCup, &field);
-    newTower->debugColor = ofColor::green;
     towers.push_back(newTower);
-}
-
-//--------------------------------------------------------------------------------------------
-void FlyersScene::readXMLCustom(ofxXmlSettings xml){
-    
-    
 }

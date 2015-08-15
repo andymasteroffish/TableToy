@@ -19,6 +19,8 @@ void TowerPulse::customSetup(){
     timeBetweenPulses = 2;
     timeForPulse = 1;
     
+    debugColor.setHex(0xdf20c6);
+    
     
 }
 

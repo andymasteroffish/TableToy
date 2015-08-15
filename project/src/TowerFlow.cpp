@@ -11,6 +11,7 @@
 
 void TowerFlow::customSetup(){
     range = 150;
+    debugColor.setHex(0xdfa320);
 }
 
 void TowerFlow::customUpdate(){
