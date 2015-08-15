@@ -10,9 +10,9 @@ void ofApp::setup(){
     
     cupTracker.setup();
     
-    scenes[0] = new SportsScene();
-    scenes[1] = new StreamScene();
-    scenes[2] = new FlyersScene();
+    scenes[SCENE_SPORTS] = new SportsScene();
+    scenes[SCENE_STREAM] = new StreamScene();
+    scenes[SCENE_FLYERS] = new FlyersScene();
     
     for (int i=0; i<NUM_SCENES; i++){
         scenes[i]->setup(&cupTracker);

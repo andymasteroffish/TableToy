@@ -16,7 +16,6 @@
 
 
 
-
 class ofApp : public ofBaseApp{
 public:
     
@@ -48,6 +47,9 @@ public:
     
     //scene
 #define NUM_SCENES 3
+#define SCENE_SPORTS 0
+#define SCENE_STREAM 1
+#define SCENE_FLYERS 2
     Scene * scenes[NUM_SCENES];
     Scene * curScene;
     Scene * fadingScene;

@@ -1,3 +1,4 @@
+
 //
 //  Goal.cpp
 //  TabelToy
@@ -21,9 +22,11 @@ void Goal::setup(bool _isLeft, VectorField * _field){
         baseCol = ofColor::blue;
     }
     
-    scoreToWin = 20;
+    scoreToWin = 40;
     
-    smoothScoreXeno = 0.5;
+    smoothScoreXeno = 0.25;
+    
+    useRadialScoreDisplay = false;
     
     //range in pixels
     closeRange = 50;
@@ -46,9 +49,13 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     
 }
 
+
 void Goal::reset(){
     score = 0;
     smoothScore = 0;
+    
+    //testing
+    score = ofRandom(scoreToWin*0.25, scoreToWin*0.75);
 }
 
 void Goal::update(float _deltaTime){
@@ -62,6 +69,29 @@ void Goal::update(float _deltaTime){
 
 void Goal::draw(float alphaPrc){
     
+    if (useRadialScoreDisplay){
+        drawRadialScore(alphaPrc);
+    }else{
+        drawBoxScore(alphaPrc);
+    }
+    
+    
+    //show the center
+    ofFill();
+    ofSetColor(baseCol, 100*alphaPrc);
+    ofCircle(pos.x, pos.y, closeRange);
+    ofNoFill();
+    ofSetColor(10, 255*alphaPrc);
+    ofCircle(pos.x, pos.y, closeRange);
+    
+    
+    ofSetColor(0);
+    ofDrawBitmapString(ofToString(score), pos.x, pos.y);
+    
+}
+
+
+void Goal::drawRadialScore(float alphaPrc){
     //outline
     ofNoFill();
     ofSetColor(10, 255*alphaPrc);
@@ -89,28 +119,48 @@ void Goal::draw(float alphaPrc){
     }
     
     ofPopMatrix();
+}
+
+void Goal::drawBoxScore(float alphaPrc){
     
+    float boxSize = (ofGetWidth()/2)/ (float)scoreToWin;
     
-    //show the center
+    int numBoxes = ceil(smoothScore);
+    float finalBoxPrc = 1 - ((float)numBoxes - smoothScore);
+    
+    float baseHue = baseCol.getHue();
+    float baseSat = baseCol.getSaturation();
+    float baseBri = baseCol.getBrightness();
+    
     ofFill();
+    
+    for (int i=0; i<numBoxes; i++){
+        float hue = baseHue +  ofNoise(ofGetElapsedTimef()*0.1, i) * 30;
+        ofColor thisCol;
+        thisCol.setHsb(hue, baseSat, baseBri);
+        thisCol.a = 50*alphaPrc;
+        ofSetColor(thisCol);
+        
+        float width = boxSize;
+        if (i == numBoxes-1){
+            width *= finalBoxPrc;
+        }
+        if (!isLeft){
+            width*=-1;
+        }
+        
+        float xPos = i*boxSize;
+        if (!isLeft){
+            xPos = ofGetWidth()-i*boxSize;
+        }
+        
+        ofRect(xPos, 0, width, ofGetHeight());
+    }
+    
+    //draw a dividing line
     ofSetColor(baseCol, 100*alphaPrc);
-    ofCircle(pos.x, pos.y, closeRange);
-    ofNoFill();
-    ofSetColor(10, 255*alphaPrc);
-    ofCircle(pos.x, pos.y, closeRange);
-    
-    
-    /*
-    ofSetColor(baseCol, 100*alphaPrc);
-    ofCircle(pos.x, pos.y, farRange);
-    
-    ofSetColor(baseCol, 200*alphaPrc);
-    ofCircle(pos.x, pos.y, closeRange);
-     */
-    
-    ofSetColor(0);
-    ofDrawBitmapString(ofToString(score), pos.x, pos.y);
-    
+    float lineWidth = 2 * (isLeft ? -1 : 1);
+    ofRect(ofGetWidth()/2, 0, lineWidth, ofGetHeight());
 }
 
 

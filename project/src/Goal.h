@@ -22,6 +22,8 @@ public:
     
     void update(float _deltaTime);
     void draw(float alphaPrc);
+    void drawRadialScore(float alphaPrc);
+    void drawBoxScore(float alphaPrc);
     
     bool checkIsBallDead(Ball * ball);
     void markScore();
@@ -32,6 +34,8 @@ public:
     int score;
     float smoothScore, smoothScoreXeno;
     int scoreToWin;
+    
+    bool useRadialScoreDisplay;
     
     VectorField * field;
     float deltaTime;
