@@ -14,6 +14,8 @@
 #include "VectorField.h"
 #include "Ball.h"
 
+#include "ofxControlPanel.h"
+
 class Goal{
 public:
     
@@ -30,12 +32,13 @@ public:
     
     void addInwardCircle(float strength, float range);
     
+    void checkPanelValues(ofxControlPanel * panel);
+    
     bool isLeft;
     int score;
     float smoothScore, smoothScoreXeno;
     int scoreToWin;
     
-    bool useRadialScoreDisplay;
     
     VectorField * field;
     float deltaTime;
@@ -44,15 +47,22 @@ public:
     GridPos fieldPos;
     
     //affecting the field
-    float farRange, closeRange;
-    float farFieldRange, closeFieldRange;
-    float farFieldStrength, closeFieldStrength;
+    float farRange, nearRange;
+    float farFieldRange, nearFieldRange;
+    float farFieldStrength, nearFieldStrength;
     
     //killin' balls like it's murder christams
     float killRange;
     
     //display
     ofColor baseCol;
+    bool showDebug;
+    
+    //score display
+    bool useRadialScoreDisplay;
+    float scoreBarAlpha;
+    float scoreBarHueRange;
+    float scoreBarNoiseSpeed;
     
 };
 

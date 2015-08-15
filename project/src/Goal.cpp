@@ -28,19 +28,21 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     
     useRadialScoreDisplay = false;
     
+    showDebug = true;
+    
     //range in pixels
-    closeRange = 50;
+    nearRange = 50;
     farRange = 160;
     //range in field units
-    closeFieldRange = (float)( (closeRange / (float)field->externalWidth) * field->fieldWidth);
+    nearFieldRange = (float)( (nearRange / (float)field->externalWidth) * field->fieldWidth);
     farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
     
     //strength in field units
-    closeFieldStrength = 1.5;
+    nearFieldStrength = 1.5;
     farFieldStrength = 0.5;
     
     //killing
-    killRange = closeRange / 2;
+    killRange = nearRange / 2;
     
     //position this thing
     pos.y = ofGetHeight()/2;
@@ -61,7 +63,7 @@ void Goal::reset(){
 void Goal::update(float _deltaTime){
     deltaTime = _deltaTime;
     
-    addInwardCircle(closeFieldStrength, closeFieldRange);
+    addInwardCircle(nearFieldStrength, nearFieldRange);
     addInwardCircle(farFieldStrength, farFieldRange);
     
     smoothScore = (1-smoothScoreXeno) * smoothScore + smoothScoreXeno * score;
@@ -79,10 +81,15 @@ void Goal::draw(float alphaPrc){
     //show the center
     ofFill();
     ofSetColor(baseCol, 100*alphaPrc);
-    ofCircle(pos.x, pos.y, closeRange);
-    ofNoFill();
-    ofSetColor(10, 255*alphaPrc);
-    ofCircle(pos.x, pos.y, closeRange);
+    ofCircle(pos.x, pos.y, killRange);
+    
+    if (showDebug){
+        ofNoFill();
+        ofSetColor(10, 255*alphaPrc);
+        ofCircle(pos.x, pos.y, killRange);
+        ofCircle(pos.x, pos.y, nearRange);
+        ofCircle(pos.x, pos.y, farRange);
+    }
     
     
     ofSetColor(0);
@@ -110,11 +117,15 @@ void Goal::drawRadialScore(float alphaPrc){
     for (int i=0; i<rings; i++){
         float prc = 1 - ( (float)i/(float)rings);
         float size = farRange * prc;
-        float hue = baseHue +  ofNoise(ofGetElapsedTimef()*0.1, i) * 30;
+        
+        float hue = baseHue +  (ofNoise(ofGetElapsedTimef()*scoreBarNoiseSpeed, i)-0.5) * scoreBarHueRange;
+        if (hue < 0)    hue += 255;
+        if (hue > 255)  hue -=255;
         ofColor thisCol;
         thisCol.setHsb(hue, baseSat, baseBri);
-        thisCol.a = 150*alphaPrc;
+        thisCol.a = scoreBarAlpha*alphaPrc;
         ofSetColor(thisCol);
+        
         ofCircle(0, 0, size);
     }
     
@@ -135,10 +146,13 @@ void Goal::drawBoxScore(float alphaPrc){
     ofFill();
     
     for (int i=0; i<numBoxes; i++){
-        float hue = baseHue +  ofNoise(ofGetElapsedTimef()*0.1, i) * 30;
+        float hue = baseHue +  (ofNoise(ofGetElapsedTimef()*scoreBarNoiseSpeed, i)-0.5) * scoreBarHueRange;
+        if (hue < 0)    hue += 255;
+        if (hue > 255)  hue -=255;
+        
         ofColor thisCol;
         thisCol.setHsb(hue, baseSat, baseBri);
-        thisCol.a = 50*alphaPrc;
+        thisCol.a = scoreBarAlpha*alphaPrc;
         ofSetColor(thisCol);
         
         float width = boxSize;
@@ -205,3 +219,68 @@ void Goal::addInwardCircle(float strength, float range){
         }
     }
 }
+
+
+void Goal::checkPanelValues(ofxControlPanel * panel){
+    
+    string sideName = isLeft ? "LEFT" : "RIGHT";
+    
+    //goal
+    
+    scoreToWin = panel->getValueI("GOAL_SCORE_TO_WIN");
+    
+    baseCol.setHsb( panel->getValueI("GOAL_HUE_"+sideName) , panel->getValueF("GOAL_SAT"), panel->getValueF("GOAL_BRI"));
+    
+    float xPadding = panel->getValueF("GOAL_X_DIST_FROM_EDGE");
+    float yPadding = panel->getValueF("GOAL_Y_PRC_FROM_EDGE") * ofGetHeight();
+    pos.x = isLeft ? xPadding : ofGetWidth()-xPadding;
+    pos.y = isLeft ? ofGetHeight()-yPadding : yPadding;
+    fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
+    
+    nearRange = panel->getValueF("GOAL_NEAR_RANGE");
+    farRange = panel->getValueF("GOAL_FAR_RANGE");
+    nearFieldRange = (float)( (nearRange / (float)field->externalWidth) * field->fieldWidth);
+    farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
+    
+    nearFieldStrength = panel->getValueF("GOAL_NEAR_FIELD_STRENGTH");
+    farFieldStrength = panel->getValueF("GOAL_FAR_FIELD_STRENGTH");
+    
+    killRange = panel->getValueF("GOAL_KILL_RANGE");
+    
+    showDebug = panel->getValueB("GOAL_SHOW_DEBUG");
+    
+    //score display
+    
+    useRadialScoreDisplay = panel->getValueB("GOAL_USE_RADIAL");
+    
+    scoreBarAlpha = panel->getValueF("GOAL_SCORE_BAR_ALPHA");
+    scoreBarHueRange = panel->getValueF("GOAL_SCORE_BAR_HUE_RANGE");
+    scoreBarNoiseSpeed = panel->getValueF("GOAL_SCORE_BAR_NOISE_SPEED");
+    
+    smoothScoreXeno = panel->getValueF("GOAL_SCORE_XENO");
+    
+    if (panel->getValueB("GOAL_ADD_SCORE_"+sideName)){
+        markScore();
+        panel->setValueB("GOAL_ADD_SCORE_"+sideName, false);
+    }
+    
+    
+    /*
+    
+    panel.addPanel("Goals Score Display", 1, false);
+    panel.setWhichPanel("Goals Score Display");
+    panel.setWhichColumn(0);
+    
+    panel.addToggle("Use Radial Score Display", "GOAL_USE_RADIAL", false);
+    
+    panel.addSlider("Score Bar Alpha", "GOAL_SCORE_BAR_ALPHA", 50, 0, 255, false);
+    panel.addSlider("Score Bar Hue Range", "GOAL_SCORE_BAR_HUE_RANGE", 30, 0, 255, false);
+    panel.addSlider("Score Bar Noise Speed", "GOAL_SCORE_BAR_NOISE_SPEED", 0.1, 0, 1, false);
+    
+    panel.addSlider("Score Smoothing Speed", "GOAL_SCORE_XENO", 0.25, 0, 1, false);
+    
+    panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_LEFT", false);
+    panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_RIGHT", false);
+     */
+}
+
