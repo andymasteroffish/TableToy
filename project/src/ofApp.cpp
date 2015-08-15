@@ -25,7 +25,7 @@ void ofApp::setup(){
     showField = false;
     showDebugInfo = true;
     showCupDebug = false;
-    showPanel = false;
+    showPanel = true;
     
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
@@ -187,6 +187,8 @@ void ofApp::setup(){
     panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_LEFT", false);
     panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_RIGHT", false);
     
+    curPanel = 5;
+    panel.setSelectedPanel(curPanel);
     
 }
 
