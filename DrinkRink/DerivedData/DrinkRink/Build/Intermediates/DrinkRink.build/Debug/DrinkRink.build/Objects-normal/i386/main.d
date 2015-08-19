@@ -171,39 +171,39 @@ dependencies: \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/ofApp.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxControlPanel/src/ofxControlPanel.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxXmlSettings/src/ofxXmlSettings.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxml.h \
-  ../../../addons/ofxControlPanel/src/guiIncludes.h \
-  ../../../addons/ofxControlPanel/src/guiValue.h \
-  ../../../addons/ofxControlPanel/src/guiBaseObject.h \
-  ../../../addons/ofxControlPanel/src/simpleColor.h \
-  ../../../addons/ofxControlPanel/src/guiColor.h \
-  ../../../addons/ofxControlPanel/src/guiTextBase.h \
-  ../../../addons/ofxControlPanel/src/guiCallback.h \
-  ../../../addons/ofxControlPanel/src/guiCallbackValue.h \
-  ../../../addons/ofxControlPanel/src/guiVariablePointer.h \
-  ../../../addons/ofxControlPanel/src/guiTypePanel.h \
-  ../../../addons/ofxControlPanel/src/guiTypeText.h \
-  ../../../addons/ofxControlPanel/src/guiTypeToggle.h \
-  ../../../addons/ofxControlPanel/src/guiTypeMultiToggle.h \
-  ../../../addons/ofxControlPanel/src/guiTypeSlider.h \
-  ../../../addons/ofxControlPanel/src/guiType2DSlider.h \
-  ../../../addons/ofxControlPanel/src/guiTypeDrawable.h \
-  ../../../addons/ofxControlPanel/src/guiTypeButtonSlider.h \
-  ../../../addons/ofxControlPanel/src/guiTypeTextDropDown.h \
-  ../../../addons/ofxControlPanel/src/guiTypeCustom.h \
-  ../../../addons/ofxControlPanel/src/guiCustomImpl.h \
-  ../../../addons/ofxControlPanel/src/guiTypeVideo.h \
-  ../../../addons/ofxControlPanel/src/guiTypeVairableLister.h \
-  ../../../addons/ofxControlPanel/src/guiTypeChartPlotter.h \
-  ../../../addons/ofxControlPanel/src/guiTypeLogger.h \
-  ../../../addons/ofxControlPanel/src/simpleLogger.h \
-  ../../../addons/ofxControlPanel/src/guiTypeFileLister.h \
-  ../../../addons/ofxControlPanel/src/simpleFileLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/ofxControlPanel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxXmlSettings/src/ofxXmlSettings.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxXmlSettings/libs/tinyxml.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiIncludes.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiValue.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiBaseObject.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleColor.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiColor.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTextBase.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCallback.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCallbackValue.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiVariablePointer.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypePanel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeText.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeToggle.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeMultiToggle.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiType2DSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeDrawable.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeButtonSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeTextDropDown.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeCustom.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCustomImpl.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeVideo.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeVairableLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeChartPlotter.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeLogger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleLogger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeFileLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleFileLister.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxDirList/src/ofxDirList.h \
-  ../../../addons/ofxControlPanel/src/guiTypeLabel.h \
-  ../../../addons/ofxControlPanel/src/guiTypeTextInput.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeLabel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeTextInput.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/VectorField.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Utils.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Scene.h \
@@ -220,4 +220,72 @@ dependencies: \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/StreamScene.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/TowerRock.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/FlyersScene.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Flyer.h
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Flyer.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/CupTrackerCam.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxOpenCv.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvConstants.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core_c.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/types_c.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/version.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/operations.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/mat.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/imgproc_c.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/types_c.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/imgproc.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/video/tracking.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/features2d.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/miniflann.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/defines.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/config.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/flann.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/flann_base.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/general.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/matrix.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/params.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/any.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/saving.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/nn_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/result_set.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/all_indices.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/kdtree_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/dynamic_bitset.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/dist.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/heap.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/allocator.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/random.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/kdtree_single_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/kmeans_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/logger.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/composite_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/linear_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/hierarchical_clustering_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/lsh_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/lsh_table.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/autotuned_index.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/ground_truth.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/index_testing.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/timer.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/sampling.h \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/calib3d.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/objdetect.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/compat.hpp \
+  ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/internal.hpp \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvImage.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvGrayscaleImage.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvBlob.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvColorImage.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvFloatImage.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvShortImage.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvContourFinder.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvHaarFinder.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFidMain.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFiducial.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/libfidtrack/fidtrackX.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/libfidtrack/segment.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/libfidtrack/treeidmap.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/libfidtrack/floatpoint.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFinger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFiducialFinder.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFiducialTracker.h

@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxControlPanel/src/simpleLogger.cpp \
-  ../../../addons/ofxControlPanel/src/simpleLogger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleLogger.cpp \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleLogger.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \
@@ -171,5 +171,5 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxXmlSettings/src/ofxXmlSettings.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxml.h
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxXmlSettings/src/ofxXmlSettings.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxXmlSettings/libs/tinyxml.h

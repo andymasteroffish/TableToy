@@ -174,36 +174,36 @@ dependencies: \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Utils.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/VectorField.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Ball.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxControlPanel/src/ofxControlPanel.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxXmlSettings/src/ofxXmlSettings.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxml.h \
-  ../../../addons/ofxControlPanel/src/guiIncludes.h \
-  ../../../addons/ofxControlPanel/src/guiValue.h \
-  ../../../addons/ofxControlPanel/src/guiBaseObject.h \
-  ../../../addons/ofxControlPanel/src/simpleColor.h \
-  ../../../addons/ofxControlPanel/src/guiColor.h \
-  ../../../addons/ofxControlPanel/src/guiTextBase.h \
-  ../../../addons/ofxControlPanel/src/guiCallback.h \
-  ../../../addons/ofxControlPanel/src/guiCallbackValue.h \
-  ../../../addons/ofxControlPanel/src/guiVariablePointer.h \
-  ../../../addons/ofxControlPanel/src/guiTypePanel.h \
-  ../../../addons/ofxControlPanel/src/guiTypeText.h \
-  ../../../addons/ofxControlPanel/src/guiTypeToggle.h \
-  ../../../addons/ofxControlPanel/src/guiTypeMultiToggle.h \
-  ../../../addons/ofxControlPanel/src/guiTypeSlider.h \
-  ../../../addons/ofxControlPanel/src/guiType2DSlider.h \
-  ../../../addons/ofxControlPanel/src/guiTypeDrawable.h \
-  ../../../addons/ofxControlPanel/src/guiTypeButtonSlider.h \
-  ../../../addons/ofxControlPanel/src/guiTypeTextDropDown.h \
-  ../../../addons/ofxControlPanel/src/guiTypeCustom.h \
-  ../../../addons/ofxControlPanel/src/guiCustomImpl.h \
-  ../../../addons/ofxControlPanel/src/guiTypeVideo.h \
-  ../../../addons/ofxControlPanel/src/guiTypeVairableLister.h \
-  ../../../addons/ofxControlPanel/src/guiTypeChartPlotter.h \
-  ../../../addons/ofxControlPanel/src/guiTypeLogger.h \
-  ../../../addons/ofxControlPanel/src/simpleLogger.h \
-  ../../../addons/ofxControlPanel/src/guiTypeFileLister.h \
-  ../../../addons/ofxControlPanel/src/simpleFileLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/ofxControlPanel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxXmlSettings/src/ofxXmlSettings.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxXmlSettings/libs/tinyxml.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiIncludes.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiValue.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiBaseObject.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleColor.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiColor.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTextBase.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCallback.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCallbackValue.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiVariablePointer.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypePanel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeText.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeToggle.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeMultiToggle.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiType2DSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeDrawable.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeButtonSlider.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeTextDropDown.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeCustom.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCustomImpl.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeVideo.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeVairableLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeChartPlotter.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeLogger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleLogger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeFileLister.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleFileLister.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxDirList/src/ofxDirList.h \
-  ../../../addons/ofxControlPanel/src/guiTypeLabel.h \
-  ../../../addons/ofxControlPanel/src/guiTypeTextInput.h
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeLabel.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeTextInput.h

@@ -11,7 +11,7 @@
 #include "FlyersScene.h"
 
 #include "CupTracker.h"
-
+#include "CupTrackerCam.h"
 
 
 class ofApp : public ofBaseApp{
@@ -42,6 +42,7 @@ public:
     
     //reading form the cam
     CupTracker cupTracker;
+    CupTrackerCam cupTrackerCam;
     
     //scene
 #define NUM_SCENES 3

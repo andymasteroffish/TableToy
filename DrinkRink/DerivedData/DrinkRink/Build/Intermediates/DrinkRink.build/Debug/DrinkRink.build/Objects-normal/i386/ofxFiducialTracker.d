@@ -1,7 +1,7 @@
 dependencies: \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxFiducialFinder/src/ofxFiducialTracker.cpp \
-  ../../../addons/ofxFiducialFinder/src/ofxFiducialTracker.h \
-  ../../../addons/ofxFiducialFinder/src/ofxFiducial.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFiducialTracker.cpp \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFiducialTracker.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFiducial.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \
@@ -172,15 +172,15 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
-  ../../../addons/ofxFiducialFinder/src/libfidtrack/fidtrackX.h \
-  ../../../addons/ofxFiducialFinder/src/libfidtrack/segment.h \
-  ../../../addons/ofxFiducialFinder/src/libfidtrack/treeidmap.h \
-  ../../../addons/ofxFiducialFinder/src/libfidtrack/floatpoint.h \
-  ../../../addons/ofxFiducialFinder/src/ofxFinger.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxOpenCv/src/ofxCvGrayscaleImage.h \
-  ../../../addons/ofxOpenCv/src/ofxCvImage.h \
-  ../../../addons/ofxOpenCv/src/ofxCvConstants.h \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/libfidtrack/fidtrackX.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/libfidtrack/segment.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/libfidtrack/treeidmap.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/libfidtrack/floatpoint.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxFiducialFinder/src/ofxFinger.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvGrayscaleImage.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvImage.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvConstants.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core_c.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/types_c.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core.hpp \
@@ -228,4 +228,4 @@ dependencies: \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/objdetect.hpp \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/compat.hpp \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/internal.hpp \
-  ../../../addons/ofxOpenCv/src/ofxCvBlob.h
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxOpenCv/src/ofxCvBlob.h

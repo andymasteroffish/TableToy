@@ -1,7 +1,7 @@
 dependencies: \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxControlPanel/src/guiColor.cpp \
-  ../../../addons/ofxControlPanel/src/guiColor.h \
-  ../../../addons/ofxControlPanel/src/simpleColor.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiColor.cpp \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiColor.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/simpleColor.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \

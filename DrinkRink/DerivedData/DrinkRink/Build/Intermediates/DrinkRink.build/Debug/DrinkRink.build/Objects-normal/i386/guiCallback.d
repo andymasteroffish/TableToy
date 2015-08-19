@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/andywallace/Documents/of_v0.8.4_osx_release/addons/ofxControlPanel/src/guiCallback.cpp \
-  ../../../addons/ofxControlPanel/src/guiCallback.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCallback.cpp \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCallback.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \
@@ -171,4 +171,4 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
-  ../../../addons/ofxControlPanel/src/guiCallbackValue.h
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiCallbackValue.h

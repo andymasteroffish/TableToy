@@ -9,6 +9,8 @@ void ofApp::setup(){
     ofBackground(10);
     
     cupTracker.setup();
+    cupTrackerCam.setup();
+    
     
     scenes[SCENE_SPORTS] = new SportsScene();
     scenes[SCENE_STREAM] = new StreamScene();
@@ -217,6 +219,8 @@ void ofApp::scrollModes(){
 void ofApp::update(){
     ofShowCursor(); //the mouse was being hidden for some reason
     
+    cupTrackerCam.update();
+    
     //update the panel
     panel.update();
     //check preset buttons
@@ -293,6 +297,8 @@ void ofApp::draw(){
         string panelInfo = ofToString(curPanel+1)+"/"+ofToString(panel.panels.size());
         ofDrawBitmapString(panelInfo, ofGetWidth()-50, ofGetHeight()-5);
     }
+    
+    cupTrackerCam.draw();   //testing
 }
 
 //--------------------------------------------------------------
@@ -335,6 +341,7 @@ void ofApp::keyPressed(int key){
     }
     
     cupTracker.keyPressed(key);
+    cupTrackerCam.keyPressed(key);
     
     curScene->keyPressed(key);
     
