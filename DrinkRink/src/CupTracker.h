@@ -1,13 +1,13 @@
 //
-//  CamManager.h
-//  emptyExample
+//  CupTracker.h
+//  DrinkRink
 //
-//  Created by Andy Wallace on 6/27/15.
+//  Created by Andy Wallace on 8/20/15.
 //
 //
 
-#ifndef __emptyExample__CamManager__
-#define __emptyExample__CamManager__
+#ifndef __DrinkRink__CupTracker__
+#define __DrinkRink__CupTracker__
 
 #include "ofMain.h"
 #include "CupInfo.h"
@@ -15,31 +15,24 @@
 class CupTracker{
 public:
     
-    void setup();
-    void update();
     
+    void setup();
+    virtual void setupCustom(){}
+    virtual void update(){}
+    virtual void draw(){}
     
     //for debug
-    void debugUpdate();
-    void debugDraw();
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
-    void keyPressed(int key);
-    
-    void debugAddCup(int idNum);
-    void debugRemoveCup(int idNum);
-    
+    virtual void mouseDragged(int x, int y, int button){}
+    virtual void mousePressed(int x, int y, int button){}
+    virtual void mouseReleased(int x, int y, int button){}
+    virtual void keyPressed(int key){}
     
     //list of cups
     vector<CupInfo> activeCups;
-    int nextUniqueID;
+    //int nextUniqueID;
     
-    //for testing/faking input.
-    int aproxCupSize;
-    bool usingMouseAndKeyboard;
-    int debugDraggingCupID;
+    
     
 };
 
-#endif /* defined(__emptyExample__CamManager__) */
+#endif /* defined(__DrinkRink__CupTracker__) */

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AC3B9301B86C14E001DC9C5 /* CupTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */; };
 		0AF37A861B840D9A00A9CFF7 /* opencv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF37A731B840D9A00A9CFF7 /* opencv.a */; };
 		0AF37A871B840D9A00A9CFF7 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A761B840D9A00A9CFF7 /* ofxCvColorImage.cpp */; };
 		0AF37A881B840D9A00A9CFF7 /* ofxCvContourFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A791B840D9A00A9CFF7 /* ofxCvContourFinder.cpp */; };
@@ -15,7 +16,7 @@
 		0AF37A8B1B840D9A00A9CFF7 /* ofxCvHaarFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A7F1B840D9A00A9CFF7 /* ofxCvHaarFinder.cpp */; };
 		0AF37A8C1B840D9A00A9CFF7 /* ofxCvImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A811B840D9A00A9CFF7 /* ofxCvImage.cpp */; };
 		0AF37A8D1B840D9A00A9CFF7 /* ofxCvShortImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A831B840D9A00A9CFF7 /* ofxCvShortImage.cpp */; };
-		0AF37A941B840E0800A9CFF7 /* CupTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A921B840E0800A9CFF7 /* CupTracker.cpp */; };
+		0AF37A941B840E0800A9CFF7 /* CupTrackerDebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A921B840E0800A9CFF7 /* CupTrackerDebug.cpp */; };
 		0AF37A9B1B840E4B00A9CFF7 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A9A1B840E4B00A9CFF7 /* Scene.cpp */; };
 		0AF37AA21B840E5200A9CFF7 /* SportsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A9D1B840E5200A9CFF7 /* SportsScene.cpp */; };
 		0AF37AA31B840E5200A9CFF7 /* Ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A9F1B840E5200A9CFF7 /* Ball.cpp */; };
@@ -119,6 +120,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTracker.cpp; sourceTree = "<group>"; };
+		0AC3B92F1B86C14E001DC9C5 /* CupTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTracker.h; sourceTree = "<group>"; };
 		0AF37A071B840D6000A9CFF7 /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
 		0AF37A081B840D6000A9CFF7 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		0AF37A0A1B840D6000A9CFF7 /* ofxDirList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDirList.h; sourceTree = "<group>"; };
@@ -224,8 +227,8 @@
 		0AF37A841B840D9A00A9CFF7 /* ofxCvShortImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCvShortImage.h; sourceTree = "<group>"; };
 		0AF37A851B840D9A00A9CFF7 /* ofxOpenCv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOpenCv.h; sourceTree = "<group>"; };
 		0AF37A8E1B840DD100A9CFF7 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
-		0AF37A911B840E0800A9CFF7 /* CupTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTracker.h; sourceTree = "<group>"; };
-		0AF37A921B840E0800A9CFF7 /* CupTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTracker.cpp; sourceTree = "<group>"; };
+		0AF37A911B840E0800A9CFF7 /* CupTrackerDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTrackerDebug.h; sourceTree = "<group>"; };
+		0AF37A921B840E0800A9CFF7 /* CupTrackerDebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTrackerDebug.cpp; sourceTree = "<group>"; };
 		0AF37A931B840E0800A9CFF7 /* CupInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupInfo.h; sourceTree = "<group>"; };
 		0AF37A991B840E4B00A9CFF7 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		0AF37A9A1B840E4B00A9CFF7 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
@@ -699,8 +702,10 @@
 			isa = PBXGroup;
 			children = (
 				0AF37A931B840E0800A9CFF7 /* CupInfo.h */,
-				0AF37A911B840E0800A9CFF7 /* CupTracker.h */,
-				0AF37A921B840E0800A9CFF7 /* CupTracker.cpp */,
+				0AC3B92F1B86C14E001DC9C5 /* CupTracker.h */,
+				0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */,
+				0AF37A911B840E0800A9CFF7 /* CupTrackerDebug.h */,
+				0AF37A921B840E0800A9CFF7 /* CupTrackerDebug.cpp */,
 				0AF37B411B840FC000A9CFF7 /* CupTrackerCam.h */,
 				0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */,
 			);
@@ -1117,7 +1122,7 @@
 				0AF37B3D1B840FA600A9CFF7 /* treeidmap.cpp in Sources */,
 				0AF37AAB1B840E5D00A9CFF7 /* TowerRepeller.cpp in Sources */,
 				0AF37A881B840D9A00A9CFF7 /* ofxCvContourFinder.cpp in Sources */,
-				0AF37A941B840E0800A9CFF7 /* CupTracker.cpp in Sources */,
+				0AF37A941B840E0800A9CFF7 /* CupTrackerDebug.cpp in Sources */,
 				0AF37B1F1B840F4000A9CFF7 /* ofxControlPanel.cpp in Sources */,
 				0AF37B201B840F4000A9CFF7 /* simpleColor.cpp in Sources */,
 				0AF37AA41B840E5300A9CFF7 /* Goal.cpp in Sources */,
@@ -1156,6 +1161,7 @@
 				0AF37B1B1B840F4000A9CFF7 /* guiTypeToggle.cpp in Sources */,
 				0AF37AB21B840E6500A9CFF7 /* TowerRock.cpp in Sources */,
 				0AF37B231B840F4000A9CFF7 /* tinyxml.cpp in Sources */,
+				0AC3B9301B86C14E001DC9C5 /* CupTracker.cpp in Sources */,
 				0AF37B1E1B840F4000A9CFF7 /* guiValue.cpp in Sources */,
 				0AF37B0D1B840F4000A9CFF7 /* guiType2DSlider.cpp in Sources */,
 				0AF37B121B840F4000A9CFF7 /* guiTypeFileLister.cpp in Sources */,

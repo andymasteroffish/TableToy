@@ -162,17 +162,17 @@ void SportsScene::killBall(int idNum){
 //--------------------------------------------------------------------------------------------
 void SportsScene::addTower(CupInfo thisCup){
     
-    if (thisCup.typeID == 0 || thisCup.typeID > 2){
+    if (thisCup.uniqueID == 0 || thisCup.uniqueID > 2){
         TowerRepeller * newTower = new TowerRepeller();
         newTower->setup( thisCup, &field);
         towers.push_back(newTower);
     }
-    if (thisCup.typeID == 1) {
+    if (thisCup.uniqueID == 1) {
         TowerFlow * newTower = new TowerFlow();
         newTower->setup( thisCup, &field);
         towers.push_back(newTower);
     }
-    if (thisCup.typeID == 2) {
+    if (thisCup.uniqueID == 2) {
         TowerPulse * newTower = new TowerPulse();
         newTower->setup( thisCup, &field);
         towers.push_back(newTower);

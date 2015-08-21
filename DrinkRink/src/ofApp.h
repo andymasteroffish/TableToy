@@ -11,6 +11,7 @@
 #include "FlyersScene.h"
 
 #include "CupTracker.h"
+#include "CupTrackerDebug.h"
 #include "CupTrackerCam.h"
 
 
@@ -41,8 +42,8 @@ public:
     float deltaTime, prevFrameTime;
     
     //reading form the cam
-    CupTracker cupTracker;
-    CupTrackerCam cupTrackerCam;
+    bool usingDebugCupTracker;
+    CupTracker * cupTracker;
     
     //scene
 #define NUM_SCENES 3

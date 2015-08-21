@@ -8,16 +8,22 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     ofBackground(10);
     
-    cupTracker.setup();
-    cupTrackerCam.setup();
+    usingDebugCupTracker = false;
     
+    if (usingDebugCupTracker){
+        cupTracker = new CupTrackerDebug();
+    }else{
+        cupTracker = new CupTrackerCam();
+    }
+    
+    cupTracker->setup();
     
     scenes[SCENE_SPORTS] = new SportsScene();
     scenes[SCENE_STREAM] = new StreamScene();
     scenes[SCENE_FLYERS] = new FlyersScene();
     
     for (int i=0; i<NUM_SCENES; i++){
-        scenes[i]->setup(&cupTracker);
+        scenes[i]->setup(cupTracker);
     }
     
     curSceneID = -1;
@@ -31,14 +37,6 @@ void ofApp::setup(){
     
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
-    
-    //testing
-    for (int i=0; i<3; i++){
-        cupTracker.debugAddCup(0);
-    }
-    for (int i=1; i<=2; i++){
-        cupTracker.debugAddCup(i);
-    }
     
     //panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
     panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
@@ -219,7 +217,7 @@ void ofApp::scrollModes(){
 void ofApp::update(){
     ofShowCursor(); //the mouse was being hidden for some reason
     
-    cupTrackerCam.update();
+    cupTracker->update();
     
     //update the panel
     panel.update();
@@ -262,7 +260,7 @@ void ofApp::draw(){
     
     
     if (showCupDebug){
-        cupTracker.debugDraw();
+        cupTracker->draw();
     }
     
     
@@ -298,7 +296,7 @@ void ofApp::draw(){
         ofDrawBitmapString(panelInfo, ofGetWidth()-50, ofGetHeight()-5);
     }
     
-    cupTrackerCam.draw();   //testing
+    //cupTrackerCam.draw();   //testing
 }
 
 //--------------------------------------------------------------
@@ -340,8 +338,8 @@ void ofApp::keyPressed(int key){
         panel.setSelectedPanel(curPanel);
     }
     
-    cupTracker.keyPressed(key);
-    cupTrackerCam.keyPressed(key);
+    cupTracker->keyPressed(key);
+    //cupTrackerCam.keyPressed(key);
     
     curScene->keyPressed(key);
     
@@ -363,7 +361,7 @@ void ofApp::mouseMoved(int x, int y){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
     
-    cupTracker.mousePressed(x, y, button);
+    cupTracker->mousePressed(x, y, button);
     
     if (showPanel){
         panel.mousePressed(x,y,button);
@@ -373,7 +371,7 @@ void ofApp::mousePressed(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
     
-    cupTracker.mouseDragged(x, y, button);
+    cupTracker->mouseDragged(x, y, button);
     
     if (showPanel){
         panel.mouseDragged(x,y,button);
@@ -383,7 +381,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
     
-    cupTracker.mouseReleased(x, y, button);
+    cupTracker->mouseReleased(x, y, button);
     
     if (showPanel){
         panel.mouseReleased();

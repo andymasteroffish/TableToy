@@ -11,11 +11,13 @@
 
 class CupInfo{
 public:
-    int typeID;
+    //int typeID; //KILL THIS
     int uniqueID;
     ofVec2f pos;
     float angle;
     float startTime;
+    
+    int framesWithoutUpdate;
 };
 
 

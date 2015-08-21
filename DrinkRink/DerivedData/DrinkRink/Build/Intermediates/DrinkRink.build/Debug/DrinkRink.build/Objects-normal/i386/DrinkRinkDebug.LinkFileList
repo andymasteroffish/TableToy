@@ -16,7 +16,7 @@
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/treeidmap.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/TowerRepeller.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/ofxCvContourFinder.o
-/Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/CupTracker.o
+/Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/CupTrackerDebug.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/ofxControlPanel.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/simpleColor.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/Goal.o
@@ -55,6 +55,7 @@
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/guiTypeToggle.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/TowerRock.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/tinyxml.o
+/Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/CupTracker.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/guiValue.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/guiType2DSlider.o
 /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/DerivedData/DrinkRink/Build/Intermediates/DrinkRink.build/Debug/DrinkRink.build/Objects-normal/i386/guiTypeFileLister.o

@@ -10,31 +10,31 @@
 #define __DrinkRink__CupTrackerCam__
 
 #include "ofMain.h"
-#include "CupInfo.h"
+#include "CupTracker.h"
 
 #include "ofxOpenCv.h"
 #include "ofxFidMain.h"
 
-class CupTrackerCam{
+class CupTrackerCam : public CupTracker{
 public:
     
-    void setup();
+    void setupCustom();
     void update();
     void draw();
     
     void keyPressed(int key);
     
+    void checkFiducial(list<ofxFiducial>::iterator fiducial);
+    
     ofVideoGrabber 		vidGrabber;
     ofxCvGrayscaleImage grayImage;
-    //ofxCvGrayscaleImage grayBg;
-    //ofxCvGrayscaleImage	grayDiff;
     ofxCvColorImage		colorImg;
     
     ofxFiducialTracker	fidfinder;
     
     int 				threshold;
-    //bool				bLearnBakground;
-    //bool				backgroundSubOn;
+    
+    int framesBeforeKillingCup;
     
 };
 
