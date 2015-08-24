@@ -3,8 +3,8 @@
 # but not the data folder
 ###########################
 
-/bin/*
-!/bin/data/
+DrinkRink/bin/*
+DrinkRink/!/bin/data/
 
 #########
 # general
