@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A4EB6DD1B8B647400170FBB /* CalibrationScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A4EB6DB1B8B647400170FBB /* CalibrationScene.cpp */; };
 		0AC3B9301B86C14E001DC9C5 /* CupTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */; };
 		0AF37A861B840D9A00A9CFF7 /* opencv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF37A731B840D9A00A9CFF7 /* opencv.a */; };
 		0AF37A871B840D9A00A9CFF7 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A761B840D9A00A9CFF7 /* ofxCvColorImage.cpp */; };
@@ -120,6 +121,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A4EB6DB1B8B647400170FBB /* CalibrationScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationScene.cpp; sourceTree = "<group>"; };
+		0A4EB6DC1B8B647400170FBB /* CalibrationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationScene.h; sourceTree = "<group>"; };
 		0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTracker.cpp; sourceTree = "<group>"; };
 		0AC3B92F1B86C14E001DC9C5 /* CupTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTracker.h; sourceTree = "<group>"; };
 		0AF37A071B840D6000A9CFF7 /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
@@ -720,6 +723,8 @@
 				0AF37A951B840E1400A9CFF7 /* Sports */,
 				0AF37A961B840E1900A9CFF7 /* Stream */,
 				0AF37A971B840E1F00A9CFF7 /* Flyers */,
+				0A4EB6DC1B8B647400170FBB /* CalibrationScene.h */,
+				0A4EB6DB1B8B647400170FBB /* CalibrationScene.cpp */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -1137,6 +1142,7 @@
 				0AF37B3E1B840FA600A9CFF7 /* ofxFiducialFinder.cpp in Sources */,
 				0AF37B421B840FC000A9CFF7 /* CupTrackerCam.cpp in Sources */,
 				0AF37AAD1B840E5D00A9CFF7 /* TowerPulse.cpp in Sources */,
+				0A4EB6DD1B8B647400170FBB /* CalibrationScene.cpp in Sources */,
 				0AF37B251B840F4000A9CFF7 /* tinyxmlparser.cpp in Sources */,
 				0AF37B111B840F4000A9CFF7 /* guiTypeDrawable.cpp in Sources */,
 				0AF37B091B840F4000A9CFF7 /* guiCallback.cpp in Sources */,
