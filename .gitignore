@@ -10,16 +10,16 @@
 # general
 #########
 
-[Bb]uild/
-[Oo]bj/
-*.o
-[Dd]ebug*/
-[Rr]elease*/
-*.mode*
-*.app/
-*.pyc
-.svn/
-*.log
+DrinkRink/[Bb]uild/
+DrinkRink/[Oo]bj/
+DrinkRink/*.o
+DrinkRink/[Dd]ebug*/
+DrinkRink/[Rr]elease*/
+DrinkRink/*.mode*
+DrinkRink/*.app/
+DrinkRink/*.pyc
+DrinkRink/.svn/
+DrinkRink/*.log
 
 ########################
 # IDE files which should
@@ -65,7 +65,7 @@ local.properties
 .AppleDouble
 
 # OSX
-.DS_Store
+DrinkRink/.DS_Store
 *.swp
 *~.nib
 # Thumbnails
