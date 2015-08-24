@@ -4,7 +4,6 @@
 ###########################
 
 DrinkRink/bin/*
-DrinkRink/!/bin/data/
 
 #########
 # general
@@ -15,11 +14,11 @@ DrinkRink/[Oo]bj/
 DrinkRink/*.o
 DrinkRink/[Dd]ebug*/
 DrinkRink/[Rr]elease*/
-DrinkRink/*.mode*
-DrinkRink/*.app/
-DrinkRink/*.pyc
-DrinkRink/.svn/
-DrinkRink/*.log
+*.mode*
+*.app/
+*.pyc
+.svn/
+*.log
 
 ########################
 # IDE files which should
