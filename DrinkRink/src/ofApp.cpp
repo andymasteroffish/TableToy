@@ -31,8 +31,8 @@ void ofApp::setup(){
     
     
     showField = false;
-    showDebugInfo = true;
-    showCupDebug = false;
+    showDebugInfo = false;
+    showCupDebug = true;
     showPanel = true;
     
     deltaTime = 0;
@@ -277,6 +277,7 @@ void ofApp::draw(){
         debugInfo +=        "\np - toggle panel";
         debugInfo +=        "\nleft & right - switch panel";
         debugInfo +=        "\nc - show cup tracker";
+        debugInfo +=        "\nv - play/pause debug cup vid. Double tap to rewind";
         debugInfo +=        "\nm - scroll mode";
         debugInfo +=        "\n0-9 - add cup";
         debugInfo +=        "\nr - randomize balls";
@@ -339,7 +340,6 @@ void ofApp::keyPressed(int key){
     }
     
     cupTracker->keyPressed(key);
-    //cupTrackerCam.keyPressed(key);
     
     curScene->keyPressed(key);
     

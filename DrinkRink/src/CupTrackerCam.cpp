@@ -11,11 +11,16 @@
 //--------------------------------------------------------------
 void CupTrackerCam::setupCustom(){
     
+#ifdef USE_VIDEO
+    vidGrabber.loadMovie("vid/spinners_no_border.mov");
+    vidGrabber.play();
+#else
     vidGrabber.setVerbose(true);
     vidGrabber.initGrabber(320,240);
+#endif
     
-    colorImg.allocate(320,240);
-    grayImage.allocate(320,240);
+    colorImg.allocate(vidGrabber.width ,vidGrabber.height);
+    grayImage.allocate(vidGrabber.width ,vidGrabber.height);
     
     threshold = 80;
     
@@ -26,6 +31,10 @@ void CupTrackerCam::setupCustom(){
     fidfinder.maxFingerSize		= 25;
     fidfinder.minFingerSize		= 5;
     fidfinder.fingerSensitivity	= 0.05f; //from 0 to 2.0f
+    
+    
+    timeForDoubleKeyPress = 0.2;
+    lastKeyPressTime = -1000;
 }
 
 //--------------------------------------------------------------
@@ -34,7 +43,7 @@ void CupTrackerCam::update(){
     vidGrabber.update();
     
     if (vidGrabber.isFrameNew()){
-        colorImg.setFromPixels(vidGrabber.getPixels(), 320,240);
+        colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.width ,vidGrabber.height);
         grayImage = colorImg;
         
         grayImage.threshold(threshold);
@@ -63,14 +72,18 @@ void CupTrackerCam::draw(){
     
     ofSetColor(255, 200);
     
-    colorImg.draw(20,20);
-    grayImage.draw(360,20);
+    //vidGrabber.draw(20,20);
+    
+    ofVec2f drawStart(100,0);
+    
+    colorImg.draw(drawStart.x,drawStart.y);
+    grayImage.draw(drawStart.x,drawStart.y+5+vidGrabber.height);
     
     //use this method for the FiducialTracker
     //to get fiducial info you can use the fiducial getter methods
     for (list<ofxFiducial>::iterator fiducial = fidfinder.fiducialsList.begin(); fiducial != fidfinder.fiducialsList.end(); fiducial++) {
-        fiducial->draw( 20, 20 );//draw fiducial
-        fiducial->drawCorners( 20, 20 );//draw corners
+        fiducial->draw( drawStart.x, drawStart.y );//draw fiducial
+        fiducial->drawCorners( drawStart.x, drawStart.y );//draw corners
     }
     
 }
@@ -82,6 +95,25 @@ void CupTrackerCam::keyPressed(int key){
     } else if( key == '+' || key == '=' ) {
         threshold = MIN( 255, threshold+1 );
     }
+    
+    
+#ifdef USE_VIDEO
+    if (key == 'v'){
+        bool isDouble = ofGetElapsedTimef() - lastKeyPressTime < timeForDoubleKeyPress;
+        lastKeyPressTime = ofGetElapsedTimef();
+        if (isDouble){
+            vidGrabber.setFrame(0);
+            vidGrabber.play();
+        }else{
+            if (vidGrabber.isPlaying()){
+                cout<<"love to press"<<endl;
+                vidGrabber.stop();
+            }else{
+                vidGrabber.play();
+            }
+        }
+    }
+#endif
 }
 
 

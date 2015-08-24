@@ -15,6 +15,11 @@
 #include "ofxOpenCv.h"
 #include "ofxFidMain.h"
 
+
+//uncomment this to use live feed
+#define USE_VIDEO
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 class CupTrackerCam : public CupTracker{
 public:
     
@@ -26,7 +31,13 @@ public:
     
     void checkFiducial(list<ofxFiducial>::iterator fiducial);
     
+
+#ifdef USE_VIDEO
+    ofVideoPlayer       vidGrabber;
+#else
     ofVideoGrabber 		vidGrabber;
+#endif
+    
     ofxCvGrayscaleImage grayImage;
     ofxCvColorImage		colorImg;
     
@@ -35,6 +46,12 @@ public:
     int 				threshold;
     
     int framesBeforeKillingCup;
+    
+    
+    //debug stuff
+    float timeForDoubleKeyPress;
+    float lastKeyPressTime; //for double presses
+    
     
 };
 
