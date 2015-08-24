@@ -3,18 +3,17 @@
 # but not the data folder
 ###########################
 
-/bin/*
-!/bin/data/
+DrinkRink/bin/*
 
 #########
 # general
 #########
 
-[Bb]uild/
-[Oo]bj/
-*.o
-[Dd]ebug*/
-[Rr]elease*/
+DrinkRink/[Bb]uild/
+DrinkRink/[Oo]bj/
+DrinkRink/*.o
+DrinkRink/[Dd]ebug*/
+DrinkRink/[Rr]elease*/
 *.mode*
 *.app/
 *.pyc
@@ -65,7 +64,7 @@ local.properties
 .AppleDouble
 
 # OSX
-.DS_Store
+DrinkRink/.DS_Store
 *.swp
 *~.nib
 # Thumbnails
