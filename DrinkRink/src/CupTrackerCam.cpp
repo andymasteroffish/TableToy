@@ -15,7 +15,8 @@ void CupTrackerCam::setupCustom(){
     int imgHeight = 200;
     
 #ifdef USE_VIDEO
-    vidGrabber.loadMovie("vid/spinners_with_border.mov");
+    //vidGrabber.loadMovie("vid/spinners_with_border.mov");
+    vidGrabber.loadMovie("vid/spinners_no_border.mov");
     vidGrabber.play();
 #else
     vidGrabber.setVerbose(true);

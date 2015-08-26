@@ -121,6 +121,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A2FE3E61B8E26B500ABD7DB /* TowerCalibration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TowerCalibration.h; sourceTree = "<group>"; };
 		0A4EB6DB1B8B647400170FBB /* CalibrationScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationScene.cpp; sourceTree = "<group>"; };
 		0A4EB6DC1B8B647400170FBB /* CalibrationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationScene.h; sourceTree = "<group>"; };
 		0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTracker.cpp; sourceTree = "<group>"; };
@@ -397,6 +398,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A2FE3E51B8E267900ABD7DB /* Calibration */ = {
+			isa = PBXGroup;
+			children = (
+				0A4EB6DC1B8B647400170FBB /* CalibrationScene.h */,
+				0A4EB6DB1B8B647400170FBB /* CalibrationScene.cpp */,
+				0A2FE3E61B8E26B500ABD7DB /* TowerCalibration.h */,
+			);
+			name = Calibration;
+			sourceTree = "<group>";
+		};
 		0AF37A051B840D6000A9CFF7 /* ofxDirList */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,11 +731,10 @@
 			children = (
 				0AF37A991B840E4B00A9CFF7 /* Scene.h */,
 				0AF37A9A1B840E4B00A9CFF7 /* Scene.cpp */,
+				0A2FE3E51B8E267900ABD7DB /* Calibration */,
 				0AF37A951B840E1400A9CFF7 /* Sports */,
 				0AF37A961B840E1900A9CFF7 /* Stream */,
 				0AF37A971B840E1F00A9CFF7 /* Flyers */,
-				0A4EB6DC1B8B647400170FBB /* CalibrationScene.h */,
-				0A4EB6DB1B8B647400170FBB /* CalibrationScene.cpp */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";

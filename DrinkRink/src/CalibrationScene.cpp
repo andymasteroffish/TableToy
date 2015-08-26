@@ -119,5 +119,7 @@ void CalibrationScene::addTower(CupInfo thisCup){
         return;
     }
     
-    //no towers for this guy just yet
+    TowerCalibration * newTower = new TowerCalibration();
+    newTower->setup( thisCup, &field);
+    towers.push_back(newTower);
 }

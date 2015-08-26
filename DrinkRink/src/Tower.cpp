@@ -27,6 +27,8 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     towerSize = 40;    //how big the physical cup is
     
+    showDebugImage = true;
+    
     
     customSetup();
     
@@ -55,12 +57,16 @@ void Tower::calculateFieldRange(){
 
 void Tower::draw(float alphaPrc){
     
-    customDraw();
-    //show a debug image
-    ofFill();
-    ofSetColor(debugColor.r, debugColor.g, debugColor.b, debugColor.a * alphaPrc);
-    ofCircle(pos.x, pos.y, towerSize);
-    ofSetColor(0);
-    ofSetLineWidth(1);
-    ofLine(pos.x, pos.y, pos.x+cos(angle)*towerSize*0.8, pos.y+sin(angle)*towerSize*0.8);
+    customDraw(alphaPrc);
+    
+    if (showDebugImage){
+    
+        //show a debug image
+        ofFill();
+        ofSetColor(debugColor.r, debugColor.g, debugColor.b, debugColor.a * alphaPrc);
+        ofCircle(pos.x, pos.y, towerSize);
+        ofSetColor(0);
+        ofSetLineWidth(1);
+        ofLine(pos.x, pos.y, pos.x+cos(angle)*towerSize*0.8, pos.y+sin(angle)*towerSize*0.8);
+    }
 }

@@ -14,6 +14,7 @@
 #include "CupTrackerCam.h"
 
 #include "Tower.h"
+#include "TowerCalibration.h"
 
 class CalibrationScene : public Scene{
 public:

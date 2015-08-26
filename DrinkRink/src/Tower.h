@@ -33,7 +33,7 @@ public:
     void calculateFieldRange();
     
     void draw(float alphaPrc);
-    virtual void customDraw(){}
+    virtual void customDraw(float alphaPrc){}
     
     
     ofVec2f pos;
@@ -60,7 +60,7 @@ public:
     
     bool isDebugSelectedForAngle;
     
-    
+    bool showDebugImage;
     
     
 };
