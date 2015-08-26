@@ -23,6 +23,8 @@ void CupTrackerDebug::setupCustom(){
         debugAddCup(i);
     }
     
+    isDebug = true;
+    
 }
 
 

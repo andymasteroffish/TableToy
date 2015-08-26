@@ -6,9 +6,11 @@
 #include "VectorField.h"
 
 #include "Scene.h"
+#include "CalibrationScene.h"
 #include "SportsScene.h"
 #include "StreamScene.h"
 #include "FlyersScene.h"
+
 
 #include "CupTracker.h"
 #include "CupTrackerDebug.h"
@@ -46,10 +48,11 @@ public:
     CupTracker * cupTracker;
     
     //scene
-#define NUM_SCENES 3
-#define SCENE_SPORTS 0
-#define SCENE_STREAM 1
-#define SCENE_FLYERS 2
+#define NUM_SCENES          4
+#define SCENE_CALIBRATION   0
+#define SCENE_SPORTS        1
+#define SCENE_STREAM        2
+#define SCENE_FLYERS        3
     Scene * scenes[NUM_SCENES];
     Scene * curScene;
     Scene * fadingScene;

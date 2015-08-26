@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "CupInfo.h"
+#include "ofxControlPanel.h"
 
 class CupTracker{
 public:
@@ -19,6 +20,7 @@ public:
     void setup();
     virtual void setupCustom(){}
     virtual void update(){}
+    virtual void updateFromPanel(ofxControlPanel * panel){}
     virtual void draw(){}
     
     //for debug
@@ -31,7 +33,7 @@ public:
     vector<CupInfo> activeCups;
     //int nextUniqueID;
     
-    
+    bool isDebug;
     
 };
 

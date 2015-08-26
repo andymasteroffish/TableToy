@@ -11,6 +11,9 @@
 //--------------------------------------------------------------
 void CupTrackerCam::setupCustom(){
     
+    int imgWidth = 600;
+    int imgHeight = 200;
+    
 #ifdef USE_VIDEO
     vidGrabber.loadMovie("vid/spinners_no_border.mov");
     vidGrabber.play();
@@ -19,8 +22,22 @@ void CupTrackerCam::setupCustom(){
     vidGrabber.initGrabber(320,240);
 #endif
     
-    colorImg.allocate(vidGrabber.width ,vidGrabber.height);
-    grayImage.allocate(vidGrabber.width ,vidGrabber.height);
+    fullImg.allocate(vidGrabber.width, vidGrabber.height);
+    colorImg.allocate(imgWidth , imgHeight);
+    grayImage.allocate(imgWidth , imgHeight);
+    
+    //start the warp points to include the whole camera image
+    warpPoints[0].set(0, 0);
+    warpPoints[1].set(vidGrabber.width, 0);
+    warpPoints[2].set(vidGrabber.width, vidGrabber.height);
+    warpPoints[3].set(0, vidGrabber.height);
+    
+    //warp end points don't change
+    warpEndPoints[0].set(0,0);
+    warpEndPoints[1].set(colorImg.width,0);
+    warpEndPoints[2].set(colorImg.width, colorImg.height);
+    warpEndPoints[3].set(0,colorImg.height);
+    
     
     threshold = 80;
     
@@ -35,6 +52,17 @@ void CupTrackerCam::setupCustom(){
     
     timeForDoubleKeyPress = 0.2;
     lastKeyPressTime = -1000;
+    
+    isDebug = false;
+}
+
+//--------------------------------------------------------------
+void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
+    threshold = panel->getValueI("CAM_THRESHOLD");
+    for (int i=0; i<4; i++){
+        warpPoints[i].x = panel->getValueF("CAM_WARP_X_"+ofToString(i)) * fullImg.width;
+        warpPoints[i].y = panel->getValueF("CAM_WARP_Y_"+ofToString(i)) * fullImg.height;
+    }
 }
 
 //--------------------------------------------------------------
@@ -43,7 +71,9 @@ void CupTrackerCam::update(){
     vidGrabber.update();
     
     if (vidGrabber.isFrameNew()){
-        colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.width ,vidGrabber.height);
+        fullImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.width, vidGrabber.height);
+        colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
+        //colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.width ,vidGrabber.height);
         grayImage = colorImg;
         
         grayImage.threshold(threshold);
@@ -72,20 +102,25 @@ void CupTrackerCam::draw(){
     
     ofSetColor(255, 200);
     
-    //vidGrabber.draw(20,20);
+    vidGrabber.draw(20,20);
     
     ofVec2f drawStart(100,0);
     
     colorImg.draw(drawStart.x,drawStart.y);
     grayImage.draw(drawStart.x,drawStart.y+5+vidGrabber.height);
     
+    drawFiducials(drawStart.x, drawStart.y);
+    
+}
+
+//--------------------------------------------------------------
+void CupTrackerCam::drawFiducials(int x, int y){
     //use this method for the FiducialTracker
     //to get fiducial info you can use the fiducial getter methods
     for (list<ofxFiducial>::iterator fiducial = fidfinder.fiducialsList.begin(); fiducial != fidfinder.fiducialsList.end(); fiducial++) {
-        fiducial->draw( drawStart.x, drawStart.y );//draw fiducial
-        fiducial->drawCorners( drawStart.x, drawStart.y );//draw corners
+        fiducial->draw( x, y );//draw fiducial
+        fiducial->drawCorners( x, y );//draw corners
     }
-    
 }
 
 //--------------------------------------------------------------

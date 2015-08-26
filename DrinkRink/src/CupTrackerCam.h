@@ -24,8 +24,10 @@ class CupTrackerCam : public CupTracker{
 public:
     
     void setupCustom();
+    void updateFromPanel(ofxControlPanel * panel);
     void update();
     void draw();
+    void drawFiducials(int x, int y);
     
     void keyPressed(int key);
     
@@ -38,12 +40,15 @@ public:
     ofVideoGrabber 		vidGrabber;
 #endif
     
+    ofxCvColorImage		fullImg, colorImg;
     ofxCvGrayscaleImage grayImage;
-    ofxCvColorImage		colorImg;
     
     ofxFiducialTracker	fidfinder;
     
-    int 				threshold;
+    
+    int  threshold;
+    ofPoint warpPoints[4];          //the points from the source image to use. These can be adjusted.
+    ofPoint warpEndPoints[4];       //the points into the end image. These will always be the corners of our end image.
     
     int framesBeforeKillingCup;
     

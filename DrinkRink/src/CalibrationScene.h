@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "Scene.h"
+#include "CupTrackerCam.h"
 
 #include "Tower.h"
 
@@ -28,6 +29,9 @@ public:
     
     
     void addTower(CupInfo thisCup);
+    
+    bool usingDebug;    //don't do anything if we're not using the camera
+    CupTrackerCam * tracker;
     
     
     

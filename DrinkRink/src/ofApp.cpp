@@ -17,7 +17,7 @@ void ofApp::setup(){
     }
     
     cupTracker->setup();
-    
+    scenes[SCENE_CALIBRATION] = new CalibrationScene();
     scenes[SCENE_SPORTS] = new SportsScene();
     scenes[SCENE_STREAM] = new StreamScene();
     scenes[SCENE_FLYERS] = new FlyersScene();
@@ -32,7 +32,7 @@ void ofApp::setup(){
     
     showField = false;
     showDebugInfo = false;
-    showCupDebug = true;
+    showCupDebug = false;
     showPanel = true;
     
     deltaTime = 0;
@@ -187,7 +187,26 @@ void ofApp::setup(){
     panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_LEFT", false);
     panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_RIGHT", false);
     
-    curPanel = 5;
+    
+    panel.addPanel("Cam Setup", 1, false);
+    panel.setWhichPanel("Cam Setup");
+    panel.setWhichColumn(0);
+    
+    panel.addSlider("Threshold", "CAM_THRESHOLD", 80, 0, 255, true);
+    
+    //the 4 warp points
+    for (int i=0; i<4; i++){
+        if (i==0) panel.addLabel("Top Left Warp");
+        if (i==1) panel.addLabel("Top Right Warp");
+        if (i==2) panel.addLabel("Bottom Right Warp");
+        if (i==3) panel.addLabel("Bottom Left Warp");
+        float xVal = i==0 || i==3 ? 0 : 1;
+        float yVal = i<2 ? 0 : 1;
+        panel.addSlider("X Prc", "CAM_WARP_X_"+ofToString(i), xVal, 0, 1, false);
+        panel.addSlider("Y Prc", "CAM_WARP_Y_"+ofToString(i), yVal, 0, 1, false);
+    }
+    
+    curPanel = 7;
     panel.setSelectedPanel(curPanel);
     
 }
@@ -229,6 +248,9 @@ void ofApp::update(){
         }
     }
     
+    cupTracker->updateFromPanel(&panel);
+    
+    //main update
     deltaTime = ofGetElapsedTimef() - prevFrameTime;
     prevFrameTime = ofGetElapsedTimef();
     
