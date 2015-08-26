@@ -50,6 +50,7 @@ public:
     ofPoint warpPoints[4];          //the points from the source image to use. These can be adjusted.
     ofPoint warpEndPoints[4];       //the points into the end image. These will always be the corners of our end image.
     
+    ofVec2f cupOffset;
     int framesBeforeKillingCup;
     
     

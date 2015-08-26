@@ -193,6 +193,8 @@ void ofApp::setup(){
     panel.setWhichColumn(0);
     
     panel.addSlider("Threshold", "CAM_THRESHOLD", 80, 0, 255, true);
+    panel.addSlider("X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
+    panel.addSlider("Y Offset", "CAM_Y_OFFSET", 0, -100, 100, false);
     
     //the 4 warp points
     for (int i=0; i<4; i++){

@@ -53,12 +53,16 @@ void CupTrackerCam::setupCustom(){
     timeForDoubleKeyPress = 0.2;
     lastKeyPressTime = -1000;
     
+    cupOffset.set(0,0);
+    
     isDebug = false;
 }
 
 //--------------------------------------------------------------
 void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     threshold = panel->getValueI("CAM_THRESHOLD");
+    cupOffset.x = panel->getValueF("CAM_X_OFFSET");
+    cupOffset.y = panel->getValueF("CAM_Y_OFFSET");
     for (int i=0; i<4; i++){
         warpPoints[i].x = panel->getValueF("CAM_WARP_X_"+ofToString(i)) * fullImg.width;
         warpPoints[i].y = panel->getValueF("CAM_WARP_Y_"+ofToString(i)) * fullImg.height;
@@ -141,7 +145,6 @@ void CupTrackerCam::keyPressed(int key){
             vidGrabber.play();
         }else{
             if (vidGrabber.isPlaying()){
-                cout<<"love to press"<<endl;
                 vidGrabber.stop();
             }else{
                 vidGrabber.play();
@@ -163,7 +166,7 @@ void CupTrackerCam::checkFiducial(list<ofxFiducial>::iterator fiducial){
     for (int i=0; i<activeCups.size(); i++){
         if (activeCups[i].uniqueID == fiducial->fidId){
             //if we found it update it
-            activeCups[i].pos.set( fiducial->current.xpos*xAdjust, fiducial->current.ypos*yAdjust );
+            activeCups[i].pos.set( fiducial->current.xpos*xAdjust + cupOffset.x , fiducial->current.ypos*yAdjust + cupOffset.y);
             activeCups[i].angle = fiducial->current.angle;
             //and don't let it die
             activeCups[i].framesWithoutUpdate = 0;
@@ -175,7 +178,7 @@ void CupTrackerCam::checkFiducial(list<ofxFiducial>::iterator fiducial){
     CupInfo thisCupInfo;
     
     thisCupInfo.uniqueID = fiducial->fidId;
-    thisCupInfo.pos.set( fiducial->current.xpos*xAdjust, fiducial->current.ypos*yAdjust );
+    thisCupInfo.pos.set( fiducial->current.xpos*xAdjust + cupOffset.x , fiducial->current.ypos*yAdjust + cupOffset.y );
     thisCupInfo.angle = fiducial->current.angle;
     thisCupInfo.framesWithoutUpdate = 0;
     thisCupInfo.startTime = ofGetElapsedTimef();
