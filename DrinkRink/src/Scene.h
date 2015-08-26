@@ -81,6 +81,7 @@ public:
     float fadeTimer;
     float alphaPrc;
     
+    bool ignorePanelValues;
     
     //testing different particle options
     float p_friction;

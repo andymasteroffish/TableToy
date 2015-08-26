@@ -18,6 +18,8 @@ void Scene::setup(CupTracker * _cupTracker){
     
     particlePic.loadImage("pic/smoke.png");
     
+    ignorePanelValues = false;
+    
     setupCustom();
     
 }
@@ -79,6 +81,10 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
 
 //--------------------------------------------------------------------------------------------
 void Scene::checkPanelValues(ofxControlPanel *panel){
+    if (ignorePanelValues){
+        return;
+    }
+    
     //colors
     bgCol.setHsb(panel->getValueF("BG_HUE"), panel->getValueF("BG_SAT"), panel->getValueF("BG_BRI"));
     
