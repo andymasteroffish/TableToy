@@ -9,6 +9,8 @@
 #ifndef DrinkRink_BallParticle_h
 #define DrinkRink_BallParticle_h
 
+#include "Ball.h"
+
 class BallParticle{
 public:
     
@@ -25,20 +27,23 @@ public:
     float fric;
     float killTime;
     
-    void setup(ofVec2f _pos, ofVec2f _targetPos, ofColor _col){
+    int resolution;
+    float angle;
+    
+    void setup(Ball parentBall, ofVec2f _targetPos){
         timer = 0;
         timeBeforePullingIn = 0.3;
         timeToPullIn = 0.2;
         targetPos = _targetPos;
         
-        pos = _pos;
-        col = _col;
+        pos = parentBall.pos;
+        col = parentBall.col;
         
         col.r += ofRandom(-10,10);
         col.g += ofRandom(-10,10);
         col.b += ofRandom(-10,10);
         
-        //cance of being black
+        //chance of being black
         if (ofRandomuf() < 0.15){
             col = ofColor::black;
         }
@@ -50,7 +55,14 @@ public:
         float startAngle = ofRandom(TWO_PI);
         vel.x = cos(startAngle)*force;
         vel.y = sin(startAngle)*force;
-        cout<<"shet ip it dup"<<endl;
+        
+        resolution = ofRandom(3,6);
+        angle = ofRandom(TWO_PI);
+        
+        //and move it out a bit
+        float dist = ofRandom(1, parentBall.drawSize*0.8);
+        pos.x += cos(angle) * dist;
+        pos.y += sin(angle) * dist;
     }
     
     void update(float deltaTime){
@@ -71,9 +83,8 @@ public:
     void draw(float alphaPrc){
         ofSetColor(col.r, col.g, col.b, col.a * alphaPrc);
         ofFill();
-        ofSetCircleResolution(3);
+        ofSetCircleResolution(resolution);
         ofCircle(pos, 5);
-        ofSetCircleResolution(20);
     }
     
 };

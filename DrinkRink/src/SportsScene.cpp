@@ -175,6 +175,7 @@ void SportsScene::drawCustom(){
         for (int i=0; i<ballParticles.size(); i++){
             ballParticles[i].draw(alphaPrc);
         }
+        ofSetCircleResolution(22); // put the resolution back to default
     }
     
     winFillEffect.draw(alphaPrc);
@@ -203,7 +204,7 @@ void SportsScene::killBall(int idNum, int goalID){
     }
     for (int i=0; i<20; i++){
         BallParticle thisParticle;
-        thisParticle.setup( balls[idNum]->pos, targetPos, ballColor);
+        thisParticle.setup( *balls[idNum], targetPos);
         ballParticles.push_back(thisParticle);
     }
     

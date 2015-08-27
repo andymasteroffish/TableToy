@@ -25,6 +25,8 @@ public:
     
     ofVec2f pos, vel;
     
+    int drawSize;
+    
     float friction;
     
     bool justSpawned;

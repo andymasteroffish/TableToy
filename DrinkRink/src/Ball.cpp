@@ -27,11 +27,14 @@ void Ball::setup(bool spawnOnTop, int _gameWidth, int _gameHeight, ofColor _col)
     
     col = _col;
     
+    drawSize = 15;
+    
     float startVel = 1;
     float startPadding = 20;
     float startingXOffset = ofRandom(-10,10);
     
     startingXOffset = -ofGetWidth()/2 + 80; //TESTING
+    startVel = 5;
     
     if (spawnOnTop){
         pos.set(gameWidth/2+startingXOffset, -startPadding);
@@ -101,7 +104,6 @@ void Ball::update(VectorField * field){
 void Ball::draw(float alphaPrc){
     
     float rollStrength = 2;
-    float drawSize = 15;
     
     ofSetColor(col, 255*alphaPrc);
     ofFill();
