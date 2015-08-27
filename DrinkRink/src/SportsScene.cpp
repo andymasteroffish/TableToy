@@ -31,8 +31,11 @@ void SportsScene::setupCustom(){
     nextBallSpawnsOnTop = true; //this just flips with each spawn
     
     sceneName = "sports";
+    sceneToSwitchTo = 2;    //stream
     
     gameOverCupShrinkTime = 2;
+    gameOverTimetoSwitchScene = 10;
+    
 }
 
 
@@ -118,6 +121,10 @@ void SportsScene::updateCustom(){
         }
         
         winFillEffect.update(deltaTime);
+        
+        if (gameOverTimer >= gameOverTimetoSwitchScene){
+            switchScenesFlag = true;
+        }
     }
     
 }
@@ -134,26 +141,19 @@ void SportsScene::checkPanelValuesCustom(ofxControlPanel *panel){
 //--------------------------------------------------------------------------------------------
 void SportsScene::drawCustom(){
     
-    
-    for (int i=0; i<NUM_GOALS; i++){
-        goals[i].draw(alphaPrc);
-    }
-    
-    
-    //testing
-//    ofSetColor(198,123,233, fadePrc*255);
-//    ofFill();
-//    for (int i=0; i<balls.size(); i++){
-//        ofCircle(balls[i]->pos, ballRepulsionRange/2);
-//        balls[i]->draw();
-//    }
-    
-    //draw balls
-    ofSetColor(ballColor, alphaPrc*255);
-    ofFill();
-    for (int i=0; i<balls.size(); i++){
-        balls[i]->draw();
-        //ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
+    //don't draw the main game if we're doing the scene switch off
+    if (gameOverTimer < gameOverTimetoSwitchScene){
+        for (int i=0; i<NUM_GOALS; i++){
+            goals[i].draw(alphaPrc);
+        }
+        
+        //draw balls
+        ofSetColor(ballColor, alphaPrc*255);
+        ofFill();
+        for (int i=0; i<balls.size(); i++){
+            balls[i]->draw();
+            //ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
+        }
     }
     
     winFillEffect.draw(alphaPrc);

@@ -185,7 +185,7 @@ void Goal::drawBoxScore(float alphaPrc){
         thisCol.setHsb(hue, baseSat, baseBri);
         thisCol.a = scoreBarAlpha*alphaPrc;
         if (doWinEffectForThisBar){
-            thisCol.a = scoreBarWinEffectAlpha;
+            thisCol.a = scoreBarWinEffectAlpha*alphaPrc;
         }
         ofSetColor(thisCol);
         

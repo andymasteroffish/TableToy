@@ -81,6 +81,11 @@ public:
     float fadeTimer;
     float alphaPrc;
     
+    //telling the main app to switch scenes
+    bool switchScenesFlag;
+    int sceneToSwitchTo;
+    
+    //flag to not use our debug and tetsing values
     bool ignorePanelValues;
     
     //testing different particle options

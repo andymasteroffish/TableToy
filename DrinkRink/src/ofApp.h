@@ -22,7 +22,8 @@ public:
     
     void setup();
     
-    void scrollModes();
+    void scrollScenes();
+    void setScene(int sceneID);
     
     void update();
     void draw();

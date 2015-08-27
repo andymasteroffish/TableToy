@@ -26,9 +26,7 @@ void ofApp::setup(){
         scenes[i]->setup(cupTracker);
     }
     
-    curSceneID = 0;
-    scrollModes();
-    
+    setScene(SCENE_SPORTS);
     
     showField = false;
     showDebugInfo = false;
@@ -214,8 +212,25 @@ void ofApp::setup(){
 }
 
 //--------------------------------------------------------------
-//clears everythign and gets the toy ready for a new mode
-void ofApp::scrollModes(){
+void ofApp::scrollScenes(){
+    int targetScene = curSceneID + 1;
+    if (targetScene >= NUM_SCENES){
+        targetScene = 0;
+    }
+    
+    setScene(targetScene);
+}
+
+//--------------------------------------------------------------
+void ofApp::setScene(int sceneID){
+    if (sceneID == curSceneID){
+        cout<<"CAN'T CHANGE SCENE TO ITSELF"<<endl;
+        return;
+    }
+    if (sceneID < 0 || sceneID >= NUM_SCENES){
+        cout<<"SCENE ID OUT OF RANGE"<<endl;
+        return;
+    }
     
     if (curSceneID >= 0 && curSceneID <= NUM_SCENES){
         fadingScene = scenes[curSceneID];
@@ -224,14 +239,10 @@ void ofApp::scrollModes(){
         fadingScene = NULL;
     }
     
-    curSceneID++;
-    if (curSceneID >= NUM_SCENES){
-        curSceneID = 0;
-    }
+    curSceneID = sceneID;
     
     curScene = scenes[curSceneID];
     curScene->reset();
-    
 }
 
 //--------------------------------------------------------------
@@ -257,6 +268,9 @@ void ofApp::update(){
     prevFrameTime = ofGetElapsedTimef();
     
     curScene->update(deltaTime, &panel);
+    if (curScene->switchScenesFlag){
+        setScene(curScene->sceneToSwitchTo);
+    }
     
     //if we have a scene fading out, keep updating it until it is done
     if (fadingScene != NULL){
@@ -338,7 +352,7 @@ void ofApp::keyPressed(int key){
         showCupDebug = !showCupDebug;
     }
     if (key == 'm'){
-        scrollModes();
+        scrollScenes();
     }
     if (key == 'p'){
         showPanel = !showPanel;

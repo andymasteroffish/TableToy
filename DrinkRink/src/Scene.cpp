@@ -32,6 +32,8 @@ void Scene::reset(){
     fadeTimer = fadeTime;
     alphaPrc = 1;
     
+    switchScenesFlag = false;
+    
     resetCustom();
 }
 

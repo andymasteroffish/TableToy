@@ -61,6 +61,7 @@ public:
     GoalWinFill winFillEffect;
     
     float gameOverCupShrinkTime;
+    float gameOverTimetoSwitchScene;
     
 };
 
