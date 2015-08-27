@@ -11,8 +11,8 @@
 //--------------------------------------------------------------
 void CupTrackerCam::setupCustom(){
     
-    int imgWidth = 600;
-    int imgHeight = 200;
+    imgWidth = 600;
+    imgHeight = 200;
     
 #ifdef USE_VIDEO
     //vidGrabber.loadMovie("vid/spinners_with_border.mov");
@@ -159,9 +159,9 @@ void CupTrackerCam::keyPressed(int key){
 
 //--------------------------------------------------------------
 void CupTrackerCam::checkFiducial(list<ofxFiducial>::iterator fiducial){
-    //this will need to be done way better
-    float xAdjust = ofGetWidth()/vidGrabber.width;
-    float yAdjust = ofGetHeight()/vidGrabber.height;
+    //this is placeholder / will need to be done way better
+    float xAdjust = (float)ofGetWidth()  / (float)imgWidth;
+    float yAdjust = (float)ofGetHeight() / (float)imgHeight;
     
     //does a cup with this ID exist in the list?
     for (int i=0; i<activeCups.size(); i++){

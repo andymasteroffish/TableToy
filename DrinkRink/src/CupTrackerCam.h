@@ -16,8 +16,8 @@
 #include "ofxFidMain.h"
 
 
-//uncomment this to use live feed
-#define USE_VIDEO
+//comment this out to use live feed
+//#define USE_VIDEO
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 class CupTrackerCam : public CupTracker{
@@ -39,6 +39,8 @@ public:
 #else
     ofVideoGrabber 		vidGrabber;
 #endif
+    
+    int imgWidth, imgHeight;
     
     ofxCvColorImage		fullImg, colorImg;
     ofxCvGrayscaleImage grayImage;

@@ -31,7 +31,6 @@ public:
                 ofSetColor(255,150,150, 255*alphaPrc);
             }
             
-            
             ofCircle(pos.x, pos.y, towerSize + i*ringOffset);
         }
         
