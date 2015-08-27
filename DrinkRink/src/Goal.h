@@ -31,6 +31,7 @@ public:
     void markScore();
     
     void addInwardCircle(float strength, float range);
+    void calculateFieldRange();
     
     void checkPanelValues(ofxControlPanel * panel);
     
@@ -39,8 +40,8 @@ public:
     float smoothScore, smoothScoreXeno;
     int scoreToWin;
     
-    bool hasWon;
-    float winEffectTimer;
+    bool hasWon, hasLost;
+    float gameOverTimer;
     
     
     VectorField * field;
@@ -66,6 +67,15 @@ public:
     float scoreBarAlpha;
     float scoreBarHueRange;
     float scoreBarNoiseSpeed;
+    
+    
+    //some effects on game over
+    float scoreBarWinEffectAlpha;
+    float winTimeBeforeBarEffect;
+    float winTimeBetweenBars;      //how long after winning to make the bar light up
+    float goalShrinkTimeOnLoss;
+    float startingFarRange, startingNearRange;
+    
     
 };
 

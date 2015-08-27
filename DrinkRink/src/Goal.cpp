@@ -34,8 +34,7 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     nearRange = 50;
     farRange = 160;
     //range in field units
-    nearFieldRange = (float)( (nearRange / (float)field->externalWidth) * field->fieldWidth);
-    farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
+    calculateFieldRange();
     
     //strength in field units
     nearFieldStrength = 1.5;
@@ -49,6 +48,14 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     pos.x = isLeft ? 70 : ofGetWidth()-70;
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
+    
+    //some end game effects
+    scoreBarWinEffectAlpha = 150;
+    winTimeBeforeBarEffect = 1;
+    winTimeBetweenBars = 0.1;
+    
+    goalShrinkTimeOnLoss = 5;
+    
 }
 
 
@@ -57,7 +64,8 @@ void Goal::reset(){
     smoothScore = 0;
     
     hasWon = false;
-    winEffectTimer = 0;
+    hasLost = false;
+    gameOverTimer = 0;
     
     //testing
     score = ofRandom(scoreToWin*0.75, scoreToWin*0.99);
@@ -66,14 +74,28 @@ void Goal::reset(){
 void Goal::update(float _deltaTime){
     deltaTime = _deltaTime;
     
-    if (hasWon){
-        winEffectTimer += deltaTime;
+    if (hasWon || hasLost){
+        gameOverTimer += deltaTime;
     }
     
     addInwardCircle(nearFieldStrength, nearFieldRange);
     addInwardCircle(farFieldStrength, farFieldRange);
     
     smoothScore = (1-smoothScoreXeno) * smoothScore + smoothScoreXeno * score;
+    
+    if (hasLost){
+        float goalSizePrc = 1.0 - gameOverTimer/goalShrinkTimeOnLoss;
+        goalSizePrc = MAX(0,goalSizePrc);
+        if (farRange > 0){
+            farRange = startingFarRange * goalSizePrc;
+            nearRange = startingNearRange * goalSizePrc;
+            calculateFieldRange();
+        }
+    }else{
+        //just save these values for use later
+        startingFarRange = farRange;
+        startingNearRange = nearRange;
+    }
 }
 
 void Goal::draw(float alphaPrc){
@@ -150,23 +172,10 @@ void Goal::drawBoxScore(float alphaPrc){
     float baseSat = baseCol.getSaturation();
     float baseBri = baseCol.getBrightness();
     
-    float winAlpha = 150;
-    float winTimeBeforeBarEffect = 1;
-    float winTimeBetweenBars = 0.1; //how long after winning to make the bar light up
-    
     ofFill();
     
     for (int i=0; i<numBoxes; i++){
-        bool doWinEffectForThisBar = hasWon && winEffectTimer > (float)i*winTimeBetweenBars + winTimeBeforeBarEffect;
-        
-//        if (hasWon){
-//            float timeSlice = winTimeBeforeBarEffect / (float)numBoxes;
-//            float myPeriod = timeSlice* (numBoxes-i -1);
-//            if (winEffectTimer > myPeriod && winEffectTimer <= myPeriod+timeSlice){
-//                doWinEffectForThisBar = true;
-//            }
-//            
-//        }
+        bool doWinEffectForThisBar = hasWon && gameOverTimer > (float)i*winTimeBetweenBars + winTimeBeforeBarEffect;
         
         float hue = baseHue +  (ofNoise(ofGetElapsedTimef()*scoreBarNoiseSpeed, i)-0.5) * scoreBarHueRange;
         if (hue < 0)    hue += 255;
@@ -176,7 +185,7 @@ void Goal::drawBoxScore(float alphaPrc){
         thisCol.setHsb(hue, baseSat, baseBri);
         thisCol.a = scoreBarAlpha*alphaPrc;
         if (doWinEffectForThisBar){
-            thisCol.a = winAlpha;
+            thisCol.a = scoreBarWinEffectAlpha;
         }
         ofSetColor(thisCol);
         
@@ -257,8 +266,18 @@ void Goal::addInwardCircle(float strength, float range){
     }
 }
 
+void Goal::calculateFieldRange(){
+    
+    nearFieldRange = (float)( (nearRange / (float)field->externalWidth) * field->fieldWidth);
+    farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
+}
+
 
 void Goal::checkPanelValues(ofxControlPanel * panel){
+    
+    if (hasWon || hasLost){
+        return;
+    }
     
     string sideName = isLeft ? "LEFT" : "RIGHT";
     
@@ -276,8 +295,7 @@ void Goal::checkPanelValues(ofxControlPanel * panel){
     
     nearRange = panel->getValueF("GOAL_NEAR_RANGE");
     farRange = panel->getValueF("GOAL_FAR_RANGE");
-    nearFieldRange = (float)( (nearRange / (float)field->externalWidth) * field->fieldWidth);
-    farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
+    calculateFieldRange();
     
     nearFieldStrength = panel->getValueF("GOAL_NEAR_FIELD_STRENGTH");
     farFieldStrength = panel->getValueF("GOAL_FAR_FIELD_STRENGTH");

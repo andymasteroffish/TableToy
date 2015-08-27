@@ -46,6 +46,8 @@ public:
     float range;
     float fieldRange;
     
+    float startingRange; //for some effects
+    
     VectorField * field;
     
     float deltaTime;

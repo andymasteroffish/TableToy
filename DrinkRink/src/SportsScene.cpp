@@ -31,6 +31,8 @@ void SportsScene::setupCustom(){
     nextBallSpawnsOnTop = true; //this just flips with each spawn
     
     sceneName = "sports";
+    
+    gameOverCupShrinkTime = 2;
 }
 
 
@@ -52,6 +54,9 @@ void SportsScene::resetCustom(){
     
     ballSpawnTimer = 0;
     
+    gameOver = false;
+    gameOverTimer = 0;
+    
 }
 
 
@@ -61,12 +66,14 @@ void SportsScene::updateCustom(){
     //update goals
     for (int i=0; i<NUM_GOALS; i++){
         goals[i].update(deltaTime);
+        if (!gameOver && goals[i].hasWon){
+            triggerGameOver();
+        }
     }
     
     //spawn balls?
     ballSpawnTimer += deltaTime;
-    
-    if (ballSpawnTimer > timeBetweenBallSpawns && balls.size() < maxNumBalls){
+    if (ballSpawnTimer > timeBetweenBallSpawns && balls.size() < maxNumBalls && !gameOver){
         spawnBall();
     }
     
@@ -95,6 +102,20 @@ void SportsScene::updateCustom(){
         }
     }
     
+    
+    //game over effect
+    if (gameOver){
+        gameOverTimer += deltaTime;
+        
+        float towerRangePrc = 1 - gameOverTimer/gameOverCupShrinkTime;
+        towerRangePrc = MAX(0, towerRangePrc);
+        for (int i=0; i<towers.size(); i++){
+            if (towers[i]->range > 0){
+                towers[i]->range = towers[i]->startingRange * towerRangePrc;
+                towers[i]->calculateFieldRange();
+            }
+        }
+    }
     
 }
 
@@ -181,4 +202,22 @@ void SportsScene::addTower(CupInfo thisCup){
 
 }
 
+
+
+//--------------------------------------------------------------------------------------------
+void SportsScene::triggerGameOver(){
+    gameOver = true;
+    gameOverTimer = 0;
+    
+    while(balls.size() > 0){
+        killBall(0);
+    }
+    
+    //figure out who lost
+    if (goals[0].hasWon){
+        goals[1].hasLost = true;
+    }else{
+        goals[0].hasLost = true;
+    }
+}
 

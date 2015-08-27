@@ -27,10 +27,12 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     towerSize = 40;    //how big the physical cup is
     
-    showDebugImage = true;
+    showDebugImage = false;//true;
     
     
     customSetup();
+    
+    startingRange = range;
     
     calculateFieldRange();
 }

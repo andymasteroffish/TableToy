@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "Ball.h"
 #include "Goal.h"
+#include "GoalWinFill.h"
 
 #include "Tower.h"
 #include "TowerRepeller.h"
@@ -37,6 +38,8 @@ public:
     
     void addTower(CupInfo thisCup);
     
+    void triggerGameOver();
+    
     
     //the balls
     vector<Ball *> balls;
@@ -52,6 +55,12 @@ public:
     //goals
 #define NUM_GOALS 2
     Goal goals[NUM_GOALS];
+    
+    bool gameOver;
+    float gameOverTimer;
+    GoalWinFill winFillEffect;
+    
+    float gameOverCupShrinkTime;
     
 };
 

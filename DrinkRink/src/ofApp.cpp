@@ -185,7 +185,7 @@ void ofApp::setup(){
     panel.addSlider("Score Smoothing Speed", "GOAL_SCORE_XENO", 0.25, 0.01, 1, false);
     
     panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_LEFT", false);
-    panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_RIGHT", false);
+    panel.addToggle("Add Score Right", "GOAL_ADD_SCORE_RIGHT", false);
     
     
     panel.addPanel("Cam Setup", 1, false);
@@ -208,7 +208,7 @@ void ofApp::setup(){
         panel.addSlider("Y Prc", "CAM_WARP_Y_"+ofToString(i), yVal, 0, 1, false);
     }
     
-    curPanel = 7;
+    curPanel = 6;
     panel.setSelectedPanel(curPanel);
     
 }
