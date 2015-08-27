@@ -57,6 +57,7 @@ void SportsScene::resetCustom(){
     gameOver = false;
     gameOverTimer = 0;
     
+    winFillEffect.setup();
 }
 
 
@@ -115,6 +116,8 @@ void SportsScene::updateCustom(){
                 towers[i]->calculateFieldRange();
             }
         }
+        
+        winFillEffect.update(deltaTime);
     }
     
 }
@@ -152,6 +155,8 @@ void SportsScene::drawCustom(){
         balls[i]->draw();
         //ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
     }
+    
+    winFillEffect.draw(alphaPrc);
 }
 
 
@@ -215,8 +220,10 @@ void SportsScene::triggerGameOver(){
     
     //figure out who lost
     if (goals[0].hasWon){
+        winFillEffect.start(goals[0]);
         goals[1].hasLost = true;
     }else{
+        winFillEffect.start(goals[1]);
         goals[0].hasLost = true;
     }
 }
