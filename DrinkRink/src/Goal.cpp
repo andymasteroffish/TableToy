@@ -70,7 +70,7 @@ void Goal::reset(){
     gameOverTimer = 0;
     
     //testing
-    score = ofRandom(scoreToWin*0.75, scoreToWin*0.99);
+    score = ofRandom(scoreToWin*0.6, scoreToWin*0.8);
 }
 
 void Goal::update(float _deltaTime){

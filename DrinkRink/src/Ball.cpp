@@ -14,19 +14,21 @@ Ball::Ball(){
 }
  */
 
-Ball::Ball(bool spawnOnTop, int _gameWidth, int _gameHeight){
-    setup(spawnOnTop, _gameWidth, _gameHeight);
+Ball::Ball(bool spawnOnTop, int _gameWidth, int _gameHeight, ofColor _col){
+    setup(spawnOnTop, _gameWidth, _gameHeight, _col);
 }
 
-void Ball::setup(bool spawnOnTop, int _gameWidth, int _gameHeight){
+void Ball::setup(bool spawnOnTop, int _gameWidth, int _gameHeight, ofColor _col){
     
     friction = 0.995;
     
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
     
+    col = _col;
+    
     float startVel = 1;
-    float startPadding = 10;
+    float startPadding = 20;
     float startingXOffset = ofRandom(-10,10);
     
     if (spawnOnTop){
@@ -66,7 +68,7 @@ void Ball::update(VectorField * field){
     
     pos += vel;
     
-    
+    rollVal += vel;
     
     //simple bounce
     if (!justSpawned){
@@ -94,6 +96,29 @@ void Ball::update(VectorField * field){
     
 }
 
-void Ball::draw(){
-    ofCircle(pos.x, pos.y, 15);
+void Ball::draw(float alphaPrc){
+    
+    float rollStrength = 2;
+    float drawSize = 15;
+    
+    ofSetColor(col, 255*alphaPrc);
+    ofFill();
+    //ofCircle(pos.x, pos.y, drawSize);
+    ofDrawSphere(pos.x, pos.y, drawSize);
+    
+    ofNoFill();
+    ofSetColor(0, 255*alphaPrc);
+    
+    ofPushMatrix();
+    ofTranslate(pos.x, pos.y);
+    ofRotateY(rollVal.x * rollStrength);
+    ofRotateX(rollVal.y * -rollStrength);
+    
+    ofSetLineWidth(2);
+    ofCircle(0, 0, drawSize+0.5);
+    
+    ofPopMatrix();
+    
 }
+
+

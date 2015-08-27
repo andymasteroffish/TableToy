@@ -336,6 +336,8 @@ void ofApp::draw(){
         ofDrawBitmapString(panelInfo, ofGetWidth()-50, ofGetHeight()-5);
     }
     
+    
+    
     //cupTrackerCam.draw();   //testing
 }
 

@@ -148,12 +148,15 @@ void SportsScene::drawCustom(){
         }
         
         //draw balls
-        ofSetColor(ballColor, alphaPrc*255);
+        //ofSetColor(ballColor, alphaPrc*255);
         ofFill();
+        ofSetupScreenOrtho(ofGetWidth(), ofGetHeight(), -100, 100); //for fun 3d effect
+        ofEnableDepthTest();
         for (int i=0; i<balls.size(); i++){
-            balls[i]->draw();
+            balls[i]->draw(alphaPrc);
             //ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
         }
+        ofDisableDepthTest();
     }
     
     winFillEffect.draw(alphaPrc);
@@ -167,7 +170,7 @@ void SportsScene::keyPressed(int key){
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::spawnBall(){
-    Ball * newBall = new Ball(nextBallSpawnsOnTop, gameWidth, gameHeight);
+    Ball * newBall = new Ball(nextBallSpawnsOnTop, gameWidth, gameHeight, ballColor);
     balls.push_back(newBall);
     nextBallSpawnsOnTop = !nextBallSpawnsOnTop;
     ballSpawnTimer = 0;

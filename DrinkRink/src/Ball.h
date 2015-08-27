@@ -16,12 +16,12 @@ class Ball{
 public:
     
     Ball();
-    Ball(bool spawnOnTop, int _gameWidth, int _gameHeight);
+    Ball(bool spawnOnTop, int _gameWidth, int _gameHeight, ofColor _col);
     
-    void setup(bool spawnOnTop, int _gameWidth, int _gameHeight);
+    void setup(bool spawnOnTop, int _gameWidth, int _gameHeight, ofColor _col);
     void addRepulsionForce(Ball * other, float radius, float maxForce);
     void update(VectorField * field);
-    void draw();
+    void draw(float alphaPrc);
     
     ofVec2f pos, vel;
     
@@ -31,6 +31,9 @@ public:
     
     int gameWidth, gameHeight;
     
+    ofColor col;
+    
+    ofVec2f rollVal;
     
 };
 
