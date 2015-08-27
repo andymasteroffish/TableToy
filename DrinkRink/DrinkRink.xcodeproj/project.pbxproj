@@ -69,6 +69,7 @@
 		0AF37B3E1B840FA600A9CFF7 /* ofxFiducialFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B361B840FA500A9CFF7 /* ofxFiducialFinder.cpp */; };
 		0AF37B3F1B840FA600A9CFF7 /* ofxFiducialTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B381B840FA500A9CFF7 /* ofxFiducialTracker.cpp */; };
 		0AF37B421B840FC000A9CFF7 /* CupTrackerCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */; };
+		462F5BDF1B8EADAB0065CD61 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462F5BDD1B8EADAB0065CD61 /* Carnivale.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -345,6 +346,8 @@
 		0AF37B3A1B840FA500A9CFF7 /* ofxFinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFinger.h; sourceTree = "<group>"; };
 		0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTrackerCam.cpp; sourceTree = "<group>"; };
 		0AF37B411B840FC000A9CFF7 /* CupTrackerCam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTrackerCam.h; sourceTree = "<group>"; };
+		462F5BDD1B8EADAB0065CD61 /* Carnivale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carnivale.cpp; sourceTree = "<group>"; };
+		462F5BDE1B8EADAB0065CD61 /* Carnivale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carnivale.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -734,6 +737,7 @@
 				0A2FE3E51B8E267900ABD7DB /* Calibration */,
 				0AF37A951B840E1400A9CFF7 /* Sports */,
 				0AF37A961B840E1900A9CFF7 /* Stream */,
+				462F5BDC1B8EABB10065CD61 /* Carnivale */,
 				0AF37A971B840E1F00A9CFF7 /* Flyers */,
 			);
 			name = Scenes;
@@ -931,6 +935,15 @@
 				0AF37B331B840FA500A9CFF7 /* treeidmap.h */,
 			);
 			path = libfidtrack;
+			sourceTree = "<group>";
+		};
+		462F5BDC1B8EABB10065CD61 /* Carnivale */ = {
+			isa = PBXGroup;
+			children = (
+				462F5BDD1B8EADAB0065CD61 /* Carnivale.cpp */,
+				462F5BDE1B8EADAB0065CD61 /* Carnivale.h */,
+			);
+			name = Carnivale;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
@@ -1138,6 +1151,7 @@
 				0AF37AAB1B840E5D00A9CFF7 /* TowerRepeller.cpp in Sources */,
 				0AF37A881B840D9A00A9CFF7 /* ofxCvContourFinder.cpp in Sources */,
 				0AF37A941B840E0800A9CFF7 /* CupTrackerDebug.cpp in Sources */,
+				462F5BDF1B8EADAB0065CD61 /* Carnivale.cpp in Sources */,
 				0AF37B1F1B840F4000A9CFF7 /* ofxControlPanel.cpp in Sources */,
 				0AF37B201B840F4000A9CFF7 /* simpleColor.cpp in Sources */,
 				0AF37AA41B840E5300A9CFF7 /* Goal.cpp in Sources */,
