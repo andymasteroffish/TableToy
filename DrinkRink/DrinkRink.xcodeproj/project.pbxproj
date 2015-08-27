@@ -1416,6 +1416,7 @@
 					"$(PROJECT_DIR)/src/addons/ofxOpenCv/libs/opencv/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
+				SDKROOT = macosx10.10;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1502,6 +1503,7 @@
 					"$(PROJECT_DIR)/src/addons/ofxOpenCv/libs/opencv/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.10;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

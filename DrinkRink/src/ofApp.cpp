@@ -329,6 +329,7 @@ void ofApp::draw(){
     
     if (showPanel){
         ofSetColor(255);
+        ofSetLineWidth(1);
         ofFill();
         panel.draw();
         ofSetColor(255);

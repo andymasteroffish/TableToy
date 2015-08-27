@@ -20,10 +20,16 @@ void CupTrackerCam::setupCustom(){
     vidGrabber.play();
 #else
     vidGrabber.setVerbose(true);
+    
     vidGrabber.initGrabber(320,240);
 #endif
     
-    vidGrabber.videoSettings();
+//    cout<<"camera devices:"<<endl;
+//    vector<ofVideoDevice> pluggedIn = vidGrabber.listDevices();
+//    for (int i=0; i<pluggedIn.size(); i++){
+//        cout<<i<<":"<<pluggedIn[i].deviceName<<endl;
+//    }
+    
     
     fullImg.allocate(vidGrabber.width, vidGrabber.height);
     colorImg.allocate(imgWidth , imgHeight);

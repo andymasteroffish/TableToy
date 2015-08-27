@@ -9,8 +9,7 @@
 #include "FieldParticle.h"
 
 
-FieldParticle::FieldParticle(float x,
-                             float y, ofColor _col){
+FieldParticle::FieldParticle(float x, float y, ofColor _col){
     setup(x,y, _col);
 }
 
@@ -137,5 +136,47 @@ void FieldParticle::setAlpha(){
         col.a = MIN(newAlpha, col.a);
     }
     
+}
+
+
+void FieldParticle::setType(ParticleType type){
+    if (type == PARTICLE_SPORT){
+        fric = 1.0-0.2;
+        killTime = 3;
+        showDot = true;
+        fillDot = true;
+        dotSize = 2;
+        useTrails = true;
+        numTrailPositions = 10;
+        trailStartWidth = 0.5;
+        trailEndWidth = 2.5;
+        usePic = false;
+        useNoiseWiggle = true;
+        noiseWiggleRange = 0.3;
+        noiseWigglePower = 0.1;
+        noiseWiggleRate = 2;
+        
+        float thisSat = 238;
+        float thisBri = 164;
+        float thisHue = 0;
+        int hueID = (int)ofRandom(5);
+        if (hueID == 0) thisHue = 28;
+        if (hueID == 1) thisHue = 4;
+        if (hueID == 2) thisHue = 99;
+        if (hueID == 3) thisHue = 38;
+        if (hueID == 4) thisHue = 28;
+        
+        col.setHsb(thisHue, thisSat, thisBri);
+    }
+    
+    if (type == PARTICLE_GOAL_LEFT){
+        setType(PARTICLE_SPORT);
+        
+        float thisSat = 238;
+        float thisBri = 164;
+        float thisHue = 0;
+        col.setHsb(thisHue, thisSat, thisBri);
+        
+    }
 }
 

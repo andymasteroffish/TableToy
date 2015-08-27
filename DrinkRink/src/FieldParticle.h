@@ -12,6 +12,8 @@
 #include "ofMain.h"
 #include "VectorField.h"
 
+enum ParticleType{ PARTICLE_SPORT, PARTICLE_GOAL_LEFT, PARTICLE_GOAL_RIGHT };
+
 class FieldParticle{
 public:
     
@@ -20,6 +22,8 @@ public:
     void update(float deltaTime, VectorField * field);
     void draw(float alphaPrc);
     void setAlpha();
+    
+    void setType(ParticleType type);
     
     
     ofVec2f pos, vel;

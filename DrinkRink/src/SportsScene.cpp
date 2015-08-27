@@ -36,6 +36,8 @@ void SportsScene::setupCustom(){
     gameOverCupShrinkTime = 2;
     gameOverTimetoSwitchScene = 12;
     
+    
+    defaultParticleType = PARTICLE_SPORT;
 }
 
 

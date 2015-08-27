@@ -246,26 +246,29 @@ void Scene::makeFieldParticles(){
             thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
         }
         FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y, thisCol );
-        //set all the debug values
-        newP->fric = (1.0f-p_friction);
-        newP->killTime = p_killTime;
         
-        newP->showDot = p_showDot;
-        newP->fillDot = p_fillDot;
-        newP->dotSize = p_dotSize;
+        newP->setType(PARTICLE_SPORT);
         
-        newP->useNoiseWiggle = p_useNoiseWiggle;
-        newP->noiseWiggleRange = p_noiseWiggleRange;
-        newP->noiseWigglePower = p_noiseWigglePower;
-        newP->noiseWiggleRate = p_noiseWiggleRate;
-        
-        newP->useTrails = p_useTrails;
-        newP->numTrailPositions = p_numTrailPositions;
-        newP->trailStartWidth = p_trailStartWidth;
-        newP->trailEndWidth = p_trailEndWidth;
-        
-        newP->usePic = p_usePic;
-        newP->picScale = p_picScale;
+//        //set all the debug values
+//        newP->fric = (1.0f-p_friction);
+//        newP->killTime = p_killTime;
+//        
+//        newP->showDot = p_showDot;
+//        newP->fillDot = p_fillDot;
+//        newP->dotSize = p_dotSize;
+//        
+//        newP->useNoiseWiggle = p_useNoiseWiggle;
+//        newP->noiseWiggleRange = p_noiseWiggleRange;
+//        newP->noiseWigglePower = p_noiseWigglePower;
+//        newP->noiseWiggleRate = p_noiseWiggleRate;
+//        
+//        newP->useTrails = p_useTrails;
+//        newP->numTrailPositions = p_numTrailPositions;
+//        newP->trailStartWidth = p_trailStartWidth;
+//        newP->trailEndWidth = p_trailEndWidth;
+//        
+//        newP->usePic = p_usePic;
+//        newP->picScale = p_picScale;
         newP->pic = &particlePic;
         
         //add it to the list

@@ -68,6 +68,8 @@ public:
     vector<FieldParticle *> fieldParticles;
     vector<Tower *> towers;
     
+    ParticleType defaultParticleType;
+    
     //some fucking color info
     ofColor bgCol;
     vector<ofColor> particleColors;
