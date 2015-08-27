@@ -36,8 +36,12 @@ void SportsScene::setupCustom(){
     gameOverCupShrinkTime = 2;
     gameOverTimetoSwitchScene = 12;
     
+    ballColor.setHsb(212, 114, 242);
     
+    bgCol.set(250,249,240);
     defaultParticleType =  PARTICLE_SPORT;
+    
+    //ignorePanelValues = true;
 }
 
 

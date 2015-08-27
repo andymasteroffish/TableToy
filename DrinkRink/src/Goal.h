@@ -24,7 +24,6 @@ public:
     
     void update(float _deltaTime);
     void draw(float alphaPrc);
-    void drawRadialScore(float alphaPrc);
     void drawBoxScore(float alphaPrc);
     
     bool checkIsBallDead(Ball * ball);
@@ -64,8 +63,11 @@ public:
     ofColor baseCol;
     bool showDebug;
     
+    float goalBorderJumpRange;
+    float goalBorderJumpTime;
+    float goalBorderJumpTimer;
+    
     //score display
-    bool useRadialScoreDisplay;
     float scoreBarAlpha;
     float scoreBarHueRange;
     float scoreBarNoiseSpeed;

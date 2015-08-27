@@ -106,15 +106,19 @@ void Ball::draw(float alphaPrc){
     //ofCircle(pos.x, pos.y, drawSize);
     ofDrawSphere(pos.x, pos.y, drawSize);
     
-    ofNoFill();
     ofSetColor(0, 255*alphaPrc);
+    ofNoFill();
+    
+    
+    ofSetLineWidth(2);
+    
+    ofCircle(pos.x, pos.y, drawSize);
     
     ofPushMatrix();
     ofTranslate(pos.x, pos.y);
     ofRotateY(rollVal.x * rollStrength);
     ofRotateX(rollVal.y * -rollStrength);
     
-    ofSetLineWidth(2);
     ofCircle(0, 0, drawSize+0.5);
     
     ofPopMatrix();

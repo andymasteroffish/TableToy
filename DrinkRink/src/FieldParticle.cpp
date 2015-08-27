@@ -14,13 +14,11 @@ FieldParticle::FieldParticle(float x, float y){
 }
 
 void FieldParticle::setup(float x, float y){
-    //killTime = 3;
     killVel = 0.01;
     
     velToStartFading = 1;
     pos.set(x,y);
     vel.set(0,0);
-    //fric = 0.8;
     
     timer = 0;
     
@@ -29,25 +27,6 @@ void FieldParticle::setup(float x, float y){
     noiseSeed = ofRandom(99999);
     
     setAlpha();
-    
-    
-    //testing effects
-//    showDot = false;
-//    dotSize = 2;
-//    
-//    useNoiseWiggle = false;
-//    noiseWiggleRange = PI;
-//    noiseWigglePower = 0.2f;
-//    
-//    useTrails = false;
-//    numTrailPositions = 40;
-//    trailStartWidth = 0.5;  //making either trail start or end very big is interesting
-//    trailEndWidth = 2.5;
-//    trailPos.clear();
-//    
-//    usePic = true;
-//    picScale = 1;
-
 }
 
 void FieldParticle::update(float deltaTime, VectorField * field){
@@ -61,18 +40,10 @@ void FieldParticle::update(float deltaTime, VectorField * field){
         killFlag = true;
     }
     
-    //testing - this does make a kind of good wiggle
     if (useNoiseWiggle){
-//        float curAngle = atan2(vel.y, vel.y);
-//        float power = vel.length() * noiseWigglePower;
-//        float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
-//        vel.x += sin(newAngle) * power;
-//        vel.y += cos(newAngle) * power;
-        
         float angleAdjust = ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
         vel *= 1+noiseWigglePower;
         vel.rotateRad( angleAdjust );
-        
     }
     
     if (useTrails && ofGetFrameNum()%2==0){

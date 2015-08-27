@@ -28,9 +28,7 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     
     smoothScoreXeno = 0.25;
     
-    useRadialScoreDisplay = false;
-    
-    showDebug = true;
+    showDebug = false;
     
     //range in pixels
     nearRange = 50;
@@ -49,6 +47,16 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     pos.y = gameHeight/2;
     pos.x = isLeft ? 70 : gameWidth-70;
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
+    
+    //showing the score bars
+    scoreBarAlpha = 50;
+    scoreBarHueRange = 30;
+    scoreBarNoiseSpeed = 0.1;
+    smoothScoreXeno = 0.25;
+    
+    //effects
+    goalBorderJumpTime = 0.3;
+    goalBorderJumpRange = 20;
     
     
     //some end game effects
@@ -70,11 +78,13 @@ void Goal::reset(){
     gameOverTimer = 0;
     
     //testing
-    score = ofRandom(scoreToWin*0.6, scoreToWin*0.8);
+    //score = ofRandom(scoreToWin*0.6, scoreToWin*0.8);
 }
 
 void Goal::update(float _deltaTime){
     deltaTime = _deltaTime;
+    
+    goalBorderJumpTimer += deltaTime;
     
     if (hasWon || hasLost){
         gameOverTimer += deltaTime;
@@ -102,12 +112,7 @@ void Goal::update(float _deltaTime){
 
 void Goal::draw(float alphaPrc){
     
-    if (useRadialScoreDisplay){
-        drawRadialScore(alphaPrc);
-    }else{
-        drawBoxScore(alphaPrc);
-    }
-    
+    drawBoxScore(alphaPrc);
     
     //show the center
     ofFill();
@@ -122,46 +127,38 @@ void Goal::draw(float alphaPrc){
         ofCircle(pos.x, pos.y, farRange);
     }
     
-    
-    ofSetColor(0);
-    ofDrawBitmapString(ofToString(score), pos.x, pos.y);
-    
-}
-
-
-void Goal::drawRadialScore(float alphaPrc){
-    //outline
-    ofNoFill();
-    ofSetColor(10, 255*alphaPrc);
-    ofCircle(pos.x, pos.y, farRange);
-    
-    float curScale = smoothScore/(float)scoreToWin;
-    ofPushMatrix();
-    ofTranslate(pos.x, pos.y);
-    ofScale(curScale, curScale);
-    
-    ofFill();
-    int rings = 10;
-    float baseHue = baseCol.getHue();
-    float baseSat = baseCol.getSaturation();
-    float baseBri = baseCol.getBrightness();
-    for (int i=0; i<rings; i++){
-        float prc = 1 - ( (float)i/(float)rings);
-        float size = farRange * prc;
+    //show a hash line
+    int numPoints = 16;
+    float angleChunk = TWO_PI/(float)numPoints;
+    float bonusDist = 0;
+    if (goalBorderJumpTimer < goalBorderJumpTime){
+        float prc = 1.0 - goalBorderJumpTimer / goalBorderJumpTime;
+        bonusDist = goalBorderJumpRange * prc;
+    }
+    ofSetLineWidth(3);
+    for (int i=0; i<numPoints-1; i+=2){
+        float angle1 = angleChunk * i + ofGetElapsedTimef();
+        float angle2 = angle1 - angleChunk;
+        ofPoint pnt1(pos.x + cos(angle1)*(nearRange+bonusDist) , pos.y + sin(angle1)*(nearRange+bonusDist));
+        ofPoint pnt2(pos.x + cos(angle2)*(nearRange+bonusDist) , pos.y + sin(angle2)*(nearRange+bonusDist));
         
-        float hue = baseHue +  (ofNoise(ofGetElapsedTimef()*scoreBarNoiseSpeed, i)-0.5) * scoreBarHueRange;
-        if (hue < 0)    hue += 255;
-        if (hue > 255)  hue -=255;
-        ofColor thisCol;
-        thisCol.setHsb(hue, baseSat, baseBri);
-        thisCol.a = scoreBarAlpha*alphaPrc;
-        ofSetColor(thisCol);
+        float transitionRange = 0.4;
+        float colorPrc = ofMap( sin(ofGetElapsedTimef()), -transitionRange, transitionRange, 0, 1, true);
+        if (i%4 == 0){
+            colorPrc = 1-colorPrc;
+        }
         
-        ofCircle(0, 0, size);
+        ofSetColor(baseCol.r*colorPrc, baseCol.g*colorPrc, baseCol.b*colorPrc, 200*alphaPrc);
+        ofLine(pnt1, pnt2);
     }
     
-    ofPopMatrix();
+    
+//    ofSetColor(0);
+//    ofDrawBitmapString(ofToString(score), pos.x, pos.y);
+    
 }
+
+
 
 void Goal::drawBoxScore(float alphaPrc){
     
@@ -241,6 +238,7 @@ void Goal::markScore(){
         score = scoreToWin; //no going higher
         hasWon = true;
     }
+    goalBorderJumpTimer = 0;
 }
 
 
@@ -308,8 +306,6 @@ void Goal::checkPanelValues(ofxControlPanel * panel){
     showDebug = panel->getValueB("GOAL_SHOW_DEBUG");
     
     //score display
-    
-    useRadialScoreDisplay = panel->getValueB("GOAL_USE_RADIAL");
     
     scoreBarAlpha = panel->getValueF("GOAL_SCORE_BAR_ALPHA");
     scoreBarHueRange = panel->getValueF("GOAL_SCORE_BAR_HUE_RANGE");

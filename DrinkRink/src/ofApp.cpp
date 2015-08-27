@@ -176,8 +176,6 @@ void ofApp::setup(){
     panel.setWhichPanel("Goals Score Display");
     panel.setWhichColumn(0);
     
-    panel.addToggle("Use Radial Score Display", "GOAL_USE_RADIAL", false);
-    
     panel.addSlider("Score Bar Alpha", "GOAL_SCORE_BAR_ALPHA", 50, 0, 255, false);
     panel.addSlider("Score Bar Hue Range", "GOAL_SCORE_BAR_HUE_RANGE", 30, 0, 255, false);
     panel.addSlider("Score Bar Noise Speed", "GOAL_SCORE_BAR_NOISE_SPEED", 0.1, 0, 1, false);
