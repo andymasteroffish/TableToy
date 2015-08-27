@@ -20,8 +20,7 @@ void TowerPulse::customSetup(){
     timeForPulse = 1;
     
     debugColor.setHex(0xdf20c6);
-    
-    
+    particleType = PARTICLE_SPORT;
 }
 
 void TowerPulse::customUpdate(){
@@ -70,7 +69,8 @@ void TowerPulse::addPulseCircle(float strength, float externalPulseDist, float e
                 dif.y = (y - fieldPos.y);
                 dif.normalize();
                 
-                field->field[x][y] += dif * strength * prct;
+                field->field[x][y].vel += dif * strength * prct;
+                field->field[x][y].potentialParticleTypes.push_back(particleType);
             }
             
         }

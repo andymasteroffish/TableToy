@@ -262,7 +262,9 @@ void Goal::addInwardCircle(float strength, float range){
                 dif.y = (y - fieldPos.y);
                 dif.normalize();
                 
-                field->field[x][y] -= dif * strength * prct;
+                field->field[x][y].vel -= dif * strength * prct;
+                
+                field->field[x][y].potentialParticleTypes.push_back( isLeft ? PARTICLE_GOAL_LEFT : PARTICLE_GOAL_RIGHT);
             }
         }
     }

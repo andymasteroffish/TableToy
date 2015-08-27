@@ -11,6 +11,7 @@
 void TowerRepeller::customSetup(){
     range = 100;
     debugColor.setHex(0x49df20);
+    particleType = PARTICLE_SPORT;
 }
 
 void TowerRepeller::customUpdate(){
@@ -37,7 +38,8 @@ void TowerRepeller::addOutwardCircle(float strength){
                 dif.y = (y - fieldPos.y);
                 dif.normalize();
                 
-                field->field[x][y] += dif * strength * prct;
+                field->field[x][y].vel += dif * strength * prct;
+                field->field[x][y].potentialParticleTypes.push_back(particleType);
             }
         }
     }

@@ -9,11 +9,11 @@
 #include "FieldParticle.h"
 
 
-FieldParticle::FieldParticle(float x, float y, ofColor _col){
-    setup(x,y, _col);
+FieldParticle::FieldParticle(float x, float y){
+    setup(x,y);
 }
 
-void FieldParticle::setup(float x, float y, ofColor _col){
+void FieldParticle::setup(float x, float y){
     //killTime = 3;
     killVel = 0.01;
     
@@ -21,7 +21,6 @@ void FieldParticle::setup(float x, float y, ofColor _col){
     pos.set(x,y);
     vel.set(0,0);
     //fric = 0.8;
-    col.set( _col );
     
     timer = 0;
     
@@ -169,14 +168,15 @@ void FieldParticle::setType(ParticleType type){
         col.setHsb(thisHue, thisSat, thisBri);
     }
     
-    if (type == PARTICLE_GOAL_LEFT){
+    if (type == PARTICLE_GOAL_LEFT || type == PARTICLE_GOAL_RIGHT){
         setType(PARTICLE_SPORT);
+        
+        useNoiseWiggle = false;
         
         float thisSat = 238;
         float thisBri = 164;
-        float thisHue = 0;
+        float thisHue =  type == PARTICLE_GOAL_LEFT ? 7 : 154;
         col.setHsb(thisHue, thisSat, thisBri);
-        
     }
 }
 

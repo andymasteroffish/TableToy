@@ -46,6 +46,8 @@ public:
     float range;
     float fieldRange;
     
+    ParticleType particleType;
+    
     float startingRange; //for some effects
     
     VectorField * field;

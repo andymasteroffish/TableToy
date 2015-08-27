@@ -12,6 +12,14 @@
 #include "ofMain.h"
 #include "Utils.h"
 
+class FieldCell{
+public:
+    ofVec2f vel;
+    vector<ParticleType> potentialParticleTypes;    //HOLY SHIT THIS IS UGLY
+    
+    
+};
+
 class VectorField{
     
 public:
@@ -25,7 +33,7 @@ public:
     int gameWidth, gameHeight;
     
     //the actual field
-    ofVec2f field[FIELD_WIDTH][FIELD_HEIGHT];
+    FieldCell field[FIELD_WIDTH][FIELD_HEIGHT];
     
     //drawing
     float drawingStrengthAdjust;

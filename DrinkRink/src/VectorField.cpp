@@ -31,7 +31,8 @@ void VectorField::clear(){
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
-            field[x][y].set(0,0);
+            field[x][y].vel.set(0,0);
+            field[x][y].potentialParticleTypes.clear();
         }
     }
 }
@@ -40,8 +41,8 @@ void VectorField::clear(){
 void VectorField::fade(float fadeVal){
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
-            field[x][y].x *= fadeVal;
-            field[x][y].y *= fadeVal;
+            field[x][y].vel.x *= fadeVal;
+            field[x][y].vel.y *= fadeVal;
         }
     }
 }
@@ -67,7 +68,7 @@ ofVec2f VectorField::getForceFromPos(float xPos, float yPos){
     }
     
     //otherwiose return the force value
-    return field[internalPos.x][internalPos.y];
+    return field[internalPos.x][internalPos.y].vel;
 }
 
 //-------------------------------------------------------------
@@ -143,8 +144,8 @@ void VectorField::addFlowCircleFuckUp(float x, float y, float radius){
             //for each point get the angle to the center
             float angleToCenter = atan2( x-fieldPos.x, y-fieldPos.y);   //this is the line that fucked it up!
             
-            field[x][y].x = cos(angleToCenter) * strength;
-            field[x][y].y = sin(angleToCenter) * strength;
+            field[x][y].vel.x = cos(angleToCenter) * strength;
+            field[x][y].vel.y = sin(angleToCenter) * strength;
             
         }
     }
@@ -171,7 +172,7 @@ void VectorField::setStreamForce(){
             float yPrc = ofNoise( x*noiseScale, y*noiseScale, ofGetElapsedTimef() * noiseSpeed, 1000 );
             thisForce.y = yPrc * yRange + (1-yPrc) * (-yRange);
             
-            field[x][y] += thisForce;
+            field[x][y].vel += thisForce;
         }
     }
     
@@ -192,8 +193,8 @@ void VectorField::debugDraw(){
             //figure out where this line will be
             float px = x * scaleX;
             float py = y * scaleY;
-            float px2 = px + field[x][y].x * drawingStrengthAdjust;
-            float py2 = py + field[x][y].y * drawingStrengthAdjust;
+            float px2 = px + field[x][y].vel.x * drawingStrengthAdjust;
+            float py2 = py + field[x][y].vel.y * drawingStrengthAdjust;
             
             
             ofLine( px, py, px2, py2 );
@@ -257,14 +258,14 @@ void VectorField::drawGrid(float alphaPrc){
             //figure out where this line will be
             float px = x * scaleX;
             float py = y * scaleY;
-            float px2 = px + field[x][y].x * gridDrawingAdjust;
-            float py2 = py + field[x][y].y * gridDrawingAdjust;
+            float px2 = px + field[x][y].vel.x * gridDrawingAdjust;
+            float py2 = py + field[x][y].vel.y * gridDrawingAdjust;
             
             points[x][y].set(px2, py2);
             
             if (useGridFade || useVarryingWidths || showGridFill){
-                if (field[x][y].x != 0 || field[x][y].y != 0){
-                    strengthPrc[x][y] = ofMap(field[x][y].length(), gridValThreshold, gridValCeiling, 0, 1, true);
+                if (field[x][y].vel.x != 0 || field[x][y].vel.y != 0){
+                    strengthPrc[x][y] = ofMap(field[x][y].vel.length(), gridValThreshold, gridValCeiling, 0, 1, true);
                 }else{
                     strengthPrc[x][y] = 0;
                 }

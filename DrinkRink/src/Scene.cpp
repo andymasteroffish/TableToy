@@ -223,31 +223,43 @@ void Scene::removeTower(int vectorLoc){
 
 //--------------------------------------------------------------------------------------------
 void Scene::makeFieldParticles(){
-    vector<ofVec2f> gridPosAffectedThisFrame;
+    vector<FieldCell> cellsAffectedThisFrame;
+    vector<GridPos>   cellLocations;
+    //vector<ofVec2f> gridPosAffectedThisFrame;
     float minStrengthToCount = 0.01;
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
-            if ( abs(field.field[x][y].x) > minStrengthToCount || abs(field.field[x][y].y > minStrengthToCount) ){
-                gridPosAffectedThisFrame.push_back( field.getExternalPointFromInternal(x,y) );
+            if ( abs(field.field[x][y].vel.x) > minStrengthToCount || abs(field.field[x][y].vel.y > minStrengthToCount) ){
+                cellsAffectedThisFrame.push_back(field.field[x][y]);
+                GridPos thisPos;
+                thisPos.set(x, y);
+                cellLocations.push_back(thisPos);
+                //gridPosAffectedThisFrame.push_back( field.getExternalPointFromInternal(x,y) );
             }
         }
     }
     
-    if (gridPosAffectedThisFrame.size() == 0){
+    if (cellsAffectedThisFrame.size() == 0){
         return;
     }
     
     
     for (int i=0; i<10; i++){
-        ofVec2f thisPos = gridPosAffectedThisFrame[ ofRandom( (int)gridPosAffectedThisFrame.size() )];
-        ofColor thisCol(ofRandom(255), ofRandom(255), ofRandom(255));
-        if (particleColors.size() > 0){
-            thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
-        }
-        FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y, thisCol );
+        int idNum = ofRandom( (int)cellsAffectedThisFrame.size() );
+        FieldCell thisCell = cellsAffectedThisFrame[ idNum ];
+        ofVec2f thisPos = field.getExternalPointFromInternal(cellLocations[idNum].x, cellLocations[idNum].y);
+//        if (particleColors.size() > 0){
+//            thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
+//        }
+        FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y );
         
-        newP->setType(PARTICLE_SPORT);
+        if (thisCell.potentialParticleTypes.size() > 0){
+            int randType = ofRandom(thisCell.potentialParticleTypes.size());
+            newP->setType(thisCell.potentialParticleTypes[randType]);
+        }else{
+            newP->setType(defaultParticleType);
+        }
         
 //        //set all the debug values
 //        newP->fric = (1.0f-p_friction);

@@ -29,6 +29,8 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     showDebugImage = true;
     
+    particleType = PARTICLE_NO_TYPE;
+    
     
     customSetup();
     
