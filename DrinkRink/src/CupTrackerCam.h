@@ -17,7 +17,7 @@
 
 
 //comment this out to use live feed
-#define USE_VIDEO
+//#define USE_VIDEO
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 class CupTrackerCam : public CupTracker{

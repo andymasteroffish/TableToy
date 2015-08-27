@@ -23,6 +23,8 @@ void CupTrackerCam::setupCustom(){
     vidGrabber.initGrabber(320,240);
 #endif
     
+    vidGrabber.videoSettings();
+    
     fullImg.allocate(vidGrabber.width, vidGrabber.height);
     colorImg.allocate(imgWidth , imgHeight);
     grayImage.allocate(imgWidth , imgHeight);
