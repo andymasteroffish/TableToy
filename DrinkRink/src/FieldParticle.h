@@ -17,6 +17,7 @@
 class FieldParticle{
 public:
     
+    FieldParticle();
     FieldParticle(float x, float y);
     void setup(float x, float y);
     void update(float deltaTime, VectorField * field);

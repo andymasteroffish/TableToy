@@ -31,6 +31,8 @@ void Ball::setup(bool spawnOnTop, int _gameWidth, int _gameHeight, ofColor _col)
     float startPadding = 20;
     float startingXOffset = ofRandom(-10,10);
     
+    startingXOffset = -ofGetWidth()/2 + 80; //TESTING
+    
     if (spawnOnTop){
         pos.set(gameWidth/2+startingXOffset, -startPadding);
         vel.set(0,startVel);

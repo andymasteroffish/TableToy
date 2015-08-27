@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "Scene.h"
 #include "Ball.h"
+#include "BallParticle.h"
 #include "Goal.h"
 #include "GoalWinFill.h"
 
@@ -34,7 +35,7 @@ public:
     void keyPressed(int key);
     
     void spawnBall();
-    void killBall(int idNum);
+    void killBall(int idNum, int goalID);
     
     void addTower(CupInfo thisCup);
     
@@ -43,6 +44,7 @@ public:
     
     //the balls
     vector<Ball *> balls;
+    vector<BallParticle> ballParticles;
     float ballRepulsionRange;
     float ballRepulsionMaxForce;
     ofColor ballColor;

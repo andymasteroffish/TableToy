@@ -212,6 +212,7 @@ dependencies: \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/addons/ofxControlPanel/src/guiTypeTextInput.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Tower.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Ball.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/BallParticle.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Goal.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/GoalWinFill.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/TowerRepeller.h \

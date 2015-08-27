@@ -125,6 +125,7 @@
 		0A2FE3E61B8E26B500ABD7DB /* TowerCalibration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TowerCalibration.h; sourceTree = "<group>"; };
 		0A4EB6DB1B8B647400170FBB /* CalibrationScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalibrationScene.cpp; sourceTree = "<group>"; };
 		0A4EB6DC1B8B647400170FBB /* CalibrationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationScene.h; sourceTree = "<group>"; };
+		0A9ABAE91B8FCC9B007D655E /* BallParticle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BallParticle.h; sourceTree = "<group>"; };
 		0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTracker.cpp; sourceTree = "<group>"; };
 		0AC3B92F1B86C14E001DC9C5 /* CupTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTracker.h; sourceTree = "<group>"; };
 		0ADE08911B8F606900FF021C /* GoalWinFill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GoalWinFill.cpp; sourceTree = "<group>"; };
@@ -749,6 +750,7 @@
 				0AF37A9D1B840E5200A9CFF7 /* SportsScene.cpp */,
 				0AF37A9E1B840E5200A9CFF7 /* Ball.h */,
 				0AF37A9F1B840E5200A9CFF7 /* Ball.cpp */,
+				0A9ABAE91B8FCC9B007D655E /* BallParticle.h */,
 				0AF37AA01B840E5200A9CFF7 /* Goal.h */,
 				0AF37AA11B840E5200A9CFF7 /* Goal.cpp */,
 				0ADE08921B8F606900FF021C /* GoalWinFill.h */,

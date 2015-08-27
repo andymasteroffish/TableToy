@@ -107,8 +107,16 @@ void SportsScene::updateCustom(){
         //ready to die in a goal?
         for (int g=0; g<NUM_GOALS; g++){
             if (goals[g].checkIsBallDead(balls[i])){
-                killBall(i);
+                killBall(i, g);
             }
+        }
+    }
+    
+    //and the particles
+    for (int i=ballParticles.size()-1; i>=0; i--){
+        ballParticles[i].update(deltaTime);
+        if (ballParticles[i].timer > ballParticles[i].killTime){
+            ballParticles.erase( ballParticles.begin()+i );
         }
     }
     
@@ -163,6 +171,10 @@ void SportsScene::drawCustom(){
             //ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
         }
         ofDisableDepthTest();
+        
+        for (int i=0; i<ballParticles.size(); i++){
+            ballParticles[i].draw(alphaPrc);
+        }
     }
     
     winFillEffect.draw(alphaPrc);
@@ -183,8 +195,17 @@ void SportsScene::spawnBall(){
 }
 
 //--------------------------------------------------------------------------------------------
-void SportsScene::killBall(int idNum){
+void SportsScene::killBall(int idNum, int goalID){
     //add some sparks or some shit
+    ofVec2f targetPos = balls[idNum]->pos;
+    if (goalID >= 0){
+        targetPos = goals[goalID].pos;
+    }
+    for (int i=0; i<20; i++){
+        BallParticle thisParticle;
+        thisParticle.setup( balls[idNum]->pos, targetPos, ballColor);
+        ballParticles.push_back(thisParticle);
+    }
     
     //remove the ball
     balls.erase( balls.begin() + idNum );
@@ -220,7 +241,7 @@ void SportsScene::triggerGameOver(){
     gameOverTimer = 0;
     
     while(balls.size() > 0){
-        killBall(0);
+        killBall(0, -1);
     }
     
     //figure out who lost

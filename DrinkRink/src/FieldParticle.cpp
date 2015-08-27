@@ -8,7 +8,9 @@
 
 #include "FieldParticle.h"
 
-
+FieldParticle::FieldParticle(){
+    setup(0,0);
+}
 FieldParticle::FieldParticle(float x, float y){
     setup(x,y);
 }
@@ -27,10 +29,13 @@ void FieldParticle::setup(float x, float y){
     noiseSeed = ofRandom(99999);
     
     setAlpha();
+    
 }
 
 void FieldParticle::update(float deltaTime, VectorField * field){
-    vel += field->getForceFromPos(pos) * 0.5;
+    if (field != NULL){
+        vel += field->getForceFromPos(pos) * 0.5;
+    }
     vel *= fric;
     pos += vel;
     
@@ -54,6 +59,7 @@ void FieldParticle::update(float deltaTime, VectorField * field){
     }
     
     setAlpha();
+    
 }
 
 void FieldParticle::draw(float alphaPrc){
