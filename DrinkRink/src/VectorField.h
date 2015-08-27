@@ -15,8 +15,55 @@
 class FieldCell{
 public:
     ofVec2f vel;
-    vector<ParticleType> potentialParticleTypes;    //HOLY SHIT THIS IS UGLY
+    //vector<ParticleType> potentialParticleTypes;    //HOLY SHIT THIS IS UGLY
     
+    int curNumTypes;
+    ParticleType potentialParticleTypes[NUM_PARTICLE_TYPES] ;
+    float typeWeights[NUM_PARTICLE_TYPES];
+    
+    void reset(){
+        vel.set(0,0);
+        curNumTypes = 0;
+    }
+    
+    void addPotentialParticleType(ParticleType type, float weight){
+        //check if it's in there
+        for (int i=0; i<curNumTypes; i++){
+            if (potentialParticleTypes[i] == type){
+                typeWeights[i] += weight;
+                return;
+            }
+        }
+        //add if if there's room (there should always be room)
+        if (curNumTypes <= NUM_PARTICLE_TYPES){
+            potentialParticleTypes[curNumTypes] = type;
+            typeWeights[curNumTypes] = weight;
+            curNumTypes++;
+        }else{
+            cout<<"NO ROOM FOR PARTICLE TYPE. HOW DID THIS HAPPEN????"<<endl;
+        }
+    }
+    
+    ParticleType getRandomParticleType(){
+        
+        if (curNumTypes == 0){
+            return PARTICLE_NO_TYPE;
+        }
+        
+        float totalWeight = 0;
+        for (int i=0; i<curNumTypes; i++){
+            totalWeight += typeWeights[i];
+        }
+        
+        float thisVal = ofRandom(totalWeight);
+        for (int i=0; i<curNumTypes; i++){
+            thisVal -= typeWeights[i];
+            if (thisVal <= 0){
+                return potentialParticleTypes[i];
+            }
+        }
+        
+    }
     
 };
 

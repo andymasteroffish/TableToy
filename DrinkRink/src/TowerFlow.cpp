@@ -61,7 +61,7 @@ void TowerFlow::addFlowCircle(float strength, float thisAngle, float spread){
                         }
                         
                         field->field[x][y].vel += forceToAdd;
-                        field->field[x][y].potentialParticleTypes.push_back(particleType);
+                        field->field[x][y].addPotentialParticleType(particleType, particleTypeWeight);
                     }
                 }
                 

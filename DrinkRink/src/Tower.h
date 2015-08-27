@@ -47,6 +47,7 @@ public:
     float fieldRange;
     
     ParticleType particleType;
+    float particleTypeWeight;
     
     float startingRange; //for some effects
     

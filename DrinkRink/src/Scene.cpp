@@ -247,16 +247,17 @@ void Scene::makeFieldParticles(){
     
     for (int i=0; i<10; i++){
         int idNum = ofRandom( (int)cellsAffectedThisFrame.size() );
-        FieldCell thisCell = cellsAffectedThisFrame[ idNum ];
+        FieldCell * thisCell = &cellsAffectedThisFrame[ idNum ];
         ofVec2f thisPos = field.getExternalPointFromInternal(cellLocations[idNum].x, cellLocations[idNum].y);
 //        if (particleColors.size() > 0){
 //            thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
 //        }
         FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y );
         
-        if (thisCell.potentialParticleTypes.size() > 0){
-            int randType = ofRandom(thisCell.potentialParticleTypes.size());
-            newP->setType(thisCell.potentialParticleTypes[randType]);
+        ParticleType typeToSet = thisCell->getRandomParticleType();
+        
+        if (typeToSet != PARTICLE_NO_TYPE){
+            newP->setType(typeToSet);
         }else{
             newP->setType(defaultParticleType);
         }

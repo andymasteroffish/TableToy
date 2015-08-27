@@ -9,7 +9,7 @@
 #ifndef emptyExample_GridPos_h
 #define emptyExample_GridPos_h
 
-enum ParticleType{ PARTICLE_NO_TYPE, PARTICLE_SPORT, PARTICLE_GOAL_LEFT, PARTICLE_GOAL_RIGHT };
+enum ParticleType{ PARTICLE_NO_TYPE, PARTICLE_SPORT, PARTICLE_GOAL_LEFT, PARTICLE_GOAL_RIGHT, NUM_PARTICLE_TYPES };
 
 
 class GridPos{

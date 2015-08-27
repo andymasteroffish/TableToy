@@ -70,7 +70,7 @@ void TowerPulse::addPulseCircle(float strength, float externalPulseDist, float e
                 dif.normalize();
                 
                 field->field[x][y].vel += dif * strength * prct;
-                field->field[x][y].potentialParticleTypes.push_back(particleType);
+                field->field[x][y].addPotentialParticleType(particleType, particleTypeWeight);
             }
             
         }

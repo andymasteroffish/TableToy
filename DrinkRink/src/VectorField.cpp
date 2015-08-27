@@ -31,8 +31,7 @@ void VectorField::clear(){
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
-            field[x][y].vel.set(0,0);
-            field[x][y].potentialParticleTypes.clear();
+            field[x][y].reset();
         }
     }
 }
