@@ -8,27 +8,32 @@
 
 #include "Ball.h"
 
+/*
 Ball::Ball(){
     setup(false);
 }
+ */
 
-Ball::Ball(bool spawnOnTop){
-    setup(spawnOnTop);
+Ball::Ball(bool spawnOnTop, int _gameWidth, int _gameHeight){
+    setup(spawnOnTop, _gameWidth, _gameHeight);
 }
 
-void Ball::setup(bool spawnOnTop){
+void Ball::setup(bool spawnOnTop, int _gameWidth, int _gameHeight){
     
     friction = 0.995;
+    
+    gameWidth = _gameWidth;
+    gameHeight = _gameHeight;
     
     float startVel = 1;
     float startPadding = 10;
     float startingXOffset = ofRandom(-10,10);
     
     if (spawnOnTop){
-        pos.set(ofGetWidth()/2+startingXOffset, -startPadding);
+        pos.set(gameWidth/2+startingXOffset, -startPadding);
         vel.set(0,startVel);
     }else{
-        pos.set(ofGetWidth()/2+startingXOffset, ofGetHeight() + startPadding);
+        pos.set(gameWidth/2+startingXOffset, gameHeight + startPadding);
         vel.set(0,-startVel);
     }
     
@@ -69,20 +74,20 @@ void Ball::update(VectorField * field){
             pos.x = 0;
             vel.x = MAX(vel.x, -vel.x);
         }
-        if (pos.x > ofGetWidth()){
-            pos.x = ofGetWidth();
+        if (pos.x > gameWidth){
+            pos.x = gameWidth;
             vel.x = MIN(vel.x, -vel.x);
         }
         if (pos.y < 0){
             pos.y = 0;
             vel.y = MAX(vel.y, -vel.y);
         }
-        if (pos.y > ofGetHeight()){
-            pos.y = ofGetHeight();
+        if (pos.y > gameHeight){
+            pos.y = gameHeight;
             vel.y = MIN(vel.y, -vel.y);
         }
     }else{
-        if (pos.x > 1 && pos.x < ofGetWidth()-1 && pos.y > 1 && pos.y < ofGetHeight()-1){
+        if (pos.x > 1 && pos.x < gameWidth-1 && pos.y > 1 && pos.y < gameHeight-1){
             justSpawned = false;
         }
     }

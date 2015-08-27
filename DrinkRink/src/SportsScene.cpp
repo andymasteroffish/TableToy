@@ -34,7 +34,7 @@ void SportsScene::setupCustom(){
     sceneToSwitchTo = 2;    //stream
     
     gameOverCupShrinkTime = 2;
-    gameOverTimetoSwitchScene = 10;
+    gameOverTimetoSwitchScene = 12;
     
 }
 
@@ -162,16 +162,12 @@ void SportsScene::drawCustom(){
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::keyPressed(int key){
-    if (key == 'r'){
-        for (int i=0; i<balls.size(); i++){
-            balls[i]->pos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
-        }
-    }
+    
 }
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::spawnBall(){
-    Ball * newBall = new Ball(nextBallSpawnsOnTop);
+    Ball * newBall = new Ball(nextBallSpawnsOnTop, gameWidth, gameHeight);
     balls.push_back(newBall);
     nextBallSpawnsOnTop = !nextBallSpawnsOnTop;
     ballSpawnTimer = 0;

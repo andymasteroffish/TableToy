@@ -26,7 +26,7 @@ class Scene{
 public:
     
     
-    void setup(CupTracker * _cupTracker);
+    void setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight);
     virtual void setupCustom(){}
     
     void reset();
@@ -55,18 +55,17 @@ public:
     
     int stringToHex(string input);
     
-    float deltaTime;
+    
     
     
     string sceneName;
+    float deltaTime;
     
+    int gameWidth, gameHeight;
     VectorField field;
-    
     CupTracker * cupTracker;
     
     vector<FieldParticle *> fieldParticles;
-    
-    
     vector<Tower *> towers;
     
     //some fucking color info

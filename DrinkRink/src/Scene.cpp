@@ -9,10 +9,13 @@
 #include "Scene.h"
 
 //--------------------------------------------------------------------------------------------
-void Scene::setup(CupTracker * _cupTracker){
+void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     cupTracker = _cupTracker;
     
-    field.setupField(ofGetWidth(),ofGetHeight());
+    gameWidth = _gameWidth;
+    gameHeight = _gameHeight;
+    
+    field.setupField(gameWidth, gameHeight);
     
     fadeTime = 3;
     
@@ -188,7 +191,7 @@ void Scene::draw(){
     //background
     ofSetColor(bgCol, 255*alphaPrc);
     ofFill();
-    ofRect(0, 0, ofGetWidth(),ofGetHeight());
+    ofRect(0, 0, gameWidth, gameHeight);
     
     //testing
     field.drawGrid(alphaPrc);

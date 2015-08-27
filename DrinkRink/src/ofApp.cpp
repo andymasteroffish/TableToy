@@ -8,6 +8,9 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     ofBackground(10);
     
+    gameWidth = 1500;
+    gameHeight = 500;
+    
     usingDebugCupTracker = false;
     
     if (usingDebugCupTracker){
@@ -16,14 +19,14 @@ void ofApp::setup(){
         cupTracker = new CupTrackerCam();
     }
     
-    cupTracker->setup();
+    cupTracker->setup(gameWidth, gameHeight);
     scenes[SCENE_CALIBRATION] = new CalibrationScene();
     scenes[SCENE_SPORTS] = new SportsScene();
     scenes[SCENE_STREAM] = new StreamScene();
     scenes[SCENE_FLYERS] = new FlyersScene();
     
     for (int i=0; i<NUM_SCENES; i++){
-        scenes[i]->setup(cupTracker);
+        scenes[i]->setup(cupTracker, gameWidth, gameHeight);
     }
     
     setScene(SCENE_SPORTS);
@@ -36,7 +39,6 @@ void ofApp::setup(){
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
     
-    //panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
     panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
     curPanel = 0;
     
@@ -328,7 +330,6 @@ void ofApp::draw(){
     if (showPanel){
         ofSetColor(255);
         ofFill();
-        //panel.setPosition( ofGetWidth()-310, 0 );
         panel.draw();
         ofSetColor(255);
         string panelInfo = ofToString(curPanel+1)+"/"+ofToString(panel.panels.size());

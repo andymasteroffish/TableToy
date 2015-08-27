@@ -10,9 +10,11 @@
 
 
 
-void CupTracker::setup(){
-    cout<<"set now"<<endl;
+void CupTracker::setup(int _gameWidth, int _gameHeight){
     activeCups.clear();
+    
+    gameWidth = _gameWidth;
+    gameHeight = _gameHeight;
     
     setupCustom();
     

@@ -46,10 +46,10 @@ void TowerPulse::customUpdate(){
 void TowerPulse::addPulseCircle(float strength, float externalPulseDist, float externalPulseSize){
     Bounds bounds = field->getFieldBounds(fieldPos, fieldRange);
     
-    float fieldPulseDistPrc = externalPulseDist / (float)field->externalWidth;
+    float fieldPulseDistPrc = externalPulseDist / (float)field->gameWidth;
     float fieldPulseDist = (float) (fieldPulseDistPrc * field->fieldWidth);
     
-    float fieldPulseSizePrc = externalPulseSize / (float)field->externalWidth;
+    float fieldPulseSizePrc = externalPulseSize / (float)field->gameWidth;
     float fieldPulseSize = (float) (fieldPulseSizePrc * field->fieldWidth);
     
     float maxFieldDist = fieldPulseDist + fieldPulseSize;

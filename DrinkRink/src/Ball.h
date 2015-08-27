@@ -16,9 +16,9 @@ class Ball{
 public:
     
     Ball();
-    Ball(bool spawnOnTop);
+    Ball(bool spawnOnTop, int _gameWidth, int _gameHeight);
     
-    void setup(bool spawnOnTop);
+    void setup(bool spawnOnTop, int _gameWidth, int _gameHeight);
     void addRepulsionForce(Ball * other, float radius, float maxForce);
     void update(VectorField * field);
     void draw();
@@ -28,6 +28,8 @@ public:
     float friction;
     
     bool justSpawned;
+    
+    int gameWidth, gameHeight;
     
     
 };

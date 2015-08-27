@@ -13,6 +13,8 @@
 void Goal::setup(bool _isLeft, VectorField * _field){
     
     field = _field;
+    gameWidth = field->gameWidth;
+    gameHeight = field->gameHeight;
     
     isLeft = _isLeft;
     
@@ -44,8 +46,8 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     killRange = nearRange / 2;
     
     //position this thing
-    pos.y = ofGetHeight()/2;
-    pos.x = isLeft ? 70 : ofGetWidth()-70;
+    pos.y = gameHeight/2;
+    pos.x = isLeft ? 70 : gameWidth-70;
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
     
@@ -163,7 +165,7 @@ void Goal::drawRadialScore(float alphaPrc){
 
 void Goal::drawBoxScore(float alphaPrc){
     
-    float boxSize = (ofGetWidth()/2)/ (float)scoreToWin;
+    float boxSize = (gameWidth/2)/ (float)scoreToWin;
     
     int numBoxes = ceil(smoothScore);
     float finalBoxPrc = 1 - ((float)numBoxes - smoothScore);
@@ -206,17 +208,17 @@ void Goal::drawBoxScore(float alphaPrc){
         
         float xPos = i*boxSize;
         if (!isLeft){
-            xPos = ofGetWidth()-i*boxSize;
+            xPos = gameWidth-i*boxSize;
         }
         
         
-        ofRect(xPos-winnerOffset, 0, width+winnerOffset*2, ofGetHeight());
+        ofRect(xPos-winnerOffset, 0, width+winnerOffset*2, gameHeight);
     }
     
     //draw a dividing line
     ofSetColor(baseCol, 100*alphaPrc);
     float lineWidth = 2 * (isLeft ? -1 : 1);
-    ofRect(ofGetWidth()/2, 0, lineWidth, ofGetHeight());
+    ofRect(gameWidth/2, 0, lineWidth, gameHeight);
 }
 
 
@@ -267,9 +269,8 @@ void Goal::addInwardCircle(float strength, float range){
 }
 
 void Goal::calculateFieldRange(){
-    
-    nearFieldRange = (float)( (nearRange / (float)field->externalWidth) * field->fieldWidth);
-    farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
+    nearFieldRange = (float)( (nearRange / (float)field->gameWidth) * field->fieldWidth);
+    farFieldRange = (float)( (farRange / (float)field->gameWidth) * field->fieldWidth);
 }
 
 
@@ -288,9 +289,9 @@ void Goal::checkPanelValues(ofxControlPanel * panel){
     baseCol.setHsb( panel->getValueI("GOAL_HUE_"+sideName) , panel->getValueF("GOAL_SAT"), panel->getValueF("GOAL_BRI"));
     
     float xPadding = panel->getValueF("GOAL_X_DIST_FROM_EDGE");
-    float yPadding = panel->getValueF("GOAL_Y_PRC_FROM_EDGE") * ofGetHeight();
-    pos.x = isLeft ? xPadding : ofGetWidth()-xPadding;
-    pos.y = isLeft ? ofGetHeight()-yPadding : yPadding;
+    float yPadding = panel->getValueF("GOAL_Y_PRC_FROM_EDGE") * gameHeight;
+    pos.x = isLeft ? xPadding : gameWidth-xPadding;
+    pos.y = isLeft ? gameHeight-yPadding : yPadding;
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
     nearRange = panel->getValueF("GOAL_NEAR_RANGE");

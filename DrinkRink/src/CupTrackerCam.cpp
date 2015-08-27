@@ -159,9 +159,10 @@ void CupTrackerCam::keyPressed(int key){
 
 //--------------------------------------------------------------
 void CupTrackerCam::checkFiducial(list<ofxFiducial>::iterator fiducial){
-    //this is placeholder / will need to be done way better
-    float xAdjust = (float)ofGetWidth()  / (float)imgWidth;
-    float yAdjust = (float)ofGetHeight() / (float)imgHeight;
+    
+    //adjust the image to fit the screen
+    float xAdjust = (float)gameWidth / (float)imgWidth;
+    float yAdjust = (float)gameHeight / (float)imgHeight;
     
     //does a cup with this ID exist in the list?
     for (int i=0; i<activeCups.size(); i++){

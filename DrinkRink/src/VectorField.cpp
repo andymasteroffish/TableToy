@@ -16,8 +16,8 @@ void VectorField::setupField(int outerW, int outerH){
     fieldWidth = FIELD_WIDTH;
     fieldHeight = FIELD_HEIGHT;
     
-    externalWidth = outerW;
-    externalHeight = outerH;
+    gameWidth = outerW;
+    gameHeight = outerH;
     
     drawingStrengthAdjust = 15;
     
@@ -74,8 +74,8 @@ ofVec2f VectorField::getForceFromPos(float xPos, float yPos){
 GridPos VectorField::getInternalPointFromExternal(float externalX, float externalY){
     
     //convert from xpos and ypos to percentages
-    float xPrct = externalX / (float)externalWidth;
-    float yPrct = externalY / (float)externalHeight;
+    float xPrct = externalX / (float)gameWidth;
+    float yPrct = externalY / (float)gameHeight;
     
     //figure out where we are in the field array
     GridPos returnVal;
@@ -93,8 +93,8 @@ ofVec2f VectorField::getExternalPointFromInternal(int internalX, int internalY){
     
     //figure out where we are in the external size
     ofVec2f returnVal;
-    returnVal.x = externalWidth * xPrct;
-    returnVal.y = externalHeight * yPrct;
+    returnVal.x = gameWidth * xPrct;
+    returnVal.y = gameHeight * yPrct;
     
     return returnVal;
 }
@@ -119,7 +119,7 @@ void VectorField::addFlowCircleFuckUp(float x, float y, float radius){
     //get our center
     GridPos fieldPos = getInternalPointFromExternal(x, y);
     //and the radius in field size
-    float radiusPrct = radius / (float)externalWidth;
+    float radiusPrct = radius / (float)gameWidth;
     float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
     
     //figure out how far we have to go
@@ -183,8 +183,8 @@ void VectorField::debugDraw(){
     
     ofSetLineWidth(1);
     
-    float scaleX = (float)externalWidth / (float)FIELD_WIDTH;
-    float scaleY = (float)externalHeight / (float)FIELD_HEIGHT;
+    float scaleX = (float)gameWidth / (float)FIELD_WIDTH;
+    float scaleY = (float)gameHeight / (float)FIELD_HEIGHT;
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
@@ -248,8 +248,8 @@ void VectorField::drawGrid(float alphaPrc){
     ofVec2f points[FIELD_WIDTH][FIELD_HEIGHT];
     float strengthPrc[FIELD_WIDTH][FIELD_HEIGHT];
     
-    float scaleX = (float)externalWidth / (float)FIELD_WIDTH;
-    float scaleY = (float)externalHeight / (float)FIELD_HEIGHT;
+    float scaleX = (float)gameWidth / (float)FIELD_WIDTH;
+    float scaleY = (float)gameHeight / (float)FIELD_HEIGHT;
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){

@@ -35,6 +35,8 @@ public:
     
     void checkPanelValues(ofxControlPanel * panel);
     
+    int gameWidth, gameHeight;
+    
     bool isLeft;
     int score;
     float smoothScore, smoothScoreXeno;

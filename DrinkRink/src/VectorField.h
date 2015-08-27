@@ -21,8 +21,8 @@ public:
     #define FIELD_HEIGHT 40
     int fieldWidth, fieldHeight; //and some variables ot make it more accessible
     
-    //external dimensions (screen pixel size ie 1024x768)
-    int externalWidth, externalHeight;
+    //external dimensions
+    int gameWidth, gameHeight;
     
     //the actual field
     ofVec2f field[FIELD_WIDTH][FIELD_HEIGHT];

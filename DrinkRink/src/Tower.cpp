@@ -27,7 +27,7 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     towerSize = 40;    //how big the physical cup is
     
-    showDebugImage = false;//true;
+    showDebugImage = true;
     
     
     customSetup();
@@ -53,7 +53,7 @@ void Tower::update(float _deltaTime){
 
 //call this any time you change the range
 void Tower::calculateFieldRange(){
-    float radiusPrct = range / (float)field->externalWidth;
+    float radiusPrct = range / (float)field->gameWidth;
     fieldRange = (float)(radiusPrct * field->fieldWidth);
 }
 
