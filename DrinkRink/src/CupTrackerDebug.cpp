@@ -10,7 +10,6 @@
 
 
 void CupTrackerDebug::setupCustom(){
-    cout<<"ste custom"<<endl; 
     aproxCupSize = 40;
     debugDraggingCupID = -1;
     nextUniqueID = 0;

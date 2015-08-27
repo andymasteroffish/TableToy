@@ -39,6 +39,9 @@ public:
     float smoothScore, smoothScoreXeno;
     int scoreToWin;
     
+    bool hasWon;
+    float winEffectTimer;
+    
     
     VectorField * field;
     float deltaTime;

@@ -56,12 +56,19 @@ void Goal::reset(){
     score = 0;
     smoothScore = 0;
     
+    hasWon = false;
+    winEffectTimer = 0;
+    
     //testing
-    score = ofRandom(scoreToWin*0.25, scoreToWin*0.75);
+    score = ofRandom(scoreToWin*0.75, scoreToWin*0.99);
 }
 
 void Goal::update(float _deltaTime){
     deltaTime = _deltaTime;
+    
+    if (hasWon){
+        winEffectTimer += deltaTime;
+    }
     
     addInwardCircle(nearFieldStrength, nearFieldRange);
     addInwardCircle(farFieldStrength, farFieldRange);
@@ -143,9 +150,24 @@ void Goal::drawBoxScore(float alphaPrc){
     float baseSat = baseCol.getSaturation();
     float baseBri = baseCol.getBrightness();
     
+    float winAlpha = 150;
+    float winTimeBeforeBarEffect = 1;
+    float winTimeBetweenBars = 0.1; //how long after winning to make the bar light up
+    
     ofFill();
     
     for (int i=0; i<numBoxes; i++){
+        bool doWinEffectForThisBar = hasWon && winEffectTimer > (float)i*winTimeBetweenBars + winTimeBeforeBarEffect;
+        
+//        if (hasWon){
+//            float timeSlice = winTimeBeforeBarEffect / (float)numBoxes;
+//            float myPeriod = timeSlice* (numBoxes-i -1);
+//            if (winEffectTimer > myPeriod && winEffectTimer <= myPeriod+timeSlice){
+//                doWinEffectForThisBar = true;
+//            }
+//            
+//        }
+        
         float hue = baseHue +  (ofNoise(ofGetElapsedTimef()*scoreBarNoiseSpeed, i)-0.5) * scoreBarHueRange;
         if (hue < 0)    hue += 255;
         if (hue > 255)  hue -=255;
@@ -153,14 +175,24 @@ void Goal::drawBoxScore(float alphaPrc){
         ofColor thisCol;
         thisCol.setHsb(hue, baseSat, baseBri);
         thisCol.a = scoreBarAlpha*alphaPrc;
+        if (doWinEffectForThisBar){
+            thisCol.a = winAlpha;
+        }
         ofSetColor(thisCol);
         
         float width = boxSize;
+        float winnerOffset = 0;
+        if (doWinEffectForThisBar){
+            winnerOffset = abs(sin(ofGetElapsedTimef()*5+(float)i*0.3) * 10);
+            //float winnerOffset = abs(sin(ofGetElapsedTimef()*5+(float)i*PI*0.5) * 10);
+        }
+        
         if (i == numBoxes-1){
             width *= finalBoxPrc;
         }
         if (!isLeft){
-            width*=-1;
+            width *= -1;
+            winnerOffset *= -1;
         }
         
         float xPos = i*boxSize;
@@ -168,7 +200,8 @@ void Goal::drawBoxScore(float alphaPrc){
             xPos = ofGetWidth()-i*boxSize;
         }
         
-        ofRect(xPos, 0, width, ofGetHeight());
+        
+        ofRect(xPos-winnerOffset, 0, width+winnerOffset*2, ofGetHeight());
     }
     
     //draw a dividing line
@@ -193,6 +226,10 @@ bool Goal::checkIsBallDead(Ball * ball){
 
 void Goal::markScore(){
     score++;
+    if (score >= scoreToWin){
+        score = scoreToWin; //no going higher
+        hasWon = true;
+    }
 }
 
 

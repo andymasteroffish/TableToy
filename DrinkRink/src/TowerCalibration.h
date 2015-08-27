@@ -49,6 +49,9 @@ public:
         
         ofPopMatrix();
         
+        ofSetColor(150,150,255, 255*alphaPrc);
+        ofDrawBitmapString("#"+ofToString(uniqueID), pos.x, pos.y+linePadding+15);
+        
     }
     
     

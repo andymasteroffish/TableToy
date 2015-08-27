@@ -26,7 +26,7 @@ void ofApp::setup(){
         scenes[i]->setup(cupTracker);
     }
     
-    curSceneID = -1;
+    curSceneID = 0;
     scrollModes();
     
     
