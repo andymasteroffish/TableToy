@@ -27,14 +27,25 @@ public:
     void drawCustom();
     
     void keyPressed(int key);
+    void mouseDragged(int x, int y, int button);
+    void mousePressed(int x, int y, int button);
+    void mouseReleased(int x, int y, int button);
     
     
     void addTower(CupInfo thisCup);
+    void checkPanelValuesCustom(ofxControlPanel * panel);
     
     bool usingDebug;    //don't do anything if we're not using the camera
     CupTrackerCam * tracker;
     
+    ofxControlPanel * controlPanel;
     
+    ofVec2f drawOffset;
+    float drawScale;
+    
+    //dragging shit
+    int curPointDragging;
+    ofVec2f draggingOffset;
     
 };
 
