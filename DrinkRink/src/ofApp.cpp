@@ -29,7 +29,8 @@ void ofApp::setup(){
         scenes[i]->setup(cupTracker, gameWidth, gameHeight);
     }
     
-    setScene(SCENE_SPORTS);
+    curSceneID = -100;
+    setScene(SCENE_CALIBRATION);
     
     showField = false;
     showDebugInfo = false;
@@ -402,6 +403,7 @@ void ofApp::mouseMoved(int x, int y){
 void ofApp::mousePressed(int x, int y, int button){
     
     cupTracker->mousePressed(x, y, button);
+    curScene->mousePressed(x, y, button);
     
     if (showPanel){
         panel.mousePressed(x,y,button);
@@ -412,6 +414,7 @@ void ofApp::mousePressed(int x, int y, int button){
 void ofApp::mouseDragged(int x, int y, int button){
     
     cupTracker->mouseDragged(x, y, button);
+    curScene->mouseDragged(x, y, button);
     
     if (showPanel){
         panel.mouseDragged(x,y,button);
@@ -422,6 +425,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mouseReleased(int x, int y, int button){
     
     cupTracker->mouseReleased(x, y, button);
+    curScene->mouseReleased(x, y, button);
     
     if (showPanel){
         panel.mouseReleased();

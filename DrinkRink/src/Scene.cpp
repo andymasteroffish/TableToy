@@ -86,6 +86,10 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
 
 //--------------------------------------------------------------------------------------------
 void Scene::checkPanelValues(ofxControlPanel *panel){
+    
+    
+    checkPanelValuesCustom(panel);
+    
     if (ignorePanelValues){
         return;
     }
@@ -141,7 +145,6 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     
     field.gridColor.setHsb(panel->getValueF("GRID_HUE"), panel->getValueF("GRID_SAT"), panel->getValueF("GRID_BRI"));
     
-    checkPanelValuesCustom(panel);
 }
 
 
