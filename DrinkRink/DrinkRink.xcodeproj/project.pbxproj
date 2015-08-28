@@ -87,6 +87,7 @@
 		46CA36A41B8FDFFC00791398 /* Sensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36911B8FDFFC00791398 /* Sensor.mm */; };
 		46CA36A51B8FDFFC00791398 /* ofxMacamPs3Eye.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36931B8FDFFC00791398 /* ofxMacamPs3Eye.mm */; };
 		46CA36A61B8FDFFC00791398 /* PS3EyeWindowAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36951B8FDFFC00791398 /* PS3EyeWindowAppDelegate.mm */; };
+		46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* Carnivale.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -401,6 +402,8 @@
 		46CA36931B8FDFFC00791398 /* ofxMacamPs3Eye.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxMacamPs3Eye.mm; sourceTree = "<group>"; };
 		46CA36941B8FDFFC00791398 /* PS3EyeWindowAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PS3EyeWindowAppDelegate.h; sourceTree = "<group>"; };
 		46CA36951B8FDFFC00791398 /* PS3EyeWindowAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PS3EyeWindowAppDelegate.mm; sourceTree = "<group>"; };
+		46CA36A91B8FEEDF00791398 /* Carnivale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carnivale.cpp; sourceTree = "<group>"; };
+		46CA36AA1B8FEEDF00791398 /* Carnivale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carnivale.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -788,6 +791,7 @@
 				0AF37A991B840E4B00A9CFF7 /* Scene.h */,
 				0AF37A9A1B840E4B00A9CFF7 /* Scene.cpp */,
 				0A2FE3E51B8E267900ABD7DB /* Calibration */,
+				46CA36AC1B8FEEEE00791398 /* Carnivale */,
 				0AF37A951B840E1400A9CFF7 /* Sports */,
 				0AF37A961B840E1900A9CFF7 /* Stream */,
 				0AF37A971B840E1F00A9CFF7 /* Flyers */,
@@ -1059,6 +1063,15 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		46CA36AC1B8FEEEE00791398 /* Carnivale */ = {
+			isa = PBXGroup;
+			children = (
+				46CA36A91B8FEEDF00791398 /* Carnivale.cpp */,
+				46CA36AA1B8FEEDF00791398 /* Carnivale.h */,
+			);
+			name = Carnivale;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1317,6 +1330,7 @@
 				0AF37B081B840F4000A9CFF7 /* guiBaseObject.cpp in Sources */,
 				0AF37B1B1B840F4000A9CFF7 /* guiTypeToggle.cpp in Sources */,
 				0ADE08931B8F606900FF021C /* GoalWinFill.cpp in Sources */,
+				46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */,
 				0AF37AB21B840E6500A9CFF7 /* TowerRock.cpp in Sources */,
 				0AF37B231B840F4000A9CFF7 /* tinyxml.cpp in Sources */,
 				0AC3B9301B86C14E001DC9C5 /* CupTracker.cpp in Sources */,
