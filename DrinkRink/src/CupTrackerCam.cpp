@@ -20,8 +20,7 @@ void CupTrackerCam::setupCustom(){
     vidGrabber.play();
 #else
     vidGrabber.setVerbose(true);
-    
-    vidGrabber.initGrabber(320,240);
+    vidGrabber.initGrabber(640,480);
 #endif
     
 //    cout<<"camera devices:"<<endl;
@@ -31,15 +30,15 @@ void CupTrackerCam::setupCustom(){
 //    }
     
     
-    fullImg.allocate(vidGrabber.width, vidGrabber.height);
+    fullImg.allocate(vidGrabber.getWidth(), vidGrabber.getHeight());
     colorImg.allocate(imgWidth , imgHeight);
     grayImage.allocate(imgWidth , imgHeight);
     
     //start the warp points to include the whole camera image
     warpPoints[0].set(0, 0);
-    warpPoints[1].set(vidGrabber.width, 0);
-    warpPoints[2].set(vidGrabber.width, vidGrabber.height);
-    warpPoints[3].set(0, vidGrabber.height);
+    warpPoints[1].set(vidGrabber.getWidth(), 0);
+    warpPoints[2].set(vidGrabber.getWidth(), vidGrabber.getHeight());
+    warpPoints[3].set(0, vidGrabber.getHeight());
     
     //warp end points don't change
     warpEndPoints[0].set(0,0);
@@ -84,9 +83,9 @@ void CupTrackerCam::update(){
     vidGrabber.update();
     
     if (vidGrabber.isFrameNew()){
-        fullImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.width, vidGrabber.height);
+        fullImg.setFromPixels(vidGrabber.getPixelsRef());
         colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
-        //colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.width ,vidGrabber.height);
+        //colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.getWidth() ,vidGrabber.getHeight());
         grayImage = colorImg;
         
         grayImage.threshold(threshold);
@@ -120,7 +119,7 @@ void CupTrackerCam::draw(){
     ofVec2f drawStart(100,0);
     
     colorImg.draw(drawStart.x,drawStart.y);
-    grayImage.draw(drawStart.x,drawStart.y+5+vidGrabber.height);
+    grayImage.draw(drawStart.x,drawStart.y+5+vidGrabber.getHeight());
     
     drawFiducials(drawStart.x, drawStart.y);
     
