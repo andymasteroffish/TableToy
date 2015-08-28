@@ -14,6 +14,7 @@
 
 #include "ofxOpenCv.h"
 #include "ofxFidMain.h"
+#include "ofxMacamPs3Eye.h"
 
 
 //comment this out to use live feed
@@ -37,7 +38,7 @@ public:
 #ifdef USE_VIDEO
     ofVideoPlayer       vidGrabber;
 #else
-    ofVideoGrabber 		vidGrabber;
+    ofxMacamPs3Eye 		vidGrabber;
 #endif
     
     int imgWidth, imgHeight;
