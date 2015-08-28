@@ -9,10 +9,13 @@
 #include "Scene.h"
 
 //--------------------------------------------------------------------------------------------
-void Scene::setup(CupTracker * _cupTracker){
+void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     cupTracker = _cupTracker;
     
-    field.setupField(ofGetWidth(),ofGetHeight());
+    gameWidth = _gameWidth;
+    gameHeight = _gameHeight;
+    
+    field.setupField(gameWidth, gameHeight);
     
     fadeTime = 3;
     
@@ -31,6 +34,8 @@ void Scene::reset(){
     isDoneFading = false;
     fadeTimer = fadeTime;
     alphaPrc = 1;
+    
+    switchScenesFlag = false;
     
     resetCustom();
 }
@@ -186,7 +191,7 @@ void Scene::draw(){
     //background
     ofSetColor(bgCol, 255*alphaPrc);
     ofFill();
-    ofRect(0, 0, ofGetWidth(),ofGetHeight());
+    ofRect(0, 0, gameWidth, gameHeight);
     
     //testing
     field.drawGrid(alphaPrc);
@@ -218,49 +223,65 @@ void Scene::removeTower(int vectorLoc){
 
 //--------------------------------------------------------------------------------------------
 void Scene::makeFieldParticles(){
-    vector<ofVec2f> gridPosAffectedThisFrame;
+    vector<FieldCell> cellsAffectedThisFrame;
+    vector<GridPos>   cellLocations;
+    //vector<ofVec2f> gridPosAffectedThisFrame;
     float minStrengthToCount = 0.01;
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
-            if ( abs(field.field[x][y].x) > minStrengthToCount || abs(field.field[x][y].y > minStrengthToCount) ){
-                gridPosAffectedThisFrame.push_back( field.getExternalPointFromInternal(x,y) );
+            if ( abs(field.field[x][y].vel.x) > minStrengthToCount || abs(field.field[x][y].vel.y > minStrengthToCount) ){
+                cellsAffectedThisFrame.push_back(field.field[x][y]);
+                GridPos thisPos;
+                thisPos.set(x, y);
+                cellLocations.push_back(thisPos);
+                //gridPosAffectedThisFrame.push_back( field.getExternalPointFromInternal(x,y) );
             }
         }
     }
     
-    if (gridPosAffectedThisFrame.size() == 0){
+    if (cellsAffectedThisFrame.size() == 0){
         return;
     }
     
     
     for (int i=0; i<10; i++){
-        ofVec2f thisPos = gridPosAffectedThisFrame[ ofRandom( (int)gridPosAffectedThisFrame.size() )];
-        ofColor thisCol(ofRandom(255), ofRandom(255), ofRandom(255));
-        if (particleColors.size() > 0){
-            thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
+        int idNum = ofRandom( (int)cellsAffectedThisFrame.size() );
+        FieldCell * thisCell = &cellsAffectedThisFrame[ idNum ];
+        ofVec2f thisPos = field.getExternalPointFromInternal(cellLocations[idNum].x, cellLocations[idNum].y);
+//        if (particleColors.size() > 0){
+//            thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
+//        }
+        FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y );
+        
+        ParticleType typeToSet = thisCell->getRandomParticleType();
+        
+        if (typeToSet != PARTICLE_NO_TYPE){
+            newP->setType(typeToSet);
+        }else{
+            newP->setType(defaultParticleType);
         }
-        FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y, thisCol );
-        //set all the debug values
-        newP->fric = (1.0f-p_friction);
-        newP->killTime = p_killTime;
         
-        newP->showDot = p_showDot;
-        newP->fillDot = p_fillDot;
-        newP->dotSize = p_dotSize;
-        
-        newP->useNoiseWiggle = p_useNoiseWiggle;
-        newP->noiseWiggleRange = p_noiseWiggleRange;
-        newP->noiseWigglePower = p_noiseWigglePower;
-        newP->noiseWiggleRate = p_noiseWiggleRate;
-        
-        newP->useTrails = p_useTrails;
-        newP->numTrailPositions = p_numTrailPositions;
-        newP->trailStartWidth = p_trailStartWidth;
-        newP->trailEndWidth = p_trailEndWidth;
-        
-        newP->usePic = p_usePic;
-        newP->picScale = p_picScale;
+//        //set all the debug values
+//        newP->fric = (1.0f-p_friction);
+//        newP->killTime = p_killTime;
+//        
+//        newP->showDot = p_showDot;
+//        newP->fillDot = p_fillDot;
+//        newP->dotSize = p_dotSize;
+//        
+//        newP->useNoiseWiggle = p_useNoiseWiggle;
+//        newP->noiseWiggleRange = p_noiseWiggleRange;
+//        newP->noiseWigglePower = p_noiseWigglePower;
+//        newP->noiseWiggleRate = p_noiseWiggleRate;
+//        
+//        newP->useTrails = p_useTrails;
+//        newP->numTrailPositions = p_numTrailPositions;
+//        newP->trailStartWidth = p_trailStartWidth;
+//        newP->trailEndWidth = p_trailEndWidth;
+//        
+//        newP->usePic = p_usePic;
+//        newP->picScale = p_picScale;
         newP->pic = &particlePic;
         
         //add it to the list

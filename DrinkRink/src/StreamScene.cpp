@@ -44,7 +44,7 @@ void StreamScene::setStreamForceOnField(){
             float yPrc = ofNoise( x*noiseScale, y*noiseScale, ofGetElapsedTimef() * noiseSpeed, 1000 );
             thisForce.y = yPrc * yRange + (1-yPrc) * (-yRange);
             
-            field.field[x][y] += thisForce;
+            field.field[x][y].vel += thisForce;
         }
     }
 }

@@ -22,7 +22,8 @@ public:
     
     void setup();
     
-    void scrollModes();
+    void scrollScenes();
+    void setScene(int sceneID);
     
     void update();
     void draw();
@@ -42,6 +43,7 @@ public:
     
     //general
     float deltaTime, prevFrameTime;
+    int gameWidth, gameHeight;      //the size in pixels of the board. The image may be scaled up or down, but this is the size used for calculations
     
     //reading form the cam
     bool usingDebugCupTracker;

@@ -24,20 +24,25 @@ public:
     
     void update(float _deltaTime);
     void draw(float alphaPrc);
-    void drawRadialScore(float alphaPrc);
     void drawBoxScore(float alphaPrc);
     
     bool checkIsBallDead(Ball * ball);
     void markScore();
     
     void addInwardCircle(float strength, float range);
+    void calculateFieldRange();
     
     void checkPanelValues(ofxControlPanel * panel);
+    
+    int gameWidth, gameHeight;
     
     bool isLeft;
     int score;
     float smoothScore, smoothScoreXeno;
     int scoreToWin;
+    
+    bool hasWon, hasLost;
+    float gameOverTimer;
     
     
     VectorField * field;
@@ -58,11 +63,23 @@ public:
     ofColor baseCol;
     bool showDebug;
     
+    float goalBorderJumpRange;
+    float goalBorderJumpTime;
+    float goalBorderJumpTimer;
+    
     //score display
-    bool useRadialScoreDisplay;
     float scoreBarAlpha;
     float scoreBarHueRange;
     float scoreBarNoiseSpeed;
+    
+    
+    //some effects on game over
+    float scoreBarWinEffectAlpha;
+    float winTimeBeforeBarEffect;
+    float winTimeBetweenBars;      //how long after winning to make the bar light up
+    float goalShrinkTimeOnLoss;
+    float startingFarRange, startingNearRange;
+    
     
 };
 

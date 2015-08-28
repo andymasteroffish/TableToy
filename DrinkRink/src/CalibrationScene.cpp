@@ -44,14 +44,9 @@ void CalibrationScene::updateCustom(){
 
 //--------------------------------------------------------------------------------------------
 void CalibrationScene::drawCustom(){
-    //fuck the background setting, just black out the whole thing
-//    ofSetColor(10,30,0);
-//    ofFill();
-//    ofRect(0,0,ofGetWidth(), ofGetHeight());
-    
     if (usingDebug){
         ofSetColor(255, 255*alphaPrc);
-        ofDrawBitmapString("NO CALIBRATION FOR DEBUG TRACKER", 300, ofGetHeight()/2);
+        ofDrawBitmapString("NO CALIBRATION FOR DEBUG TRACKER", 300, gameHeight/2);
         return;
     }
     
@@ -94,7 +89,7 @@ void CalibrationScene::drawCustom(){
     
     //draw the resulting image
     ofPushMatrix();
-    ofTranslate(20, ofGetHeight()-tracker->grayImage.height-10);
+    ofTranslate(20, gameHeight-tracker->grayImage.height-10);
     
     ofSetColor(255, 255*alphaPrc);
     tracker->grayImage.draw(0, 0);

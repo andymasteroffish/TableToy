@@ -31,6 +31,17 @@ void SportsScene::setupCustom(){
     nextBallSpawnsOnTop = true; //this just flips with each spawn
     
     sceneName = "sports";
+    sceneToSwitchTo = 2;    //stream
+    
+    gameOverCupShrinkTime = 2;
+    gameOverTimetoSwitchScene = 12;
+    
+    ballColor.setHsb(212, 114, 242);
+    
+    bgCol.set(250,249,240);
+    defaultParticleType =  PARTICLE_SPORT;
+    
+    //ignorePanelValues = true;
 }
 
 
@@ -52,6 +63,10 @@ void SportsScene::resetCustom(){
     
     ballSpawnTimer = 0;
     
+    gameOver = false;
+    gameOverTimer = 0;
+    
+    winFillEffect.setup();
 }
 
 
@@ -61,12 +76,14 @@ void SportsScene::updateCustom(){
     //update goals
     for (int i=0; i<NUM_GOALS; i++){
         goals[i].update(deltaTime);
+        if (!gameOver && goals[i].hasWon){
+            triggerGameOver();
+        }
     }
     
     //spawn balls?
     ballSpawnTimer += deltaTime;
-    
-    if (ballSpawnTimer > timeBetweenBallSpawns && balls.size() < maxNumBalls){
+    if (ballSpawnTimer > timeBetweenBallSpawns && balls.size() < maxNumBalls && !gameOver){
         spawnBall();
     }
     
@@ -90,11 +107,39 @@ void SportsScene::updateCustom(){
         //ready to die in a goal?
         for (int g=0; g<NUM_GOALS; g++){
             if (goals[g].checkIsBallDead(balls[i])){
-                killBall(i);
+                killBall(i, g);
             }
         }
     }
     
+    //and the particles
+    for (int i=ballParticles.size()-1; i>=0; i--){
+        ballParticles[i].update(deltaTime);
+        if (ballParticles[i].timer > ballParticles[i].killTime){
+            ballParticles.erase( ballParticles.begin()+i );
+        }
+    }
+    
+    
+    //game over effect
+    if (gameOver){
+        gameOverTimer += deltaTime;
+        
+        float towerRangePrc = 1 - gameOverTimer/gameOverCupShrinkTime;
+        towerRangePrc = MAX(0, towerRangePrc);
+        for (int i=0; i<towers.size(); i++){
+            if (towers[i]->range > 0){
+                towers[i]->range = towers[i]->startingRange * towerRangePrc;
+                towers[i]->calculateFieldRange();
+            }
+        }
+        
+        winFillEffect.update(deltaTime);
+        
+        if (gameOverTimer >= gameOverTimetoSwitchScene){
+            switchScenesFlag = true;
+        }
+    }
     
 }
 
@@ -110,50 +155,58 @@ void SportsScene::checkPanelValuesCustom(ofxControlPanel *panel){
 //--------------------------------------------------------------------------------------------
 void SportsScene::drawCustom(){
     
-    
-    for (int i=0; i<NUM_GOALS; i++){
-        goals[i].draw(alphaPrc);
+    //don't draw the main game if we're doing the scene switch off
+    if (gameOverTimer < gameOverTimetoSwitchScene){
+        for (int i=0; i<NUM_GOALS; i++){
+            goals[i].draw(alphaPrc);
+        }
+        
+        //draw balls
+        //ofSetColor(ballColor, alphaPrc*255);
+        ofFill();
+        ofSetupScreenOrtho(ofGetWidth(), ofGetHeight(), -100, 100); //for fun 3d effect
+        ofEnableDepthTest();
+        for (int i=0; i<balls.size(); i++){
+            balls[i]->draw(alphaPrc);
+            //ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
+        }
+        ofDisableDepthTest();
+        
+        for (int i=0; i<ballParticles.size(); i++){
+            ballParticles[i].draw(alphaPrc);
+        }
+        ofSetCircleResolution(22); // put the resolution back to default
     }
     
-    
-    //testing
-//    ofSetColor(198,123,233, fadePrc*255);
-//    ofFill();
-//    for (int i=0; i<balls.size(); i++){
-//        ofCircle(balls[i]->pos, ballRepulsionRange/2);
-//        balls[i]->draw();
-//    }
-    
-    //draw balls
-    ofSetColor(ballColor, alphaPrc*255);
-    ofFill();
-    for (int i=0; i<balls.size(); i++){
-        balls[i]->draw();
-        //ofDrawBitmapString(ofToString(i), balls[i]->pos.x, balls[i]->pos.y-8);
-    }
+    winFillEffect.draw(alphaPrc);
 }
 
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::keyPressed(int key){
-    if (key == 'r'){
-        for (int i=0; i<balls.size(); i++){
-            balls[i]->pos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
-        }
-    }
+    
 }
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::spawnBall(){
-    Ball * newBall = new Ball(nextBallSpawnsOnTop);
+    Ball * newBall = new Ball(nextBallSpawnsOnTop, gameWidth, gameHeight, ballColor);
     balls.push_back(newBall);
     nextBallSpawnsOnTop = !nextBallSpawnsOnTop;
     ballSpawnTimer = 0;
 }
 
 //--------------------------------------------------------------------------------------------
-void SportsScene::killBall(int idNum){
+void SportsScene::killBall(int idNum, int goalID){
     //add some sparks or some shit
+    ofVec2f targetPos = balls[idNum]->pos;
+    if (goalID >= 0){
+        targetPos = goals[goalID].pos;
+    }
+    for (int i=0; i<20; i++){
+        BallParticle thisParticle;
+        thisParticle.setup( *balls[idNum], targetPos);
+        ballParticles.push_back(thisParticle);
+    }
     
     //remove the ball
     balls.erase( balls.begin() + idNum );
@@ -181,4 +234,24 @@ void SportsScene::addTower(CupInfo thisCup){
 
 }
 
+
+
+//--------------------------------------------------------------------------------------------
+void SportsScene::triggerGameOver(){
+    gameOver = true;
+    gameOverTimer = 0;
+    
+    while(balls.size() > 0){
+        killBall(0, -1);
+    }
+    
+    //figure out who lost
+    if (goals[0].hasWon){
+        winFillEffect.start(goals[0]);
+        goals[1].hasLost = true;
+    }else{
+        winFillEffect.start(goals[1]);
+        goals[0].hasLost = true;
+    }
+}
 

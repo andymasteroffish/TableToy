@@ -11,15 +11,20 @@
 
 #include "ofMain.h"
 #include "VectorField.h"
+#include "Utils.h"
+
 
 class FieldParticle{
 public:
     
-    FieldParticle(float x, float y, ofColor _col);
-    void setup(float x, float y, ofColor _col);
+    FieldParticle();
+    FieldParticle(float x, float y);
+    void setup(float x, float y);
     void update(float deltaTime, VectorField * field);
     void draw(float alphaPrc);
     void setAlpha();
+    
+    void setType(ParticleType type);
     
     
     ofVec2f pos, vel;

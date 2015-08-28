@@ -8,6 +8,9 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     ofBackground(10);
     
+    gameWidth = 1500;
+    gameHeight = 500;
+    
     usingDebugCupTracker = false;
     
     if (usingDebugCupTracker){
@@ -16,19 +19,17 @@ void ofApp::setup(){
         cupTracker = new CupTrackerCam();
     }
     
-    cupTracker->setup();
+    cupTracker->setup(gameWidth, gameHeight);
     scenes[SCENE_CALIBRATION] = new CalibrationScene();
     scenes[SCENE_SPORTS] = new SportsScene();
     scenes[SCENE_STREAM] = new StreamScene();
     scenes[SCENE_FLYERS] = new FlyersScene();
     
     for (int i=0; i<NUM_SCENES; i++){
-        scenes[i]->setup(cupTracker);
+        scenes[i]->setup(cupTracker, gameWidth, gameHeight);
     }
     
-    curSceneID = -1;
-    scrollModes();
-    
+    setScene(SCENE_SPORTS);
     
     showField = false;
     showDebugInfo = false;
@@ -38,7 +39,6 @@ void ofApp::setup(){
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
     
-    //panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
     panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
     curPanel = 0;
     
@@ -176,8 +176,6 @@ void ofApp::setup(){
     panel.setWhichPanel("Goals Score Display");
     panel.setWhichColumn(0);
     
-    panel.addToggle("Use Radial Score Display", "GOAL_USE_RADIAL", false);
-    
     panel.addSlider("Score Bar Alpha", "GOAL_SCORE_BAR_ALPHA", 50, 0, 255, false);
     panel.addSlider("Score Bar Hue Range", "GOAL_SCORE_BAR_HUE_RANGE", 30, 0, 255, false);
     panel.addSlider("Score Bar Noise Speed", "GOAL_SCORE_BAR_NOISE_SPEED", 0.1, 0, 1, false);
@@ -185,7 +183,7 @@ void ofApp::setup(){
     panel.addSlider("Score Smoothing Speed", "GOAL_SCORE_XENO", 0.25, 0.01, 1, false);
     
     panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_LEFT", false);
-    panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_RIGHT", false);
+    panel.addToggle("Add Score Right", "GOAL_ADD_SCORE_RIGHT", false);
     
     
     panel.addPanel("Cam Setup", 1, false);
@@ -208,14 +206,31 @@ void ofApp::setup(){
         panel.addSlider("Y Prc", "CAM_WARP_Y_"+ofToString(i), yVal, 0, 1, false);
     }
     
-    curPanel = 7;
+    curPanel = 6;
     panel.setSelectedPanel(curPanel);
     
 }
 
 //--------------------------------------------------------------
-//clears everythign and gets the toy ready for a new mode
-void ofApp::scrollModes(){
+void ofApp::scrollScenes(){
+    int targetScene = curSceneID + 1;
+    if (targetScene >= NUM_SCENES){
+        targetScene = 0;
+    }
+    
+    setScene(targetScene);
+}
+
+//--------------------------------------------------------------
+void ofApp::setScene(int sceneID){
+    if (sceneID == curSceneID){
+        cout<<"CAN'T CHANGE SCENE TO ITSELF"<<endl;
+        return;
+    }
+    if (sceneID < 0 || sceneID >= NUM_SCENES){
+        cout<<"SCENE ID OUT OF RANGE"<<endl;
+        return;
+    }
     
     if (curSceneID >= 0 && curSceneID <= NUM_SCENES){
         fadingScene = scenes[curSceneID];
@@ -224,14 +239,10 @@ void ofApp::scrollModes(){
         fadingScene = NULL;
     }
     
-    curSceneID++;
-    if (curSceneID >= NUM_SCENES){
-        curSceneID = 0;
-    }
+    curSceneID = sceneID;
     
     curScene = scenes[curSceneID];
     curScene->reset();
-    
 }
 
 //--------------------------------------------------------------
@@ -257,6 +268,9 @@ void ofApp::update(){
     prevFrameTime = ofGetElapsedTimef();
     
     curScene->update(deltaTime, &panel);
+    if (curScene->switchScenesFlag){
+        setScene(curScene->sceneToSwitchTo);
+    }
     
     //if we have a scene fading out, keep updating it until it is done
     if (fadingScene != NULL){
@@ -313,13 +327,15 @@ void ofApp::draw(){
     
     if (showPanel){
         ofSetColor(255);
+        ofSetLineWidth(1);
         ofFill();
-        //panel.setPosition( ofGetWidth()-310, 0 );
         panel.draw();
         ofSetColor(255);
         string panelInfo = ofToString(curPanel+1)+"/"+ofToString(panel.panels.size());
         ofDrawBitmapString(panelInfo, ofGetWidth()-50, ofGetHeight()-5);
     }
+    
+    
     
     //cupTrackerCam.draw();   //testing
 }
@@ -338,7 +354,7 @@ void ofApp::keyPressed(int key){
         showCupDebug = !showCupDebug;
     }
     if (key == 'm'){
-        scrollModes();
+        scrollScenes();
     }
     if (key == 'p'){
         showPanel = !showPanel;

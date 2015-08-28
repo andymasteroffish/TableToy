@@ -283,7 +283,9 @@ dependencies: \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/TowerCalibration.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/SportsScene.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Ball.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/BallParticle.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/Goal.h \
+  /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/GoalWinFill.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/TowerRepeller.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/TowerFlow.h \
   /Users/andywallace/Documents/of_v0.8.4_osx_release/apps/TableToy/DrinkRink/src/TowerPulse.h \

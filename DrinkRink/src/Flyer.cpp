@@ -27,7 +27,7 @@ void Flyer::setup(VectorField * _field){
     repelRange = 30;
     repelForce = 2;
     
-    pos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()) );
+    pos.set( ofRandom(field->gameWidth), ofRandom(field->gameHeight) );
     
     isFree = true;
     targetTower = NULL;
@@ -76,7 +76,7 @@ void Flyer::update(float _deltaTime){
     if (resetTarget || ofDistSquared(pos.x, pos.y, targetPos.x, targetPos.y) < powf(distToTargetToCount, 2)){
         
         if (isFree){
-            targetPos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+            targetPos.set( ofRandom(field->gameWidth), ofRandom(field->gameHeight));
         }else{
             ofVec2f towerPos = targetTower->pos;
             targetPos = towerPos;

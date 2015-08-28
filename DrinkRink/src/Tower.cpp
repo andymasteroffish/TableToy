@@ -29,8 +29,12 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     showDebugImage = true;
     
+    particleType = PARTICLE_NO_TYPE;
+    particleTypeWeight = 1;
     
     customSetup();
+    
+    startingRange = range;
     
     calculateFieldRange();
 }
@@ -51,7 +55,7 @@ void Tower::update(float _deltaTime){
 
 //call this any time you change the range
 void Tower::calculateFieldRange(){
-    float radiusPrct = range / (float)field->externalWidth;
+    float radiusPrct = range / (float)field->gameWidth;
     fieldRange = (float)(radiusPrct * field->fieldWidth);
 }
 

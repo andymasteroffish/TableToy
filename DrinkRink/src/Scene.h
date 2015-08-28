@@ -26,7 +26,7 @@ class Scene{
 public:
     
     
-    void setup(CupTracker * _cupTracker);
+    void setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight);
     virtual void setupCustom(){}
     
     void reset();
@@ -55,19 +55,20 @@ public:
     
     int stringToHex(string input);
     
-    float deltaTime;
+    
     
     
     string sceneName;
+    float deltaTime;
     
+    int gameWidth, gameHeight;
     VectorField field;
-    
     CupTracker * cupTracker;
     
     vector<FieldParticle *> fieldParticles;
-    
-    
     vector<Tower *> towers;
+    
+    ParticleType defaultParticleType;
     
     //some fucking color info
     ofColor bgCol;
@@ -81,6 +82,11 @@ public:
     float fadeTimer;
     float alphaPrc;
     
+    //telling the main app to switch scenes
+    bool switchScenesFlag;
+    int sceneToSwitchTo;
+    
+    //flag to not use our debug and tetsing values
     bool ignorePanelValues;
     
     //testing different particle options

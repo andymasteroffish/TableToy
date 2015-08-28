@@ -46,7 +46,7 @@ void TowerRock::addOutwardSemiCircle(float strength, bool onLeft){
                 dif.y = (y - fieldPos.y);
                 dif.normalize();
                 
-                field->field[x][y] += dif * strength * prct;
+                field->field[x][y].vel += dif * strength * prct;
             }
         }
     }

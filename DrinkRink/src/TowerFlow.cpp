@@ -12,6 +12,7 @@
 void TowerFlow::customSetup(){
     range = 150;
     debugColor.setHex(0xdfa320);
+    particleType = PARTICLE_SPORT;
 }
 
 void TowerFlow::customUpdate(){
@@ -59,7 +60,8 @@ void TowerFlow::addFlowCircle(float strength, float thisAngle, float spread){
                             forceToAdd *= -1;
                         }
                         
-                        field->field[x][y] += forceToAdd;
+                        field->field[x][y].vel += forceToAdd;
+                        field->field[x][y].addPotentialParticleType(particleType, particleTypeWeight);
                     }
                 }
                 

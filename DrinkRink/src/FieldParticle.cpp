@@ -8,21 +8,19 @@
 
 #include "FieldParticle.h"
 
-
-FieldParticle::FieldParticle(float x,
-                             float y, ofColor _col){
-    setup(x,y, _col);
+FieldParticle::FieldParticle(){
+    setup(0,0);
+}
+FieldParticle::FieldParticle(float x, float y){
+    setup(x,y);
 }
 
-void FieldParticle::setup(float x, float y, ofColor _col){
-    //killTime = 3;
+void FieldParticle::setup(float x, float y){
     killVel = 0.01;
     
     velToStartFading = 1;
     pos.set(x,y);
     vel.set(0,0);
-    //fric = 0.8;
-    col.set( _col );
     
     timer = 0;
     
@@ -32,28 +30,12 @@ void FieldParticle::setup(float x, float y, ofColor _col){
     
     setAlpha();
     
-    
-    //testing effects
-//    showDot = false;
-//    dotSize = 2;
-//    
-//    useNoiseWiggle = false;
-//    noiseWiggleRange = PI;
-//    noiseWigglePower = 0.2f;
-//    
-//    useTrails = false;
-//    numTrailPositions = 40;
-//    trailStartWidth = 0.5;  //making either trail start or end very big is interesting
-//    trailEndWidth = 2.5;
-//    trailPos.clear();
-//    
-//    usePic = true;
-//    picScale = 1;
-
 }
 
 void FieldParticle::update(float deltaTime, VectorField * field){
-    vel += field->getForceFromPos(pos) * 0.5;
+    if (field != NULL){
+        vel += field->getForceFromPos(pos) * 0.5;
+    }
     vel *= fric;
     pos += vel;
     
@@ -63,18 +45,10 @@ void FieldParticle::update(float deltaTime, VectorField * field){
         killFlag = true;
     }
     
-    //testing - this does make a kind of good wiggle
     if (useNoiseWiggle){
-//        float curAngle = atan2(vel.y, vel.y);
-//        float power = vel.length() * noiseWigglePower;
-//        float newAngle = curAngle + ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
-//        vel.x += sin(newAngle) * power;
-//        vel.y += cos(newAngle) * power;
-        
         float angleAdjust = ofMap( ofNoise( ofGetElapsedTimef()*noiseWiggleRate, noiseSeed), 0, 1, -noiseWiggleRange, noiseWiggleRange);
         vel *= 1+noiseWigglePower;
         vel.rotateRad( angleAdjust );
-        
     }
     
     if (useTrails && ofGetFrameNum()%2==0){
@@ -85,6 +59,7 @@ void FieldParticle::update(float deltaTime, VectorField * field){
     }
     
     setAlpha();
+    
 }
 
 void FieldParticle::draw(float alphaPrc){
@@ -137,5 +112,48 @@ void FieldParticle::setAlpha(){
         col.a = MIN(newAlpha, col.a);
     }
     
+}
+
+
+void FieldParticle::setType(ParticleType type){
+    if (type == PARTICLE_SPORT){
+        fric = 1.0-0.2;
+        killTime = 3;
+        showDot = true;
+        fillDot = true;
+        dotSize = 2;
+        useTrails = true;
+        numTrailPositions = 10;
+        trailStartWidth = 0.5;
+        trailEndWidth = 2.5;
+        usePic = false;
+        useNoiseWiggle = true;
+        noiseWiggleRange = 0.3;
+        noiseWigglePower = 0.1;
+        noiseWiggleRate = 2;
+        
+        float thisSat = 238;
+        float thisBri = 164;
+        float thisHue = 0;
+        int hueID = (int)ofRandom(5);
+        if (hueID == 0) thisHue = 28;
+        if (hueID == 1) thisHue = 4;
+        if (hueID == 2) thisHue = 99;
+        if (hueID == 3) thisHue = 38;
+        if (hueID == 4) thisHue = 28;
+        
+        col.setHsb(thisHue, thisSat, thisBri);
+    }
+    
+    if (type == PARTICLE_GOAL_LEFT || type == PARTICLE_GOAL_RIGHT){
+        setType(PARTICLE_SPORT);
+        
+        useNoiseWiggle = false;
+        
+        float thisSat = 238;
+        float thisBri = 164;
+        float thisHue =  type == PARTICLE_GOAL_LEFT ? 7 : 154;
+        col.setHsb(thisHue, thisSat, thisBri);
+    }
 }
 

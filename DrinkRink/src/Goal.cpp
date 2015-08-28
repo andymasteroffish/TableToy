@@ -13,6 +13,8 @@
 void Goal::setup(bool _isLeft, VectorField * _field){
     
     field = _field;
+    gameWidth = field->gameWidth;
+    gameHeight = field->gameHeight;
     
     isLeft = _isLeft;
     
@@ -26,16 +28,13 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     
     smoothScoreXeno = 0.25;
     
-    useRadialScoreDisplay = false;
-    
-    showDebug = true;
+    showDebug = false;
     
     //range in pixels
     nearRange = 50;
     farRange = 160;
     //range in field units
-    nearFieldRange = (float)( (nearRange / (float)field->externalWidth) * field->fieldWidth);
-    farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
+    calculateFieldRange();
     
     //strength in field units
     nearFieldStrength = 1.5;
@@ -45,9 +44,27 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     killRange = nearRange / 2;
     
     //position this thing
-    pos.y = ofGetHeight()/2;
-    pos.x = isLeft ? 70 : ofGetWidth()-70;
+    pos.y = gameHeight/2;
+    pos.x = isLeft ? 70 : gameWidth-70;
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
+    
+    //showing the score bars
+    scoreBarAlpha = 50;
+    scoreBarHueRange = 30;
+    scoreBarNoiseSpeed = 0.1;
+    smoothScoreXeno = 0.25;
+    
+    //effects
+    goalBorderJumpTime = 0.3;
+    goalBorderJumpRange = 20;
+    
+    
+    //some end game effects
+    scoreBarWinEffectAlpha = 150;
+    winTimeBeforeBarEffect = 1;
+    winTimeBetweenBars = 0.1;
+    
+    goalShrinkTimeOnLoss = 5;
     
 }
 
@@ -56,27 +73,46 @@ void Goal::reset(){
     score = 0;
     smoothScore = 0;
     
+    hasWon = false;
+    hasLost = false;
+    gameOverTimer = 0;
+    
     //testing
-    score = ofRandom(scoreToWin*0.25, scoreToWin*0.75);
+    //score = ofRandom(scoreToWin*0.6, scoreToWin*0.8);
 }
 
 void Goal::update(float _deltaTime){
     deltaTime = _deltaTime;
     
+    goalBorderJumpTimer += deltaTime;
+    
+    if (hasWon || hasLost){
+        gameOverTimer += deltaTime;
+    }
+    
     addInwardCircle(nearFieldStrength, nearFieldRange);
     addInwardCircle(farFieldStrength, farFieldRange);
     
     smoothScore = (1-smoothScoreXeno) * smoothScore + smoothScoreXeno * score;
+    
+    if (hasLost){
+        float goalSizePrc = 1.0 - gameOverTimer/goalShrinkTimeOnLoss;
+        goalSizePrc = MAX(0,goalSizePrc);
+        if (farRange > 0){
+            farRange = startingFarRange * goalSizePrc;
+            nearRange = startingNearRange * goalSizePrc;
+            calculateFieldRange();
+        }
+    }else{
+        //just save these values for use later
+        startingFarRange = farRange;
+        startingNearRange = nearRange;
+    }
 }
 
 void Goal::draw(float alphaPrc){
     
-    if (useRadialScoreDisplay){
-        drawRadialScore(alphaPrc);
-    }else{
-        drawBoxScore(alphaPrc);
-    }
-    
+    drawBoxScore(alphaPrc);
     
     //show the center
     ofFill();
@@ -91,50 +127,42 @@ void Goal::draw(float alphaPrc){
         ofCircle(pos.x, pos.y, farRange);
     }
     
-    
-    ofSetColor(0);
-    ofDrawBitmapString(ofToString(score), pos.x, pos.y);
-    
-}
-
-
-void Goal::drawRadialScore(float alphaPrc){
-    //outline
-    ofNoFill();
-    ofSetColor(10, 255*alphaPrc);
-    ofCircle(pos.x, pos.y, farRange);
-    
-    float curScale = smoothScore/(float)scoreToWin;
-    ofPushMatrix();
-    ofTranslate(pos.x, pos.y);
-    ofScale(curScale, curScale);
-    
-    ofFill();
-    int rings = 10;
-    float baseHue = baseCol.getHue();
-    float baseSat = baseCol.getSaturation();
-    float baseBri = baseCol.getBrightness();
-    for (int i=0; i<rings; i++){
-        float prc = 1 - ( (float)i/(float)rings);
-        float size = farRange * prc;
+    //show a hash line
+    int numPoints = 16;
+    float angleChunk = TWO_PI/(float)numPoints;
+    float bonusDist = 0;
+    if (goalBorderJumpTimer < goalBorderJumpTime){
+        float prc = 1.0 - goalBorderJumpTimer / goalBorderJumpTime;
+        bonusDist = goalBorderJumpRange * prc;
+    }
+    ofSetLineWidth(3);
+    for (int i=0; i<numPoints-1; i+=2){
+        float angle1 = angleChunk * i + ofGetElapsedTimef();
+        float angle2 = angle1 - angleChunk;
+        ofPoint pnt1(pos.x + cos(angle1)*(nearRange+bonusDist) , pos.y + sin(angle1)*(nearRange+bonusDist));
+        ofPoint pnt2(pos.x + cos(angle2)*(nearRange+bonusDist) , pos.y + sin(angle2)*(nearRange+bonusDist));
         
-        float hue = baseHue +  (ofNoise(ofGetElapsedTimef()*scoreBarNoiseSpeed, i)-0.5) * scoreBarHueRange;
-        if (hue < 0)    hue += 255;
-        if (hue > 255)  hue -=255;
-        ofColor thisCol;
-        thisCol.setHsb(hue, baseSat, baseBri);
-        thisCol.a = scoreBarAlpha*alphaPrc;
-        ofSetColor(thisCol);
+        float transitionRange = 0.4;
+        float colorPrc = ofMap( sin(ofGetElapsedTimef()), -transitionRange, transitionRange, 0, 1, true);
+        if (i%4 == 0){
+            colorPrc = 1-colorPrc;
+        }
         
-        ofCircle(0, 0, size);
+        ofSetColor(baseCol.r*colorPrc, baseCol.g*colorPrc, baseCol.b*colorPrc, 200*alphaPrc);
+        ofLine(pnt1, pnt2);
     }
     
-    ofPopMatrix();
+    
+//    ofSetColor(0);
+//    ofDrawBitmapString(ofToString(score), pos.x, pos.y);
+    
 }
+
+
 
 void Goal::drawBoxScore(float alphaPrc){
     
-    float boxSize = (ofGetWidth()/2)/ (float)scoreToWin;
+    float boxSize = (gameWidth/2)/ (float)scoreToWin;
     
     int numBoxes = ceil(smoothScore);
     float finalBoxPrc = 1 - ((float)numBoxes - smoothScore);
@@ -146,6 +174,8 @@ void Goal::drawBoxScore(float alphaPrc){
     ofFill();
     
     for (int i=0; i<numBoxes; i++){
+        bool doWinEffectForThisBar = hasWon && gameOverTimer > (float)i*winTimeBetweenBars + winTimeBeforeBarEffect;
+        
         float hue = baseHue +  (ofNoise(ofGetElapsedTimef()*scoreBarNoiseSpeed, i)-0.5) * scoreBarHueRange;
         if (hue < 0)    hue += 255;
         if (hue > 255)  hue -=255;
@@ -153,28 +183,39 @@ void Goal::drawBoxScore(float alphaPrc){
         ofColor thisCol;
         thisCol.setHsb(hue, baseSat, baseBri);
         thisCol.a = scoreBarAlpha*alphaPrc;
+        if (doWinEffectForThisBar){
+            thisCol.a = scoreBarWinEffectAlpha*alphaPrc;
+        }
         ofSetColor(thisCol);
         
         float width = boxSize;
+        float winnerOffset = 0;
+        if (doWinEffectForThisBar){
+            winnerOffset = abs(sin(ofGetElapsedTimef()*5+(float)i*0.3) * 10);
+            //float winnerOffset = abs(sin(ofGetElapsedTimef()*5+(float)i*PI*0.5) * 10);
+        }
+        
         if (i == numBoxes-1){
             width *= finalBoxPrc;
         }
         if (!isLeft){
-            width*=-1;
+            width *= -1;
+            winnerOffset *= -1;
         }
         
         float xPos = i*boxSize;
         if (!isLeft){
-            xPos = ofGetWidth()-i*boxSize;
+            xPos = gameWidth-i*boxSize;
         }
         
-        ofRect(xPos, 0, width, ofGetHeight());
+        
+        ofRect(xPos-winnerOffset, 0, width+winnerOffset*2, gameHeight);
     }
     
     //draw a dividing line
     ofSetColor(baseCol, 100*alphaPrc);
     float lineWidth = 2 * (isLeft ? -1 : 1);
-    ofRect(ofGetWidth()/2, 0, lineWidth, ofGetHeight());
+    ofRect(gameWidth/2, 0, lineWidth, gameHeight);
 }
 
 
@@ -193,6 +234,11 @@ bool Goal::checkIsBallDead(Ball * ball){
 
 void Goal::markScore(){
     score++;
+    if (score >= scoreToWin){
+        score = scoreToWin; //no going higher
+        hasWon = true;
+    }
+    goalBorderJumpTimer = 0;
 }
 
 
@@ -214,14 +260,25 @@ void Goal::addInwardCircle(float strength, float range){
                 dif.y = (y - fieldPos.y);
                 dif.normalize();
                 
-                field->field[x][y] -= dif * strength * prct;
+                field->field[x][y].vel -= dif * strength * prct;
+                
+                field->field[x][y].addPotentialParticleType( isLeft ? PARTICLE_GOAL_LEFT : PARTICLE_GOAL_RIGHT , 1);
             }
         }
     }
 }
 
+void Goal::calculateFieldRange(){
+    nearFieldRange = (float)( (nearRange / (float)field->gameWidth) * field->fieldWidth);
+    farFieldRange = (float)( (farRange / (float)field->gameWidth) * field->fieldWidth);
+}
+
 
 void Goal::checkPanelValues(ofxControlPanel * panel){
+    
+    if (hasWon || hasLost){
+        return;
+    }
     
     string sideName = isLeft ? "LEFT" : "RIGHT";
     
@@ -232,15 +289,14 @@ void Goal::checkPanelValues(ofxControlPanel * panel){
     baseCol.setHsb( panel->getValueI("GOAL_HUE_"+sideName) , panel->getValueF("GOAL_SAT"), panel->getValueF("GOAL_BRI"));
     
     float xPadding = panel->getValueF("GOAL_X_DIST_FROM_EDGE");
-    float yPadding = panel->getValueF("GOAL_Y_PRC_FROM_EDGE") * ofGetHeight();
-    pos.x = isLeft ? xPadding : ofGetWidth()-xPadding;
-    pos.y = isLeft ? ofGetHeight()-yPadding : yPadding;
+    float yPadding = panel->getValueF("GOAL_Y_PRC_FROM_EDGE") * gameHeight;
+    pos.x = isLeft ? xPadding : gameWidth-xPadding;
+    pos.y = isLeft ? gameHeight-yPadding : yPadding;
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
     nearRange = panel->getValueF("GOAL_NEAR_RANGE");
     farRange = panel->getValueF("GOAL_FAR_RANGE");
-    nearFieldRange = (float)( (nearRange / (float)field->externalWidth) * field->fieldWidth);
-    farFieldRange = (float)( (farRange / (float)field->externalWidth) * field->fieldWidth);
+    calculateFieldRange();
     
     nearFieldStrength = panel->getValueF("GOAL_NEAR_FIELD_STRENGTH");
     farFieldStrength = panel->getValueF("GOAL_FAR_FIELD_STRENGTH");
@@ -250,8 +306,6 @@ void Goal::checkPanelValues(ofxControlPanel * panel){
     showDebug = panel->getValueB("GOAL_SHOW_DEBUG");
     
     //score display
-    
-    useRadialScoreDisplay = panel->getValueB("GOAL_USE_RADIAL");
     
     scoreBarAlpha = panel->getValueF("GOAL_SCORE_BAR_ALPHA");
     scoreBarHueRange = panel->getValueF("GOAL_SCORE_BAR_HUE_RANGE");

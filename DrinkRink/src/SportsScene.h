@@ -12,7 +12,9 @@
 #include "ofMain.h"
 #include "Scene.h"
 #include "Ball.h"
+#include "BallParticle.h"
 #include "Goal.h"
+#include "GoalWinFill.h"
 
 #include "Tower.h"
 #include "TowerRepeller.h"
@@ -33,13 +35,16 @@ public:
     void keyPressed(int key);
     
     void spawnBall();
-    void killBall(int idNum);
+    void killBall(int idNum, int goalID);
     
     void addTower(CupInfo thisCup);
+    
+    void triggerGameOver();
     
     
     //the balls
     vector<Ball *> balls;
+    vector<BallParticle> ballParticles;
     float ballRepulsionRange;
     float ballRepulsionMaxForce;
     ofColor ballColor;
@@ -52,6 +57,13 @@ public:
     //goals
 #define NUM_GOALS 2
     Goal goals[NUM_GOALS];
+    
+    bool gameOver;
+    float gameOverTimer;
+    GoalWinFill winFillEffect;
+    
+    float gameOverCupShrinkTime;
+    float gameOverTimetoSwitchScene;
     
 };
 

@@ -20,8 +20,16 @@ void CupTrackerCam::setupCustom(){
     vidGrabber.play();
 #else
     vidGrabber.setVerbose(true);
+    
     vidGrabber.initGrabber(320,240);
 #endif
+    
+//    cout<<"camera devices:"<<endl;
+//    vector<ofVideoDevice> pluggedIn = vidGrabber.listDevices();
+//    for (int i=0; i<pluggedIn.size(); i++){
+//        cout<<i<<":"<<pluggedIn[i].deviceName<<endl;
+//    }
+    
     
     fullImg.allocate(vidGrabber.width, vidGrabber.height);
     colorImg.allocate(imgWidth , imgHeight);
@@ -159,9 +167,10 @@ void CupTrackerCam::keyPressed(int key){
 
 //--------------------------------------------------------------
 void CupTrackerCam::checkFiducial(list<ofxFiducial>::iterator fiducial){
-    //this is placeholder / will need to be done way better
-    float xAdjust = (float)ofGetWidth()  / (float)imgWidth;
-    float yAdjust = (float)ofGetHeight() / (float)imgHeight;
+    
+    //adjust the image to fit the screen
+    float xAdjust = (float)gameWidth / (float)imgWidth;
+    float yAdjust = (float)gameHeight / (float)imgHeight;
     
     //does a cup with this ID exist in the list?
     for (int i=0; i<activeCups.size(); i++){

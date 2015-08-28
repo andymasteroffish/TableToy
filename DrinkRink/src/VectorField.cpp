@@ -16,8 +16,8 @@ void VectorField::setupField(int outerW, int outerH){
     fieldWidth = FIELD_WIDTH;
     fieldHeight = FIELD_HEIGHT;
     
-    externalWidth = outerW;
-    externalHeight = outerH;
+    gameWidth = outerW;
+    gameHeight = outerH;
     
     drawingStrengthAdjust = 15;
     
@@ -31,7 +31,7 @@ void VectorField::clear(){
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
-            field[x][y].set(0,0);
+            field[x][y].reset();
         }
     }
 }
@@ -40,8 +40,8 @@ void VectorField::clear(){
 void VectorField::fade(float fadeVal){
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
-            field[x][y].x *= fadeVal;
-            field[x][y].y *= fadeVal;
+            field[x][y].vel.x *= fadeVal;
+            field[x][y].vel.y *= fadeVal;
         }
     }
 }
@@ -67,15 +67,15 @@ ofVec2f VectorField::getForceFromPos(float xPos, float yPos){
     }
     
     //otherwiose return the force value
-    return field[internalPos.x][internalPos.y];
+    return field[internalPos.x][internalPos.y].vel;
 }
 
 //-------------------------------------------------------------
 GridPos VectorField::getInternalPointFromExternal(float externalX, float externalY){
     
     //convert from xpos and ypos to percentages
-    float xPrct = externalX / (float)externalWidth;
-    float yPrct = externalY / (float)externalHeight;
+    float xPrct = externalX / (float)gameWidth;
+    float yPrct = externalY / (float)gameHeight;
     
     //figure out where we are in the field array
     GridPos returnVal;
@@ -93,8 +93,8 @@ ofVec2f VectorField::getExternalPointFromInternal(int internalX, int internalY){
     
     //figure out where we are in the external size
     ofVec2f returnVal;
-    returnVal.x = externalWidth * xPrct;
-    returnVal.y = externalHeight * yPrct;
+    returnVal.x = gameWidth * xPrct;
+    returnVal.y = gameHeight * yPrct;
     
     return returnVal;
 }
@@ -119,7 +119,7 @@ void VectorField::addFlowCircleFuckUp(float x, float y, float radius){
     //get our center
     GridPos fieldPos = getInternalPointFromExternal(x, y);
     //and the radius in field size
-    float radiusPrct = radius / (float)externalWidth;
+    float radiusPrct = radius / (float)gameWidth;
     float fieldRadius = (float)(radiusPrct * FIELD_WIDTH);
     
     //figure out how far we have to go
@@ -143,8 +143,8 @@ void VectorField::addFlowCircleFuckUp(float x, float y, float radius){
             //for each point get the angle to the center
             float angleToCenter = atan2( x-fieldPos.x, y-fieldPos.y);   //this is the line that fucked it up!
             
-            field[x][y].x = cos(angleToCenter) * strength;
-            field[x][y].y = sin(angleToCenter) * strength;
+            field[x][y].vel.x = cos(angleToCenter) * strength;
+            field[x][y].vel.y = sin(angleToCenter) * strength;
             
         }
     }
@@ -171,7 +171,7 @@ void VectorField::setStreamForce(){
             float yPrc = ofNoise( x*noiseScale, y*noiseScale, ofGetElapsedTimef() * noiseSpeed, 1000 );
             thisForce.y = yPrc * yRange + (1-yPrc) * (-yRange);
             
-            field[x][y] += thisForce;
+            field[x][y].vel += thisForce;
         }
     }
     
@@ -183,8 +183,8 @@ void VectorField::debugDraw(){
     
     ofSetLineWidth(1);
     
-    float scaleX = (float)externalWidth / (float)FIELD_WIDTH;
-    float scaleY = (float)externalHeight / (float)FIELD_HEIGHT;
+    float scaleX = (float)gameWidth / (float)FIELD_WIDTH;
+    float scaleY = (float)gameHeight / (float)FIELD_HEIGHT;
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
@@ -192,8 +192,8 @@ void VectorField::debugDraw(){
             //figure out where this line will be
             float px = x * scaleX;
             float py = y * scaleY;
-            float px2 = px + field[x][y].x * drawingStrengthAdjust;
-            float py2 = py + field[x][y].y * drawingStrengthAdjust;
+            float px2 = px + field[x][y].vel.x * drawingStrengthAdjust;
+            float py2 = py + field[x][y].vel.y * drawingStrengthAdjust;
             
             
             ofLine( px, py, px2, py2 );
@@ -248,8 +248,8 @@ void VectorField::drawGrid(float alphaPrc){
     ofVec2f points[FIELD_WIDTH][FIELD_HEIGHT];
     float strengthPrc[FIELD_WIDTH][FIELD_HEIGHT];
     
-    float scaleX = (float)externalWidth / (float)FIELD_WIDTH;
-    float scaleY = (float)externalHeight / (float)FIELD_HEIGHT;
+    float scaleX = (float)gameWidth / (float)FIELD_WIDTH;
+    float scaleY = (float)gameHeight / (float)FIELD_HEIGHT;
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
@@ -257,14 +257,14 @@ void VectorField::drawGrid(float alphaPrc){
             //figure out where this line will be
             float px = x * scaleX;
             float py = y * scaleY;
-            float px2 = px + field[x][y].x * gridDrawingAdjust;
-            float py2 = py + field[x][y].y * gridDrawingAdjust;
+            float px2 = px + field[x][y].vel.x * gridDrawingAdjust;
+            float py2 = py + field[x][y].vel.y * gridDrawingAdjust;
             
             points[x][y].set(px2, py2);
             
             if (useGridFade || useVarryingWidths || showGridFill){
-                if (field[x][y].x != 0 || field[x][y].y != 0){
-                    strengthPrc[x][y] = ofMap(field[x][y].length(), gridValThreshold, gridValCeiling, 0, 1, true);
+                if (field[x][y].vel.x != 0 || field[x][y].vel.y != 0){
+                    strengthPrc[x][y] = ofMap(field[x][y].vel.length(), gridValThreshold, gridValCeiling, 0, 1, true);
                 }else{
                     strengthPrc[x][y] = 0;
                 }

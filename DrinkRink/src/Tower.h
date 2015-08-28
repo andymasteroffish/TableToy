@@ -46,6 +46,11 @@ public:
     float range;
     float fieldRange;
     
+    ParticleType particleType;
+    float particleTypeWeight;
+    
+    float startingRange; //for some effects
+    
     VectorField * field;
     
     float deltaTime;

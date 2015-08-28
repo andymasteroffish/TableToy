@@ -17,7 +17,7 @@ class CupTracker{
 public:
     
     
-    void setup();
+    void setup(int _gameWidth, int _gameHeight);
     virtual void setupCustom(){}
     virtual void update(){}
     virtual void updateFromPanel(ofxControlPanel * panel){}
@@ -31,7 +31,8 @@ public:
     
     //list of cups
     vector<CupInfo> activeCups;
-    //int nextUniqueID;
+    
+    int gameWidth, gameHeight;
     
     bool isDebug;
     

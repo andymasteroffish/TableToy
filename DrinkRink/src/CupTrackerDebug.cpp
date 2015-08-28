@@ -10,7 +10,6 @@
 
 
 void CupTrackerDebug::setupCustom(){
-    cout<<"ste custom"<<endl; 
     aproxCupSize = 40;
     debugDraggingCupID = -1;
     nextUniqueID = 0;
@@ -105,7 +104,7 @@ void CupTrackerDebug::debugAddCup(int typeID){
     CupInfo thisCupInfo;
     
     thisCupInfo.uniqueID = nextUniqueID++;
-    thisCupInfo.pos.set( ofRandom(ofGetWidth()), ofRandom(ofGetHeight()) );
+    thisCupInfo.pos.set( ofRandom(gameWidth), ofRandom(gameHeight) );
     thisCupInfo.angle = ofRandom( TWO_PI );
     thisCupInfo.startTime = ofGetElapsedTimef();
     
