@@ -149,7 +149,7 @@ void CalibrationScene::drawCustom(){
     ofTranslate(20, gameHeight-tracker->grayImage.height-10);
     
     ofSetColor(255, 255*alphaPrc);
-    tracker->grayImage.draw(0, 0);
+    tracker->grayImage.draw(0, ofGetHeight()-240, 640,  240);
     tracker->drawFiducials(0, 0);
     
     ofPopMatrix();

@@ -38,7 +38,10 @@ public:
 #ifdef USE_VIDEO
     ofVideoPlayer       vidGrabber;
 #else
-    ofxMacamPs3Eye 		vidGrabber;
+    vector<ofxMacamPs3Eye*> vidGrabber;
+    vector<ofxMacamPs3EyeDeviceInfo*> deviceList = ofxMacamPs3Eye::getDeviceInfoList();
+    ofFbo fbo;
+    ofPixels pix;
 #endif
     
     int imgWidth, imgHeight;

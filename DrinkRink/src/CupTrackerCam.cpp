@@ -11,16 +11,26 @@
 //--------------------------------------------------------------
 void CupTrackerCam::setupCustom(){
     
-    imgWidth = 600;
-    imgHeight = 200;
+    imgWidth = 1280;
+    imgHeight = 480;
     
 #ifdef USE_VIDEO
     //vidGrabber.loadMovie("vid/spinners_with_border.mov");
     vidGrabber.loadMovie("vid/spinners_no_border.mov");
     vidGrabber.play();
 #else
-    vidGrabber.setVerbose(true);
-    vidGrabber.initGrabber(640,480);
+    fbo.allocate(imgWidth, imgHeight, GL_RGB);
+    pix.allocate(imgWidth, imgHeight, OF_IMAGE_COLOR);
+    fbo.begin();
+    ofClear(255,255,255, 0);
+    fbo.end();
+    
+    for (int i = 0; i < deviceList.size(); i++) {
+        ofxMacamPs3Eye * camera = new ofxMacamPs3Eye();
+        camera->setDeviceID(deviceList[i]->id);
+        camera->initGrabber(640, 480);
+        vidGrabber.push_back(camera);
+    }
 #endif
     
 //    cout<<"camera devices:"<<endl;
@@ -30,15 +40,15 @@ void CupTrackerCam::setupCustom(){
 //    }
     
     
-    fullImg.allocate(vidGrabber.getWidth(), vidGrabber.getHeight());
+    fullImg.allocate(imgWidth, imgHeight);
     colorImg.allocate(imgWidth , imgHeight);
     grayImage.allocate(imgWidth , imgHeight);
     
-    //start the warp points to include the whole camera image
+    //start the warp points to include the whole camera(s) image(s)
     warpPoints[0].set(0, 0);
-    warpPoints[1].set(vidGrabber.getWidth(), 0);
-    warpPoints[2].set(vidGrabber.getWidth(), vidGrabber.getHeight());
-    warpPoints[3].set(0, vidGrabber.getHeight());
+    warpPoints[1].set(imgWidth, 0);
+    warpPoints[2].set(imgWidth, imgHeight);
+    warpPoints[3].set(0, imgHeight);
     
     //warp end points don't change
     warpEndPoints[0].set(0,0);
@@ -80,10 +90,22 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
 //--------------------------------------------------------------
 void CupTrackerCam::update(){
     ofBackground(100,100,100);
-    vidGrabber.update();
+    for (int i = 0; i < vidGrabber.size(); i++) {
+        vidGrabber[i]->update();
+    }
+
+
     
-    if (vidGrabber.isFrameNew()){
-        fullImg.setFromPixels(vidGrabber.getPixelsRef());
+    if (vidGrabber[0]->isFrameNew()){
+        
+        fbo.begin();
+        vidGrabber[0]->draw(0, 0);
+        vidGrabber[1]->draw(640, 0);
+        fbo.end();
+        
+        fbo.readToPixels(pix);
+        fullImg.setFromPixels(pix);
+        
         colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
         //colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.getWidth() ,vidGrabber.getHeight());
         grayImage = colorImg;
@@ -114,12 +136,13 @@ void CupTrackerCam::draw(){
     
     ofSetColor(255, 200);
     
-    vidGrabber.draw(20,20);
+    fbo.draw(0,0);
+    //fullImg.draw(20,20);
     
     ofVec2f drawStart(100,0);
     
     colorImg.draw(drawStart.x,drawStart.y);
-    grayImage.draw(drawStart.x,drawStart.y+5+vidGrabber.getHeight());
+    grayImage.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
     
     drawFiducials(drawStart.x, drawStart.y);
     
