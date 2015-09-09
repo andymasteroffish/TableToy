@@ -110,8 +110,6 @@ void CalibrationScene::drawCustom(){
     
     //show the cam image
     
-    
-    
     ofPushMatrix();
     
     ofTranslate(drawOffset.x, drawOffset.y);
@@ -146,10 +144,12 @@ void CalibrationScene::drawCustom(){
     
     //draw the resulting image
     ofPushMatrix();
-    ofTranslate(20, gameHeight-tracker->grayImage.height-10);
+    ofTranslate(80, gameHeight-tracker->grayImage.height*0.75-10);
+    
+    ofScale(0.75,0.75);
     
     ofSetColor(255, 255*alphaPrc);
-    tracker->grayImage.draw(0, ofGetHeight()-240, 640,  240);
+    tracker->grayImage.draw(0, 0, tracker->grayImage.width,  tracker->grayImage.height);
     tracker->drawFiducials(0, 0);
     
     ofPopMatrix();
