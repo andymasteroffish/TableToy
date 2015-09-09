@@ -18,7 +18,7 @@
 
 
 //comment this out to use live feed
-//#define USE_VIDEO
+#define USE_VIDEO
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 class CupTrackerCam : public CupTracker{
@@ -36,13 +36,13 @@ public:
     
 
 #ifdef USE_VIDEO
-    ofVideoPlayer       vidGrabber;
+    vector<ofVideoPlayer*>       vidGrabber;
 #else
     vector<ofxMacamPs3Eye*> vidGrabber;
     vector<ofxMacamPs3EyeDeviceInfo*> deviceList = ofxMacamPs3Eye::getDeviceInfoList();
+#endif
     ofFbo fbo;
     ofPixels pix;
-#endif
     
     int imgWidth, imgHeight;
     

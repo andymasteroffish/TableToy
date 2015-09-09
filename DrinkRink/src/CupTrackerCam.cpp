@@ -14,17 +14,17 @@ void CupTrackerCam::setupCustom(){
     imgWidth = 1280;
     imgHeight = 480;
     
-#ifdef USE_VIDEO
-    //vidGrabber.loadMovie("vid/spinners_with_border.mov");
-    vidGrabber.loadMovie("vid/spinners_no_border.mov");
-    vidGrabber.play();
-#else
-    fbo.allocate(imgWidth, imgHeight, GL_RGB);
-    pix.allocate(imgWidth, imgHeight, OF_IMAGE_COLOR);
-    fbo.begin();
-    ofClear(255,255,255, 0);
-    fbo.end();
     
+
+#ifdef USE_VIDEO
+    ofVideoPlayer * thisGrabber = new ofVideoPlayer();
+    vidGrabber.push_back(thisGrabber);
+    vidGrabber[0]->loadMovie("vid/spinners_no_border.mov");
+    vidGrabber[0]->play();
+    
+    imgWidth = vidGrabber[0]->width;
+    imgHeight = vidGrabber[0]->height;
+#else
     for (int i = 0; i < deviceList.size(); i++) {
         ofxMacamPs3Eye * camera = new ofxMacamPs3Eye();
         camera->setDeviceID(deviceList[i]->id);
@@ -32,6 +32,14 @@ void CupTrackerCam::setupCustom(){
         vidGrabber.push_back(camera);
     }
 #endif
+    
+    
+    fbo.allocate(imgWidth, imgHeight, GL_RGB);
+    pix.allocate(imgWidth, imgHeight, OF_IMAGE_COLOR);
+    fbo.begin();
+    ofClear(255,255,255, 0);
+    fbo.end();
+    
     
 //    cout<<"camera devices:"<<endl;
 //    vector<ofVideoDevice> pluggedIn = vidGrabber.listDevices();
@@ -100,14 +108,15 @@ void CupTrackerCam::update(){
         
         fbo.begin();
         vidGrabber[0]->draw(0, 0);
-        vidGrabber[1]->draw(640, 0);
+        if (vidGrabber.size() > 1){
+            vidGrabber[1]->draw(640, 0);
+        }
         fbo.end();
         
         fbo.readToPixels(pix);
         fullImg.setFromPixels(pix);
         
         colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
-        //colorImg.setFromPixels(vidGrabber.getPixels(), vidGrabber.getWidth() ,vidGrabber.getHeight());
         grayImage = colorImg;
         
         grayImage.threshold(threshold);
@@ -172,13 +181,13 @@ void CupTrackerCam::keyPressed(int key){
         bool isDouble = ofGetElapsedTimef() - lastKeyPressTime < timeForDoubleKeyPress;
         lastKeyPressTime = ofGetElapsedTimef();
         if (isDouble){
-            vidGrabber.setFrame(0);
-            vidGrabber.play();
+            vidGrabber[0]->setFrame(0);
+            vidGrabber[0]->play();
         }else{
-            if (vidGrabber.isPlaying()){
-                vidGrabber.stop();
+            if (vidGrabber[0]->isPlaying()){
+                vidGrabber[0]->stop();
             }else{
-                vidGrabber.play();
+                vidGrabber[0]->play();
             }
         }
     }
