@@ -24,6 +24,13 @@ void CupTrackerCam::setupCustom(){
     
     imgWidth = vidGrabber[0]->width;
     imgHeight = vidGrabber[0]->height;
+#elif defined(USE_WEBCAM)
+    cout<<"shit fire"<<endl;
+    ofVideoGrabber * thisGrabber = new ofVideoGrabber();
+    //thisGrabber->setDeviceID(1);
+    
+    vidGrabber.push_back(thisGrabber);
+    vidGrabber[0]->initGrabber(640,480);
 #else
     for (int i = 0; i < deviceList.size(); i++) {
         ofxMacamPs3Eye * camera = new ofxMacamPs3Eye();

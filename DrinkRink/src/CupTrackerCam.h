@@ -18,7 +18,11 @@
 
 
 //comment this out to use live feed
-#define USE_VIDEO
+//#define USE_VIDEO
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//comment this out to use PS3 eyes
+//#define USE_WEBCAM
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 class CupTrackerCam : public CupTracker{
@@ -37,6 +41,8 @@ public:
 
 #ifdef USE_VIDEO
     vector<ofVideoPlayer*>       vidGrabber;
+#elif defined(USE_WEBCAM)
+    vector<ofVideoGrabber*>       vidGrabber;
 #else
     vector<ofxMacamPs3Eye*> vidGrabber;
     vector<ofxMacamPs3EyeDeviceInfo*> deviceList = ofxMacamPs3Eye::getDeviceInfoList();
