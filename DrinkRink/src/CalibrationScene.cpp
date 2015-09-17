@@ -27,7 +27,8 @@ void CalibrationScene::setupCustom(){
     
     usingDebug = false;
     
-    tracker = (CupTrackerCam *) cupTracker;
+    //tracker = (CupTrackerCam *) cupTracker;
+    tracker = (CupTrackerBlob *) cupTracker;
     
     curPointDragging = -1;
 }

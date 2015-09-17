@@ -14,6 +14,7 @@ public:
     //int typeID; //KILL THIS
     int uniqueID;
     ofVec2f pos;
+    ofVec2f camPos;
     float angle;
     float startTime;
     

@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "Scene.h"
 #include "CupTrackerCam.h"
+#include "CupTrackerBlob.h"
 
 #include "Tower.h"
 #include "TowerCalibration.h"
@@ -36,7 +37,8 @@ public:
     void checkPanelValuesCustom(ofxControlPanel * panel);
     
     bool usingDebug;    //don't do anything if we're not using the camera
-    CupTrackerCam * tracker;
+    //CupTrackerCam * tracker;
+    CupTrackerBlob * tracker;
     
     ofxControlPanel * controlPanel;
     

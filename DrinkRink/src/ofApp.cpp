@@ -16,7 +16,8 @@ void ofApp::setup(){
     if (usingDebugCupTracker){
         cupTracker = new CupTrackerDebug();
     }else{
-        cupTracker = new CupTrackerCam();
+        //cupTracker = new CupTrackerCam();
+        cupTracker = new CupTrackerBlob();
     }
     
     cupTracker->setup(gameWidth, gameHeight);
@@ -195,6 +196,8 @@ void ofApp::setup(){
     panel.addSlider("X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
     panel.addSlider("Y Offset", "CAM_Y_OFFSET", 0, -100, 100, false);
     
+    panel.addSlider("Max Compactness", "CAM_MAX_COMPACT", 1.2, 0.5, 2, false);
+    
     //the 4 warp points
     for (int i=0; i<4; i++){
         if (i==0) panel.addLabel("Top Left Warp");
@@ -207,7 +210,7 @@ void ofApp::setup(){
         panel.addSlider("Y Prc", "CAM_WARP_Y_"+ofToString(i), yVal, 0, 1, false);
     }
     
-    curPanel = 6;
+    curPanel = 7;
     panel.setSelectedPanel(curPanel);
     
 }
@@ -337,8 +340,6 @@ void ofApp::draw(){
     }
     
     
-    
-    //cupTrackerCam.draw();   //testing
 }
 
 //--------------------------------------------------------------

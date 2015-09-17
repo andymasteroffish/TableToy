@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A4EB6DD1B8B647400170FBB /* CalibrationScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A4EB6DB1B8B647400170FBB /* CalibrationScene.cpp */; };
 		0AC3B9301B86C14E001DC9C5 /* CupTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */; };
+		0AC9273C1BAA2CFB009643C2 /* CupTrackerBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9273A1BAA2CFB009643C2 /* CupTrackerBlob.cpp */; };
 		0ADE08931B8F606900FF021C /* GoalWinFill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE08911B8F606900FF021C /* GoalWinFill.cpp */; };
 		0AF37A861B840D9A00A9CFF7 /* opencv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF37A731B840D9A00A9CFF7 /* opencv.a */; };
 		0AF37A871B840D9A00A9CFF7 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37A761B840D9A00A9CFF7 /* ofxCvColorImage.cpp */; };
@@ -146,6 +147,8 @@
 		0A9ABAE91B8FCC9B007D655E /* BallParticle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BallParticle.h; sourceTree = "<group>"; };
 		0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTracker.cpp; sourceTree = "<group>"; };
 		0AC3B92F1B86C14E001DC9C5 /* CupTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTracker.h; sourceTree = "<group>"; };
+		0AC9273A1BAA2CFB009643C2 /* CupTrackerBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CupTrackerBlob.cpp; sourceTree = "<group>"; };
+		0AC9273B1BAA2CFB009643C2 /* CupTrackerBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTrackerBlob.h; sourceTree = "<group>"; };
 		0ADE08911B8F606900FF021C /* GoalWinFill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GoalWinFill.cpp; sourceTree = "<group>"; };
 		0ADE08921B8F606900FF021C /* GoalWinFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalWinFill.h; sourceTree = "<group>"; };
 		0AF37A071B840D6000A9CFF7 /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
@@ -781,6 +784,8 @@
 				0AF37A921B840E0800A9CFF7 /* CupTrackerDebug.cpp */,
 				0AF37B411B840FC000A9CFF7 /* CupTrackerCam.h */,
 				0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */,
+				0AC9273B1BAA2CFB009643C2 /* CupTrackerBlob.h */,
+				0AC9273A1BAA2CFB009643C2 /* CupTrackerBlob.cpp */,
 			);
 			name = RealWorldTracking;
 			sourceTree = "<group>";
@@ -1283,6 +1288,7 @@
 				46CA369F1B8FDFFC00791398 /* MyCameraCentral.mm in Sources */,
 				46CA369A1B8FDFFC00791398 /* GenericDriver.mm in Sources */,
 				46CA369C1B8FDFFC00791398 /* LookUpTable.mm in Sources */,
+				0AC9273C1BAA2CFB009643C2 /* CupTrackerBlob.cpp in Sources */,
 				0AF37B1F1B840F4000A9CFF7 /* ofxControlPanel.cpp in Sources */,
 				0AF37B201B840F4000A9CFF7 /* simpleColor.cpp in Sources */,
 				0AF37AA41B840E5300A9CFF7 /* Goal.cpp in Sources */,

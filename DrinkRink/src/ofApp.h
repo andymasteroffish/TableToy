@@ -15,6 +15,7 @@
 #include "CupTracker.h"
 #include "CupTrackerDebug.h"
 #include "CupTrackerCam.h"
+#include "CupTrackerBlob.h"
 
 class ofApp : public ofBaseApp{
 public:
