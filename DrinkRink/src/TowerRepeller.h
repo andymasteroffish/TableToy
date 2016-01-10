@@ -22,6 +22,8 @@ public:
     
     void addOutwardCircle(float strength);
     
+    float repelStrength;
+    
 };
 
 #endif /* defined(__emptyExample__CupRepeller__) */

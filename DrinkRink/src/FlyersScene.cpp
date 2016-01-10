@@ -66,5 +66,6 @@ void FlyersScene::keyPressed(int key){
 void FlyersScene::addTower(CupInfo thisCup){
     TowerRepeller * newTower = new TowerRepeller();
     newTower->setup( thisCup, &field);
+    newTower->repelStrength *= 1.5;
     towers.push_back(newTower);
 }

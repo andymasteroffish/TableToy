@@ -9,15 +9,18 @@
 #include "TowerRepeller.h"
 
 void TowerRepeller::customSetup(){
+    
     range = 100;
+    repelStrength = 4;
+    
     debugColor.setHex(0x49df20);
     particleType = PARTICLE_SPORT;
+    
 }
 
 void TowerRepeller::customUpdate(){
-    float testStrength = 4;
     
-    addOutwardCircle(testStrength);
+    addOutwardCircle(repelStrength);
 }
 
 void TowerRepeller::addOutwardCircle(float strength){

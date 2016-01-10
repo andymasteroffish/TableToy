@@ -34,7 +34,7 @@ void ofApp::setup(){
     }
     
     curSceneID = -100;
-    setScene(SCENE_STREAM);
+    setScene(SCENE_CALIBRATION);
     
     showField = false;
     showDebugInfo = false;
