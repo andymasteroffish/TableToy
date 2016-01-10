@@ -14,6 +14,8 @@
 #include "CupTrackerCam.h"
 #include "CupTrackerBlob.h"
 
+#include "CamSettings.h"
+
 #include "Tower.h"
 #include "TowerCalibration.h"
 
@@ -37,13 +39,18 @@ public:
     void checkPanelValuesCustom(ofxControlPanel * panel);
     
     bool usingDebug;    //don't do anything if we're not using the camera
-    //CupTrackerCam * tracker;
+    
+#ifdef USE_BLOB_DETECTION
     CupTrackerBlob * tracker;
+#else
+    CupTrackerCam * tracker;
+#endif
     
     ofxControlPanel * controlPanel;
     
     ofVec2f drawOffset;
     float drawScale;
+    float maxDisplayHeight;
     
     //dragging shit
     int curPointDragging;

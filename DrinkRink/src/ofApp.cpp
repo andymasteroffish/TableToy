@@ -16,8 +16,11 @@ void ofApp::setup(){
     if (usingDebugCupTracker){
         cupTracker = new CupTrackerDebug();
     }else{
-        //cupTracker = new CupTrackerCam();
+#ifdef USE_BLOB_DETECTION
         cupTracker = new CupTrackerBlob();
+#else
+        cupTracker = new CupTrackerCam();
+#endif
     }
     
     cupTracker->setup(gameWidth, gameHeight);

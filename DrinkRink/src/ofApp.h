@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "ofxControlPanel.h"
 
+#include "CamSettings.h"
+
 #include "VectorField.h"
 
 #include "Scene.h"

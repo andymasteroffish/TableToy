@@ -219,28 +219,10 @@ void VectorField::debugDraw(){
 //-------------------------------------------------------------
 void VectorField::drawGrid(float alphaPrc){
     
-    //these should be set via panel
-//    gridColor = ofColor::black;
-//    gridDrawingAdjust = 15;
-//    
-//    showVerticalGrid = false;
-//    showHorizontalGrid = false;
-//    showGridFill = false;
-//    
-//    useGridWiggle = false;
-//    gridWiggleSpeed = 1;
-//    gridWiggleStrength = 4;
-//    
-//    useGridFade = false;
-//    gridValThreshold = 0.1;
-//    gridValCeiling = 3;
-//    
-//    useVarryingWidths = false;
-//    gridMinLineWidth = 0.5;
-//    gridMaxLineWidth = 4;
-//    
-//    showVerticalGridCurved = true;
-//    showHorizontalGridCurved = true;
+    //if there are no grid effects, just bounce back
+    if(!showGridFill && !showHorizontalGrid && !showVerticalGrid && !showVerticalGridCurved && !showHorizontalGridCurved){
+        return;
+    }
 
     ofSetLineWidth(1);
     ofSetColor(gridColor, 255*alphaPrc);
@@ -253,6 +235,8 @@ void VectorField::drawGrid(float alphaPrc){
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
+            
+            cout<<"I'm doing this "<<x<<" "<<y<<endl;
             
             //figure out where this line will be
             float px = x * scaleX;

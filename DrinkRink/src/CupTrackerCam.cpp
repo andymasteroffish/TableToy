@@ -25,7 +25,6 @@ void CupTrackerCam::setupCustom(){
     imgWidth = vidGrabber[0]->width;
     imgHeight = vidGrabber[0]->height;
 #elif defined(USE_WEBCAM)
-    cout<<"shit fire"<<endl;
     ofVideoGrabber * thisGrabber = new ofVideoGrabber();
     //thisGrabber->setDeviceID(1);
     

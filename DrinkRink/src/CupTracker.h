@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "CupInfo.h"
 #include "ofxControlPanel.h"
+#include "CamSettings.h"
 
 class CupTracker{
 public:

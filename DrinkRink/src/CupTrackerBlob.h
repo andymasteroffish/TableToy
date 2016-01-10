@@ -13,17 +13,13 @@
 #include "ofMain.h"
 #include "CupTracker.h"
 
+#include "CamSettings.h"
+
 #include "ofxOpenCv.h"
 #include "ofxMacamPs3Eye.h"
 
 
-//comment this out to use live feed
-//#define USE_VIDEO
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-//comment this out to use PS3 eyes
-//#define USE_WEBCAM
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 class CupTrackerBlob : public CupTracker{
 public:

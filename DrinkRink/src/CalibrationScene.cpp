@@ -16,7 +16,8 @@ void CalibrationScene::setupCustom(){
     ignorePanelValues = true;
     bgCol.set(10,30,0);
     
-    drawOffset.set(20, 20);
+    drawOffset.set(20, 10);
+    maxDisplayHeight = 230;
     
     if (cupTracker->isDebug){
         usingDebug = true;
@@ -27,8 +28,11 @@ void CalibrationScene::setupCustom(){
     
     usingDebug = false;
     
-    //tracker = (CupTrackerCam *) cupTracker;
+#ifdef USE_BLOB_DETECTION
     tracker = (CupTrackerBlob *) cupTracker;
+#else
+    tracker = (CupTrackerCam *) cupTracker;
+#endif
     
     curPointDragging = -1;
 }
@@ -48,9 +52,8 @@ void CalibrationScene::updateCustom(){
     }
     
     drawScale = 1;
-    float maxHeight = 250;
-    if (tracker->fullImg.height > maxHeight){
-        drawScale = maxHeight / (float)tracker->fullImg.height;
+    if (tracker->fullImg.height > maxDisplayHeight){
+        drawScale = maxDisplayHeight / (float)tracker->fullImg.height;
     }
     
 }
@@ -65,7 +68,6 @@ void CalibrationScene::mousePressed(int x, int y, int button){
     for (int i=0; i<4; i++){
         
         if (ofDist(adjustedX, adjustedY, tracker->warpPoints[i].x*drawScale, tracker->warpPoints[i].y*drawScale) < distToClick){
-            cout<<"jesus haunts "<<i<<endl;
             curPointDragging = i;
             draggingOffset.x =  tracker->warpPoints[i].x * drawScale - adjustedX;
             draggingOffset.y =  tracker->warpPoints[i].y * drawScale - adjustedY;
@@ -141,13 +143,22 @@ void CalibrationScene::drawCustom(){
     ofPopMatrix();
     
     ofSetColor(255,150,150, 255*alphaPrc);
-    ofDrawBitmapString("<-- you can drag these points with mouse", drawOffset.x+tracker->fullImg.width*drawScale + 30, gameHeight*0.25);
+    ofDrawBitmapString("<-- This is the input from the camera(s)", drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.25 - 20);
+    ofDrawBitmapString("<-- you can drag these warp points with mouse", drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.25);
+    
+    ofDrawBitmapString("<-- This is the resulting image used to track tuio", drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.75 - 20);
+    ofDrawBitmapString("<-- This is what is the image used for the game", drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.75);
     
     //draw the resulting image
-    ofPushMatrix();
-    ofTranslate(80, gameHeight-tracker->grayImage.height*0.75-10);
+    float outputDrawScale = 1;
+    if (tracker->fullImg.height > maxDisplayHeight){
+        outputDrawScale = maxDisplayHeight / (float)tracker->grayImage.height;
+    }
     
-    ofScale(0.75,0.75);
+    ofPushMatrix();
+    ofTranslate(drawOffset.x, gameHeight-tracker->grayImage.height*outputDrawScale-10);
+    
+    ofScale(outputDrawScale,outputDrawScale);
     
     ofSetColor(255, 255*alphaPrc);
     tracker->grayImage.draw(0, 0, tracker->grayImage.width,  tracker->grayImage.height);
