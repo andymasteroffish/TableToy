@@ -16,6 +16,13 @@ void StreamScene::setupCustom(){
     defaultParticleType =  PARTICLE_STREAM;
     bgCol.set(ofRandom(10),ofRandom(10),ofRandom(10));
     ignorePanelValues = true;
+    
+    //give us some bg shapes
+    for (int i=0; i<25; i++){
+        StreamBackgroundShape bgShape;
+        bgShape.setup(gameWidth, gameHeight);
+        bgShapes.push_back(bgShape);
+    }
 }
 
 //--------------------------------------------------------------------------------------------
@@ -26,6 +33,10 @@ void StreamScene::resetCustom(){
 //--------------------------------------------------------------------------------------------
 void StreamScene::updateCustom(){
     setStreamForceOnField();
+    
+    for (int i=0; i<bgShapes.size(); i++){
+        bgShapes[i].update(deltaTime);
+    }
 }
 
 //--------------------------------------------------------------------------------------------
@@ -51,6 +62,14 @@ void StreamScene::setStreamForceOnField(){
             field.field[x][y].vel += thisForce;
         }
     }
+}
+
+//--------------------------------------------------------------------------------------------
+void StreamScene::drawBackgroundCustom(){
+    for (int i=0; i<bgShapes.size(); i++){
+        bgShapes[i].draw(alphaPrc);
+    }
+    ofSetCircleResolution(22);  //return it to default
 }
 
 //--------------------------------------------------------------------------------------------

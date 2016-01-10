@@ -15,6 +15,8 @@
 #include "Tower.h"
 #include "TowerRock.h"
 
+#include "StreamBackgroundShape.h"
+
 class StreamScene : public Scene{
 public:
     
@@ -25,12 +27,15 @@ public:
     
     void setStreamForceOnField();
     
+    void drawBackgroundCustom();
     void drawCustom();
     
     void keyPressed(int key);
     
     
     void addTower(CupInfo thisCup);
+    
+    vector<StreamBackgroundShape> bgShapes;
     
     
 };

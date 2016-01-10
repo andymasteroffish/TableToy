@@ -408,6 +408,7 @@
 		46CA36A91B8FEEDF00791398 /* Carnivale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carnivale.cpp; sourceTree = "<group>"; };
 		46CA36AA1B8FEEDF00791398 /* Carnivale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carnivale.h; sourceTree = "<group>"; };
 		574B54561C41F92400BE3B06 /* CamSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CamSettings.h; sourceTree = "<group>"; };
+		57C0136D1C4300AA002C4672 /* StreamBackgroundShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreamBackgroundShape.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -829,6 +830,7 @@
 				0AF37AAF1B840E6500A9CFF7 /* TowerRock.cpp */,
 				0AF37AB01B840E6500A9CFF7 /* StreamScene.h */,
 				0AF37AB11B840E6500A9CFF7 /* StreamScene.cpp */,
+				57C0136D1C4300AA002C4672 /* StreamBackgroundShape.h */,
 			);
 			name = Stream;
 			sourceTree = "<group>";

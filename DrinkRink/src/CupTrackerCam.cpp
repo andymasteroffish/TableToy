@@ -20,6 +20,7 @@ void CupTrackerCam::setupCustom(){
     ofVideoPlayer * thisGrabber = new ofVideoPlayer();
     vidGrabber.push_back(thisGrabber);
     vidGrabber[0]->loadMovie("vid/spinners_no_border.mov");
+    //vidGrabber[0]->loadMovie("vid/mostly_still.mov");
     vidGrabber[0]->play();
     
     imgWidth = vidGrabber[0]->width;

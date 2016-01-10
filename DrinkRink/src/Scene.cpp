@@ -199,6 +199,8 @@ void Scene::draw(){
     ofFill();
     ofRect(0, 0, gameWidth, gameHeight);
     
+    drawBackgroundCustom();
+    
     //some visual effects rely on drawing the grid
     //this will do nothing if those effects are not active
     field.drawGrid(alphaPrc);

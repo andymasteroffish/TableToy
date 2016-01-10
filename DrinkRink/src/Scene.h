@@ -40,6 +40,7 @@ public:
     void checkCups();
     
     void draw();
+    virtual void drawBackgroundCustom(){}
     virtual void drawCustom(){}
     
     virtual void keyPressed(int key){}
