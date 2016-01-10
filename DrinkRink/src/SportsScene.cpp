@@ -41,7 +41,7 @@ void SportsScene::setupCustom(){
     bgCol.set(250,249,240);
     defaultParticleType =  PARTICLE_SPORT;
     
-    //ignorePanelValues = true;
+    ignorePanelValues = true;
 }
 
 

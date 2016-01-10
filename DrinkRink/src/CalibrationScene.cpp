@@ -167,6 +167,11 @@ void CalibrationScene::drawCustom(){
     ofPopMatrix();
     
     
+    //redraw the towers so we can see them
+    for (int i=towers.size()-1; i>=0; i--){
+        towers[i]->draw(alphaPrc * 0.5);
+    }
+    
 }
 
 //--------------------------------------------------------------------------------------------

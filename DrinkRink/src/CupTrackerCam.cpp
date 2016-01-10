@@ -103,7 +103,9 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
 
 //--------------------------------------------------------------
 void CupTrackerCam::update(){
-    ofBackground(100,100,100);
+    
+    ofSetColor(255);
+    
     for (int i = 0; i < vidGrabber.size(); i++) {
         vidGrabber[i]->update();
     }

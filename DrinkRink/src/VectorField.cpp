@@ -236,8 +236,6 @@ void VectorField::drawGrid(float alphaPrc){
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
             
-            cout<<"I'm doing this "<<x<<" "<<y<<endl;
-            
             //figure out where this line will be
             float px = x * scaleX;
             float py = y * scaleY;

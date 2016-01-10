@@ -34,7 +34,7 @@ void ofApp::setup(){
     }
     
     curSceneID = -100;
-    setScene(SCENE_CALIBRATION);
+    setScene(SCENE_STREAM);
     
     showField = false;
     showDebugInfo = false;
@@ -341,6 +341,7 @@ void ofApp::draw(){
         string panelInfo = ofToString(curPanel+1)+"/"+ofToString(panel.panels.size());
         ofDrawBitmapString(panelInfo, ofGetWidth()-50, ofGetHeight()-5);
     }
+    
     
     
 }

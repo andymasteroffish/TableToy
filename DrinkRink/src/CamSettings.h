@@ -17,11 +17,11 @@ THIS FILE JUST HOLDS DEFINITIONS FOR CAMERA USE
 
 
 //comment this out to use live feed
-//#define USE_VIDEO
+#define USE_VIDEO
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //comment this out to use PS3 eyes
-#define USE_WEBCAM
+//#define USE_WEBCAM
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //comment this out to use tuio codes

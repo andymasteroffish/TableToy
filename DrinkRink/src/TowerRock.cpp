@@ -15,8 +15,8 @@ void TowerRock::customSetup(){
 }
 
 void TowerRock::customUpdate(){
-    float leftSideStrength = 3;
-    float rightSideStrength = 3.5;
+    float leftSideStrength = 4.5;
+    float rightSideStrength = 4.25;
     
     addOutwardSemiCircle(rightSideStrength, false);
     addOutwardSemiCircle(leftSideStrength, true);

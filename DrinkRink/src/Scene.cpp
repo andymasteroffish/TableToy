@@ -117,8 +117,11 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     p_usePic = panel->getValueB("USE_PIC");
     p_picScale = panel->getValueF("PIC_SCALE");
     
-    for (int i=0; i<particleColors.size(); i++){
-        particleColors[i].setHsb(panel->getValueF("PARTICLE_HUE_"+ofToString(i)), panel->getValueF("PARTICLE_SAT"), panel->getValueF("PARTICLE_BRI"));
+    particleColors.clear();
+    for (int i=0; i<5; i++){
+        ofColor thisCol;
+        thisCol.setHsb(panel->getValueF("PARTICLE_HUE_"+ofToString(i)), panel->getValueF("PARTICLE_SAT"), panel->getValueF("PARTICLE_BRI"));
+        particleColors.push_back(thisCol);
     }
     
     //grid shit
@@ -253,9 +256,7 @@ void Scene::makeFieldParticles(){
         int idNum = ofRandom( (int)cellsAffectedThisFrame.size() );
         FieldCell * thisCell = &cellsAffectedThisFrame[ idNum ];
         ofVec2f thisPos = field.getExternalPointFromInternal(cellLocations[idNum].x, cellLocations[idNum].y);
-//        if (particleColors.size() > 0){
-//            thisCol = particleColors[ (int)ofRandom(particleColors.size()) ];
-//        }
+
         FieldParticle * newP = new FieldParticle( thisPos.x, thisPos.y );
         
         ParticleType typeToSet = thisCell->getRandomParticleType();
@@ -266,27 +267,34 @@ void Scene::makeFieldParticles(){
             newP->setType(defaultParticleType);
         }
         
-//        //set all the debug values
-//        newP->fric = (1.0f-p_friction);
-//        newP->killTime = p_killTime;
-//        
-//        newP->showDot = p_showDot;
-//        newP->fillDot = p_fillDot;
-//        newP->dotSize = p_dotSize;
-//        
-//        newP->useNoiseWiggle = p_useNoiseWiggle;
-//        newP->noiseWiggleRange = p_noiseWiggleRange;
-//        newP->noiseWigglePower = p_noiseWigglePower;
-//        newP->noiseWiggleRate = p_noiseWiggleRate;
-//        
-//        newP->useTrails = p_useTrails;
-//        newP->numTrailPositions = p_numTrailPositions;
-//        newP->trailStartWidth = p_trailStartWidth;
-//        newP->trailEndWidth = p_trailEndWidth;
-//        
-//        newP->usePic = p_usePic;
-//        newP->picScale = p_picScale;
         newP->pic = &particlePic;
+        
+        if (!ignorePanelValues){
+            newP->fric = p_friction;
+            newP->killTime = p_killTime;
+            newP->showDot = p_showDot;
+            newP->fillDot = p_fillDot;
+            newP->dotSize = p_dotSize;
+            
+            newP->useNoiseWiggle = p_useNoiseWiggle;
+            newP->noiseWiggleRange = p_noiseWiggleRange;
+            newP->noiseWigglePower = p_noiseWigglePower;
+            newP->noiseWiggleRate = p_noiseWiggleRate;
+            
+            newP->useTrails = p_useTrails;
+            newP->numTrailPositions = p_numTrailPositions;
+            newP->trailStartWidth = p_trailStartWidth;
+            newP->trailEndWidth =  p_trailEndWidth;
+            
+            newP->usePic = p_usePic;
+            newP->picScale = p_picScale;
+            
+            if (particleColors.size() > 0){
+                newP->col = particleColors[ (int)ofRandom(particleColors.size())];
+            }
+        }
+        
+        
         
         //add it to the list
         fieldParticles.push_back(newP);

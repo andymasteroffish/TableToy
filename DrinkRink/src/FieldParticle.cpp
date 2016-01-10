@@ -155,5 +155,26 @@ void FieldParticle::setType(ParticleType type){
         float thisHue =  type == PARTICLE_GOAL_LEFT ? 7 : 154;
         col.setHsb(thisHue, thisSat, thisBri);
     }
+    
+    if (type == PARTICLE_STREAM){
+        
+        fric = 0.84;
+        killTime = ofRandom(2.5,4);
+        showDot = true;
+        fillDot = true;
+        dotSize = ofRandom(1,4);
+        useTrails =  ofRandomuf() > 0.9;
+        numTrailPositions = ofRandom(5,14);
+        trailStartWidth = ofRandom(0.5,2);
+        trailEndWidth = ofRandom(0.5,2);;
+        usePic = false;
+        useNoiseWiggle = ofRandomuf() > 0.97;
+        noiseWiggleRange = 0.15;
+        noiseWigglePower = 0.10;
+        noiseWiggleRate = 1.3;
+        
+        col.setHsb(0, 0, ofRandom(50,255));
+        
+    }
 }
 
