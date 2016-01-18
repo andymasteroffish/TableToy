@@ -3,7 +3,7 @@
 # but not the data folder
 ###########################
 
-DrinkRink/bin/*
+# DrinkRink/bin/*
 
 #########
 # general
@@ -15,7 +15,7 @@ DrinkRink/*.o
 DrinkRink/[Dd]ebug*/
 DrinkRink/[Rr]elease*/
 *.mode*
-*.app/
+# *.app/
 *.pyc
 .svn/
 *.log

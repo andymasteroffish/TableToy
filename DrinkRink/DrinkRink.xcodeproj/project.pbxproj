@@ -1578,6 +1578,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 					"$(PROJECT_DIR)/src/addons/ofxOpenCv/libs/opencv/lib/osx",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				SDKROOT = macosx10.10;
 				WRAPPER_EXTENSION = app;
@@ -1665,6 +1666,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(PROJECT_DIR)/src/addons/ofxOpenCv/libs/opencv/lib/osx",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.10;
 				WRAPPER_EXTENSION = app;
