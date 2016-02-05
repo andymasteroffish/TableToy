@@ -91,6 +91,7 @@ void CupTrackerCam::setupCustom(){
 void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     threshold = panel->getValueI("CAM_THRESHOLD");
     //ARKit.setThreshold(threshold);    //WHY WOULD WE SET THIS THRESHOLD AGAIN WHEN WE ARE ALREADY THRESHOLDING OUR IMAGE??? MAKES NO SENSE, EVEN THOUGH THE EXAMPLE PROJECT DOES JUST THIS. I'M COMMENTING THIS OUT AND JUST LETTING IT KEEP THE STARTING THRESHOLD VALUE.
+    ARKit.activateAutoThreshold(panel->getValueB("CMA_AUTO_THRESHOLD"));
     cupOffset.x = panel->getValueF("CAM_X_OFFSET");
     cupOffset.y = panel->getValueF("CAM_Y_OFFSET");
     for (int i=0; i<4; i++){
@@ -107,8 +108,6 @@ void CupTrackerCam::update(){
     for (int i = 0; i < vidGrabber.size(); i++) {
         vidGrabber[i]->update();
     }
-
-
     
     if (vidGrabber[0]->isFrameNew()){
         

@@ -110,7 +110,7 @@ void ofxARToolkitPlus::setup(int w, int h, string camParamFile, string multiFile
 
 //--------------------------------------------------
 int ofxARToolkitPlus::update(unsigned char *pixels) {
-	return tracker->calc(pixels);
+    return tracker->calc(pixels);
 }
 
 //--------------------------------------------------
