@@ -163,7 +163,8 @@ void CalibrationScene::drawCustom(){
     
     ofSetColor(255, 255*alphaPrc);
     tracker->grayImage.draw(0, 0, tracker->grayImage.width,  tracker->grayImage.height);
-    tracker->drawFiducials(0, 0);
+    //tracker->drawFiducials(0, 0);
+    tracker->drawARTags(0, 0);
     
     ofPopMatrix();
     

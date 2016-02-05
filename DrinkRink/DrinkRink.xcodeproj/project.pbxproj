@@ -72,6 +72,14 @@
 		0AF37B3F1B840FA600A9CFF7 /* ofxFiducialTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B381B840FA500A9CFF7 /* ofxFiducialTracker.cpp */; };
 		0AF37B421B840FC000A9CFF7 /* CupTrackerCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */; };
 		46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* Carnivale.cpp */; };
+		5797BB491C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3A1C6433F500A752A5 /* libARToolKitPlus.a */; };
+		5797BB4A1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3C1C6433F500A752A5 /* libARToolKitPlus.a */; };
+		5797BB4B1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3E1C6433F500A752A5 /* libARToolKitPlus.a */; };
+		5797BB4C1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB401C6433F500A752A5 /* libARToolKitPlus.a */; };
+		5797BB4D1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB421C6433F500A752A5 /* libARToolKitPlus.a */; };
+		5797BB4E1C6433F500A752A5 /* ARToolKitPlus.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB441C6433F500A752A5 /* ARToolKitPlus.lib */; };
+		5797BB4F1C6433F500A752A5 /* ARToolKitPlusD.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB451C6433F500A752A5 /* ARToolKitPlusD.lib */; };
+		5797BB501C6433F500A752A5 /* ofxARToolkitPlus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5797BB471C6433F500A752A5 /* ofxARToolkitPlus.cpp */; };
 		57AB01A51C62E76D00791458 /* AGC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01811C62E76D00791458 /* AGC.mm */; };
 		57AB01A61C62E76D00791458 /* BayerConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01821C62E76D00791458 /* BayerConverter.mm */; };
 		57AB01A71C62E76D00791458 /* ControllerInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01831C62E76D00791458 /* ControllerInterface.mm */; };
@@ -373,6 +381,30 @@
 		46CA36A91B8FEEDF00791398 /* Carnivale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carnivale.cpp; sourceTree = "<group>"; };
 		46CA36AA1B8FEEDF00791398 /* Carnivale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carnivale.h; sourceTree = "<group>"; };
 		574B54561C41F92400BE3B06 /* CamSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CamSettings.h; sourceTree = "<group>"; };
+		5797BB281C6433F500A752A5 /* ar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ar.h; sourceTree = "<group>"; };
+		5797BB291C6433F500A752A5 /* arBitFieldPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arBitFieldPattern.h; sourceTree = "<group>"; };
+		5797BB2A1C6433F500A752A5 /* arGetInitRot2Sub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arGetInitRot2Sub.h; sourceTree = "<group>"; };
+		5797BB2B1C6433F500A752A5 /* arMulti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arMulti.h; sourceTree = "<group>"; };
+		5797BB2C1C6433F500A752A5 /* ARToolKitPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARToolKitPlus.h; sourceTree = "<group>"; };
+		5797BB2D1C6433F500A752A5 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		5797BB2E1C6433F500A752A5 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		5797BB301C6433F500A752A5 /* BCH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCH.h; sourceTree = "<group>"; };
+		5797BB311C6433F500A752A5 /* Hull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hull.h; sourceTree = "<group>"; };
+		5797BB321C6433F500A752A5 /* rpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rpp.h; sourceTree = "<group>"; };
+		5797BB331C6433F500A752A5 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		5797BB341C6433F500A752A5 /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
+		5797BB351C6433F500A752A5 /* TrackerMultiMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackerMultiMarker.h; sourceTree = "<group>"; };
+		5797BB361C6433F500A752A5 /* TrackerSingleMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackerSingleMarker.h; sourceTree = "<group>"; };
+		5797BB371C6433F500A752A5 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		5797BB3A1C6433F500A752A5 /* libARToolKitPlus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libARToolKitPlus.a; sourceTree = "<group>"; };
+		5797BB3C1C6433F500A752A5 /* libARToolKitPlus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libARToolKitPlus.a; sourceTree = "<group>"; };
+		5797BB3E1C6433F500A752A5 /* libARToolKitPlus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libARToolKitPlus.a; sourceTree = "<group>"; };
+		5797BB401C6433F500A752A5 /* libARToolKitPlus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libARToolKitPlus.a; sourceTree = "<group>"; };
+		5797BB421C6433F500A752A5 /* libARToolKitPlus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libARToolKitPlus.a; sourceTree = "<group>"; };
+		5797BB441C6433F500A752A5 /* ARToolKitPlus.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = ARToolKitPlus.lib; sourceTree = "<group>"; };
+		5797BB451C6433F500A752A5 /* ARToolKitPlusD.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = ARToolKitPlusD.lib; sourceTree = "<group>"; };
+		5797BB471C6433F500A752A5 /* ofxARToolkitPlus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxARToolkitPlus.cpp; sourceTree = "<group>"; };
+		5797BB481C6433F500A752A5 /* ofxARToolkitPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxARToolkitPlus.h; sourceTree = "<group>"; };
 		57AB01811C62E76D00791458 /* AGC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AGC.mm; sourceTree = "<group>"; };
 		57AB01821C62E76D00791458 /* BayerConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BayerConverter.mm; sourceTree = "<group>"; };
 		57AB01831C62E76D00791458 /* ControllerInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ControllerInterface.mm; sourceTree = "<group>"; };
@@ -439,19 +471,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5797BB4F1C6433F500A752A5 /* ARToolKitPlusD.lib in Frameworks */,
 				E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */,
 				E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */,
+				5797BB4A1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */,
 				E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */,
 				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
 				E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */,
 				E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */,
 				E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */,
 				E45BE97F0E8CC7DD009D7055 /* CoreAudio.framework in Frameworks */,
+				5797BB4B1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */,
+				5797BB4C1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */,
 				E45BE9800E8CC7DD009D7055 /* CoreFoundation.framework in Frameworks */,
 				E45BE9810E8CC7DD009D7055 /* CoreServices.framework in Frameworks */,
 				E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */,
 				E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */,
 				E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */,
+				5797BB491C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */,
+				5797BB4D1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */,
+				5797BB4E1C6433F500A752A5 /* ARToolKitPlus.lib in Frameworks */,
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				0AF37A861B840D9A00A9CFF7 /* opencv.a in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
@@ -1013,6 +1052,142 @@
 			name = Carnivale;
 			sourceTree = "<group>";
 		};
+		5797BB231C6433F500A752A5 /* ofxARtoolkitPlus */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB241C6433F500A752A5 /* libs */,
+				5797BB461C6433F500A752A5 /* src */,
+			);
+			name = ofxARtoolkitPlus;
+			path = src/addons/ofxARtoolkitPlus;
+			sourceTree = "<group>";
+		};
+		5797BB241C6433F500A752A5 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB251C6433F500A752A5 /* ARToolKitPlus */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		5797BB251C6433F500A752A5 /* ARToolKitPlus */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB261C6433F500A752A5 /* include */,
+				5797BB381C6433F500A752A5 /* lib */,
+			);
+			path = ARToolKitPlus;
+			sourceTree = "<group>";
+		};
+		5797BB261C6433F500A752A5 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB271C6433F500A752A5 /* ARToolKitPlus */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		5797BB271C6433F500A752A5 /* ARToolKitPlus */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB281C6433F500A752A5 /* ar.h */,
+				5797BB291C6433F500A752A5 /* arBitFieldPattern.h */,
+				5797BB2A1C6433F500A752A5 /* arGetInitRot2Sub.h */,
+				5797BB2B1C6433F500A752A5 /* arMulti.h */,
+				5797BB2C1C6433F500A752A5 /* ARToolKitPlus.h */,
+				5797BB2D1C6433F500A752A5 /* Camera.h */,
+				5797BB2E1C6433F500A752A5 /* config.h */,
+				5797BB2F1C6433F500A752A5 /* extra */,
+				5797BB331C6433F500A752A5 /* matrix.h */,
+				5797BB341C6433F500A752A5 /* Tracker.h */,
+				5797BB351C6433F500A752A5 /* TrackerMultiMarker.h */,
+				5797BB361C6433F500A752A5 /* TrackerSingleMarker.h */,
+				5797BB371C6433F500A752A5 /* vector.h */,
+			);
+			path = ARToolKitPlus;
+			sourceTree = "<group>";
+		};
+		5797BB2F1C6433F500A752A5 /* extra */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB301C6433F500A752A5 /* BCH.h */,
+				5797BB311C6433F500A752A5 /* Hull.h */,
+				5797BB321C6433F500A752A5 /* rpp.h */,
+			);
+			path = extra;
+			sourceTree = "<group>";
+		};
+		5797BB381C6433F500A752A5 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB391C6433F500A752A5 /* linux */,
+				5797BB3B1C6433F500A752A5 /* linux64 */,
+				5797BB3D1C6433F500A752A5 /* linuxarmv6l */,
+				5797BB3F1C6433F500A752A5 /* linuxarmv7l */,
+				5797BB411C6433F500A752A5 /* osx */,
+				5797BB431C6433F500A752A5 /* win32 */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		5797BB391C6433F500A752A5 /* linux */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB3A1C6433F500A752A5 /* libARToolKitPlus.a */,
+			);
+			path = linux;
+			sourceTree = "<group>";
+		};
+		5797BB3B1C6433F500A752A5 /* linux64 */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB3C1C6433F500A752A5 /* libARToolKitPlus.a */,
+			);
+			path = linux64;
+			sourceTree = "<group>";
+		};
+		5797BB3D1C6433F500A752A5 /* linuxarmv6l */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB3E1C6433F500A752A5 /* libARToolKitPlus.a */,
+			);
+			path = linuxarmv6l;
+			sourceTree = "<group>";
+		};
+		5797BB3F1C6433F500A752A5 /* linuxarmv7l */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB401C6433F500A752A5 /* libARToolKitPlus.a */,
+			);
+			path = linuxarmv7l;
+			sourceTree = "<group>";
+		};
+		5797BB411C6433F500A752A5 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB421C6433F500A752A5 /* libARToolKitPlus.a */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		5797BB431C6433F500A752A5 /* win32 */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB441C6433F500A752A5 /* ARToolKitPlus.lib */,
+				5797BB451C6433F500A752A5 /* ARToolKitPlusD.lib */,
+			);
+			path = win32;
+			sourceTree = "<group>";
+		};
+		5797BB461C6433F500A752A5 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5797BB471C6433F500A752A5 /* ofxARToolkitPlus.cpp */,
+				5797BB481C6433F500A752A5 /* ofxARToolkitPlus.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		57AB017E1C62E76D00791458 /* ofxMacamPs3Eye */ = {
 			isa = PBXGroup;
 			children = (
@@ -1083,6 +1258,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				5797BB231C6433F500A752A5 /* ofxARtoolkitPlus */,
 				57AB017E1C62E76D00791458 /* ofxMacamPs3Eye */,
 				0AF37B271B840FA500A9CFF7 /* ofxFiducialFinder */,
 				0AF37AC31B840F4000A9CFF7 /* ofxControlPanel */,
@@ -1295,6 +1471,7 @@
 				0AC9273C1BAA2CFB009643C2 /* CupTrackerBlob.cpp in Sources */,
 				0AF37B1F1B840F4000A9CFF7 /* ofxControlPanel.cpp in Sources */,
 				0AF37B201B840F4000A9CFF7 /* simpleColor.cpp in Sources */,
+				5797BB501C6433F500A752A5 /* ofxARToolkitPlus.cpp in Sources */,
 				57AB01B01C62E76D00791458 /* MyCameraInfo.mm in Sources */,
 				0AF37AA41B840E5300A9CFF7 /* Goal.cpp in Sources */,
 				0AF37AC01B840E7500A9CFF7 /* VectorField.cpp in Sources */,
@@ -1415,6 +1592,17 @@
 					../../../addons/ofxFiducialFinder/libs,
 					../../../addons/ofxFiducialFinder/src,
 					../../../addons/ofxFiducialFinder/src/libfidtrack,
+					../../../addons/ofxARtoolkitPlus/src,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/win32,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/osx,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linuxarmv7l,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linuxarmv6l,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/include/ARToolKitPlus/extra,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/include/ARToolKitPlus,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/include,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus,
+					../../../addons/ofxARtoolkitPlus/libs,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -1425,6 +1613,7 @@
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/osx/libARToolKitPlus.a,
 				);
 				SDKROOT = macosx;
 			};
@@ -1481,6 +1670,17 @@
 					../../../addons/ofxFiducialFinder/libs,
 					../../../addons/ofxFiducialFinder/src,
 					../../../addons/ofxFiducialFinder/src/libfidtrack,
+					../../../addons/ofxARtoolkitPlus/src,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/win32,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/osx,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linuxarmv7l,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linuxarmv6l,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/include/ARToolKitPlus/extra,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/include/ARToolKitPlus,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/include,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus,
+					../../../addons/ofxARtoolkitPlus/libs,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -1491,6 +1691,7 @@
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a,
+					../../../addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/osx/libARToolKitPlus.a,
 				);
 				SDKROOT = macosx;
 			};
@@ -1577,6 +1778,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 					"$(PROJECT_DIR)/src/addons/ofxOpenCv/libs/opencv/lib/osx",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linux",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linux64",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linuxarmv6l",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linuxarmv7l",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/osx",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/win32",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
@@ -1665,6 +1872,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(PROJECT_DIR)/src/addons/ofxOpenCv/libs/opencv/lib/osx",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linux",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linux64",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linuxarmv6l",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/linuxarmv7l",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/osx",
+					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/win32",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";

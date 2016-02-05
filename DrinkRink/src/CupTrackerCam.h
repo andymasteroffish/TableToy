@@ -14,8 +14,10 @@
 #include "CamSettings.h"
 
 #include "ofxOpenCv.h"
-#include "ofxFidMain.h"
+//#include "ofxFidMain.h"
 #include "ofxMacamPs3Eye.h"
+
+#include "ofxARToolkitPlus.h"
 
 
 
@@ -26,11 +28,13 @@ public:
     void updateFromPanel(ofxControlPanel * panel);
     void update();
     void draw();
-    void drawFiducials(int x, int y);
+    //void drawFiducials(int x, int y);
+    void drawARTags(int x, int y);
     
     void keyPressed(int key);
     
-    void checkFiducial(list<ofxFiducial>::iterator fiducial);
+    //void checkFiducial(list<ofxFiducial>::iterator fiducial);
+    void checkARTag(int idNum);
     
 
 #ifdef USE_VIDEO
@@ -49,7 +53,8 @@ public:
     ofxCvColorImage		fullImg, colorImg;
     ofxCvGrayscaleImage grayImage;
     
-    ofxFiducialTracker	fidfinder;
+    //ofxFiducialTracker	fidfinder;
+    ofxARToolkitPlus ARKit;
     
     
     int  threshold;
