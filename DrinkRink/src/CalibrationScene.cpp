@@ -111,6 +111,7 @@ void CalibrationScene::drawCustom(){
         return;
     }
     
+    
     //show the cam image
     
     ofPushMatrix();

@@ -343,6 +343,12 @@ void ofApp::draw(){
     }
     
     
+    //show the mouse because it goes away some times what the hell even
+    ofSetColor(200,10,10);
+    ofCircle(mouseX, mouseY, 4);
+    ofSetColor(ofColor::yellow);
+    ofCircle(mouseX, mouseY, 2);
+    
     
 }
 

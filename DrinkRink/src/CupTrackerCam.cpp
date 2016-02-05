@@ -11,31 +11,32 @@
 //--------------------------------------------------------------
 void CupTrackerCam::setupCustom(){
     
-    imgWidth = 1280;
-    imgHeight = 480;
+    imgWidth = 1280 ;
+    imgHeight = 480 ;
     
     
 
 #ifdef USE_VIDEO
     ofVideoPlayer * thisGrabber = new ofVideoPlayer();
     vidGrabber.push_back(thisGrabber);
-    vidGrabber[0]->loadMovie("vid/spinners_no_border.mov");
+    vidGrabber[0]->loadMovie("vid/ps3.mov");
+    //vidGrabber[0]->loadMovie("vid/spinners_no_border.mov");
     //vidGrabber[0]->loadMovie("vid/mostly_still.mov");
     vidGrabber[0]->play();
     
-    imgWidth = vidGrabber[0]->width;
-    imgHeight = vidGrabber[0]->height;
+    //imgWidth = vidGrabber[0]->width;
+    //imgHeight = vidGrabber[0]->height;
 #elif defined(USE_WEBCAM)
     ofVideoGrabber * thisGrabber = new ofVideoGrabber();
     //thisGrabber->setDeviceID(1);
     
     vidGrabber.push_back(thisGrabber);
-    vidGrabber[0]->initGrabber(640,480);
+    vidGrabber[0]->initGrabber(imgWidth/2,imgHeight);
 #else
     for (int i = 0; i < deviceList.size(); i++) {
         ofxMacamPs3Eye * camera = new ofxMacamPs3Eye();
         camera->setDeviceID(deviceList[i]->id);
-        camera->initGrabber(640, 480);
+        camera->initGrabber(imgWidth/2, imgHeight);
         vidGrabber.push_back(camera);
     }
 #endif
@@ -56,8 +57,8 @@ void CupTrackerCam::setupCustom(){
     
     
     fullImg.allocate(imgWidth, imgHeight);
-    colorImg.allocate(imgWidth , imgHeight);
-    grayImage.allocate(imgWidth , imgHeight);
+    colorImg.allocate(imgWidth*2 , imgHeight*2);
+    grayImage.allocate(imgWidth*2 , imgHeight*2);
     
     //start the warp points to include the whole camera(s) image(s)
     warpPoints[0].set(0, 0);
@@ -74,7 +75,7 @@ void CupTrackerCam::setupCustom(){
     
     threshold = 80;
     
-    framesBeforeKillingCup = 10;
+    framesBeforeKillingCup = 80;
     
     //detect finger is off by default
     fidfinder.detectFinger		= true;
@@ -123,12 +124,32 @@ void CupTrackerCam::update(){
         fbo.end();
         
         fbo.readToPixels(pix);
+        
+        //trying to fux with the pixels before we build the color image out of them
+//        unsigned char * pixels = pix.getPixels();
+//        //cout<<"pixels "<<pix.size()<<endl;
+//        for (int i=0; i<pix.size(); i+=3){
+//            int r = (int)pixels[i];
+//            int g = (int)pixels[i+1];
+//            int b = (int)pixels[i+2];
+//            
+//            pixels[i] = (char)b;
+//            pixels[i+1] = (char)b;
+//            //pixels[i+2] = b;
+//            
+//        }
+//        fullImg.setFromPixels(pixels, imgWidth, imgHeight);
+        
         fullImg.setFromPixels(pix);
+        
+        //for (int i=0; i<1; i++)    fullImg.dilate();
         
         colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
         grayImage = colorImg;
         
         grayImage.threshold(threshold);
+        grayImage.dilate(); //maybe this helps???
+        
         fidfinder.findFiducials(grayImage);
         
         
@@ -209,8 +230,8 @@ void CupTrackerCam::keyPressed(int key){
 void CupTrackerCam::checkFiducial(list<ofxFiducial>::iterator fiducial){
     
     //adjust the image to fit the screen
-    float xAdjust = (float)gameWidth / (float)imgWidth;
-    float yAdjust = (float)gameHeight / (float)imgHeight;
+    float xAdjust = (float)gameWidth / (float)grayImage.width;
+    float yAdjust = (float)gameHeight / (float)grayImage.height;
     
     //does a cup with this ID exist in the list?
     for (int i=0; i<activeCups.size(); i++){

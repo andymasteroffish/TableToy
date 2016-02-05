@@ -9,6 +9,7 @@
 # general
 #########
 
+DrinkRink/bin/data/vid/*
 DrinkRink/[Bb]uild/
 DrinkRink/[Oo]bj/
 DrinkRink/*.o
