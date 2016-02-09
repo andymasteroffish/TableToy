@@ -51,6 +51,8 @@ void CupTrackerCam::setupCustom(){
     fullImg.allocate(imgWidth, imgHeight);
     colorImg.allocate(imgWidth, imgHeight);
     grayImage.allocate(imgWidth, imgHeight);
+    grayImageNoThresh.allocate(imgWidth, imgHeight);
+    grayBGImage.allocate(imgWidth, imgHeight);
     
     //start the warp points to include the whole camera(s) image(s)
     warpPoints[0].set(0, 0);
@@ -84,14 +86,24 @@ void CupTrackerCam::setupCustom(){
     
     cupOffset.set(0,0);
     
+    takeBGImage = false;
+    
     isDebug = false;
 }
 
 //--------------------------------------------------------------
 void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
-    threshold = panel->getValueI("CAM_THRESHOLD");
+    bool useAutoThreshold = panel->getValueB("CAM_AUTO_THRESHOLD");
+    ARKit.activateAutoThreshold(useAutoThreshold);
+    if (!useAutoThreshold){
+        threshold = panel->getValueI("CAM_THRESHOLD");
+        ARKit.setThreshold(threshold);
+    }else{
+        threshold = ARKit.getThreshold();
+        takeBGImage = true;
+    }
     //ARKit.setThreshold(threshold);    //WHY WOULD WE SET THIS THRESHOLD AGAIN WHEN WE ARE ALREADY THRESHOLDING OUR IMAGE??? MAKES NO SENSE, EVEN THOUGH THE EXAMPLE PROJECT DOES JUST THIS. I'M COMMENTING THIS OUT AND JUST LETTING IT KEEP THE STARTING THRESHOLD VALUE.
-    ARKit.activateAutoThreshold(panel->getValueB("CMA_AUTO_THRESHOLD"));
+    
     cupOffset.x = panel->getValueF("CAM_X_OFFSET");
     cupOffset.y = panel->getValueF("CAM_Y_OFFSET");
     for (int i=0; i<4; i++){
@@ -105,6 +117,7 @@ void CupTrackerCam::update(){
     
     ofSetColor(255);
     
+    cout<<"thresher: "<<ARKit.getThreshold()<<endl;
     for (int i = 0; i < vidGrabber.size(); i++) {
         vidGrabber[i]->update();
     }
@@ -142,21 +155,26 @@ void CupTrackerCam::update(){
         colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
         grayImage = colorImg;
         
-        grayImage.threshold(threshold);
+        if (takeBGImage){
+            grayBGImage = grayImage;
+            takeBGImage = false;
+        }
+        
+        grayImage.absDiff(grayBGImage);
+        
+        grayImageNoThresh = grayImage;
+        
+        grayImage.threshold(threshold); //THIS IS REALLY JUST FOR DEMO SO WE CAN SEE IT
+        
         //grayImage.dilate(); //maybe this helps???
         
-        ARKit.update(grayImage.getPixels());
-        
-        //fidfinder.findFiducials(grayImage);
+        ARKit.update(grayImageNoThresh.getPixels());
         
         
         //update our info
         for (int i=0; i<ARKit.getNumDetectedMarkers(); i++){
             checkARTag(i);
         }
-//        for (list<ofxFiducial>::iterator fiducial = fidfinder.fiducialsList.begin(); fiducial != fidfinder.fiducialsList.end(); fiducial++){
-//            checkFiducial(fiducial);
-//        }
         
         //go through and check for cups that have been removed
         for (int i=activeCups.size()-1; i>=0 ; i--){

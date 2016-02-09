@@ -122,6 +122,8 @@ void CalibrationScene::drawCustom(){
     ofSetColor(255, 255*alphaPrc);
     tracker->fullImg.draw(0, 0, tracker->fullImg.width, tracker->fullImg.height);
     
+    tracker->grayBGImage.draw(tracker->fullImg.width+10, 0, tracker->grayBGImage.width, tracker->grayBGImage.height);
+    
     //draw the warp points
     int pointSize = 10;
     int lineSize = pointSize*1.5;
@@ -163,7 +165,8 @@ void CalibrationScene::drawCustom(){
     
     ofSetColor(255, 255*alphaPrc);
     tracker->grayImage.draw(0, 0, tracker->grayImage.width,  tracker->grayImage.height);
-    //tracker->drawFiducials(0, 0);
+    tracker->grayImageNoThresh.draw(tracker->grayImage.width+10, 0, tracker->grayImage.width,  tracker->grayImage.height);
+    
     tracker->drawARTags(0, 0);
     
     ofPopMatrix();

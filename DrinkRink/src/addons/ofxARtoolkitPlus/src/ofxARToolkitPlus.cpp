@@ -430,12 +430,18 @@ void ofxARToolkitPlus::setThreshold(int threshold) {
 
 void ofxARToolkitPlus::activateAutoThreshold(bool state) {
 	tracker->activateAutoThreshold(state);
+    //cout<<"thresh: "<<tracker->getThreshold()<<endl;
 }
 
 void ofxARToolkitPlus::setMarkerWidth(float mm) {
 	markerWidth = mm;
 	halfMarkerWidth = markerWidth/2;
 	setupHomoSrc();
+}
+
+//ANDY EDIT
+int ofxARToolkitPlus::getThreshold(){
+    return tracker->getThreshold();
 }
 
 void ofxARToolkitPlus::setupHomoSrc() {

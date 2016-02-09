@@ -51,7 +51,8 @@ public:
     int imgWidth, imgHeight;
     
     ofxCvColorImage		fullImg, colorImg;
-    ofxCvGrayscaleImage grayImage;
+    ofxCvGrayscaleImage grayImage, grayImageNoThresh;
+    ofxCvGrayscaleImage grayBGImage;
     
     //ofxFiducialTracker	fidfinder;
     ofxARToolkitPlus ARKit;
@@ -63,6 +64,8 @@ public:
     
     ofVec2f cupOffset;
     int framesBeforeKillingCup;
+    
+    bool takeBGImage;
     
     
     //debug stuff

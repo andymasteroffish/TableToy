@@ -196,7 +196,7 @@ void ofApp::setup(){
     panel.setWhichColumn(0);
     
     panel.addSlider("Threshold", "CAM_THRESHOLD", 70, 0, 255, true);
-    panel.addToggle("Use Auto Threshold (ARToolKit)", "CMA_AUTO_THRESHOLD", false);
+    panel.addToggle("Use Auto Threshold (ARToolKit)", "CAM_AUTO_THRESHOLD", false);
     panel.addSlider("X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
     panel.addSlider("Y Offset", "CAM_Y_OFFSET", 0, -100, 100, false);
     

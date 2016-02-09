@@ -115,6 +115,7 @@ class ofxARToolkitPlus  {
 	void activateAutoThreshold(bool state);
 	/* Set the width of the markers to calculate an accurate matrix in real world scale */
 	void setMarkerWidth(float mm);
+    int getThreshold(); //ANDY EDIT
 
 	///////////////////////////////////////////
 	// MARKER INFO
