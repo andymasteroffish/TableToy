@@ -51,8 +51,10 @@ public:
     int imgWidth, imgHeight;
     
     ofxCvColorImage		fullImg, colorImg;
-    ofxCvGrayscaleImage grayImage, grayImageNoThresh;
+    ofxCvGrayscaleImage grayImageNoThresh;
     ofxCvGrayscaleImage grayBGImage;
+    ofxCvGrayscaleImage grayImageDemo;      //this one is just so we can see what's hapenning. We can remove it if it is slowing things down
+    
     
     //ofxFiducialTracker	fidfinder;
     ofxARToolkitPlus ARKit;

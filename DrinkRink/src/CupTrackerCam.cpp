@@ -50,9 +50,9 @@ void CupTrackerCam::setupCustom(){
     
     fullImg.allocate(imgWidth, imgHeight);
     colorImg.allocate(imgWidth, imgHeight);
-    grayImage.allocate(imgWidth, imgHeight);
     grayImageNoThresh.allocate(imgWidth, imgHeight);
     grayBGImage.allocate(imgWidth, imgHeight);
+    grayImageDemo.allocate(imgWidth, imgHeight);
     
     //start the warp points to include the whole camera(s) image(s)
     warpPoints[0].set(0, 0);
@@ -70,12 +70,6 @@ void CupTrackerCam::setupCustom(){
     threshold = 69;//80;
     
     framesBeforeKillingCup = 40;
-    
-    //detect finger is off by default
-//    fidfinder.detectFinger		= true;
-//    fidfinder.maxFingerSize		= 25;
-//    fidfinder.minFingerSize		= 5;
-//    fidfinder.fingerSensitivity	= 0.05f; //from 0 to 2.0f
     
     ARKit.setup(imgWidth, imgHeight);
     ARKit.setThreshold(threshold);
@@ -100,7 +94,11 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
         ARKit.setThreshold(threshold);
     }else{
         threshold = ARKit.getThreshold();
+    }
+    
+    if (panel->getValueB("CAM_TAKE_BG_PIC")){
         takeBGImage = true;
+        panel->setValueB("CAM_TAKE_BG_PIC", false);
     }
     //ARKit.setThreshold(threshold);    //WHY WOULD WE SET THIS THRESHOLD AGAIN WHEN WE ARE ALREADY THRESHOLDING OUR IMAGE??? MAKES NO SENSE, EVEN THOUGH THE EXAMPLE PROJECT DOES JUST THIS. I'M COMMENTING THIS OUT AND JUST LETTING IT KEEP THE STARTING THRESHOLD VALUE.
     
@@ -117,7 +115,6 @@ void CupTrackerCam::update(){
     
     ofSetColor(255);
     
-    cout<<"thresher: "<<ARKit.getThreshold()<<endl;
     for (int i = 0; i < vidGrabber.size(); i++) {
         vidGrabber[i]->update();
     }
@@ -133,40 +130,22 @@ void CupTrackerCam::update(){
         
         fbo.readToPixels(pix);
         
-        //trying to fux with the pixels before we build the color image out of them
-//        unsigned char * pixels = pix.getPixels();
-//        //cout<<"pixels "<<pix.size()<<endl;
-//        for (int i=0; i<pix.size(); i+=3){
-//            int r = (int)pixels[i];
-//            int g = (int)pixels[i+1];
-//            int b = (int)pixels[i+2];
-//            
-//            pixels[i] = (char)b;
-//            pixels[i+1] = (char)b;
-//            //pixels[i+2] = b;
-//            
-//        }
-//        fullImg.setFromPixels(pixels, imgWidth, imgHeight);
         
         fullImg.setFromPixels(pix);
         
-        //for (int i=0; i<1; i++)    fullImg.dilate();
-        
         colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
-        grayImage = colorImg;
+        grayImageNoThresh = colorImg;
         
-        if (takeBGImage){
-            grayBGImage = grayImage;
+        if (takeBGImage || ofGetFrameNum() == 10){
+            grayBGImage = grayImageNoThresh;
             takeBGImage = false;
         }
         
-        grayImage.absDiff(grayBGImage);
+        grayImageNoThresh.absDiff(grayBGImage);
         
-        grayImageNoThresh = grayImage;
+        grayImageDemo = grayImageNoThresh;
         
-        grayImage.threshold(threshold); //THIS IS REALLY JUST FOR DEMO SO WE CAN SEE IT
-        
-        //grayImage.dilate(); //maybe this helps???
+        grayImageDemo.threshold(threshold); //THIS IS REALLY JUST FOR DEMO SO WE CAN SEE IT
         
         ARKit.update(grayImageNoThresh.getPixels());
         
@@ -198,21 +177,11 @@ void CupTrackerCam::draw(){
     ofVec2f drawStart(100,0);
     
     colorImg.draw(drawStart.x,drawStart.y);
-    grayImage.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
+    grayImageDemo.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
     
     //drawFiducials(drawStart.x, drawStart.y);
     drawARTags(drawStart.x, drawStart.y);
 }
-
-////--------------------------------------------------------------
-//void CupTrackerCam::drawFiducials(int x, int y){
-//    //use this method for the FiducialTracker
-//    //to get fiducial info you can use the fiducial getter methods
-//    for (list<ofxFiducial>::iterator fiducial = fidfinder.fiducialsList.begin(); fiducial != fidfinder.fiducialsList.end(); fiducial++) {
-//        fiducial->draw( x, y );//draw fiducial
-//        fiducial->drawCorners( x, y );//draw corners
-//    }
-//}
 
 //--------------------------------------------------------------
 void CupTrackerCam::drawARTags(int x, int y){
@@ -287,41 +256,6 @@ void CupTrackerCam::keyPressed(int key){
 }
 
 
-
-//--------------------------------------------------------------
-//void CupTrackerCam::checkFiducial(list<ofxFiducial>::iterator fiducial){
-//    
-//    //adjust the image to fit the screen
-//    float xAdjust = (float)gameWidth / (float)grayImage.width;
-//    float yAdjust = (float)gameHeight / (float)grayImage.height;
-//    
-//    //does a cup with this ID exist in the list?
-//    for (int i=0; i<activeCups.size(); i++){
-//        if (activeCups[i].uniqueID == fiducial->fidId){
-//            //if we found it update it
-//            activeCups[i].pos.set( fiducial->current.xpos*xAdjust + cupOffset.x , fiducial->current.ypos*yAdjust + cupOffset.y);
-//            activeCups[i].angle = fiducial->current.angle;
-//            //and don't let it die
-//            activeCups[i].framesWithoutUpdate = 0;
-//            return;
-//        }
-//    }
-//    
-//    //if there was nothing, we need to make a new cup
-//    CupInfo thisCupInfo;
-//    
-//    thisCupInfo.uniqueID = fiducial->fidId;
-//    thisCupInfo.pos.set( fiducial->current.xpos*xAdjust + cupOffset.x , fiducial->current.ypos*yAdjust + cupOffset.y );
-//    thisCupInfo.angle = fiducial->current.angle;
-//    thisCupInfo.framesWithoutUpdate = 0;
-//    thisCupInfo.startTime = ofGetElapsedTimef();
-//    
-//    
-//    activeCups.push_back(thisCupInfo);
-//    
-//}
-
-
 //--------------------------------------------------------------
 void CupTrackerCam::checkARTag(int idNum){
     
@@ -330,8 +264,8 @@ void CupTrackerCam::checkARTag(int idNum){
     ofPoint tagPos = ARKit.getDetectedMarkerCenter(idNum);
     
     //adjust the image to fit the screen
-    float xAdjust = (float)gameWidth / (float)grayImage.width;
-    float yAdjust = (float)gameHeight / (float)grayImage.height;
+    float xAdjust = (float)gameWidth / (float)imgWidth;
+    float yAdjust = (float)gameHeight / (float)imgHeight;
     
     float gameWorldX = tagPos.x * xAdjust + cupOffset.x;
     float gameWorldY = tagPos.y * yAdjust + cupOffset.y;

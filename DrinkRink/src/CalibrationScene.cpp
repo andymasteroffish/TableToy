@@ -120,9 +120,8 @@ void CalibrationScene::drawCustom(){
     ofScale(drawScale, drawScale);
     
     ofSetColor(255, 255*alphaPrc);
+    //draw what the camera sees
     tracker->fullImg.draw(0, 0, tracker->fullImg.width, tracker->fullImg.height);
-    
-    tracker->grayBGImage.draw(tracker->fullImg.width+10, 0, tracker->grayBGImage.width, tracker->grayBGImage.height);
     
     //draw the warp points
     int pointSize = 10;
@@ -143,34 +142,52 @@ void CalibrationScene::drawCustom(){
         ofLine(pnt.x, pnt.y, pnt.x, pnt.y+lineSize);
     }
     
+    //draw the BG image
+    ofSetColor(255);
+    tracker->grayBGImage.draw(tracker->fullImg.width+10, tracker->grayBGImage.height*0.5, tracker->grayBGImage.width*0.5, tracker->grayBGImage.height*0.5);
+    
     ofPopMatrix();
     
-    ofSetColor(255,150,150, 255*alphaPrc);
-    ofDrawBitmapString("<-- This is the input from the camera(s)", drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.25 - 20);
-    ofDrawBitmapString("<-- you can drag these warp points with mouse", drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.25);
     
-    ofDrawBitmapString("<-- This is the resulting image used to track tuio", drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.75 - 20);
-    ofDrawBitmapString("<-- This is what is the image used for the game", drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.75);
+    ofPushMatrix();
+    ofTranslate(drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.04);
+    ofSetColor(255,150,150, 255*alphaPrc);
+    ofDrawBitmapString("<-- This is the input from the camera(s)", 0, 0);
+    ofDrawBitmapString("<-- you can drag these warp points with mouse", 0, 15);
+    
+    ofDrawBitmapString(".-- This is the background image used for differencing.", 20, 65);
+    ofDrawBitmapString("|   It should be the empty table.", 20, 80);
+    ofDrawBitmapString("V   If you move the warp points, you need to retake this.", 20, 95);
+    ofPopMatrix();
     
     //draw the resulting image
     float outputDrawScale = 1;
     if (tracker->fullImg.height > maxDisplayHeight){
-        outputDrawScale = maxDisplayHeight / (float)tracker->grayImage.height;
+        outputDrawScale = maxDisplayHeight / (float)tracker->imgHeight;
     }
     
     ofPushMatrix();
-    ofTranslate(drawOffset.x, gameHeight-tracker->grayImage.height*outputDrawScale-10);
+    ofTranslate(drawOffset.x, gameHeight-tracker->imgHeight*outputDrawScale-10);
     
     ofScale(outputDrawScale,outputDrawScale);
     
     ofSetColor(255, 255*alphaPrc);
-    tracker->grayImage.draw(0, 0, tracker->grayImage.width,  tracker->grayImage.height);
-    tracker->grayImageNoThresh.draw(tracker->grayImage.width+10, 0, tracker->grayImage.width,  tracker->grayImage.height);
+    tracker->grayImageDemo.draw(0, 0, tracker->imgWidth,  tracker->imgHeight);
+    tracker->grayImageNoThresh.draw(tracker->imgWidth+10, 0, tracker->imgWidth*0.5,  tracker->imgHeight*0.5);
     
     tracker->drawARTags(0, 0);
     
     ofPopMatrix();
     
+    ofPushMatrix();
+    ofTranslate(drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.8);
+    ofSetColor(255,150,150, 255*alphaPrc);
+    
+    ofDrawBitmapString("^-- This is the greyscale differenced image we feed to the tracker", 10, 0);
+    
+    ofDrawBitmapString("<-- This is the image with the tracker's thresholding applied", 0, 65);
+    ofDrawBitmapString("<-- This recreates the image ultimately used for the game", 0, 80);
+    ofPopMatrix();
     
     //redraw the towers so we can see them
     for (int i=towers.size()-1; i>=0; i--){
