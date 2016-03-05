@@ -39,6 +39,11 @@ void CupTrackerCam::setupCustom(){
         vidGrabber.push_back(camera);
     }
 #endif
+    useThreshMap = threshMap.loadImage("threshMap.png");
+    if(useThreshMap){
+        threshMapPixels = threshMap.getPixelsRef();
+        grayImageThresh.allocate(imgWidth, imgHeight);
+    }
     
     
     fbo.allocate(imgWidth, imgHeight, GL_RGB);
@@ -72,7 +77,7 @@ void CupTrackerCam::setupCustom(){
     framesBeforeKillingCup = 40;
     
     ARKit.setup(imgWidth, imgHeight);
-    ARKit.setThreshold(threshold);
+    //ARKit.setThreshold(threshold);
     
     
     timeForDoubleKeyPress = 0.2;
@@ -91,7 +96,7 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     ARKit.activateAutoThreshold(useAutoThreshold);
     if (!useAutoThreshold){
         threshold = panel->getValueI("CAM_THRESHOLD");
-        ARKit.setThreshold(threshold);
+        //ARKit.setThreshold(threshold);
     }else{
         threshold = ARKit.getThreshold();
     }
@@ -143,11 +148,32 @@ void CupTrackerCam::update(){
         
         grayImageNoThresh.absDiff(grayBGImage);
         
-        grayImageDemo = grayImageNoThresh;
+        if(useThreshMap){
+            grayImagePixels = grayImageNoThresh.getPixelsRef();
+            
+            for(int i=0;i<grayImagePixels.size();i++){
+                //Thresh offset set here
+                if(grayImagePixels[i] <= threshMapPixels[i]){
+                    grayImagePixels[i] = 0;
+                }
+                else{
+                    grayImagePixels[i] = 255;
+                }
+            }
+            
+            grayImageThresh.setFromPixels(grayImagePixels);
+            grayImageDemo = grayImageThresh;
+            ARKit.update(grayImageThresh.getPixels());
+
+        }
+        else{
+            
+            grayImageDemo = grayImageNoThresh;
+            grayImageDemo.threshold(threshold); //THIS IS REALLY JUST FOR DEMO SO WE CAN SEE IT
+            ARKit.update(grayImageNoThresh.getPixels());
+            
+        }
         
-        grayImageDemo.threshold(threshold); //THIS IS REALLY JUST FOR DEMO SO WE CAN SEE IT
-        
-        ARKit.update(grayImageNoThresh.getPixels());
         
         
         //update our info

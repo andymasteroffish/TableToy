@@ -50,8 +50,12 @@ public:
     
     int imgWidth, imgHeight;
     
+    bool                useThreshMap;
+    ofImage             threshMap;
+    ofPixels            threshMapPixels, grayImagePixels;
     ofxCvColorImage		fullImg, colorImg;
     ofxCvGrayscaleImage grayImageNoThresh;
+    ofxCvGrayscaleImage grayImageThresh;
     ofxCvGrayscaleImage grayBGImage;
     ofxCvGrayscaleImage grayImageDemo;      //this one is just so we can see what's hapenning. We can remove it if it is slowing things down
     
