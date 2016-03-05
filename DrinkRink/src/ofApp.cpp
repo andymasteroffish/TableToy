@@ -393,6 +393,10 @@ void ofApp::keyPressed(int key){
         panel.setSelectedPanel(curPanel);
     }
     
+    if (key == ' '){
+        panel.setValueB("CAM_TAKE_BG_PIC", true);
+    }
+    
     cupTracker->keyPressed(key);
     
     curScene->keyPressed(key);
