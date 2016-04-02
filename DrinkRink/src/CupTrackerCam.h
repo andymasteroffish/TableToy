@@ -69,6 +69,11 @@ public:
     
     bool takeBGImage;
     
+    //flipping the camer images and adjusting the order
+    bool cam0onLeft;
+    bool flipHorz[2];
+    bool flipVert[2];
+    
     
     //debug stuff
     float timeForDoubleKeyPress;

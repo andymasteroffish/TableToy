@@ -215,7 +215,18 @@ void ofApp::setup(){
         panel.addSlider("Y Prc", "CAM_WARP_Y_"+ofToString(i), yVal, 0, 1, false);
     }
     
-    curPanel = 7;
+    
+    
+    panel.addPanel("Cam Position", 1, false);
+    panel.setWhichPanel("Cam Position");
+    panel.setWhichColumn(0);
+    panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", true);
+    panel.addToggle("flip cam 0 Horizontal", "CAM_0_FLIP_HORZ", false);
+    panel.addToggle("flip cam 0 Vertical", "CAM_0_FLIP_VERT", false);
+    panel.addToggle("flip cam 1 Horizontal", "CAM_1_FLIP_HORZ", false);
+    panel.addToggle("flip cam 1 Vertical", "CAM_1_FLIP_VERT", false);
+    
+    curPanel = 8;
     panel.setSelectedPanel(curPanel);
     
 }

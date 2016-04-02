@@ -40,6 +40,12 @@ void CupTrackerCam::setupCustom(){
     }
 #endif
     
+    cam0onLeft = true;
+    for (int i=0; i<2; i++){
+        flipHorz[i] = false;
+        flipVert[i] = false;
+    }
+    
     
     fbo.allocate(imgWidth, imgHeight, GL_RGB);
     pix.allocate(imgWidth, imgHeight, OF_IMAGE_COLOR);
@@ -108,6 +114,12 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
         warpPoints[i].x = panel->getValueF("CAM_WARP_X_"+ofToString(i)) * fullImg.width;
         warpPoints[i].y = panel->getValueF("CAM_WARP_Y_"+ofToString(i)) * fullImg.height;
     }
+    
+    cam0onLeft = panel->getValueB("CAM_0_ON_LEFT");
+    flipHorz[0] = panel->getValueF("CAM_0_FLIP_HORZ");
+    flipHorz[1] = panel->getValueF("CAM_1_FLIP_HORZ");
+    flipVert[0] = panel->getValueF("CAM_0_FLIP_VERT");
+    flipVert[1] = panel->getValueF("CAM_1_FLIP_VERT");
 }
 
 //--------------------------------------------------------------
@@ -122,14 +134,46 @@ void CupTrackerCam::update(){
     if (vidGrabber[0]->isFrameNew()){
         
         fbo.begin();
-        vidGrabber[0]->draw(0, 0); //this should only be half of the imgWidth
-        if (vidGrabber.size() > 1){
-            vidGrabber[1]->draw(imgWidth/2, 0);
+        ofSetColor(0);
+        ofRect(0, 0, fbo.getWidth(), fbo.getHeight());
+        
+        ofVec2f vidPos[2];
+        vidPos[0].x = cam0onLeft ? 0 : fbo.getWidth()/2;;
+        vidPos[0].y = 0;
+        vidPos[1].x = cam0onLeft ? fbo.getWidth()/2 : 0;
+        vidPos[1].y = 0;
+        
+        ofSetColor(255);
+        
+        for (int i=0; i<MIN(vidGrabber.size(), 2); i++){
+            ofPushMatrix();
+            ofTranslate(vidPos[i].x + vidGrabber[i]->getWidth()/2, vidPos[i].y + vidGrabber[i]->getHeight()/2);
+            ofScale(flipHorz[i] ? -1 : 1, flipVert[i] ? -1 : 1);
+            vidGrabber[i]->draw(-vidGrabber[i]->getWidth()/2, -vidGrabber[i]->getHeight()/2);
+            ofPopMatrix();
         }
+        
+//        //cam 0
+//        ofPushMatrix();
+//        ofTranslate(vid0Pos + vidGrabber[0]->getWidth()/2, vidGrabber[0]->getHeight()/2);
+//        ofScale(flipHorz[0] ? -1 : 1, flipVert[0] ? -1 : 1);
+//        vidGrabber[0]->draw(-vidGrabber[0]->getWidth()/2, -vidGrabber[0]->getHeight()/2);
+//        ofPopMatrix();
+//        
+//        //cam 1
+//        if (vidGrabber.size() > 1){
+//            vidGrabber[1]->draw(vid1Pos, 0);
+//            
+//            ofPushMatrix();
+//            ofTranslate(vid1Pos + vidGrabber[1]->getWidth()/2, vidGrabber[1]->getHeight()/2);
+//            ofScale(flipHorz[1] ? -1 : 1, flipVert[1] ? -1 : 1);
+//            vidGrabber[1]->draw(-vidGrabber[0]->getWidth()/2, -vidGrabber[0]->getHeight()/2);
+//            ofPopMatrix();
+//        }
+        
         fbo.end();
         
         fbo.readToPixels(pix);
-        
         
         fullImg.setFromPixels(pix);
         
