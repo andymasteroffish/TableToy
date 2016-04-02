@@ -371,9 +371,9 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     
     
-    if (key == 'f'){
-        showField = !showField;
-    }
+//    if (key == 'f'){
+//        showField = !showField;
+//    }
     if (key == 'h'){
         showDebugInfo = !showDebugInfo;
     }
