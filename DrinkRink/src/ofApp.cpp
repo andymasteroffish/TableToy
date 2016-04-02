@@ -225,6 +225,10 @@ void ofApp::setup(){
     panel.addToggle("flip cam 0 Vertical", "CAM_0_FLIP_VERT", false);
     panel.addToggle("flip cam 1 Horizontal", "CAM_1_FLIP_HORZ", false);
     panel.addToggle("flip cam 1 Vertical", "CAM_1_FLIP_VERT", false);
+    panel.addSlider("cam 0 x adjust", "CAM_0_X", 0, -100, 100, false);
+    panel.addSlider("cam 0 y adjust", "CAM_0_Y", 0, -100, 100, false);
+    panel.addSlider("cam 1 x adjust", "CAM_1_X", 0, -100, 100, false);
+    panel.addSlider("cam 1 y adjust", "CAM_1_Y", 0, -100, 100, false);
     
     curPanel = 8;
     panel.setSelectedPanel(curPanel);

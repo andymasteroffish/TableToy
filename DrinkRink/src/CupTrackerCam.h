@@ -73,6 +73,7 @@ public:
     bool cam0onLeft;
     bool flipHorz[2];
     bool flipVert[2];
+    ofVec2f camPosAdjust[2];
     
     
     //debug stuff

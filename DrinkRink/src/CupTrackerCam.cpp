@@ -44,6 +44,7 @@ void CupTrackerCam::setupCustom(){
     for (int i=0; i<2; i++){
         flipHorz[i] = false;
         flipVert[i] = false;
+        camPosAdjust[i].set(0,0);
     }
     
     
@@ -116,10 +117,14 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     }
     
     cam0onLeft = panel->getValueB("CAM_0_ON_LEFT");
-    flipHorz[0] = panel->getValueF("CAM_0_FLIP_HORZ");
-    flipHorz[1] = panel->getValueF("CAM_1_FLIP_HORZ");
-    flipVert[0] = panel->getValueF("CAM_0_FLIP_VERT");
-    flipVert[1] = panel->getValueF("CAM_1_FLIP_VERT");
+    flipHorz[0] = panel->getValueB("CAM_0_FLIP_HORZ");
+    flipVert[0] = panel->getValueB("CAM_0_FLIP_VERT");
+    flipHorz[1] = panel->getValueB("CAM_1_FLIP_HORZ");
+    flipVert[1] = panel->getValueB("CAM_1_FLIP_VERT");
+    camPosAdjust[0].x =panel->getValueF("CAM_0_X");
+    camPosAdjust[0].y =panel->getValueF("CAM_0_Y");
+    camPosAdjust[1].x =panel->getValueF("CAM_1_X");
+    camPosAdjust[1].y =panel->getValueF("CAM_1_Y");
 }
 
 //--------------------------------------------------------------
@@ -147,29 +152,12 @@ void CupTrackerCam::update(){
         
         for (int i=0; i<MIN(vidGrabber.size(), 2); i++){
             ofPushMatrix();
+            ofTranslate(camPosAdjust[i].x, camPosAdjust[i].y);
             ofTranslate(vidPos[i].x + vidGrabber[i]->getWidth()/2, vidPos[i].y + vidGrabber[i]->getHeight()/2);
             ofScale(flipHorz[i] ? -1 : 1, flipVert[i] ? -1 : 1);
             vidGrabber[i]->draw(-vidGrabber[i]->getWidth()/2, -vidGrabber[i]->getHeight()/2);
             ofPopMatrix();
         }
-        
-//        //cam 0
-//        ofPushMatrix();
-//        ofTranslate(vid0Pos + vidGrabber[0]->getWidth()/2, vidGrabber[0]->getHeight()/2);
-//        ofScale(flipHorz[0] ? -1 : 1, flipVert[0] ? -1 : 1);
-//        vidGrabber[0]->draw(-vidGrabber[0]->getWidth()/2, -vidGrabber[0]->getHeight()/2);
-//        ofPopMatrix();
-//        
-//        //cam 1
-//        if (vidGrabber.size() > 1){
-//            vidGrabber[1]->draw(vid1Pos, 0);
-//            
-//            ofPushMatrix();
-//            ofTranslate(vid1Pos + vidGrabber[1]->getWidth()/2, vidGrabber[1]->getHeight()/2);
-//            ofScale(flipHorz[1] ? -1 : 1, flipVert[1] ? -1 : 1);
-//            vidGrabber[1]->draw(-vidGrabber[0]->getWidth()/2, -vidGrabber[0]->getHeight()/2);
-//            ofPopMatrix();
-//        }
         
         fbo.end();
         
