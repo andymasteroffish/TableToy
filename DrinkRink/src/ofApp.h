@@ -47,7 +47,10 @@ public:
     float deltaTime, prevFrameTime;
     int gameWidth, gameHeight;      //the size in pixels of the board. The image may be scaled up or down, but this is the size used for calculations
     
-    //reading form the cam
+    float displayScale;
+    ofVec2f displayAdjust;
+    
+    //reading from the cam
     bool usingDebugCupTracker;
     CupTracker * cupTracker;
     

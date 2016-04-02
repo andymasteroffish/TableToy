@@ -9,7 +9,7 @@ void ofApp::setup(){
     ofBackground(10);
     
     gameWidth = 1500;
-    gameHeight = 500;
+    gameHeight = 500;//420;//500;
     
     usingDebugCupTracker = false;
     
@@ -195,7 +195,6 @@ void ofApp::setup(){
     panel.setWhichPanel("Cam Setup");
     panel.setWhichColumn(0);
     
-    panel.addSlider("Threshold", "CAM_THRESHOLD", 48, 0, 255, true);
     panel.addToggle("Take BG pic", "CAM_TAKE_BG_PIC", false);
     panel.addToggle("Use Auto Threshold (ARToolKit)", "CAM_AUTO_THRESHOLD", false);
     panel.addSlider("X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
@@ -220,6 +219,8 @@ void ofApp::setup(){
     panel.addPanel("Cam Position", 1, false);
     panel.setWhichPanel("Cam Position");
     panel.setWhichColumn(0);
+    
+    panel.addSlider("Threshold", "CAM_THRESHOLD", 48, 0, 255, true);
     panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", true);
     panel.addToggle("flip cams Horizontal", "CAMS_FLIP_HORZ", true);
     panel.addToggle("flip cams Vertical", "CAMS_FLIP_VERT", false);
@@ -227,6 +228,10 @@ void ofApp::setup(){
     panel.addSlider("cam 0 y adjust", "CAM_0_Y", 0, -100, 100, false);
     panel.addSlider("cam 1 x adjust", "CAM_1_X", 0, -100, 100, false);
     panel.addSlider("cam 1 y adjust", "CAM_1_Y", 0, -100, 100, false);
+    
+    panel.addSlider("display scale", "DISPLAY_SCALE", 1, 1, 10, false);
+    panel.addSlider("display adjust x", "DISPLAY_ADJUST_X", 0, -300, 300, false);
+    panel.addSlider("display adjust y", "DISPLAY_ADJUST_Y", 0, -300, 300, false);
     
     curPanel = 8;
     panel.setSelectedPanel(curPanel);
@@ -283,6 +288,12 @@ void ofApp::update(){
         }
     }
     
+    //check the game scale
+    displayScale = panel.getValueF("DISPLAY_SCALE");
+    displayAdjust.x = panel.getValueF("DISPLAY_ADJUST_X");
+    displayAdjust.y = panel.getValueF("DISPLAY_ADJUST_Y");
+    
+    //pass the info to the cup tracker
     cupTracker->updateFromPanel(&panel);
     
     //main update
@@ -306,6 +317,9 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    ofPushMatrix();
+    ofTranslate(displayAdjust.x, displayAdjust.y);
+    ofScale(displayScale, displayScale);
     
     curScene->draw();
     
@@ -322,6 +336,8 @@ void ofApp::draw(){
     if (showCupDebug){
         cupTracker->draw();
     }
+    
+    ofPopMatrix();
     
     
     if(showDebugInfo){

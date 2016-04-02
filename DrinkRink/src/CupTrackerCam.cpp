@@ -204,20 +204,20 @@ void CupTrackerCam::update(){
 //--------------------------------------------------------------
 void CupTrackerCam::draw(){
     
-    //WE JUST USE THE CALIBRAITON SCREEN!
+    //WE MOSTLY JUST USE THE CALIBRAITON SCREEN!
     
-//    ofSetColor(255, 200);
-//    
-//    fbo.draw(0,0);
-//    //fullImg.draw(20,20);
-//    
-//    ofVec2f drawStart(100,0);
-//    
-//    colorImg.draw(drawStart.x,drawStart.y);
-//    grayImageDemo.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
-//    
-//    //drawFiducials(drawStart.x, drawStart.y);
-//    drawARTags(drawStart.x, drawStart.y);
+    ofSetColor(255, 200);
+    
+    fbo.draw(0,0);
+    //fullImg.draw(20,20);
+    
+    ofVec2f drawStart(100,0);
+    
+    colorImg.draw(drawStart.x,drawStart.y);
+    grayImageDemo.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
+    
+    //drawFiducials(drawStart.x, drawStart.y);
+    drawARTags(drawStart.x, drawStart.y);
 }
 
 //--------------------------------------------------------------
