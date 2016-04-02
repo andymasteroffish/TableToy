@@ -390,6 +390,10 @@ void ofApp::keyPressed(int key){
         }
     }
     
+    if (key == 'f'){
+        ofToggleFullscreen();
+    }
+    
     if (key == OF_KEY_LEFT){
         curPanel--;
         if (curPanel < 0){
