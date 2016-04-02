@@ -74,7 +74,7 @@ void CupTrackerCam::setupCustom(){
     warpEndPoints[3].set(0,colorImg.height);
     
     
-    threshold = 69;//80;
+    threshold = 69;
     
     framesBeforeKillingCup = 40;
     

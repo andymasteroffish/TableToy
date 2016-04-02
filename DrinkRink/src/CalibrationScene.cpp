@@ -14,7 +14,7 @@ void CalibrationScene::setupCustom(){
     sceneName = "calibration";
     
     ignorePanelValues = true;
-    bgCol.set(10,30,0);
+    bgCol.set(10,30,20);
     
     drawOffset.set(20, 10);
     maxDisplayHeight = 230;
@@ -150,14 +150,16 @@ void CalibrationScene::drawCustom(){
     
     
     ofPushMatrix();
-    ofTranslate(drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.04);
-    ofSetColor(255,150,150, 255*alphaPrc);
+    ofTranslate(drawOffset.x+tracker->fullImg.width*drawScale+10, 20);
+    ofSetColor(255,0,0, 255*alphaPrc);
     ofDrawBitmapString("<-- This is the input from the camera(s)", 0, 0);
     ofDrawBitmapString("<-- you can drag these warp points with mouse", 0, 15);
     
     ofDrawBitmapString(".-- This is the background image used for differencing.", 20, 65);
     ofDrawBitmapString("|   It should be the empty table.", 20, 80);
     ofDrawBitmapString("V   If you move the warp points, you need to retake this.", 20, 95);
+    
+    ofDrawBitmapString("screen: "+ofToString(ofGetWidth())+" , "+ofToString(ofGetHeight()), 500, 130);
     ofPopMatrix();
     
     //draw the resulting image
@@ -167,7 +169,7 @@ void CalibrationScene::drawCustom(){
     }
     
     ofPushMatrix();
-    ofTranslate(drawOffset.x, gameHeight-tracker->imgHeight*outputDrawScale-10);
+    ofTranslate(drawOffset.x, 500-tracker->imgHeight*outputDrawScale-10);
     
     ofScale(outputDrawScale,outputDrawScale);
     
@@ -180,8 +182,8 @@ void CalibrationScene::drawCustom(){
     ofPopMatrix();
     
     ofPushMatrix();
-    ofTranslate(drawOffset.x+tracker->fullImg.width*drawScale+10, gameHeight*0.8);
-    ofSetColor(255,150,150, 255*alphaPrc);
+    ofTranslate(drawOffset.x+tracker->fullImg.width*drawScale+10, 400);
+    ofSetColor(255,0,0, 255*alphaPrc);
     
     ofDrawBitmapString("^-- This is the greyscale differenced image we feed to the tracker", 10, 0);
     

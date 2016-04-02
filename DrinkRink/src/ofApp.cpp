@@ -6,10 +6,10 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofEnableAlphaBlending();
-    ofBackground(10);
+    ofBackground(200,200,255);
     
-    gameWidth = 1500;
-    gameHeight = 500;//420;//500;
+    gameWidth = 2720;//1770;//1500;
+    gameHeight = 768;//500;//420;//500;
     
     usingDebugCupTracker = false;
     
@@ -229,7 +229,7 @@ void ofApp::setup(){
     panel.addSlider("cam 1 x adjust", "CAM_1_X", 0, -100, 100, false);
     panel.addSlider("cam 1 y adjust", "CAM_1_Y", 0, -100, 100, false);
     
-    panel.addSlider("display scale", "DISPLAY_SCALE", 1, 1, 10, false);
+    panel.addSlider("display scale", "DISPLAY_SCALE", 1, 0.5, 10, false);
     panel.addSlider("display adjust x", "DISPLAY_ADJUST_X", 0, -300, 300, false);
     panel.addSlider("display adjust y", "DISPLAY_ADJUST_Y", 0, -300, 300, false);
     
