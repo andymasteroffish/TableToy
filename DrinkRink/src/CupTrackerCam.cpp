@@ -41,9 +41,9 @@ void CupTrackerCam::setupCustom(){
 #endif
     
     cam0onLeft = true;
+    flipHorz = true;
+    flipVert = false;
     for (int i=0; i<2; i++){
-        flipHorz[i] = false;
-        flipVert[i] = false;
         camPosAdjust[i].set(0,0);
     }
     
@@ -117,10 +117,8 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     }
     
     cam0onLeft = panel->getValueB("CAM_0_ON_LEFT");
-    flipHorz[0] = panel->getValueB("CAM_0_FLIP_HORZ");
-    flipVert[0] = panel->getValueB("CAM_0_FLIP_VERT");
-    flipHorz[1] = panel->getValueB("CAM_1_FLIP_HORZ");
-    flipVert[1] = panel->getValueB("CAM_1_FLIP_VERT");
+    flipHorz = panel->getValueB("CAMS_FLIP_HORZ");
+    flipVert = panel->getValueB("CAMS_FLIP_VERT");
     camPosAdjust[0].x =panel->getValueF("CAM_0_X");
     camPosAdjust[0].y =panel->getValueF("CAM_0_Y");
     camPosAdjust[1].x =panel->getValueF("CAM_1_X");
@@ -154,10 +152,11 @@ void CupTrackerCam::update(){
             ofPushMatrix();
             ofTranslate(camPosAdjust[i].x, camPosAdjust[i].y);
             ofTranslate(vidPos[i].x + vidGrabber[i]->getWidth()/2, vidPos[i].y + vidGrabber[i]->getHeight()/2);
-            ofScale(flipHorz[i] ? -1 : 1, flipVert[i] ? -1 : 1);
+            ofScale(flipHorz ? -1 : 1, flipVert ? -1 : 1);
             vidGrabber[i]->draw(-vidGrabber[i]->getWidth()/2, -vidGrabber[i]->getHeight()/2);
             ofPopMatrix();
         }
+        
         
         fbo.end();
         
@@ -179,6 +178,10 @@ void CupTrackerCam::update(){
         
         grayImageDemo.threshold(threshold); //THIS IS REALLY JUST FOR DEMO SO WE CAN SEE IT
         
+        //if we are flipping the image,w e need to unflip it before passing it to the ARKit
+        if (flipHorz || flipVert){
+            grayImageNoThresh.mirror(flipVert, flipHorz);
+        }
         ARKit.update(grayImageNoThresh.getPixels());
         
         
@@ -201,18 +204,20 @@ void CupTrackerCam::update(){
 //--------------------------------------------------------------
 void CupTrackerCam::draw(){
     
-    ofSetColor(255, 200);
+    //WE JUST USE THE CALIBRAITON SCREEN!
     
-    fbo.draw(0,0);
-    //fullImg.draw(20,20);
-    
-    ofVec2f drawStart(100,0);
-    
-    colorImg.draw(drawStart.x,drawStart.y);
-    grayImageDemo.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
-    
-    //drawFiducials(drawStart.x, drawStart.y);
-    drawARTags(drawStart.x, drawStart.y);
+//    ofSetColor(255, 200);
+//    
+//    fbo.draw(0,0);
+//    //fullImg.draw(20,20);
+//    
+//    ofVec2f drawStart(100,0);
+//    
+//    colorImg.draw(drawStart.x,drawStart.y);
+//    grayImageDemo.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
+//    
+//    //drawFiducials(drawStart.x, drawStart.y);
+//    drawARTags(drawStart.x, drawStart.y);
 }
 
 //--------------------------------------------------------------
@@ -224,6 +229,9 @@ void CupTrackerCam::drawARTags(int x, int y){
     for (int i=0; i<ARKit.getNumDetectedMarkers(); i++){
         
         ofPoint thisPos = ARKit.getDetectedMarkerCenter(i);
+        
+        if (flipHorz)   thisPos.x = imgWidth - thisPos.x;
+        if (flipVert)   thisPos.y = imgHeight - thisPos.y;
         
         vector<ofPoint> corners;
         ARKit.getDetectedMarkerCorners(i, corners);
@@ -301,6 +309,9 @@ void CupTrackerCam::checkARTag(int idNum){
     
     float gameWorldX = tagPos.x * xAdjust + cupOffset.x;
     float gameWorldY = tagPos.y * yAdjust + cupOffset.y;
+    
+    if (flipHorz)   gameWorldX = gameWidth-gameWorldX;
+    if (flipVert)   gameWorldY = gameHeight-gameWorldY;
     
     //cout<<"putitng "<<idNum<<" at "<<gameWorldX<<" , "<<gameWorldY<<endl;
     

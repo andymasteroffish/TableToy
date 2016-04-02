@@ -221,10 +221,8 @@ void ofApp::setup(){
     panel.setWhichPanel("Cam Position");
     panel.setWhichColumn(0);
     panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", true);
-    panel.addToggle("flip cam 0 Horizontal", "CAM_0_FLIP_HORZ", false);
-    panel.addToggle("flip cam 0 Vertical", "CAM_0_FLIP_VERT", false);
-    panel.addToggle("flip cam 1 Horizontal", "CAM_1_FLIP_HORZ", false);
-    panel.addToggle("flip cam 1 Vertical", "CAM_1_FLIP_VERT", false);
+    panel.addToggle("flip cams Horizontal", "CAMS_FLIP_HORZ", true);
+    panel.addToggle("flip cams Vertical", "CAMS_FLIP_VERT", false);
     panel.addSlider("cam 0 x adjust", "CAM_0_X", 0, -100, 100, false);
     panel.addSlider("cam 0 y adjust", "CAM_0_Y", 0, -100, 100, false);
     panel.addSlider("cam 1 x adjust", "CAM_1_X", 0, -100, 100, false);
