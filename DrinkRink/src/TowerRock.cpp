@@ -9,7 +9,7 @@
 #include "TowerRock.h"
 
 void TowerRock::customSetup(){
-    range = 90;
+    range = 300;
     
     debugColor.setHex(0xabb1a9);
 }

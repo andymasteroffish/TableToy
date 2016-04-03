@@ -10,7 +10,7 @@
 
 
 void TowerPulse::customSetup(){
-    range = 200;
+    range = 400;
     
     strength = 0.75;
     pulseWidth = 15;

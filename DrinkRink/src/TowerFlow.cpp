@@ -10,7 +10,7 @@
 
 
 void TowerFlow::customSetup(){
-    range = 150;
+    range = 300;
     debugColor.setHex(0xdfa320);
     particleType = PARTICLE_SPORT;
 }
