@@ -67,6 +67,8 @@ public:
     
     //drawing into an FBO to fuck with the two sides of teh screen
     ofFbo fbo;
+    ofVec2f rightScreenOffset;
+    float rightScreenRotate;
     
     //debug values
     bool showField, showDebugInfo, showCupDebug;

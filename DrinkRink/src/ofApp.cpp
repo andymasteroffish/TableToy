@@ -250,6 +250,15 @@ void ofApp::setup(){
     panel.addSlider("cup top y adjust right", "CUPS_ADJUST_Y_TOP_RIGHT", 3.3, -300, 300, false);
     panel.addSlider("cup bot y adjust right", "CUPS_ADJUST_Y_BOT_RIGHT", 3.3, -300, 300, false);
     
+    //fucksing with the right screen
+    panel.addPanel("Screen Adjust", 1, false);
+    panel.setWhichPanel("Screen Adjust");
+    panel.setWhichColumn(0);
+    
+    panel.addSlider("right screen x adjust", "RIGHT_SCREEN_X_ADJUST", -11.1, -100, 100, false);
+    panel.addSlider("right screen y adjust", "RIGHT_SCREEN_Y_ADJUST", 0, -100, 100, false);
+    panel.addSlider("right screen rotation", "RIGHT_SCREEN_ROTATION", 0.3, -15, 15, false);
+    
     curPanel = 8;
     panel.setSelectedPanel(curPanel);
     
@@ -310,6 +319,11 @@ void ofApp::update(){
     displayAdjust.x = panel.getValueF("DISPLAY_ADJUST_X");
     displayAdjust.y = panel.getValueF("DISPLAY_ADJUST_Y");
     
+    //get info about the seperate screens
+    rightScreenOffset.x = panel.getValueF("RIGHT_SCREEN_X_ADJUST");
+    rightScreenOffset.y = panel.getValueF("RIGHT_SCREEN_Y_ADJUST");
+    rightScreenRotate = panel.getValueF("RIGHT_SCREEN_ROTATION");
+    
     //pass the info to the cup tracker
     cupTracker->updateFromPanel(&panel);
     
@@ -334,10 +348,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    ofPushMatrix();
-    ofTranslate(displayAdjust.x, displayAdjust.y);
-    ofScale(displayScale, displayScale);
-    
+    fbo.begin();
+    ofClear(255);
     curScene->draw();
     
     if(showField){
@@ -353,6 +365,23 @@ void ofApp::draw(){
     if (showCupDebug){
         cupTracker->draw();
     }
+    fbo.end();
+    
+    ofPushMatrix();
+    ofTranslate(displayAdjust.x, displayAdjust.y);
+    ofScale(displayScale, displayScale);
+    
+    ofSetColor(255);
+    
+    //draw left side
+    fbo.getTextureReference().drawSubsection(0, 0, gameWidth/2, gameHeight, 0, 0, gameWidth/2, gameHeight);
+    
+    //draw right side
+    ofPushMatrix();
+    ofTranslate(gameWidth*0.75, gameHeight/2);
+    ofRotate(rightScreenRotate);
+    fbo.getTextureReference().drawSubsection(-gameWidth/4,-gameHeight/2, gameWidth/2, gameHeight, gameWidth/2+rightScreenOffset.x, 0+rightScreenOffset.y, gameWidth/2, gameHeight);
+    ofPopMatrix();
     
     ofPopMatrix();
     
