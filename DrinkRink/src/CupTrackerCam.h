@@ -36,7 +36,6 @@ public:
     //void checkFiducial(list<ofxFiducial>::iterator fiducial);
     void checkARTag(int idNum);
     
-
 #ifdef USE_VIDEO
     vector<ofVideoPlayer*>       vidGrabber;
 #elif defined(USE_WEBCAM)
@@ -55,10 +54,8 @@ public:
     ofxCvGrayscaleImage grayBGImage;
     ofxCvGrayscaleImage grayImageDemo;      //this one is just so we can see what's hapenning. We can remove it if it is slowing things down
     
-    
     //ofxFiducialTracker	fidfinder;
     ofxARToolkitPlus ARKit;
-    
     
     int  threshold;
     ofPoint warpPoints[4];          //the points from the source image to use. These can be adjusted.
@@ -68,13 +65,24 @@ public:
     int framesBeforeKillingCup;
     
     bool takeBGImage;
+    bool takeBGImageOnStart;
     
-    //flipping the camer images and adjusting the order
+    //flipping the camera images and adjusting the order
     bool cam0onLeft;
     bool flipHorz;
     bool flipVert;
     ofVec2f camPosAdjust[2];
     
+    //modifying the positions returned by the AR Tracker
+    float cupLeftX, cupRightX;
+    float cupTopY, cupBottomY;
+    //ofVec2f cupAdjust;
+    
+    float cupAdjustLeftX, cupAdjustRightX;
+    float cupAdjustLeftYtop, cupAdjustRightYtop;
+    float cupAdjustLeftYbot, cupAdjustRightYbot;
+    
+    //ofVec2f cupAdjustLeftSide, cupAdjustRightSide;
     
     //debug stuff
     float timeForDoubleKeyPress;

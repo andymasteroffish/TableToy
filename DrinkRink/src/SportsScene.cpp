@@ -162,9 +162,8 @@ void SportsScene::drawCustom(){
         }
         
         //draw balls
-        //ofSetColor(ballColor, alphaPrc*255);
         ofFill();
-        ofSetupScreenOrtho(ofGetWidth(), ofGetHeight(), -100, 100); //for fun 3d effect
+//        ofSetupScreenOrtho(ofGetWidth(), ofGetHeight(), -100, 100); //for fun 3d effect
         ofEnableDepthTest();
         for (int i=0; i<balls.size(); i++){
             balls[i]->draw(alphaPrc);
@@ -172,6 +171,7 @@ void SportsScene::drawCustom(){
         }
         ofDisableDepthTest();
         
+
         for (int i=0; i<ballParticles.size(); i++){
             ballParticles[i].draw(alphaPrc);
         }

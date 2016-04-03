@@ -11,6 +11,8 @@ void ofApp::setup(){
     gameWidth = 2720;//1770;//1500;
     gameHeight = 768;//500;//420;//500;
     
+    fbo.allocate(gameWidth, gameHeight);
+    
     usingDebugCupTracker = false;
     
     if (usingDebugCupTracker){
@@ -44,7 +46,7 @@ void ofApp::setup(){
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
     
-    panel.setup("settings", ofGetWidth()-310, -60, 300, 1000);
+    panel.setup("settings", ofGetWidth()-310, 0, 300, ofGetHeight());
     curPanel = 0;
     
     panel.addPanel("Presets", 1, false);
@@ -195,6 +197,11 @@ void ofApp::setup(){
     panel.setWhichPanel("Cam Setup");
     panel.setWhichColumn(0);
     
+    panel.addSlider("display scale", "DISPLAY_SCALE", 1, 0.5, 10, false);
+    panel.addSlider("display adjust x", "DISPLAY_ADJUST_X", 0, -300, 300, false);
+    panel.addSlider("display adjust y", "DISPLAY_ADJUST_Y", 0, -300, 300, false);
+
+    
     panel.addToggle("Take BG pic", "CAM_TAKE_BG_PIC", false);
     panel.addToggle("Use Auto Threshold (ARToolKit)", "CAM_AUTO_THRESHOLD", false);
     panel.addSlider("X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
@@ -225,13 +232,23 @@ void ofApp::setup(){
     panel.addToggle("flip cams Horizontal", "CAMS_FLIP_HORZ", true);
     panel.addToggle("flip cams Vertical", "CAMS_FLIP_VERT", false);
     panel.addSlider("cam 0 x adjust", "CAM_0_X", 0, -100, 100, false);
-    panel.addSlider("cam 0 y adjust", "CAM_0_Y", 0, -100, 100, false);
+    panel.addSlider("cam 0 y adjust", "CAM_0_Y", 4.4, -100, 100, false);
     panel.addSlider("cam 1 x adjust", "CAM_1_X", 0, -100, 100, false);
     panel.addSlider("cam 1 y adjust", "CAM_1_Y", 0, -100, 100, false);
     
-    panel.addSlider("display scale", "DISPLAY_SCALE", 1, 0.5, 10, false);
-    panel.addSlider("display adjust x", "DISPLAY_ADJUST_X", 0, -300, 300, false);
-    panel.addSlider("display adjust y", "DISPLAY_ADJUST_Y", 0, -300, 300, false);
+    //calibrating the cups
+    panel.addSlider("cup left X", "CUPS_LEFT_X", 119, -100, gameWidth, false);
+    panel.addSlider("cup right X", "CUPS_RIGHT_X", 2515, 0, gameWidth+100, false);
+    panel.addSlider("cup top Y", "CUPS_TOP_Y", -24, -100, gameHeight, false);
+    panel.addSlider("cup bottom Y", "CUPS_BOTTOM_Y", 718, 0, gameHeight+100, false);
+    
+    
+    panel.addSlider("cup x adjust left", "CUPS_ADJUST_X_LEFT", 63, -300, 300, false);
+    panel.addSlider("cup top y adjust left", "CUPS_ADJUST_Y_TOP_LEFT", 2.4, -300, 300, false);
+    panel.addSlider("cup bot y adjust left", "CUPS_ADJUST_Y_BOT_LEFT", 113, -300, 300, false);
+    panel.addSlider("cup x adjust right", "CUPS_ADJUST_X_RIGHT", 63, -300, 300, false);
+    panel.addSlider("cup top y adjust right", "CUPS_ADJUST_Y_TOP_RIGHT", 3.3, -300, 300, false);
+    panel.addSlider("cup bot y adjust right", "CUPS_ADJUST_Y_BOT_RIGHT", 3.3, -300, 300, false);
     
     curPanel = 8;
     panel.setSelectedPanel(curPanel);
@@ -361,6 +378,7 @@ void ofApp::draw(){
         debugInfo +=        "\nDEL while draging to remove";
         debugInfo +=        "\nright click & drag to spin";
         ofDrawBitmapString(debugInfo, 10,15);
+        //cout<<"draw my child "<<ofGetFrameNum()<<endl;
     }
     
     if (showPanel){
@@ -387,9 +405,9 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     
     
-//    if (key == 'f'){
-//        showField = !showField;
-//    }
+    if (key == 'f'){
+        showField = !showField;
+    }
     if (key == 'h'){
         showDebugInfo = !showDebugInfo;
     }
@@ -406,9 +424,14 @@ void ofApp::keyPressed(int key){
         }
     }
     
-    if (key == 'f'){
-        ofToggleFullscreen();
+    if (key == 's'){
+        curScene->showCupDebug = !curScene->showCupDebug;
     }
+   
+    
+//    if (key == 'f'){
+//        ofToggleFullscreen();
+//    }
     
     if (key == OF_KEY_LEFT){
         curPanel--;

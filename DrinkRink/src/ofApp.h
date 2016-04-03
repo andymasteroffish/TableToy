@@ -65,6 +65,9 @@ public:
     Scene * fadingScene;
     int curSceneID;
     
+    //drawing into an FBO to fuck with the two sides of teh screen
+    ofFbo fbo;
+    
     //debug values
     bool showField, showDebugInfo, showCupDebug;
     

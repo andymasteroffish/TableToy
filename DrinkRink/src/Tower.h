@@ -32,7 +32,7 @@ public:
     
     void calculateFieldRange();
     
-    void draw(float alphaPrc);
+    void draw(float alphaPrc, bool showCupDebug);
     virtual void customDraw(float alphaPrc){}
     
     
@@ -65,7 +65,7 @@ public:
     
     bool isDebugSelectedForAngle;
     
-    bool showDebugImage;
+    //bool showDebugImage;
     
     
 };

@@ -19,11 +19,12 @@ void CupTrackerCam::setupCustom(){
 #ifdef USE_VIDEO
     ofVideoPlayer * thisGrabber = new ofVideoPlayer();
     vidGrabber.push_back(thisGrabber);
-    vidGrabber[0]->loadMovie("vid/ar_split.mp4");
+    vidGrabber[0]->loadMovie("/Users/awallace/Documents/projects/drink_rink/test_vids/ar_split.mp4");
     //vidGrabber[0]->loadMovie("vid/ps3.mov");
     //vidGrabber[0]->loadMovie("vid/spinners_no_border.mov");
     //vidGrabber[0]->loadMovie("vid/mostly_still.mov");
     vidGrabber[0]->play();
+    takeBGImageOnStart = false;
     
 #elif defined(USE_WEBCAM)
     ofVideoGrabber * thisGrabber = new ofVideoGrabber();
@@ -31,6 +32,7 @@ void CupTrackerCam::setupCustom(){
     
     vidGrabber.push_back(thisGrabber);
     vidGrabber[0]->initGrabber(imgWidth/2,imgHeight);
+    takeBGImageOnStart = false;
 #else
     for (int i = 0; i < deviceList.size(); i++) {
         ofxMacamPs3Eye * camera = new ofxMacamPs3Eye();
@@ -38,6 +40,7 @@ void CupTrackerCam::setupCustom(){
         camera->initGrabber(imgWidth/2, imgHeight);
         vidGrabber.push_back(camera);
     }
+    takeBGImageOnStart = true;
 #endif
     
     cam0onLeft = true;
@@ -47,6 +50,11 @@ void CupTrackerCam::setupCustom(){
         camPosAdjust[i].set(0,0);
     }
     
+    cupLeftX  = 0;
+    cupRightX = gameWidth;
+    cupTopY = 0;
+    cupBottomY = gameHeight;
+    //cupAdjust.set(0,0);
     
     fbo.allocate(imgWidth, imgHeight, GL_RGB);
     pix.allocate(imgWidth, imgHeight, OF_IMAGE_COLOR);
@@ -76,7 +84,7 @@ void CupTrackerCam::setupCustom(){
     
     threshold = 69;
     
-    framesBeforeKillingCup = 40;
+    framesBeforeKillingCup = 20;//40;
     
     ARKit.setup(imgWidth, imgHeight);
     ARKit.setThreshold(threshold);
@@ -123,6 +131,28 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     camPosAdjust[0].y =panel->getValueF("CAM_0_Y");
     camPosAdjust[1].x =panel->getValueF("CAM_1_X");
     camPosAdjust[1].y =panel->getValueF("CAM_1_Y");
+    
+    cupLeftX    = panel->getValueF("CUPS_LEFT_X");
+    cupRightX   = panel->getValueF("CUPS_RIGHT_X");
+    cupTopY     = panel->getValueF("CUPS_TOP_Y");
+    cupBottomY  = panel->getValueF("CUPS_BOTTOM_Y");
+//    cupAdjust.x = panel->getValueF("CUPS_ADJUST_X");
+//    cupAdjust.y = panel->getValueF("CUPS_ADJUST_Y");
+    
+    cupAdjustLeftX = panel->getValueF("CUPS_ADJUST_X_LEFT");
+    cupAdjustRightX = panel->getValueF("CUPS_ADJUST_X_RIGHT");
+    
+    cupAdjustLeftYtop = panel->getValueF("CUPS_ADJUST_Y_TOP_LEFT");
+    cupAdjustLeftYbot = panel->getValueF("CUPS_ADJUST_Y_BOT_LEFT");
+    
+    cupAdjustRightYtop = panel->getValueF("CUPS_ADJUST_Y_TOP_RIGHT");
+    cupAdjustRightYbot = panel->getValueF("CUPS_ADJUST_Y_BOT_RIGHT");
+
+    
+//    cupAdjustLeftSide.x = panel->getValueF("CUPS_ADJUST_X_LEFT");
+//    cupAdjustLeftSide.y = panel->getValueF("CUPS_ADJUST_Y_LEFT");
+//    cupAdjustRightSide.x = panel->getValueF("CUPS_ADJUST_X_RIGHT");
+//    cupAdjustRightSide.y = panel->getValueF("CUPS_ADJUST_Y_RIGHT");
 }
 
 //--------------------------------------------------------------
@@ -167,7 +197,7 @@ void CupTrackerCam::update(){
         colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
         grayImageNoThresh = colorImg;
         
-        if (takeBGImage || ofGetFrameNum() == 10){
+        if (takeBGImage || (ofGetFrameNum() == 10 && takeBGImageOnStart)){
             grayBGImage = grayImageNoThresh;
             takeBGImage = false;
         }
@@ -309,11 +339,26 @@ void CupTrackerCam::checkARTag(int idNum){
     
     float gameWorldX = tagPos.x * xAdjust + cupOffset.x;
     float gameWorldY = tagPos.y * yAdjust + cupOffset.y;
-    
     if (flipHorz)   gameWorldX = gameWidth-gameWorldX;
     if (flipVert)   gameWorldY = gameHeight-gameWorldY;
     
-    //cout<<"putitng "<<idNum<<" at "<<gameWorldX<<" , "<<gameWorldY<<endl;
+    //take the gutter on the left and right into account
+    gameWorldX = ofMap(gameWorldX, 0, gameWidth, cupLeftX, cupRightX);// + cupAdjust.x;
+    gameWorldY = ofMap(gameWorldY, 0, gameHeight, cupTopY, cupBottomY);// + cupAdjust.y;
+    
+    //once we get the tag, if it is on the left or right side of the screen, we may need addditional adjustments
+    float yPrcAwayFromTop = gameWorldY/(gameHeight/2) - 1;
+    if (gameWorldX < gameWidth/2){
+        float xPrcAwayFromCenter = gameWorldX/(gameWidth/2);
+        gameWorldX += cupAdjustLeftX * xPrcAwayFromCenter;
+        gameWorldY += (yPrcAwayFromTop < 0 ? cupAdjustLeftYtop : cupAdjustLeftYbot) * yPrcAwayFromTop;
+    }else{
+        float xPrcAwayFromCenter = 1-(gameWorldX-gameWidth/2)/(gameWidth/2);
+        gameWorldX += cupAdjustRightX * xPrcAwayFromCenter;
+        gameWorldY += (yPrcAwayFromTop < 0 ? cupAdjustRightYtop : cupAdjustRightYbot) * yPrcAwayFromTop;
+    }
+    
+    //cout<<"putting "<<idNum<<" at "<<gameWorldX<<" , "<<gameWorldY<<endl;
     
     //getting the angle is a bit of a chore
     vector<ofPoint> corners;

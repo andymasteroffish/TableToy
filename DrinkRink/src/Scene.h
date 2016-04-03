@@ -73,6 +73,8 @@ public:
     vector<FieldParticle *> fieldParticles;
     vector<Tower *> towers;
     
+    bool showCupDebug;
+    
     ParticleType defaultParticleType;
     
     //some fucking color info

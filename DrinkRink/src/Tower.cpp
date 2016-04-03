@@ -25,9 +25,9 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     isDebugSelected = false;
     isDebugSelectedForAngle = false;
     
-    towerSize = 40;    //how big the physical cup is
+    towerSize = 60;    //how big the physical cup is
     
-    showDebugImage = true;
+    //showDebugImage = true;
     
     particleType = PARTICLE_NO_TYPE;
     particleTypeWeight = 1;
@@ -59,11 +59,11 @@ void Tower::calculateFieldRange(){
     fieldRange = (float)(radiusPrct * field->fieldWidth);
 }
 
-void Tower::draw(float alphaPrc){
+void Tower::draw(float alphaPrc, bool showCupDebug){
     
     customDraw(alphaPrc);
     
-    if (showDebugImage){
+    if (showCupDebug){
         //show a debug image
         ofFill();
         ofSetColor(debugColor.r, debugColor.g, debugColor.b, debugColor.a * alphaPrc);

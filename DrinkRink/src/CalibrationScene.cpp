@@ -193,8 +193,15 @@ void CalibrationScene::drawCustom(){
     
     //redraw the towers so we can see them
     for (int i=towers.size()-1; i>=0; i--){
-        towers[i]->draw(alphaPrc * 0.5);
+        towers[i]->draw(alphaPrc * 0.5, false);
     }
+    
+    //draw the borders
+    ofSetColor(255,0,0);
+    ofLine(tracker->cupLeftX,   0, tracker->cupLeftX,   gameHeight);
+    ofLine(tracker->cupRightX,  0, tracker->cupRightX,  gameHeight);
+    ofLine(0, tracker->cupTopY,     gameWidth, tracker->cupTopY);
+    ofLine(0, tracker->cupBottomY,  gameWidth, tracker->cupBottomY);
     
 }
 

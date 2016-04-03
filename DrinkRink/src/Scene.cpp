@@ -23,6 +23,8 @@ void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     
     ignorePanelValues = false;
     
+    showCupDebug = false;
+    
     setupCustom();
     
 }
@@ -215,7 +217,7 @@ void Scene::draw(){
     
     //draw the towers
     for (int i=towers.size()-1; i>=0; i--){
-        towers[i]->draw(alphaPrc);
+        towers[i]->draw(alphaPrc, showCupDebug);
     }
     
     //draw anything special for this scene

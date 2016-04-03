@@ -16,7 +16,7 @@ class TowerCalibration : public Tower{
 public:
     
     void customSetup(){
-        showDebugImage = false;
+        //showDebugImage = false;
     }
     
     void customDraw(float alphaPrc){
