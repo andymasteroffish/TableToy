@@ -79,7 +79,7 @@ void FieldParticle::draw(float alphaPrc){
         for (int i=trailPos.size()-1; i>=1; i--){
             ofSetColor(col.r, col.g, col.b, fadeVal*i);
             ofSetLineWidth( ofMap(i, 0, trailPos.size(), trailStartWidth, trailEndWidth));
-            ofLine(trailPos[i], trailPos[i-1]);
+            //ofLine(trailPos[i], trailPos[i-1]);
         }
     }
     

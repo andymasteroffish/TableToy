@@ -241,7 +241,7 @@ void Scene::makeFieldParticles(){
     
     for (int x=0; x<FIELD_WIDTH; x++){
         for (int y=0; y<FIELD_HEIGHT; y++){
-            if ( abs(field.field[x][y].vel.x) > minStrengthToCount || abs(field.field[x][y].vel.y > minStrengthToCount) ){
+            if ( abs(field.field[x][y].vel.x) > minStrengthToCount || abs(field.field[x][y].vel.y) > minStrengthToCount ){
                 cellsAffectedThisFrame.push_back(field.field[x][y]);
                 GridPos thisPos;
                 thisPos.set(x, y);
