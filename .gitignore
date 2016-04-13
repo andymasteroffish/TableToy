@@ -19,6 +19,7 @@ DrinkRink/[Rr]elease*/
 # *.app/
 *.pyc
 .svn/
+DrinkRink/bin/data/controlPanelSettings.xml
 *.log
 
 ########################
