@@ -15,7 +15,9 @@ void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
     
-    field.setupField(gameWidth, gameHeight);
+    if(useVectorField){
+        field.setupField(gameWidth, gameHeight);
+    }
     
     fadeTime = 3;
     
@@ -48,7 +50,9 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
     
     checkPanelValues(panel);
     
-    field.clear();
+    if(useVectorField){
+        field.clear();
+    }
     
     //make sure cups and towers match
     checkCups();
@@ -61,18 +65,21 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
     //let the scene do what it does
     updateCustom();
     
-    //make some field particles so we cna see what the fuck's going on in here!
-    makeFieldParticles();
-    
-    //update the field particles
-    //float updateStartTime = ofGetElapsedTimef();
-    for (int i=fieldParticles.size()-1; i>=0; i--){
-        fieldParticles[i]->update(deltaTime, &field);
-        if (fieldParticles[i]->killFlag){
-            delete fieldParticles[i];
-            fieldParticles.erase( fieldParticles.begin() + i);
+    if(useVectorField){
+        //make some field particles so we cna see what the fuck's going on in here!
+        makeFieldParticles();
+        
+        //update the field particles
+        //float updateStartTime = ofGetElapsedTimef();
+        for (int i=fieldParticles.size()-1; i>=0; i--){
+            fieldParticles[i]->update(deltaTime, &field);
+            if (fieldParticles[i]->killFlag){
+                delete fieldParticles[i];
+                fieldParticles.erase( fieldParticles.begin() + i);
+            }
         }
     }
+
     //cout<<"update time: "<<(ofGetElapsedTimef()-updateStartTime)<<endl;
     
     if (isFading){
@@ -209,9 +216,12 @@ void Scene::draw(){
     
     //draw the field particles
     //float drawStartTime = ofGetElapsedTimef();
-    for (int i=fieldParticles.size()-1; i>=0; i--){
-        fieldParticles[i]->draw(alphaPrc);
+    if(useVectorField){
+        for (int i=fieldParticles.size()-1; i>=0; i--){
+            fieldParticles[i]->draw(alphaPrc);
+        }
     }
+
     //cout<<"draw time : "<<(ofGetElapsedTimef()-drawStartTime)<<endl;
     
     
