@@ -12,7 +12,6 @@
 //--------------------------------------------------------------------------------------------
 void StreamScene::setupCustom(){
     sceneName = "stream";
-    useVectorField = true;
     
     defaultParticleType =  PARTICLE_STREAM;
     bgCol.set(ofRandom(10),ofRandom(10),ofRandom(10));

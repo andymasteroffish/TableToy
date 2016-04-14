@@ -97,8 +97,6 @@ public:
     bool ignorePanelValues;
     
     //testing different particle options
-    bool useVectorField;
-    
     float p_friction;
     float p_killTime;
     
