@@ -43,12 +43,17 @@ public:
         pos.x = ofRandom(-size-200, -size);
         pos.y = ofRandom(0-size, gameHeight+size);
         
-        col.setHsb(0, 0, ofRandom(0,30));
-        col.a = ofRandom(155,255);
+//        col.setHsb(0, 0, ofRandom(0,30));
+//        col.a = ofRandom(155,255);
+        
+        int val = ofRandom(0,30);
+        int alpha = 255;
+        col.set(val, val, val, alpha);
         
         numPoints = (int)ofRandom(3,8);
         
         randVal = ofRandom(0,999);
+        
     }
     
     void update(float deltaTime){

@@ -9,6 +9,8 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     ofBackground(200,200,255);
     
+    cout<<"hi "<<endl;
+    
     gameWidth =  2560;//2720;//1770;//1500;
     gameHeight = 800;// 768;//500;//420;//500;
     
@@ -38,7 +40,7 @@ void ofApp::setup(){
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
     if (usingDebugCupTracker){
-        scrollScenes();
+        setScene(SCENE_STREAM);
     }
     
     showField = false;
