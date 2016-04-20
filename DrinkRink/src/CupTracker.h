@@ -36,6 +36,7 @@ public:
     int gameWidth, gameHeight;
     
     bool isDebug;
+    float debugDisplayScale;
     
 };
 

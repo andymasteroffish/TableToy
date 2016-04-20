@@ -13,7 +13,7 @@ void ofApp::setup(){
     
     fbo.allocate(gameWidth, gameHeight);
     
-    usingDebugCupTracker = false;
+    usingDebugCupTracker = true;
     
     if (usingDebugCupTracker){
         cupTracker = new CupTrackerDebug();
@@ -262,6 +262,16 @@ void ofApp::setup(){
     curPanel = 8;
     panel.setSelectedPanel(curPanel);
     
+    //set the game to be at 50% display scale if we're using the debugger tracker because that means it's on a laptop and won't be two screens wide
+    if (usingDebugCupTracker){
+        panel.setValueF("DISPLAY_SCALE", 0.5);
+        
+        panel.setValueF("RIGHT_SCREEN_X_ADJUST", 0);
+        panel.setValueF("RIGHT_SCREEN_Y_ADJUST", 0);
+        panel.setValueF("RIGHT_SCREEN_ROTATION", 0);
+        
+    }
+    
 }
 
 //--------------------------------------------------------------
@@ -316,6 +326,7 @@ void ofApp::update(){
     
     //check the game scale
     displayScale = panel.getValueF("DISPLAY_SCALE");
+    cupTracker->debugDisplayScale = displayScale;
     displayAdjust.x = panel.getValueF("DISPLAY_ADJUST_X");
     displayAdjust.y = panel.getValueF("DISPLAY_ADJUST_Y");
     
@@ -399,6 +410,7 @@ void ofApp::draw(){
         debugInfo +=        "\np - toggle panel";
         debugInfo +=        "\nleft & right - switch panel";
         debugInfo +=        "\nc - show cup tracker";
+        debugInfo +=        "\ns - show cup debug outline";
         debugInfo +=        "\nv - play/pause debug cup vid. Double tap to rewind";
         debugInfo +=        "\nm - scroll mode";
         debugInfo +=        "\n0-9 - add cup";

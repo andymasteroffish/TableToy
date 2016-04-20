@@ -10,7 +10,7 @@
 
 
 void CupTrackerDebug::setupCustom(){
-    aproxCupSize = 40;
+    aproxCupSize = 80;
     debugDraggingCupID = -1;
     nextUniqueID = 0;
     
@@ -52,7 +52,7 @@ void CupTrackerDebug::draw(){
 void CupTrackerDebug::mousePressed(int x, int y, int button){
     //check if the mouse was over any cup
     for (int i=0; i<activeCups.size(); i++){
-        if ( ofDist(x, y, activeCups[i].pos.x, activeCups[i].pos.y) < aproxCupSize){
+        if ( ofDist(x, y, activeCups[i].pos.x*debugDisplayScale, activeCups[i].pos.y*debugDisplayScale) < aproxCupSize*debugDisplayScale){
             debugDraggingCupID = i;
         }
     }
@@ -65,10 +65,10 @@ void CupTrackerDebug::mouseDragged(int x, int y, int button){
     if (debugDraggingCupID > -1 && debugDraggingCupID < activeCups.size()){
         
         if (button == 0){
-            activeCups[debugDraggingCupID].pos.set(x,y);
+            activeCups[debugDraggingCupID].pos.set(x/debugDisplayScale,y/debugDisplayScale);
         }
         if (button == 2){
-            activeCups[debugDraggingCupID].angle = atan2( y-activeCups[debugDraggingCupID].pos.y, x-activeCups[debugDraggingCupID].pos.x);
+            activeCups[debugDraggingCupID].angle = atan2( y-activeCups[debugDraggingCupID].pos.y*debugDisplayScale, x-activeCups[debugDraggingCupID].pos.x*debugDisplayScale);
         }
     }
     

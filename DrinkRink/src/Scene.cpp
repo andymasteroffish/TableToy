@@ -23,7 +23,7 @@ void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     
     ignorePanelValues = false;
     
-    showCupDebug = false;
+    showCupDebug = true;
     
     setupCustom();
     
