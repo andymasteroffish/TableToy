@@ -12,12 +12,14 @@
 void TowerPulse::customSetup(){
     range = 400;
     
-    strength = 0.8;
+    strength = 1.5;//0.8;
     pulseWidth = 20;
     
     timer = 0;
     timeBetweenPulses = 2;
     timeForPulse = 1;
+    
+    pulseStrengthCurve = 0.5;
     
     debugColor.setHex(0xdf20c6);
     particleType = PARTICLE_SPORT;
@@ -76,6 +78,7 @@ void TowerPulse::addPulseCircle(float strength, float externalPulseDist, float e
             
             if (distance < maxFieldDist && distance > minFieldDist){
                 float prct = 1;//1.0f - (distance / fieldRange);
+                prct = powf(prct, pulseStrengthCurve);
                 
                 ofVec2f dif;
                 dif.x = (x - fieldPos.x);

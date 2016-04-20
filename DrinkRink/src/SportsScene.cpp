@@ -147,6 +147,10 @@ void SportsScene::updateCustom(){
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::checkPanelValuesCustom(ofxControlPanel *panel){
+    if (ignorePanelValues){
+        return;
+    }
+    
     ballColor.setHsb(panel->getValueF("BALL_HUE"), panel->getValueF("BALL_SAT"), panel->getValueF("BALL_BRI"));
     
     for (int i=0; i<NUM_GOALS; i++){

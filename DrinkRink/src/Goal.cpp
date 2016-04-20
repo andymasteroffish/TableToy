@@ -31,14 +31,14 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     showDebug = false;
     
     //range in pixels
-    nearRange = 50;
-    farRange = 160;
+    nearRange = 86;//50;
+    farRange = 300;//160;
     //range in field units
     calculateFieldRange();
     
     //strength in field units
-    nearFieldStrength = 1.5;
-    farFieldStrength = 0.5;
+    nearFieldStrength = 1.78;//1.5;
+    farFieldStrength = 0.75;//0.5;
     
     //killing
     killRange = nearRange / 2;
@@ -275,7 +275,6 @@ void Goal::calculateFieldRange(){
 
 
 void Goal::checkPanelValues(ofxControlPanel * panel){
-    
     if (hasWon || hasLost){
         return;
     }

@@ -29,6 +29,7 @@ public:
     float strength;
     float pulseWidth;
     
+    float pulseStrengthCurve;
     
     
 };
