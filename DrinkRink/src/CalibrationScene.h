@@ -12,7 +12,6 @@
 #include "ofMain.h"
 #include "Scene.h"
 #include "CupTrackerCam.h"
-#include "CupTrackerBlob.h"
 
 #include "CamSettings.h"
 
@@ -40,11 +39,7 @@ public:
     
     bool usingDebug;    //don't do anything if we're not using the camera
     
-#ifdef USE_BLOB_DETECTION
-    CupTrackerBlob * tracker;
-#else
     CupTrackerCam * tracker;
-#endif
     
     ofxControlPanel * controlPanel;
     

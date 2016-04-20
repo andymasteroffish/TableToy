@@ -79,20 +79,9 @@ void FieldParticle::draw(float alphaPrc){
         for (int i=trailPos.size()-1; i>=1; i--){
             ofSetColor(col.r, col.g, col.b, fadeVal*i);
             ofSetLineWidth( ofMap(i, 0, trailPos.size(), trailStartWidth, trailEndWidth));
-            //ofLine(trailPos[i], trailPos[i-1]);
+            ofLine(trailPos[i], trailPos[i-1]);
         }
     }
-    
-    if (usePic){
-        ofSetColor(col.r, col.g, col.b, col.a * alphaPrc);
-        ofPushMatrix();
-        ofTranslate(pos.x, pos.y);
-        ofRotate(noiseSeed);
-        ofScale(picScale, picScale);
-        pic->draw(0,0, pic->width/2, pic->height/2);
-        ofPopMatrix();
-    }
-    
 }
 
 void FieldParticle::setAlpha(){
@@ -122,11 +111,10 @@ void FieldParticle::setType(ParticleType type){
         showDot = true;
         fillDot = true;
         dotSize = 2;
-        useTrails = true;
+        useTrails = false;
         numTrailPositions = 10;
         trailStartWidth = 0.5;
         trailEndWidth = 2.5;
-        usePic = false;
         useNoiseWiggle = true;
         noiseWiggleRange = 0.3;
         noiseWigglePower = 0.1;
@@ -166,8 +154,7 @@ void FieldParticle::setType(ParticleType type){
         useTrails =  ofRandomuf() > 0.9;
         numTrailPositions = ofRandom(5,14);
         trailStartWidth = ofRandom(0.5,2);
-        trailEndWidth = ofRandom(0.5,2);;
-        usePic = false;
+        trailEndWidth = ofRandom(0.5,2);
         useNoiseWiggle = ofRandomuf() > 0.97;
         noiseWiggleRange = 0.15;
         noiseWigglePower = 0.10;

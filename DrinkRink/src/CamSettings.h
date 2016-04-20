@@ -24,9 +24,6 @@ THIS FILE JUST HOLDS DEFINITIONS FOR CAMERA USE
 //#define USE_WEBCAM
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-//comment this out to use tuio codes
-//#define USE_BLOB_DETECTION
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 #endif

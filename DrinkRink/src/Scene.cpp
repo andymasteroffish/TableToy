@@ -19,13 +19,11 @@ void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     
     fadeTime = 3;
     
-    particlePic.loadImage("pic/smoke.png");
-    
     ignorePanelValues = false;
     
-    showCupDebug = true;
+    showCupDebug = false;
     
-    numFieldParticlesPerFrame = 10;
+    numFieldParticlesPerFrame = 15;
     
     setupCustom();
     
@@ -117,9 +115,6 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     p_numTrailPositions = panel->getValueF("TRAIL_LENGTH");
     p_trailStartWidth = panel->getValueF("TRAIL_START_THICKNESS");
     p_trailEndWidth = panel->getValueF("TRAIL_END_THICKNESS");
-    
-    p_usePic = panel->getValueB("USE_PIC");
-    p_picScale = panel->getValueF("PIC_SCALE");
     
     particleColors.clear();
     for (int i=0; i<5; i++){
@@ -273,8 +268,6 @@ void Scene::makeFieldParticles(){
             newP->setType(defaultParticleType);
         }
         
-        newP->pic = &particlePic;
-        
         if (!ignorePanelValues){
             newP->fric = p_friction;
             newP->killTime = p_killTime;
@@ -291,9 +284,6 @@ void Scene::makeFieldParticles(){
             newP->numTrailPositions = p_numTrailPositions;
             newP->trailStartWidth = p_trailStartWidth;
             newP->trailEndWidth =  p_trailEndWidth;
-            
-            newP->usePic = p_usePic;
-            newP->picScale = p_picScale;
             
             if (particleColors.size() > 0){
                 newP->col = particleColors[ (int)ofRandom(particleColors.size())];

@@ -222,12 +222,12 @@ void SportsScene::addTower(CupInfo thisCup){
         newTower->setup( thisCup, &field);
         towers.push_back(newTower);
     }
-    if (thisCup.uniqueID%3 == 1) {
+    if (thisCup.uniqueID%3 == 2) {
         TowerFlow * newTower = new TowerFlow();
         newTower->setup( thisCup, &field);
         towers.push_back(newTower);
     }
-    if (thisCup.uniqueID%3 == 2) {
+    if (thisCup.uniqueID%3 == 1) {
         TowerPulse * newTower = new TowerPulse();
         newTower->setup( thisCup, &field);
         towers.push_back(newTower);

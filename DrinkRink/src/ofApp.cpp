@@ -5,24 +5,21 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetFrameRate(30);
     ofEnableAlphaBlending();
     ofBackground(200,200,255);
     
-    gameWidth = 2720;//1770;//1500;
-    gameHeight = 768;//500;//420;//500;
+    gameWidth =  2560;//2720;//1770;//1500;
+    gameHeight = 800;// 768;//500;//420;//500;
     
     fbo.allocate(gameWidth, gameHeight);
     
-    usingDebugCupTracker = false;
+    usingDebugCupTracker = true;
     
     if (usingDebugCupTracker){
         cupTracker = new CupTrackerDebug();
     }else{
-#ifdef USE_BLOB_DETECTION
-        cupTracker = new CupTrackerBlob();
-#else
         cupTracker = new CupTrackerCam();
-#endif
     }
     
     cupTracker->setup(gameWidth, gameHeight);
@@ -33,10 +30,16 @@ void ofApp::setup(){
     
     for (int i=0; i<NUM_SCENES; i++){
         scenes[i]->setup(cupTracker, gameWidth, gameHeight);
+        if (usingDebugCupTracker){
+            scenes[i]->showCupDebug = true;
+        }
     }
     
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
+    if (usingDebugCupTracker){
+        scrollScenes();
+    }
     
     showField = false;
     showDebugInfo = false;
@@ -49,19 +52,17 @@ void ofApp::setup(){
     panel.setup("settings", ofGetWidth()-310, 0, 300, ofGetHeight());
     curPanel = 0;
     
-    panel.addPanel("Presets", 1, false);
-    panel.setWhichPanel("Presets");
-    panel.setWhichColumn(0);
-    
-    panel.addLabel("PRESETS");
-    
-    panel.addToggle("Pastel", "PRESET_0", false);
-    panel.addToggle("wiggler", "PRESET_1", true); //using wiggler for now
-    panel.addToggle("Cyber Adventure", "PRESET_2", false);
-    panel.addToggle("Blazing Suns", "PRESET_3", false);
-    panel.addToggle("Desert", "PRESET_4", false);
-    panel.addToggle("No Love/Deep Web", "PRESET_5", false);
-    panel.addToggle("Blank", "PRESET_6", false);
+//    panel.addPanel("Presets", 1, false);
+//    panel.setWhichPanel("Presets");
+//    panel.setWhichColumn(0);
+//    panel.addLabel("PRESETS");
+//    panel.addToggle("Pastel", "PRESET_0", false);
+//    panel.addToggle("wiggler", "PRESET_1", true); //using wiggler for now
+//    panel.addToggle("Cyber Adventure", "PRESET_2", false);
+//    panel.addToggle("Blazing Suns", "PRESET_3", false);
+//    panel.addToggle("Desert", "PRESET_4", false);
+//    panel.addToggle("No Love/Deep Web", "PRESET_5", false);
+//    panel.addToggle("Blank", "PRESET_6", false);
     
     panel.addPanel("Particle Settings", 1, false);
     panel.setWhichPanel("Particle Settings");
@@ -72,22 +73,18 @@ void ofApp::setup(){
     panel.addSlider("Friction", "PARTICLE_FRICTION", 0.2, 0, 1, false);
     panel.addSlider("Max Lifespan", "PARTICLE_KILL_TIME", 3, 0, 15, false);
     
-    //panel.addLabel("Dot");
+    panel.addLabel("Dot");
     panel.addToggle("Show Dot", "SHOW_DOT", true);
     panel.addToggle("Fill Dot", "FILL_DOT", true);
     panel.addSlider("Dot Size", "DOT_SIZE", 2, 0, 10, false);
     
-    //panel.addLabel("Tail");
+    panel.addLabel("Tail");
     panel.addToggle("Use Trail", "USE_TRAIL", false);
     panel.addSlider("Trail Length", "TRAIL_LENGTH", 40, 1, 100, true);
     panel.addSlider("Trail Start Thickness", "TRAIL_START_THICKNESS", 0.5, 0, 25, false);
     panel.addSlider("Trail End Thickness", "TRAIL_END_THICKNESS", 2.5, 0, 25, false);
     
-    //panel.addLabel("Image");
-    panel.addToggle("Use Pic", "USE_PIC", false);
-    panel.addSlider("Pic Scale", "PIC_SCALE", 1, 0, 5, false);
-    
-    //panel.addLabel("Wiggle");
+    panel.addLabel("Wiggle");
     panel.addToggle("Use Noise Wiggle", "USE_NOISE_WIGGLE", false);
     panel.addSlider("Wiggle Range", "NOISE_WIGGLE_RANGE", PI, 0, TWO_PI, false);
     panel.addSlider("Wiggle Power", "NOISE_WIGGLE_POWER", 0.2, 0, 0.75, false);
@@ -207,8 +204,6 @@ void ofApp::setup(){
     panel.addSlider("X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
     panel.addSlider("Y Offset", "CAM_Y_OFFSET", 0, -100, 100, false);
     
-    panel.addSlider("Max Compactness", "CAM_MAX_COMPACT", 1.2, 0.5, 2, false);
-    
     //the 4 warp points
     for (int i=0; i<4; i++){
         if (i==0) panel.addLabel("Top Left Warp");
@@ -228,38 +223,38 @@ void ofApp::setup(){
     panel.setWhichColumn(0);
     
     panel.addSlider("Threshold", "CAM_THRESHOLD", 48, 0, 255, true);
-    panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", true);
+    panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", false);
     panel.addToggle("flip cams Horizontal", "CAMS_FLIP_HORZ", true);
     panel.addToggle("flip cams Vertical", "CAMS_FLIP_VERT", false);
     panel.addSlider("cam 0 x adjust", "CAM_0_X", 0, -100, 100, false);
-    panel.addSlider("cam 0 y adjust", "CAM_0_Y", 4.4, -100, 100, false);
-    panel.addSlider("cam 1 x adjust", "CAM_1_X", 0, -100, 100, false);
-    panel.addSlider("cam 1 y adjust", "CAM_1_Y", 0, -100, 100, false);
+    panel.addSlider("cam 0 y adjust", "CAM_0_Y", 1.1, -100, 100, false);
+    panel.addSlider("cam 1 x adjust", "CAM_1_X", 2.8, -100, 100, false);
+    panel.addSlider("cam 1 y adjust", "CAM_1_Y", -12.9, -100, 100, false);
     
     //calibrating the cups
-    panel.addSlider("cup left X", "CUPS_LEFT_X", 119, -100, gameWidth, false);
-    panel.addSlider("cup right X", "CUPS_RIGHT_X", 2515, 0, gameWidth+100, false);
-    panel.addSlider("cup top Y", "CUPS_TOP_Y", -24, -100, gameHeight, false);
-    panel.addSlider("cup bottom Y", "CUPS_BOTTOM_Y", 718, 0, gameHeight+100, false);
+    panel.addSlider("cup left X", "CUPS_LEFT_X", 121.7, -100, gameWidth, false);
+    panel.addSlider("cup right X", "CUPS_RIGHT_X", 2367.8, 0, gameWidth+100, false);
+    panel.addSlider("cup top Y", "CUPS_TOP_Y", -80, -100, gameHeight, false);
+    panel.addSlider("cup bottom Y", "CUPS_BOTTOM_Y", 845, 0, gameHeight+100, false);
     
     
-    panel.addSlider("cup x adjust left", "CUPS_ADJUST_X_LEFT", 63, -300, 300, false);
-    panel.addSlider("cup top y adjust left", "CUPS_ADJUST_Y_TOP_LEFT", 2.4, -300, 300, false);
-    panel.addSlider("cup bot y adjust left", "CUPS_ADJUST_Y_BOT_LEFT", 113, -300, 300, false);
-    panel.addSlider("cup x adjust right", "CUPS_ADJUST_X_RIGHT", 63, -300, 300, false);
-    panel.addSlider("cup top y adjust right", "CUPS_ADJUST_Y_TOP_RIGHT", 3.3, -300, 300, false);
-    panel.addSlider("cup bot y adjust right", "CUPS_ADJUST_Y_BOT_RIGHT", 3.3, -300, 300, false);
+    panel.addSlider("cup x adjust left", "CUPS_ADJUST_X_LEFT", 43.3, -300, 300, false);
+    panel.addSlider("cup top y adjust left", "CUPS_ADJUST_Y_TOP_LEFT", 3.3, -300, 300, false);
+    panel.addSlider("cup bot y adjust left", "CUPS_ADJUST_Y_BOT_LEFT", -60, -300, 300, false);
+    panel.addSlider("cup x adjust right", "CUPS_ADJUST_X_RIGHT", 33.3, -300, 300, false);
+    panel.addSlider("cup top y adjust right", "CUPS_ADJUST_Y_TOP_RIGHT", 10, -300, 300, false);
+    panel.addSlider("cup bot y adjust right", "CUPS_ADJUST_Y_BOT_RIGHT", -60, -300, 300, false);
     
     //fucksing with the right screen
     panel.addPanel("Screen Adjust", 1, false);
     panel.setWhichPanel("Screen Adjust");
     panel.setWhichColumn(0);
     
-    panel.addSlider("right screen x adjust", "RIGHT_SCREEN_X_ADJUST", -11.1, -100, 100, false);
-    panel.addSlider("right screen y adjust", "RIGHT_SCREEN_Y_ADJUST", 0, -100, 100, false);
-    panel.addSlider("right screen rotation", "RIGHT_SCREEN_ROTATION", 0.3, -15, 15, false);
+    panel.addSlider("right screen x adjust", "RIGHT_SCREEN_X_ADJUST", -4.5, -100, 100, false);
+    panel.addSlider("right screen y adjust", "RIGHT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
+    panel.addSlider("right screen rotation", "RIGHT_SCREEN_ROTATION", 0.1, -15, 15, false);
     
-    curPanel = 8;
+    curPanel = 7;
     panel.setSelectedPanel(curPanel);
     
     //set the game to be at 50% display scale if we're using the debugger tracker because that means it's on a laptop and won't be two screens wide
@@ -316,13 +311,14 @@ void ofApp::update(){
     
     //update the panel
     panel.update();
+    
     //check preset buttons
-    for (int i=0; i<7; i++){
-        if (panel.getValueB("PRESET_"+ofToString(i))){
-            panel.setValueB("PRESET_"+ofToString(i), false);
-            setPreset(i);
-        }
-    }
+//    for (int i=0; i<7; i++){
+//        if (panel.getValueB("PRESET_"+ofToString(i))){
+//            panel.setValueB("PRESET_"+ofToString(i), false);
+//            setPreset(i);
+//        }
+//    }
     
     //check the game scale
     displayScale = panel.getValueF("DISPLAY_SCALE");
@@ -404,6 +400,8 @@ void ofApp::draw(){
         
         ofSetColor(255,0,0);
         string debugInfo =  "fps: "+ofToString(ofGetFrameRate());
+        debugInfo +=        "\nscreen: "+ofToString(ofGetWidth())+" x "+ofToString(ofGetHeight());
+        debugInfo +=        "\ngame: "+ofToString(gameWidth)+" x "+ofToString(gameHeight);
         debugInfo +=        "\nmode: "+modeName;
         debugInfo +=        "\nf - toggle field";
         debugInfo +=        "\nh - toggle info";

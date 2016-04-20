@@ -113,9 +113,6 @@ public:
     int p_numTrailPositions;
     float p_trailStartWidth, p_trailEndWidth;
     
-    bool p_usePic;
-    float p_picScale;
-    ofImage particlePic;
     
     
 };

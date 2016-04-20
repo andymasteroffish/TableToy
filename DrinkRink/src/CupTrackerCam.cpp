@@ -28,7 +28,6 @@ void CupTrackerCam::setupCustom(){
     
 #elif defined(USE_WEBCAM)
     ofVideoGrabber * thisGrabber = new ofVideoGrabber();
-    //thisGrabber->setDeviceID(1);
     
     vidGrabber.push_back(thisGrabber);
     vidGrabber[0]->initGrabber(imgWidth/2,imgHeight);
@@ -368,6 +367,11 @@ void CupTrackerCam::checkARTag(int idNum){
     int cornerToUse = 2-dir;
     if (cornerToUse < 0)    cornerToUse+=4;
     float tagAngle = atan2(tagPos.y-corners[cornerToUse].y, tagPos.x-corners[cornerToUse].x);
+    
+    //angle needs to be flipped if image s flipped
+    if (flipHorz){
+        tagAngle *= -1;
+    }
 
     //does a cup with this ID exist in the list? If so, update the info
     for (int i=0; i<activeCups.size(); i++){

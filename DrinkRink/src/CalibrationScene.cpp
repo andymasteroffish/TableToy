@@ -28,11 +28,7 @@ void CalibrationScene::setupCustom(){
     
     usingDebug = false;
     
-#ifdef USE_BLOB_DETECTION
-    tracker = (CupTrackerBlob *) cupTracker;
-#else
     tracker = (CupTrackerCam *) cupTracker;
-#endif
     
     curPointDragging = -1;
 }
