@@ -12,8 +12,8 @@
 void TowerPulse::customSetup(){
     range = 400;
     
-    strength = 0.75;
-    pulseWidth = 15;
+    strength = 0.8;
+    pulseWidth = 20;
     
     timer = 0;
     timeBetweenPulses = 2;
@@ -39,6 +39,19 @@ void TowerPulse::customUpdate(){
         addPulseCircle(strength, pulseDist, pulseWidth);
         //field->addPulseCircle(pos.x, pos.y, range, strength, pulseDist, pulseWidth);
     }
+}
+
+
+void TowerPulse::customDraw(float alphaPrc){
+    float prc = timer/timeForPulse;
+    float prcCurved = powf(prc, 2);
+    ofSetColor( 185, 129, 204, 255.0 * alphaPrc * (1-prcCurved));
+    ofNoFill();
+    
+    float dist = range*prc;
+    ofCircle(pos.x, pos.y, dist);
+    float otherDist = range*prc + sin(ofGetElapsedTimef()*20) * 20;
+    ofCircle(pos.x, pos.y, otherDist);
 }
 
 

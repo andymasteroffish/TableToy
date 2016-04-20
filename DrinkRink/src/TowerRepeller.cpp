@@ -23,6 +23,7 @@ void TowerRepeller::customUpdate(){
     addOutwardCircle(repelStrength);
 }
 
+
 void TowerRepeller::addOutwardCircle(float strength){
     Bounds bounds = field->getFieldBounds(fieldPos, fieldRange);
     
@@ -47,4 +48,6 @@ void TowerRepeller::addOutwardCircle(float strength){
         }
     }
 }
+
+
 

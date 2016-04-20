@@ -97,6 +97,7 @@ public:
     bool ignorePanelValues;
     
     //testing different particle options
+    int numFieldParticlesPerFrame;
     float p_friction;
     float p_killTime;
     

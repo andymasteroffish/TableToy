@@ -18,6 +18,8 @@ public:
     void customSetup();
     void customUpdate();
     
+    void customDraw(float alphaPrc);
+    
     void addPulseCircle(float strength, float externalPulseDist, float externalPulseSize);
     
     float timer;
@@ -26,6 +28,8 @@ public:
     
     float strength;
     float pulseWidth;
+    
+    
     
 };
 

@@ -25,6 +25,8 @@ void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     
     showCupDebug = true;
     
+    numFieldParticlesPerFrame = 10;
+    
     setupCustom();
     
 }
@@ -256,7 +258,7 @@ void Scene::makeFieldParticles(){
     }
     
     
-    for (int i=0; i<10; i++){
+    for (int i=0; i<numFieldParticlesPerFrame; i++){
         int idNum = ofRandom( (int)cellsAffectedThisFrame.size() );
         FieldCell * thisCell = &cellsAffectedThisFrame[ idNum ];
         ofVec2f thisPos = field.getExternalPointFromInternal(cellLocations[idNum].x, cellLocations[idNum].y);

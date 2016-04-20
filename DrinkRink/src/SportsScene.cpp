@@ -18,6 +18,8 @@ bool ballSort(  Ball * a, Ball * b ) {
 //--------------------------------------------------------------------------------------------
 void SportsScene::setupCustom(){
     
+    numFieldParticlesPerFrame = 15;
+    
     ballRepulsionRange = 30;
     ballRepulsionMaxForce = 1;
     

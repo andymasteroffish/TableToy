@@ -20,6 +20,7 @@ public:
     void customSetup();
     void customUpdate();
     
+    
     void addOutwardCircle(float strength);
     
     float repelStrength;
