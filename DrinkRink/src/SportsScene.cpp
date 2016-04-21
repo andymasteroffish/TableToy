@@ -181,7 +181,7 @@ void SportsScene::drawCustom(){
         for (int i=0; i<ballParticles.size(); i++){
             ballParticles[i].draw(alphaPrc);
         }
-        ofSetCircleResolution(22); // put the resolution back to default
+        ofSetCircleResolution(DEFAULT_CIRCLE_RES); // put the resolution back to default
     }
     
     winFillEffect.draw(alphaPrc);

@@ -22,6 +22,57 @@ void TowerRock::customUpdate(){
     addOutwardSemiCircle(leftSideStrength, true);
 }
 
+void TowerRock::customDraw(float alphaPrc){
+    
+    float drawSizeMin = 10;
+    float drawSizeMax = 80;
+    
+    float drawRange = range *0.5;
+    
+    float alphaMin = 0;
+    float alphaMax = 200;
+    
+    float sizeSpeed = 1;
+    float moveSpeed = 1;
+    float alphaSpeed = 1;
+    float rotSpeed = 10;
+    
+    ofPushMatrix();
+    
+    ofTranslate(pos.x, pos.y);
+    ofRotate(randVal + ofGetElapsedTimef() * 40);
+    
+    for (int i=0; i<15; i++){
+        
+        ofSetCircleResolution( (i%3)+3 );
+        
+        float thisSize = ofMap(ofNoise(ofGetElapsedTimef()*sizeSpeed, i, uniqueID+0), 0, 1, drawSizeMin, drawSizeMax);
+        float thisX = (-1 + ofNoise(ofGetElapsedTimef()*moveSpeed, i, uniqueID+10)*2) * drawRange;
+        float thisY = (-1 + ofNoise(ofGetElapsedTimef()*moveSpeed, i, uniqueID+20)*2) * drawRange;
+        
+        float thisAlpha = ofMap( ofNoise(ofGetElapsedTimef()*alphaSpeed, i, uniqueID+30), 0, 1, alphaMin, alphaMax);
+        
+        float thisAngle = ofNoise(ofGetElapsedTimef()*rotSpeed, i, uniqueID+40) * TWO_PI*2;
+        
+        ofSetColor(0, thisAlpha);
+        
+        ofPushMatrix();
+        ofTranslate(thisX, thisY);
+        ofRotate(thisAngle);
+        
+        ofCircle(0, 0, thisSize);
+        
+        ofPopMatrix();
+        
+    }
+    
+    ofPopMatrix();
+    
+    //put circles back to default
+    ofSetCircleResolution(DEFAULT_CIRCLE_RES);
+    
+}
+
 void TowerRock::addOutwardSemiCircle(float strength, bool onLeft){
     Bounds bounds = field->getFieldBounds(fieldPos, fieldRange);
     

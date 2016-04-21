@@ -25,6 +25,8 @@ void TowerFlow::customUpdate(){
 void TowerFlow::addFlowCircle(float strength, float thisAngle, float spread){
     Bounds bounds = field->getFieldBounds(fieldPos, fieldRange);
     
+    cout<<"angle "<<angle<<endl;
+    
     for (int x=bounds.topLeft.x; x <= bounds.bottomRight.x; x++){
         for (int y=bounds.topLeft.y; y  <= bounds.bottomRight.y; y++){
             

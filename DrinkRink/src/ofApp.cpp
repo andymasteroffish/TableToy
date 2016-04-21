@@ -38,7 +38,7 @@ void ofApp::setup(){
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
     if (usingDebugCupTracker){
-        setScene(SCENE_SPORTS);
+        setScene(SCENE_STREAM);
     }
     
     showField = false;
@@ -253,6 +253,15 @@ void ofApp::setup(){
     panel.addSlider("right screen x adjust", "RIGHT_SCREEN_X_ADJUST", -4.5, -100, 100, false);
     panel.addSlider("right screen y adjust", "RIGHT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
     panel.addSlider("right screen rotation", "RIGHT_SCREEN_ROTATION", 0.1, -15, 15, false);
+    
+    //Some generic sldiers to hook into while testing
+    panel.addPanel("Generic Testing", 1, false);
+    panel.setWhichPanel("Generic Testing");
+    panel.setWhichColumn(0);
+    
+    for (int i=0; i<10; i++){
+        panel.addSlider("test slder "+ofToString(i), "TEST_SLIDER_"+ofToString(i), 0.5, 0, 1, false);
+    }
     
     curPanel = 7;
     panel.setSelectedPanel(curPanel);

@@ -18,6 +18,8 @@ public:
     void customSetup();
     void customUpdate();
     
+    void customDraw(float alphaPrc);
+    
     void addOutwardSemiCircle(float strength, bool onLeft);
     
 };

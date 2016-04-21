@@ -27,6 +27,8 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     towerSize = 80;    //how big the physical cup is
     
+    randVal = ofRandom(9999);
+    
     //showDebugImage = true;
     
     particleType = PARTICLE_NO_TYPE;

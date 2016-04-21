@@ -65,6 +65,8 @@ public:
     
     bool isDebugSelectedForAngle;
     
+    float randVal;  //for noise and other such calculations
+    
     //bool showDebugImage;
     
     
