@@ -17,6 +17,8 @@ void StreamScene::setupCustom(){
     bgCol.set(ofRandom(10),ofRandom(10),ofRandom(10));
     ignorePanelValues = true;
     
+    numFieldParticlesPerFrame = 25;
+    
     //give us some bg shapes
     for (int i=0; i<25; i++){
         StreamBackgroundShape bgShape;

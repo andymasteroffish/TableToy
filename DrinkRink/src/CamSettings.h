@@ -24,6 +24,10 @@ THIS FILE JUST HOLDS DEFINITIONS FOR CAMERA USE
 //#define USE_WEBCAM
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+//if this is true, all video processing is bypassed in favor of a debug gui system
+#define USE_DEBUG_CUP_TRACKER true
+//SET THIS TO FALSE WHEN SENDING TO THE ACTUAL TABLE
+
 
 
 #endif

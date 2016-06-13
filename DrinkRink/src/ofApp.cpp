@@ -14,7 +14,7 @@ void ofApp::setup(){
     
     fbo.allocate(gameWidth, gameHeight);
     
-    usingDebugCupTracker = true;
+    usingDebugCupTracker = USE_DEBUG_CUP_TRACKER;
     
     if (usingDebugCupTracker){
         cupTracker = new CupTrackerDebug();
