@@ -50,7 +50,11 @@ public:
     virtual void mouseReleased(int x, int y, int button){}
     
     
-    virtual void addTower(CupInfo thisInfo){}
+    virtual void addTower(CupInfo thisCup){
+        Tower * newTower = new Tower();
+        newTower->setup( thisCup, &field);
+        towers.push_back(newTower);
+    }
     void removeTower(int vectorLoc);
     
     void startFade();

@@ -9,13 +9,13 @@
 #include "TowerRock.h"
 
 void TowerRock::customSetup(){
-    range = 200;
+    range = 230;
     
     debugColor.setHex(0xabb1a9);
 }
 
 void TowerRock::customUpdate(){
-    float leftSideStrength = 4.5;
+    float leftSideStrength = 5.5;//4.5;
     float rightSideStrength = 4.25;
     
     addOutwardSemiCircle(rightSideStrength, false);

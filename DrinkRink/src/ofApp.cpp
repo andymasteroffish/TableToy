@@ -27,6 +27,7 @@ void ofApp::setup(){
     scenes[SCENE_SPORTS] = new SportsScene();
     scenes[SCENE_STREAM] = new StreamScene();
     scenes[SCENE_FLYERS] = new FlyersScene();
+    scenes[SCENE_TOWER_DEFENSE] = new TowerDefenseScene();
     
     for (int i=0; i<NUM_SCENES; i++){
         scenes[i]->setup(cupTracker, gameWidth, gameHeight);
