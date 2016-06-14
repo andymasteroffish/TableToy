@@ -44,7 +44,6 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
 void Tower::setFromCupInfo(CupInfo thisInfo){
     pos.set(thisInfo.pos);
     angle = thisInfo.angle;
-    
 }
 
 //Update is called every frame.

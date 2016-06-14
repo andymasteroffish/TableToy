@@ -22,7 +22,7 @@ class Tower{
 public:
     
     //---------
-    //functions
+    //Functions
     //---------
    
     //in your custom tower classes, you probably want to make override functions for all of the virtual functions
@@ -43,7 +43,7 @@ public:
     
     
     //---------
-    //useful public variables
+    //Useful public variables
     //---------
     ofVec2f pos;        //x,y location in game world value
     float angle;        //angle in radians of the cup's current rotation
@@ -52,7 +52,7 @@ public:
     float randVal;      //for noise or anything else where it would be useful to have a static but randomly decided value. This is set when the cup is recognizied.
     
     //---------
-    //public variables that deal with the vector field
+    //Public variables that deal with the vector field
     //---------
     float range;                //range in game world that this tower effects the vector field
     float fieldRange;           //range converted to field values. Do not edit this manually. Call calculateFieldRange()
@@ -64,7 +64,7 @@ public:
     
     
     //---------
-    //other variables
+    //Other variables
     //---------
     
     float towerSize;            //used for debugging. This is an aproximation of how big the cup is

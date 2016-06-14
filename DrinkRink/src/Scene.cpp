@@ -26,7 +26,6 @@ void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     numFieldParticlesPerFrame = 15;
     
     setupCustom();
-    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -73,8 +72,9 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
             fieldParticles.erase( fieldParticles.begin() + i);
         }
     }
-    //cout<<"update time: "<<(ofGetElapsedTimef()-updateStartTime)<<endl;
     
+    //When switching scenes, the current scene fades out
+    //when isDoneFadiing is true, the scene will stop updating
     if (isFading){
         fadeTimer -= deltaTime;
         alphaPrc = fadeTimer/fadeTime;
@@ -88,7 +88,6 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
 
 //--------------------------------------------------------------------------------------------
 void Scene::checkPanelValues(ofxControlPanel *panel){
-    
     
     checkPanelValuesCustom(panel);
     
@@ -124,7 +123,6 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     }
     
     //grid shit
-    
     field.gridDrawingAdjust = panel->getValueF("GRID_DRAWING_ADJUST");
     field.showVerticalGrid = panel->getValueB("SHOW_VERTICAL_GRID");
     field.showHorizontalGrid = panel->getValueB("SHOW_HORIZONTAL_GRID");
@@ -146,14 +144,12 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     field.showHorizontalGridCurved = panel->getValueB("SHOW_HORIZONTAL_GRID_CURVED");
     
     field.gridColor.setHsb(panel->getValueF("GRID_HUE"), panel->getValueF("GRID_SAT"), panel->getValueF("GRID_BRI"));
-    
 }
 
 
 //--------------------------------------------------------------------------------------------
+//make sure our colleciton of towers matches up with cups in the real world
 void Scene::checkCups(){
-    //make sure our colleciton of towers matches up with cups in the real world
-    
     //first, mark each tower as having not yet been checked this frame
     for (int i=0; i<towers.size(); i++){
         towers[i]->hasBeenCheckedThisFrame = false;
@@ -205,12 +201,9 @@ void Scene::draw(){
     field.drawGrid(alphaPrc);
     
     //draw the field particles
-    //float drawStartTime = ofGetElapsedTimef();
     for (int i=fieldParticles.size()-1; i>=0; i--){
         fieldParticles[i]->draw(alphaPrc);
     }
-    //cout<<"draw time : "<<(ofGetElapsedTimef()-drawStartTime)<<endl;
-    
     
     //draw the towers
     for (int i=towers.size()-1; i>=0; i--){
@@ -233,7 +226,6 @@ void Scene::removeTower(int vectorLoc){
 void Scene::makeFieldParticles(){
     vector<FieldCell> cellsAffectedThisFrame;
     vector<GridPos>   cellLocations;
-    //vector<ofVec2f> gridPosAffectedThisFrame;
     float minStrengthToCount = 0.01;
     
     for (int x=0; x<FIELD_WIDTH; x++){
@@ -243,7 +235,6 @@ void Scene::makeFieldParticles(){
                 GridPos thisPos;
                 thisPos.set(x, y);
                 cellLocations.push_back(thisPos);
-                //gridPosAffectedThisFrame.push_back( field.getExternalPointFromInternal(x,y) );
             }
         }
     }
