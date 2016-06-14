@@ -38,7 +38,7 @@ void ofApp::setup(){
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
     if (usingDebugCupTracker){
-        setScene(SCENE_STREAM);
+        setScene(SCENE_SPORTS);
     }
     
     showField = false;

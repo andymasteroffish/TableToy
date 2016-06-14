@@ -31,7 +31,7 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     showDebug = false;
     
     //range in pixels
-    nearRange = 86;//50;
+    nearRange = 172;//50;
     farRange = 300;//160;
     //range in field units
     calculateFieldRange();
@@ -45,7 +45,7 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     
     //position this thing
     pos.y = gameHeight/2;
-    pos.x = isLeft ? 70 : gameWidth-70;
+    pos.x = isLeft ? 0 : gameWidth;
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
     //showing the score bars
