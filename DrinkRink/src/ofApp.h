@@ -12,6 +12,7 @@
 #include "SportsScene.h"
 #include "StreamScene.h"
 #include "FlyersScene.h"
+#include "TowerDefenseScene.h"
 
 #include "CupTracker.h"
 #include "CupTrackerDebug.h"
@@ -53,11 +54,12 @@ public:
     CupTracker * cupTracker;
     
     //scene
-#define NUM_SCENES          4
+#define NUM_SCENES          5
 #define SCENE_CALIBRATION   0
 #define SCENE_SPORTS        1
 #define SCENE_STREAM        2
 #define SCENE_FLYERS        3
+#define SCENE_TOWER_DEFENSE 4
     Scene * scenes[NUM_SCENES];
     Scene * curScene;
     Scene * fadingScene;
