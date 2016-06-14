@@ -8,7 +8,8 @@
 
 #include "Tower.h"
 
-
+//The basic Tower setup is called every time a new cup is identified (including when a cup that was previously removed is placed back down)
+//customSetup() is called near the end of this funciton. You can define an override function for customSetup to do any additional setup your Tower requires
 void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     angle = ofRandom(TWO_PI);
@@ -29,8 +30,6 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     randVal = ofRandom(9999);
     
-    //showDebugImage = true;
-    
     particleType = PARTICLE_NO_TYPE;
     particleTypeWeight = 1;
     
@@ -41,12 +40,15 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     calculateFieldRange();
 }
 
+//This is called whenever the CupTracker senses that the cup moved. It updates the Tower's game world position based on the cups new physical location
 void Tower::setFromCupInfo(CupInfo thisInfo){
     pos.set(thisInfo.pos);
     angle = thisInfo.angle;
     
 }
 
+//Update is called every frame.
+//Use the overrid function customUpdate() to do any every-frame calculations in your Tower class
 void Tower::update(float _deltaTime){
     deltaTime = _deltaTime;
     
@@ -55,12 +57,16 @@ void Tower::update(float _deltaTime){
     customUpdate();
 }
 
-//call this any time you change the range
+//Call this any time you change the range
+//Do not edit field range manually
 void Tower::calculateFieldRange(){
     float radiusPrct = range / (float)field->gameWidth;
     fieldRange = (float)(radiusPrct * field->fieldWidth);
 }
 
+//Use the override function customDraw() to draw things for your Tower
+//This defalt function will draw a debug image if that is turned on
+//the customDraw also passes an alphaPrc value, which is a value form 1 to 0 used to fade between scenes. You may want your draw to multiply alpha values by it so that your Tower fades out gracefully.
 void Tower::draw(float alphaPrc, bool showCupDebug){
     
     customDraw(alphaPrc);

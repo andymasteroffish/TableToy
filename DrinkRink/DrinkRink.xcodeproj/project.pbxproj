@@ -832,8 +832,6 @@
 		0AF37A901B840DEE00A9CFF7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				0AF37A991B840E4B00A9CFF7 /* Scene.h */,
-				0AF37A9A1B840E4B00A9CFF7 /* Scene.cpp */,
 				0A2FE3E51B8E267900ABD7DB /* Calibration */,
 				46CA36AC1B8FEEEE00791398 /* Carnivale */,
 				0AF37A951B840E1400A9CFF7 /* Sports */,
@@ -1049,6 +1047,18 @@
 				46CA36AA1B8FEEDF00791398 /* Carnivale.h */,
 			);
 			name = Carnivale;
+			sourceTree = "<group>";
+		};
+		570F11851D1088FA00402B69 /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0AF37ABA1B840E7400A9CFF7 /* VectorField.h */,
+				0AF37ABB1B840E7400A9CFF7 /* VectorField.cpp */,
+				0AF37ABC1B840E7400A9CFF7 /* FieldParticle.h */,
+				0AF37ABD1B840E7500A9CFF7 /* FieldParticle.cpp */,
+				0AF37A8E1B840DD100A9CFF7 /* Utils.h */,
+			);
+			name = utilities;
 			sourceTree = "<group>";
 		};
 		5797BB231C6433F500A752A5 /* ofxARtoolkitPlus */ = {
@@ -1340,18 +1350,16 @@
 			isa = PBXGroup;
 			children = (
 				574B54561C41F92400BE3B06 /* CamSettings.h */,
-				0AF37A8E1B840DD100A9CFF7 /* Utils.h */,
-				0AF37A8F1B840DE200A9CFF7 /* RealWorldTracking */,
-				0AF37A901B840DEE00A9CFF7 /* Scenes */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
-				0AF37ABA1B840E7400A9CFF7 /* VectorField.h */,
-				0AF37ABB1B840E7400A9CFF7 /* VectorField.cpp */,
-				0AF37ABC1B840E7400A9CFF7 /* FieldParticle.h */,
-				0AF37ABD1B840E7500A9CFF7 /* FieldParticle.cpp */,
 				0AF37ABE1B840E7500A9CFF7 /* Tower.h */,
 				0AF37ABF1B840E7500A9CFF7 /* Tower.cpp */,
+				0AF37A991B840E4B00A9CFF7 /* Scene.h */,
+				0AF37A9A1B840E4B00A9CFF7 /* Scene.cpp */,
+				0AF37A8F1B840DE200A9CFF7 /* RealWorldTracking */,
+				0AF37A901B840DEE00A9CFF7 /* Scenes */,
+				570F11851D1088FA00402B69 /* utilities */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
