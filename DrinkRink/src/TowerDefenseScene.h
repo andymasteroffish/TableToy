@@ -13,6 +13,7 @@
 #include "Scene.h"
 
 #include "Tower.h"
+#include "TDFoe.h"
 
 
 class TowerDefenseScene : public Scene{
@@ -27,9 +28,15 @@ public:
     
     void keyPressed(int key);
     
-    
     void addTower(CupInfo thisCup);
     
+    void takeDamage();
+    
+    vector<ofVec2f> path;
+    
+    vector<TDFoe * > foes;
+    
+    int playerHealth;
 
     
     

@@ -72,6 +72,7 @@
 		0AF37B421B840FC000A9CFF7 /* CupTrackerCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */; };
 		46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* Carnivale.cpp */; };
 		575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575466621D0F895E001B056E /* TowerDefenseScene.cpp */; };
+		577EDED11D10ABAB00F7064D /* TDFoe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577EDECF1D10ABAB00F7064D /* TDFoe.cpp */; };
 		5797BB491C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3A1C6433F500A752A5 /* libARToolKitPlus.a */; };
 		5797BB4A1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3C1C6433F500A752A5 /* libARToolKitPlus.a */; };
 		5797BB4B1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3E1C6433F500A752A5 /* libARToolKitPlus.a */; };
@@ -381,6 +382,8 @@
 		574B54561C41F92400BE3B06 /* CamSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CamSettings.h; sourceTree = "<group>"; };
 		575466621D0F895E001B056E /* TowerDefenseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TowerDefenseScene.cpp; sourceTree = "<group>"; };
 		575466631D0F895E001B056E /* TowerDefenseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerDefenseScene.h; sourceTree = "<group>"; };
+		577EDECF1D10ABAB00F7064D /* TDFoe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFoe.cpp; sourceTree = "<group>"; };
+		577EDED01D10ABAB00F7064D /* TDFoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDFoe.h; sourceTree = "<group>"; };
 		5797BB281C6433F500A752A5 /* ar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ar.h; sourceTree = "<group>"; };
 		5797BB291C6433F500A752A5 /* arBitFieldPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arBitFieldPattern.h; sourceTree = "<group>"; };
 		5797BB2A1C6433F500A752A5 /* arGetInitRot2Sub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arGetInitRot2Sub.h; sourceTree = "<group>"; };
@@ -1269,6 +1272,8 @@
 			children = (
 				575466631D0F895E001B056E /* TowerDefenseScene.h */,
 				575466621D0F895E001B056E /* TowerDefenseScene.cpp */,
+				577EDED01D10ABAB00F7064D /* TDFoe.h */,
+				577EDECF1D10ABAB00F7064D /* TDFoe.cpp */,
 			);
 			name = TowerDefense;
 			sourceTree = "<group>";
@@ -1505,6 +1510,7 @@
 				0A4EB6DD1B8B647400170FBB /* CalibrationScene.cpp in Sources */,
 				0AF37B251B840F4000A9CFF7 /* tinyxmlparser.cpp in Sources */,
 				0AF37B111B840F4000A9CFF7 /* guiTypeDrawable.cpp in Sources */,
+				577EDED11D10ABAB00F7064D /* TDFoe.cpp in Sources */,
 				0AF37B091B840F4000A9CFF7 /* guiCallback.cpp in Sources */,
 				0AF37A8B1B840D9A00A9CFF7 /* ofxCvHaarFinder.cpp in Sources */,
 				0AF37A891B840D9A00A9CFF7 /* ofxCvFloatImage.cpp in Sources */,

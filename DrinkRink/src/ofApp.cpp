@@ -39,7 +39,7 @@ void ofApp::setup(){
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
     if (usingDebugCupTracker){
-        setScene(SCENE_SPORTS);
+        setScene(SCENE_TOWER_DEFENSE);
     }
     
     showField = false;
