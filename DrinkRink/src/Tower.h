@@ -50,6 +50,7 @@ public:
     int uniqueID;       //this is the AR code value
     float startTime;    //when (in seconds) the cup was recognized. If the cup is removed and placed back down, this will be the time of the most recent recognition
     float randVal;      //for noise or anything else where it would be useful to have a static but randomly decided value. This is set when the cup is recognizied.
+    string towerType;   //a name to identify the tower type
     
     //---------
     //Public variables that deal with the vector field

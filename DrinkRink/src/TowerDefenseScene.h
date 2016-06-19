@@ -13,7 +13,11 @@
 #include "Scene.h"
 
 #include "Tower.h"
+#include "TowerTD.h"
+
 #include "TDFoe.h"
+
+#include "TDBullet.h"
 
 
 class TowerDefenseScene : public Scene{
@@ -32,9 +36,14 @@ public:
     
     void takeDamage();
     
+    void spawnShot(Tower * source);
+    
     vector<ofVec2f> path;
     
     vector<TDFoe * > foes;
+    
+    vector<TDBullet> bullets;
+    
     
     int playerHealth;
 

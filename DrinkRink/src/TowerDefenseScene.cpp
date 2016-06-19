@@ -29,6 +29,8 @@ void TowerDefenseScene::setupCustom(){
     path[7].set(2400,400);
     
     
+    
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -39,6 +41,9 @@ void TowerDefenseScene::resetCustom(){
         delete foes[0];
         foes.erase(foes.begin());
     }
+    
+    //clear out bullets
+    bullets.clear();
     
     //make some demo foes
     for (int i=0; i<20; i++){
@@ -52,6 +57,41 @@ void TowerDefenseScene::resetCustom(){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::updateCustom(){
     
+    //check all towers to see if they are doing thangs (like Big Bear)
+    for (int i=0; i<towers.size(); i++){
+        if (towers[i]->towerType == "td_shooter"){
+            TowerTD * thisShooter = (TowerTD *)towers[i];
+            if (thisShooter->spawnShot){
+                thisShooter->spawnShot = false;
+                spawnShot(thisShooter);
+            }
+        }
+    }
+    
+    //update the bullets
+    for (int i=bullets.size()-1; i>=0; i--){
+        bullets[i].update(deltaTime);
+        
+        //if it out of bounds?
+        float padding = bullets[i].size*2;
+        if (bullets[i].pos.x < -padding || bullets[i].pos.x > gameWidth+padding || bullets[i].pos.y < -padding || bullets[i].pos.y > gameHeight+padding){
+            bullets.erase(bullets.begin()+i);
+        }
+        
+        //check all foes to see if it hit any
+        else{
+            for (int f=0; f<foes.size(); f++){
+                float minDistSq = powf( (foes[f]->hitCircleSize + bullets[i].size), 2);
+                if ( ofDistSquared(foes[f]->pos.x, foes[f]->pos.y,  bullets[i].pos.x,  bullets[i].pos.y) < minDistSq){
+                    foes[f]->takeDamage(bullets[i].dmg);
+                    bullets.erase(bullets.begin()+i);
+                }
+            }
+        }
+    }
+    
+    
+    //update foes
     for (int i=foes.size()-1; i>=0; i--){
         foes[i]->update(deltaTime);
         
@@ -86,6 +126,11 @@ void TowerDefenseScene::drawCustom(){
         foes[i]->draw();
     }
     
+    //draw the bullets
+    for (int i=0; i<bullets.size(); i++){
+        bullets[i].draw();
+    }
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -96,13 +141,19 @@ void TowerDefenseScene::keyPressed(int key){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::addTower(CupInfo thisCup){
-//    TowerRepeller * newTower = new TowerRepeller();
-//    newTower->setup( thisCup, &field);
-//    newTower->repelStrength *= 1.5;
-//    towers.push_back(newTower);
+    TowerTD * newTower = new TowerTD();
+    newTower->setup( thisCup, &field);
+    towers.push_back(newTower);
 }
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::takeDamage(){
     playerHealth--;
+}
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::spawnShot(Tower * source){
+    TDBullet newBullet;
+    newBullet.setup(source->pos, source->angle);
+    bullets.push_back(newBullet);
 }

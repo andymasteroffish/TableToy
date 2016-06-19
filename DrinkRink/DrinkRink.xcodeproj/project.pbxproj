@@ -72,6 +72,8 @@
 		0AF37B421B840FC000A9CFF7 /* CupTrackerCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */; };
 		46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* Carnivale.cpp */; };
 		575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575466621D0F895E001B056E /* TowerDefenseScene.cpp */; };
+		575B7A3D1D17590E005DD708 /* TowerTD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575B7A3B1D17590E005DD708 /* TowerTD.cpp */; };
+		575B7A401D175C88005DD708 /* TDBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575B7A3E1D175C88005DD708 /* TDBullet.cpp */; };
 		577EDED11D10ABAB00F7064D /* TDFoe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577EDECF1D10ABAB00F7064D /* TDFoe.cpp */; };
 		5797BB491C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3A1C6433F500A752A5 /* libARToolKitPlus.a */; };
 		5797BB4A1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3C1C6433F500A752A5 /* libARToolKitPlus.a */; };
@@ -382,6 +384,10 @@
 		574B54561C41F92400BE3B06 /* CamSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CamSettings.h; sourceTree = "<group>"; };
 		575466621D0F895E001B056E /* TowerDefenseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TowerDefenseScene.cpp; sourceTree = "<group>"; };
 		575466631D0F895E001B056E /* TowerDefenseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerDefenseScene.h; sourceTree = "<group>"; };
+		575B7A3B1D17590E005DD708 /* TowerTD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TowerTD.cpp; sourceTree = "<group>"; };
+		575B7A3C1D17590E005DD708 /* TowerTD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerTD.h; sourceTree = "<group>"; };
+		575B7A3E1D175C88005DD708 /* TDBullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDBullet.cpp; sourceTree = "<group>"; };
+		575B7A3F1D175C88005DD708 /* TDBullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBullet.h; sourceTree = "<group>"; };
 		577EDECF1D10ABAB00F7064D /* TDFoe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFoe.cpp; sourceTree = "<group>"; };
 		577EDED01D10ABAB00F7064D /* TDFoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDFoe.h; sourceTree = "<group>"; };
 		5797BB281C6433F500A752A5 /* ar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ar.h; sourceTree = "<group>"; };
@@ -1274,6 +1280,10 @@
 				575466621D0F895E001B056E /* TowerDefenseScene.cpp */,
 				577EDED01D10ABAB00F7064D /* TDFoe.h */,
 				577EDECF1D10ABAB00F7064D /* TDFoe.cpp */,
+				575B7A3C1D17590E005DD708 /* TowerTD.h */,
+				575B7A3B1D17590E005DD708 /* TowerTD.cpp */,
+				575B7A3F1D175C88005DD708 /* TDBullet.h */,
+				575B7A3E1D175C88005DD708 /* TDBullet.cpp */,
 			);
 			name = TowerDefense;
 			sourceTree = "<group>";
@@ -1468,6 +1478,7 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				0AF37B241B840F4000A9CFF7 /* tinyxmlerror.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				575B7A3D1D17590E005DD708 /* TowerTD.cpp in Sources */,
 				57AB01B21C62E76D00791458 /* Resolvers.cpp in Sources */,
 				0AF37AB31B840E6500A9CFF7 /* StreamScene.cpp in Sources */,
 				0AF37B0E1B840F4000A9CFF7 /* guiTypeButtonSlider.cpp in Sources */,
@@ -1507,6 +1518,7 @@
 				0AF37B421B840FC000A9CFF7 /* CupTrackerCam.cpp in Sources */,
 				0AF37AAD1B840E5D00A9CFF7 /* TowerPulse.cpp in Sources */,
 				57AB01B51C62E76D00791458 /* PS3EyeWindowAppDelegate.mm in Sources */,
+				575B7A401D175C88005DD708 /* TDBullet.cpp in Sources */,
 				0A4EB6DD1B8B647400170FBB /* CalibrationScene.cpp in Sources */,
 				0AF37B251B840F4000A9CFF7 /* tinyxmlparser.cpp in Sources */,
 				0AF37B111B840F4000A9CFF7 /* guiTypeDrawable.cpp in Sources */,

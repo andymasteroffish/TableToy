@@ -17,6 +17,8 @@ void TDFoe::setup(vector<ofVec2f> * _path, float delay){
     startingHealth = 3;
     health = startingHealth;
     
+    hitCircleSize = 40;
+    
     speed = 100;
     
     minDistFromNodeToAdvance = 5;
@@ -60,11 +62,14 @@ void TDFoe::draw(){
     ofTranslate(pos.x, pos.y);
     ofRotate( ofRadToDeg(curAngle) );
     
+    ofSetColor(200, 0, 0, 100);
+    ofCircle(0, 0, hitCircleSize);
+    
     ofSetColor( ofColor::salmon);
-    ofRect(-20,-10, 40, 20);
+    ofRect(-30,-20, 60, 40);
     
     ofSetColor( ofColor::burlyWood);
-    ofRect(10,-10, 10, 20);
+    ofRect(20,-20, 10, 40);
     
     ofPopMatrix();
     

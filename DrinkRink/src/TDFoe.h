@@ -40,6 +40,8 @@ public:
     bool reachedTheEnd;
     bool killMe;
     
+    float hitCircleSize;
+    
 };
 
 #endif /* defined(__emptyExample__TDFoe__) */

@@ -20,6 +20,8 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     pos.set(thisCup.pos.x, thisCup.pos.y);
     field = _field;
     
+    towerType = "none";
+    
     hasBeenRemoved = false;
     hasBeenCheckedThisFrame = true;
     
