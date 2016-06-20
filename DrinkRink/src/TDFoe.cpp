@@ -19,9 +19,9 @@ void TDFoe::setup(vector<ofVec2f> * _path, float delay){
     
     hitCircleSize = 40;
     
-    speed = 100;
+    speed = 100 * 4;
     
-    minDistFromNodeToAdvance = 5;
+    minDistFromNodeToAdvance = speed / 20;
     
     nextNodeID = 0;
     findNextNode();

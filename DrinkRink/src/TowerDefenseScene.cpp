@@ -13,7 +13,7 @@
 void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
-    playerHealth = 3;
+    
     
     //gameW 2560
     //gameH 800
@@ -24,9 +24,9 @@ void TowerDefenseScene::setupCustom(){
     path[2].set(500,600);
     path[3].set(1110,600);
     path[4].set(1110,250);
-    path[5].set(2200,250);
-    path[6].set(2200,400);
-    path[7].set(2400,400);
+    path[5].set(1800,250);
+    path[6].set(1800,400);
+    path[7].set(2200,400);
     
     
     
@@ -35,6 +35,8 @@ void TowerDefenseScene::setupCustom(){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::resetCustom(){
+    
+    playerHealth = 3;
     
     //clear out any old foes
     while(foes.size() > 0){
@@ -112,6 +114,24 @@ void TowerDefenseScene::updateCustom(){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::drawCustom(){
     
+    //draw the home
+    ofFill();
+    float homeSize = 60;
+    ofSetColor(ofColor::purple);
+    ofCircle(path[path.size()-1].x, path[path.size()-1].y, homeSize);
+    
+    //show the player health aorund if
+    float angleSpacing = TWO_PI/playerHealth;
+    float heartSize = 20;
+    float heartDist = heartSize + homeSize + 15;
+    for (int i=0; i<playerHealth; i++){
+        ofSetColor(ofColor::pink);
+        float thisAngle = angleSpacing*i + ofGetElapsedTimef()*0.5;
+        float xPos = path[path.size()-1].x + cos(thisAngle) * heartDist;
+        float yPos = path[path.size()-1].y + sin(thisAngle) * heartDist;
+        ofCircle(xPos, yPos, heartSize);
+    }
+    
     //debug draw the path
     ofSetColor(20);
     for (int i=0; i<path.size(); i++){
@@ -121,6 +141,7 @@ void TowerDefenseScene::drawCustom(){
         ofCircle(path[i].x, path[i].y, 10);
     }
     
+    
     //draw the foes
     for (int i=0; i<foes.size(); i++){
         foes[i]->draw();
@@ -129,6 +150,18 @@ void TowerDefenseScene::drawCustom(){
     //draw the bullets
     for (int i=0; i<bullets.size(); i++){
         bullets[i].draw();
+    }
+    
+    //are they dead?
+    if (playerHealth <= 0){
+        ofSetColor(255,0,0);
+        
+        for (int i=0; i<30; i++){
+            
+            ofDrawBitmapString("YOU DEAD", gameWidth * ofNoise(ofGetElapsedTimef()*0.2, i), gameHeight * ofNoise(ofGetElapsedTimef()*0.1, i, 10));
+        }
+    
+        
     }
     
 }
