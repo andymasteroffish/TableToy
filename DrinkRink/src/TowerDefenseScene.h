@@ -38,6 +38,9 @@ public:
     
     void spawnShot(Tower * source);
     
+    void spawnStrongBabies(TDFoe * parent);
+    
+    
     vector<ofVec2f> path;
     
     vector<TDFoe * > foes;
@@ -46,6 +49,11 @@ public:
     
     
     int playerHealth;
+    
+    
+    //images to pass to game elements
+    ofImage towerPics[1];
+    ofImage foePics[FOE_IGNORE+1];
 
     
     

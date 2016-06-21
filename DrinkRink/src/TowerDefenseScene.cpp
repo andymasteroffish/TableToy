@@ -13,6 +13,14 @@
 void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
+    towerPics[0].loadImage("pic/td/tower_shooter.png");
+    
+    foePics[FOE_DUMB].loadImage("pic/td/foe_dumb.png");
+    foePics[FOE_STRONG].loadImage("pic/td/foe_strong.png");
+    foePics[FOE_FAST].loadImage("pic/td/foe_fast.png");
+    foePics[FOE_WAVE].loadImage("pic/td/foe_wave.png");
+    foePics[FOE_IGNORE].loadImage("pic/td/foe_ignore.png");
+    
     
     
     //gameW 2560
@@ -50,7 +58,21 @@ void TowerDefenseScene::resetCustom(){
     //make some demo foes
     for (int i=0; i<20; i++){
         TDFoe * newFoe = new TDFoe();
-        newFoe->setup(&path, i*2);
+        if (i%5 == 0){
+            newFoe->setup(FOE_DUMB, &foePics[FOE_DUMB], &path, i*2);
+        }
+        if (i%5 == 1){
+            newFoe->setup(FOE_STRONG, &foePics[FOE_STRONG], &path, i*2);
+        }
+        if (i%5 == 2){
+            newFoe->setup(FOE_FAST, &foePics[FOE_FAST], &path, i*2);
+        }
+        if (i%5 == 3){
+            newFoe->setup(FOE_WAVE, &foePics[FOE_WAVE], &path, i*2);
+        }
+        if (i%5 == 4){
+            newFoe->setup(FOE_IGNORE, &foePics[FOE_IGNORE], &path, i*2);
+        }
         foes.push_back(newFoe);
     }
     
@@ -104,6 +126,9 @@ void TowerDefenseScene::updateCustom(){
         
         //check if the foe died
         if (foes[i]->killMe){
+            if (foes[i]->type == FOE_STRONG){
+                spawnStrongBabies(foes[i]);
+            }
             delete foes[i];
             foes.erase( foes.begin()+i );
         }
@@ -144,7 +169,7 @@ void TowerDefenseScene::drawCustom(){
     
     //draw the foes
     for (int i=0; i<foes.size(); i++){
-        foes[i]->draw();
+        foes[i]->draw(alphaPrc);
     }
     
     //draw the bullets
@@ -152,16 +177,13 @@ void TowerDefenseScene::drawCustom(){
         bullets[i].draw();
     }
     
-    //are they dead?
+    //is the player dead?
     if (playerHealth <= 0){
         ofSetColor(255,0,0);
         
         for (int i=0; i<30; i++){
-            
             ofDrawBitmapString("YOU DEAD", gameWidth * ofNoise(ofGetElapsedTimef()*0.2, i), gameHeight * ofNoise(ofGetElapsedTimef()*0.1, i, 10));
         }
-    
-        
     }
     
 }
@@ -176,6 +198,7 @@ void TowerDefenseScene::keyPressed(int key){
 void TowerDefenseScene::addTower(CupInfo thisCup){
     TowerTD * newTower = new TowerTD();
     newTower->setup( thisCup, &field);
+    newTower->pic = &towerPics[0];
     towers.push_back(newTower);
 }
 
@@ -189,4 +212,23 @@ void TowerDefenseScene::spawnShot(Tower * source){
     TDBullet newBullet;
     newBullet.setup(source->pos, source->angle);
     bullets.push_back(newBullet);
+}
+
+//--------------------------------------------------------------------------------------------
+//the strong foe spawns two normal foes when it dies
+void TowerDefenseScene::spawnStrongBabies(TDFoe * parent){
+    float angle = ofRandom(TWO_PI);
+    float dist = 50;
+    for (int i=0; i<2; i++){
+        
+        ofVec2f newPos;
+        newPos.x = parent->pos.x + cos(angle) * dist;
+        newPos.y = parent->pos.y + sin(angle) * dist;
+        angle +=  PI;
+        
+        TDFoe * newFoe = new TDFoe();
+        newFoe->setup(FOE_DUMB, &foePics[FOE_DUMB], &path, 0);
+        newFoe->setPos(newPos, parent->nextNodeID);
+        foes.push_back(newFoe);
+    }
 }

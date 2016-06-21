@@ -33,8 +33,11 @@ void TowerTD::customDraw(float alphaPrc){
     
     ofRotate( ofRadToDeg(angle) );
     
-    ofSetColor(0);
-    ofLine(0, 0, towerSize*1.3, 0);
+//    ofSetColor(0);
+//    ofLine(0, 0, towerSize*1.3, 0);
+    
+    ofSetColor(255, 255 * alphaPrc);
+    pic->draw(-pic->getWidth()/2, -pic->getHeight()/2);
     
     ofPopMatrix();
 }

@@ -11,24 +11,33 @@
 
 #include "ofMain.h"
 
+enum FoeType{ FOE_DUMB, FOE_STRONG, FOE_FAST, FOE_WAVE, FOE_IGNORE  };
+
 class TDFoe{
 public:
     
-    void setup(vector<ofVec2f> * _path, float delay);
+    void setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay);
+    void setPos(ofVec2f _pos, int _nextNode);
     void update(float deltaTime);
-    void draw();
-    void findNextNode();
+    void draw(float alphaPrc);
+    void findNextNode(bool snapPos);
     void takeDamage(float dmg);
     
+    void setStatsFromType();
+    
+    FoeType type;
+    
+    ofImage * pic;
     
     float delayTimer;
     
     float startingHealth;
+    float speed;    //pixels per second
+    
     float health;
     
-    float speed;    //pixels per second
     ofVec2f velocity;   //set based on angle and speed
-    ofVec2f pos;
+    ofVec2f basePos, pos;
     float curAngle;
     
     

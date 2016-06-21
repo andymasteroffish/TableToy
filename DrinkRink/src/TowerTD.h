@@ -25,6 +25,8 @@ public:
     
     bool spawnShot;
     
+    ofImage * pic;
+    
 };
 
 #endif /* defined(__emptyExample__TowerTD__) */

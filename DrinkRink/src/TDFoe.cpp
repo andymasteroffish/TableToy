@@ -9,25 +9,40 @@
 #include "TDFoe.h"
 
 
-void TDFoe::setup(vector<ofVec2f> * _path, float delay){
+void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay){
+    
+    type = _type;
+    pic = _pic;
+    
     path = _path;
     
     delayTimer = delay;
     
+    //standard values
     startingHealth = 3;
-    health = startingHealth;
-    
+    speed = 100 * 2;
     hitCircleSize = 40;
     
-    speed = 100 * 4;
+    setStatsFromType();
     
     minDistFromNodeToAdvance = speed / 20;
     
+    health = startingHealth;
+    
     nextNodeID = 0;
-    findNextNode();
+    findNextNode(true);
     
     reachedTheEnd = false;
     killMe = false;
+}
+
+void TDFoe::setPos(ofVec2f _pos, int _nextNode){
+    
+    nextNodeID = _nextNode - 1;
+    
+    basePos = _pos;
+    
+    findNextNode(false);
 }
 
 void TDFoe::update(float deltaTime){
@@ -40,10 +55,23 @@ void TDFoe::update(float deltaTime){
     
     //move along
     if (!reachedTheEnd){
-        pos += velocity * deltaTime;
         
-        if (ofDistSquared(pos.x, pos.y, path->at(nextNodeID).x, path->at(nextNodeID).y) < minDistFromNodeToAdvance*minDistFromNodeToAdvance){
-            findNextNode();
+        basePos += velocity * deltaTime;
+        
+        if (type != FOE_WAVE){
+            pos = basePos;
+        }
+        //the wave foe moves along a sin wave
+        else{
+            
+            float adjustAngle = ofGetElapsedTimef() * 2;
+            float dist = 100;
+            pos.x = basePos.x + cos(adjustAngle) * dist;
+            pos.y = basePos.y + sin(adjustAngle) * dist;
+        }
+        
+        if (ofDistSquared(basePos.x, basePos.y, path->at(nextNodeID).x, path->at(nextNodeID).y) < minDistFromNodeToAdvance*minDistFromNodeToAdvance){
+            findNextNode(true);
         }
     }
     
@@ -52,7 +80,7 @@ void TDFoe::update(float deltaTime){
     
 }
 
-void TDFoe::draw(){
+void TDFoe::draw(float alphaPrc){
     if (delayTimer > 0){
         return;
     }
@@ -62,23 +90,23 @@ void TDFoe::draw(){
     ofTranslate(pos.x, pos.y);
     ofRotate( ofRadToDeg(curAngle) );
     
-    ofSetColor(200, 0, 0, 100);
+    //hit circle
+    ofSetColor(200, 0, 0, 100*alphaPrc);
     ofCircle(0, 0, hitCircleSize);
     
-    ofSetColor( ofColor::salmon);
-    ofRect(-30,-20, 60, 40);
-    
-    ofSetColor( ofColor::burlyWood);
-    ofRect(20,-20, 10, 40);
+    //sprite
+    ofSetColor(255, 255*alphaPrc);
+    pic->draw(-pic->getWidth()/2, -pic->getHeight()/2);
     
     ofPopMatrix();
     
-    
 }
 
-void TDFoe::findNextNode(){
+void TDFoe::findNextNode(bool snapPos){
     //snap it to the current node
-    pos = path->at(nextNodeID);
+    if (snapPos){
+        basePos = path->at(nextNodeID);
+    }
     
     //advance the node
     nextNodeID++;
@@ -90,7 +118,7 @@ void TDFoe::findNextNode(){
     }
     
     //set the angle and velocity
-    curAngle = atan2(path->at(nextNodeID).y-pos.y, path->at(nextNodeID).x-pos.x);
+    curAngle = atan2(path->at(nextNodeID).y-basePos.y, path->at(nextNodeID).x-basePos.x);
     velocity.x = cos(curAngle) * speed;
     velocity.y = sin(curAngle) * speed;
 }
@@ -101,4 +129,29 @@ void TDFoe::takeDamage(float dmg){
         killMe = true;
     }
     
+    //for the ignore type, the first time they take damage, they shoot towards the goal
+    if (health == startingHealth-1 && type == FOE_IGNORE){
+        speed *= 1.5;
+        if (nextNodeID < path->size()-2){
+            nextNodeID = path->size()-2;
+            findNextNode(false);
+        }
+    }
+}
+
+void TDFoe::setStatsFromType(){
+    if (type == FOE_DUMB){
+        //do nothing
+    }
+    if (type == FOE_STRONG){
+        startingHealth *= 2;
+        speed *= 0.5;
+    }
+    if (type == FOE_FAST){
+        speed *= 2;
+    }
+    if (type == FOE_WAVE){
+        speed *= 0.75;
+        startingHealth += 1;
+    }
 }
