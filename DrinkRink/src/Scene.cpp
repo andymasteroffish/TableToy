@@ -217,6 +217,7 @@ void Scene::draw(){
 
 //--------------------------------------------------------------------------------------------
 void Scene::removeTower(int vectorLoc){
+    removingTowerCustom(towers[vectorLoc]);
     delete towers[vectorLoc];
     towers.erase( towers.begin()+vectorLoc);
 }

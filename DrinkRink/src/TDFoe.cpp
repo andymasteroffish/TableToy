@@ -18,6 +18,9 @@ void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float 
     
     delayTimer = delay;
     
+    freezeTimer = 0;
+    freezeSpeedReduction = 0.25;
+    
     //standard values
     startingHealth = 3;
     speed = 100 * 2;
@@ -47,6 +50,8 @@ void TDFoe::setPos(ofVec2f _pos, int _nextNode){
 
 void TDFoe::update(float deltaTime){
     
+    freezeTimer -= deltaTime;
+    
     //check if we are not still waiting to start
     delayTimer -= deltaTime;
     if (delayTimer > 0){
@@ -56,7 +61,9 @@ void TDFoe::update(float deltaTime){
     //move along
     if (!reachedTheEnd){
         
-        basePos += velocity * deltaTime;
+        float freezeAdjust = freezeTimer > 0 ? freezeSpeedReduction : 1;
+        
+        basePos += velocity * deltaTime * freezeAdjust;
         
         if (type != FOE_WAVE){
             pos = basePos;
@@ -85,17 +92,21 @@ void TDFoe::draw(float alphaPrc){
         return;
     }
     
-    //debug test
+    
     ofPushMatrix();
     ofTranslate(pos.x, pos.y);
     ofRotate( ofRadToDeg(curAngle) );
     
     //hit circle
-    ofSetColor(200, 0, 0, 100*alphaPrc);
-    ofCircle(0, 0, hitCircleSize);
+//    ofSetColor(200, 0, 0, 100*alphaPrc);
+//    ofCircle(0, 0, hitCircleSize);
     
     //sprite
     ofSetColor(255, 255*alphaPrc);
+    if (freezeTimer > 0){
+        //tint blue when frozen
+        ofSetColor(100,100,255, 255*alphaPrc);
+    }
     pic->draw(-pic->getWidth()/2, -pic->getHeight()/2);
     
     ofPopMatrix();
@@ -137,6 +148,10 @@ void TDFoe::takeDamage(float dmg){
             findNextNode(false);
         }
     }
+}
+
+void TDFoe::freeze(float time){
+    freezeTimer = time;
 }
 
 void TDFoe::setStatsFromType(){

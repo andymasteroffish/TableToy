@@ -22,6 +22,7 @@ public:
     void draw(float alphaPrc);
     void findNextNode(bool snapPos);
     void takeDamage(float dmg);
+    void freeze(float time);
     
     void setStatsFromType();
     
@@ -35,6 +36,9 @@ public:
     float speed;    //pixels per second
     
     float health;
+    
+    float freezeTimer;
+    float freezeSpeedReduction;
     
     ofVec2f velocity;   //set based on angle and speed
     ofVec2f basePos, pos;

@@ -14,15 +14,19 @@
 class TDBullet{
 public:
     
-    void setup(ofVec2f _pos, float angle);
+    void setup(ofVec2f _pos, float angle, bool _isFire);
     void update(float deltaTime);
-    void draw();
+    void draw(float alphaPrc);
     
     ofVec2f pos;
     ofVec2f vel;
     
     float size;
     float dmg;
+    
+    ofColor col;
+    
+    bool isFire;
    
     
 };

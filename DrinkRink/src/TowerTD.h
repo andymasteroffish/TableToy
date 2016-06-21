@@ -12,10 +12,13 @@
 #include "ofMain.h"
 #include "Tower.h"
 
+enum TD_TOWER_TYPE{ TD_SHOOTER, TD_ICE, TD_FIRE  };
+
 class TowerTD : public Tower{
 public:
     
     void customSetup();
+    void setupTowerDefense(TD_TOWER_TYPE type, ofImage * _pic);
     void customUpdate();
     
     void customDraw(float alphaPrc);
@@ -26,6 +29,8 @@ public:
     bool spawnShot;
     
     ofImage * pic;
+    
+    TD_TOWER_TYPE tdType;
     
 };
 

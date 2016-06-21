@@ -9,13 +9,30 @@
 #include "TowerTD.h"
 
 void TowerTD::customSetup(){
-    towerType = "td_shooter";
+    towerType = "tower_defense";
     
     debugColor.setHex(0xabb1a9);
     
     timeBetweenShots = 1;
-    shotTimer = timeBetweenShots;
+    
     spawnShot = false;
+}
+
+void TowerTD::setupTowerDefense(TD_TOWER_TYPE type, ofImage * _pic){
+    tdType = type;
+    pic = _pic;
+    
+    if (tdType == TD_SHOOTER){
+        timeBetweenShots = 1;
+    }
+    if (tdType == TD_ICE){
+        timeBetweenShots = 5;
+    }
+    if (tdType == TD_FIRE){
+        timeBetweenShots = 3;
+    }
+    
+    shotTimer = timeBetweenShots;
 }
 
 void TowerTD::customUpdate(){
@@ -32,9 +49,6 @@ void TowerTD::customDraw(float alphaPrc){
     ofTranslate(pos.x, pos.y);
     
     ofRotate( ofRadToDeg(angle) );
-    
-//    ofSetColor(0);
-//    ofLine(0, 0, towerSize*1.3, 0);
     
     ofSetColor(255, 255 * alphaPrc);
     pic->draw(-pic->getWidth()/2, -pic->getHeight()/2);

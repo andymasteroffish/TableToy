@@ -71,6 +71,8 @@
 		0AF37B3F1B840FA600A9CFF7 /* ofxFiducialTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B381B840FA500A9CFF7 /* ofxFiducialTracker.cpp */; };
 		0AF37B421B840FC000A9CFF7 /* CupTrackerCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */; };
 		46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* Carnivale.cpp */; };
+		5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574569791D199DAA006E45D0 /* TDFireball.cpp */; };
+		5745697E1D19A1C6006E45D0 /* TDFreezeCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */; };
 		575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575466621D0F895E001B056E /* TowerDefenseScene.cpp */; };
 		575B7A3D1D17590E005DD708 /* TowerTD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575B7A3B1D17590E005DD708 /* TowerTD.cpp */; };
 		575B7A401D175C88005DD708 /* TDBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575B7A3E1D175C88005DD708 /* TDBullet.cpp */; };
@@ -381,6 +383,10 @@
 		0AF37B411B840FC000A9CFF7 /* CupTrackerCam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CupTrackerCam.h; sourceTree = "<group>"; };
 		46CA36A91B8FEEDF00791398 /* Carnivale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carnivale.cpp; sourceTree = "<group>"; };
 		46CA36AA1B8FEEDF00791398 /* Carnivale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carnivale.h; sourceTree = "<group>"; };
+		574569791D199DAA006E45D0 /* TDFireball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFireball.cpp; sourceTree = "<group>"; };
+		5745697A1D199DAA006E45D0 /* TDFireball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDFireball.h; sourceTree = "<group>"; };
+		5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFreezeCone.cpp; sourceTree = "<group>"; };
+		5745697D1D19A1C6006E45D0 /* TDFreezeCone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDFreezeCone.h; sourceTree = "<group>"; };
 		574B54561C41F92400BE3B06 /* CamSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CamSettings.h; sourceTree = "<group>"; };
 		575466621D0F895E001B056E /* TowerDefenseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TowerDefenseScene.cpp; sourceTree = "<group>"; };
 		575466631D0F895E001B056E /* TowerDefenseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerDefenseScene.h; sourceTree = "<group>"; };
@@ -1284,6 +1290,10 @@
 				575B7A3B1D17590E005DD708 /* TowerTD.cpp */,
 				575B7A3F1D175C88005DD708 /* TDBullet.h */,
 				575B7A3E1D175C88005DD708 /* TDBullet.cpp */,
+				5745697A1D199DAA006E45D0 /* TDFireball.h */,
+				574569791D199DAA006E45D0 /* TDFireball.cpp */,
+				5745697D1D19A1C6006E45D0 /* TDFreezeCone.h */,
+				5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */,
 			);
 			name = TowerDefense;
 			sourceTree = "<group>";
@@ -1499,6 +1509,7 @@
 				0AF37B3D1B840FA600A9CFF7 /* treeidmap.cpp in Sources */,
 				0AF37AAB1B840E5D00A9CFF7 /* TowerRepeller.cpp in Sources */,
 				0AF37A881B840D9A00A9CFF7 /* ofxCvContourFinder.cpp in Sources */,
+				5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */,
 				0AF37A941B840E0800A9CFF7 /* CupTrackerDebug.cpp in Sources */,
 				0AF37B1F1B840F4000A9CFF7 /* ofxControlPanel.cpp in Sources */,
 				0AF37B201B840F4000A9CFF7 /* simpleColor.cpp in Sources */,
@@ -1506,6 +1517,7 @@
 				57AB01B01C62E76D00791458 /* MyCameraInfo.mm in Sources */,
 				0AF37AA41B840E5300A9CFF7 /* Goal.cpp in Sources */,
 				0AF37AC01B840E7500A9CFF7 /* VectorField.cpp in Sources */,
+				5745697E1D19A1C6006E45D0 /* TDFreezeCone.cpp in Sources */,
 				57AB01B41C62E76D00791458 /* ofxMacamPs3Eye.mm in Sources */,
 				0AF37B191B840F4000A9CFF7 /* guiTypeTextDropDown.cpp in Sources */,
 				0AF37B3C1B840FA600A9CFF7 /* segment.cpp in Sources */,

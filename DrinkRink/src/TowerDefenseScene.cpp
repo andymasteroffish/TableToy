@@ -14,6 +14,8 @@ void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
     towerPics[0].loadImage("pic/td/tower_shooter.png");
+    towerPics[1].loadImage("pic/td/tower_ice.png");
+    towerPics[2].loadImage("pic/td/tower_fire.png");
     
     foePics[FOE_DUMB].loadImage("pic/td/foe_dumb.png");
     foePics[FOE_STRONG].loadImage("pic/td/foe_strong.png");
@@ -47,31 +49,34 @@ void TowerDefenseScene::resetCustom(){
     playerHealth = 3;
     
     //clear out any old foes
-    while(foes.size() > 0){
-        delete foes[0];
-        foes.erase(foes.begin());
-    }
+    foes.clear();
+//    while(foes.size() > 0){
+//        delete foes[0];
+//        foes.erase(foes.begin());
+//    }
     
     //clear out bullets
     bullets.clear();
+    fireballs.clear();
+    freezeCones.clear();
     
     //make some demo foes
     for (int i=0; i<20; i++){
-        TDFoe * newFoe = new TDFoe();
+        TDFoe newFoe;
         if (i%5 == 0){
-            newFoe->setup(FOE_DUMB, &foePics[FOE_DUMB], &path, i*2);
+            newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB], &path, i*2);
         }
         if (i%5 == 1){
-            newFoe->setup(FOE_STRONG, &foePics[FOE_STRONG], &path, i*2);
+            newFoe.setup(FOE_STRONG, &foePics[FOE_STRONG], &path, i*2);
         }
         if (i%5 == 2){
-            newFoe->setup(FOE_FAST, &foePics[FOE_FAST], &path, i*2);
+            newFoe.setup(FOE_FAST, &foePics[FOE_FAST], &path, i*2);
         }
         if (i%5 == 3){
-            newFoe->setup(FOE_WAVE, &foePics[FOE_WAVE], &path, i*2);
+            newFoe.setup(FOE_WAVE, &foePics[FOE_WAVE], &path, i*2);
         }
         if (i%5 == 4){
-            newFoe->setup(FOE_IGNORE, &foePics[FOE_IGNORE], &path, i*2);
+            newFoe.setup(FOE_IGNORE, &foePics[FOE_IGNORE], &path, i*2);
         }
         foes.push_back(newFoe);
     }
@@ -83,11 +88,18 @@ void TowerDefenseScene::updateCustom(){
     
     //check all towers to see if they are doing thangs (like Big Bear)
     for (int i=0; i<towers.size(); i++){
-        if (towers[i]->towerType == "td_shooter"){
-            TowerTD * thisShooter = (TowerTD *)towers[i];
-            if (thisShooter->spawnShot){
-                thisShooter->spawnShot = false;
-                spawnShot(thisShooter);
+        if (towers[i]->towerType == "tower_defense"){
+            TowerTD * thisTower = (TowerTD *)towers[i];
+            if (thisTower->spawnShot){
+                
+                thisTower->spawnShot = false;
+                
+                if (thisTower->tdType == TD_SHOOTER || thisTower->tdType == TD_FIRE){
+                    spawnShot(thisTower);
+                }
+                if (thisTower->tdType == TD_ICE){
+                    spawnFreezeCone(towers[i]);
+                }
             }
         }
     }
@@ -105,31 +117,50 @@ void TowerDefenseScene::updateCustom(){
         //check all foes to see if it hit any
         else{
             for (int f=0; f<foes.size(); f++){
-                float minDistSq = powf( (foes[f]->hitCircleSize + bullets[i].size), 2);
-                if ( ofDistSquared(foes[f]->pos.x, foes[f]->pos.y,  bullets[i].pos.x,  bullets[i].pos.y) < minDistSq){
-                    foes[f]->takeDamage(bullets[i].dmg);
+                float minDistSq = powf( (foes[f].hitCircleSize + bullets[i].size), 2);
+                if ( ofDistSquared(foes[f].pos.x, foes[f].pos.y,  bullets[i].pos.x,  bullets[i].pos.y) < minDistSq){
+                    foes[f].takeDamage(bullets[i].dmg);
+                    if (bullets[i].isFire){
+                        spawnFireball(bullets[i].pos);
+                    }
                     bullets.erase(bullets.begin()+i);
                 }
             }
         }
     }
     
+    //update fireballs
+    for (int i=fireballs.size()-1; i>=0; i--){
+        fireballs[i].update(deltaTime);
+        if (fireballs[i].timer < 0){
+            fireballs.erase(fireballs.begin() + i);
+        }
+    }
+    
+    //update freeze cones
+    for (int i=freezeCones.size()-1; i>=0; i--){
+        freezeCones[i].update(deltaTime, &foes);
+        if (freezeCones[i].timer < 0){
+            freezeCones.erase(freezeCones.begin()+i);
+        }
+    }
+    
     
     //update foes
     for (int i=foes.size()-1; i>=0; i--){
-        foes[i]->update(deltaTime);
+        foes[i].update(deltaTime);
         
-        if (foes[i]->reachedTheEnd){
+        if (foes[i].reachedTheEnd){
             takeDamage();
-            foes[i]->killMe = true;    //remove the foe
+            foes[i].killMe = true;    //remove the foe
         }
         
         //check if the foe died
-        if (foes[i]->killMe){
-            if (foes[i]->type == FOE_STRONG){
+        if (foes[i].killMe){
+            if (foes[i].type == FOE_STRONG){
                 spawnStrongBabies(foes[i]);
             }
-            delete foes[i];
+            //delete foes[i];
             foes.erase( foes.begin()+i );
         }
     }
@@ -169,12 +200,22 @@ void TowerDefenseScene::drawCustom(){
     
     //draw the foes
     for (int i=0; i<foes.size(); i++){
-        foes[i]->draw(alphaPrc);
+        foes[i].draw(alphaPrc);
+    }
+    
+    //draw freeze cones
+    for (int i=0; i<freezeCones.size(); i++){
+        freezeCones[i].draw(alphaPrc);
     }
     
     //draw the bullets
     for (int i=0; i<bullets.size(); i++){
-        bullets[i].draw();
+        bullets[i].draw(alphaPrc);
+    }
+    
+    //draw fireballs
+    for (int i=0; i<fireballs.size(); i++){
+        fireballs[i].draw(alphaPrc);
     }
     
     //is the player dead?
@@ -198,8 +239,28 @@ void TowerDefenseScene::keyPressed(int key){
 void TowerDefenseScene::addTower(CupInfo thisCup){
     TowerTD * newTower = new TowerTD();
     newTower->setup( thisCup, &field);
-    newTower->pic = &towerPics[0];
+    if (thisCup.uniqueID % 3 == 0){
+        newTower->setupTowerDefense(TD_SHOOTER, &towerPics[TD_SHOOTER]);
+    }
+    if (thisCup.uniqueID % 3 == 1){
+        newTower->setupTowerDefense(TD_ICE, &towerPics[TD_ICE]);
+    }
+    if (thisCup.uniqueID % 3 == 2){
+        newTower->setupTowerDefense(TD_FIRE, &towerPics[TD_FIRE]);
+    }
     towers.push_back(newTower);
+}
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::removingTowerCustom(Tower * towerBeingRemoved){
+    //check if any freeze cones are using this tower
+    if (towerBeingRemoved->towerType == "tower_defense"){
+        for (int i=0; i<freezeCones.size(); i++){
+            if (freezeCones[i].parentTower == towerBeingRemoved){
+                freezeCones.erase(freezeCones.begin() + i);
+            }
+        }
+    }
 }
 
 //--------------------------------------------------------------------------------------------
@@ -208,27 +269,51 @@ void TowerDefenseScene::takeDamage(){
 }
 
 //--------------------------------------------------------------------------------------------
-void TowerDefenseScene::spawnShot(Tower * source){
+void TowerDefenseScene::spawnShot(TowerTD * source){
     TDBullet newBullet;
-    newBullet.setup(source->pos, source->angle);
+    newBullet.setup(source->pos, source->angle, source->tdType == TD_FIRE);
     bullets.push_back(newBullet);
 }
 
 //--------------------------------------------------------------------------------------------
+void TowerDefenseScene::spawnFreezeCone(Tower * source){
+    TDFreezeCone newCone;
+    newCone.setup(source);
+    freezeCones.push_back(newCone);
+}
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::spawnFireball(ofVec2f pos){
+    //create a fireball
+    TDFireball fireball;
+    fireball.setup(pos);
+    fireballs.push_back(fireball);
+    
+    //damage all foes in the radius
+    //right now, the center of the foe must be in the blast
+    for (int i=0; i<foes.size(); i++){
+        float distSq = ofDistSquared(foes[i].pos.x, foes[i].pos.y, pos.x, pos.y);
+        if (distSq < fireball.startSize*fireball.startSize){
+            foes[i].takeDamage(fireball.dmg);
+        }
+    }
+}
+
+//--------------------------------------------------------------------------------------------
 //the strong foe spawns two normal foes when it dies
-void TowerDefenseScene::spawnStrongBabies(TDFoe * parent){
+void TowerDefenseScene::spawnStrongBabies(TDFoe parent){
     float angle = ofRandom(TWO_PI);
     float dist = 50;
     for (int i=0; i<2; i++){
         
         ofVec2f newPos;
-        newPos.x = parent->pos.x + cos(angle) * dist;
-        newPos.y = parent->pos.y + sin(angle) * dist;
+        newPos.x = parent.pos.x + cos(angle) * dist;
+        newPos.y = parent.pos.y + sin(angle) * dist;
         angle +=  PI;
         
-        TDFoe * newFoe = new TDFoe();
-        newFoe->setup(FOE_DUMB, &foePics[FOE_DUMB], &path, 0);
-        newFoe->setPos(newPos, parent->nextNodeID);
+        TDFoe newFoe;
+        newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB], &path, 0);
+        newFoe.setPos(newPos, parent.nextNodeID);
         foes.push_back(newFoe);
     }
 }

@@ -45,6 +45,7 @@ public:
     virtual void drawBackgroundCustom(){}   //a draw call that is called first, before field particle are drawn
     virtual void drawCustom(){}             //main draw call. Drawn on top of field particles
     virtual void checkPanelValuesCustom(ofxControlPanel * panel){}  //hooks into the control panel if you want to add custom sliders etc. for debug and testing
+    virtual void removingTowerCustom(Tower * towerBeingRemoved){}   //called when a tower is removed. Useful if anything in your scene is dependent on specific towers
     
     //the addTower function adds a blank tower by default. You will almost ceratinly want to make an override funciton to replace this so that your Scene spawns the correct Tower types
     //your custom addTower should follow the same basic patters. Make sure to call setup on any new tower and to add it to the towers vector

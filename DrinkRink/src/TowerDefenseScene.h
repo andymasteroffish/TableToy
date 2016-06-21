@@ -18,6 +18,8 @@
 #include "TDFoe.h"
 
 #include "TDBullet.h"
+#include "TDFireball.h"
+#include "TDFreezeCone.h"
 
 
 class TowerDefenseScene : public Scene{
@@ -33,26 +35,30 @@ public:
     void keyPressed(int key);
     
     void addTower(CupInfo thisCup);
+    void removingTowerCustom(Tower * towerBeingRemoved);
     
     void takeDamage();
     
-    void spawnShot(Tower * source);
+    void spawnShot(TowerTD * source);
+    void spawnFireball(ofVec2f pos);
+    void spawnFreezeCone(Tower * source);
     
-    void spawnStrongBabies(TDFoe * parent);
+    void spawnStrongBabies(TDFoe parent);
     
     
     vector<ofVec2f> path;
     
-    vector<TDFoe * > foes;
+    vector<TDFoe> foes;
     
     vector<TDBullet> bullets;
-    
+    vector<TDFireball> fireballs;
+    vector<TDFreezeCone> freezeCones;
     
     int playerHealth;
     
     
     //images to pass to game elements
-    ofImage towerPics[1];
+    ofImage towerPics[TD_FIRE+1];
     ofImage foePics[FOE_IGNORE+1];
 
     
