@@ -1,0 +1,7 @@
+Questions for tower defense that will likely involve Chris
+
+-What happens when a foe is killed? Separate sprite or just shrink them?
+
+-Firing animation for towers?
+
+How about the path is decided from a few options when the scene starts but stays static until the players win or lose

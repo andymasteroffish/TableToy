@@ -1,0 +1,27 @@
+;comments must begin the line with a semi colon
+;To create a new wave, start a line with “WAVE”
+;All text after “WAVE” is ignored so it can be used to give a debug name
+;The line after “WAVE” is the space in milliseconds between foes for that wave
+;After that each char represents a foe. 
+;line breaks and spaces are ignored so you can space the foe chars out however you like
+
+
+WAVE test
+5000
+D D D
+
+WAVE intro
+2000
+DDDDD
+S
+I
+DDFFDD
+S
+DD
+
+
+WAVE ignore city
+1000
+DISIFI
+FFF
+III

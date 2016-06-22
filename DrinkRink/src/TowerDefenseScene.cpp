@@ -13,6 +13,8 @@
 void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
+    pauseBetweenWaves = 3;
+    
     towerPics[0].loadImage("pic/td/tower_shooter.png");
     towerPics[1].loadImage("pic/td/tower_ice.png");
     towerPics[2].loadImage("pic/td/tower_fire.png");
@@ -48,39 +50,39 @@ void TowerDefenseScene::resetCustom(){
     
     playerHealth = 3;
     
+    setWavesFromFile("tower_defense_waves.txt");
+    curWave = -1;
+    
     //clear out any old foes
     foes.clear();
-//    while(foes.size() > 0){
-//        delete foes[0];
-//        foes.erase(foes.begin());
-//    }
     
     //clear out bullets
     bullets.clear();
     fireballs.clear();
     freezeCones.clear();
     
-    //make some demo foes
-    for (int i=0; i<20; i++){
+
+    
+    startNextWave();
+    
+}
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::startNextWave(){
+    curWave++;
+    
+    cout<<"start wave "<<curWave<<endl;
+    
+    foes.clear();
+    
+    for (int i=0; i<waves[curWave].foes.size(); i++){
         TDFoe newFoe;
-        if (i%5 == 0){
-            newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB], &path, i*2);
-        }
-        if (i%5 == 1){
-            newFoe.setup(FOE_STRONG, &foePics[FOE_STRONG], &path, i*2);
-        }
-        if (i%5 == 2){
-            newFoe.setup(FOE_FAST, &foePics[FOE_FAST], &path, i*2);
-        }
-        if (i%5 == 3){
-            newFoe.setup(FOE_WAVE, &foePics[FOE_WAVE], &path, i*2);
-        }
-        if (i%5 == 4){
-            newFoe.setup(FOE_IGNORE, &foePics[FOE_IGNORE], &path, i*2);
-        }
+        FoeType type = waves[curWave].foes[i];
+        newFoe.setup(type, &foePics[type], &path, i*waves[curWave].timeBetweenFoes);
         foes.push_back(newFoe);
     }
     
+    pauseBetweenWavesTimer = pauseBetweenWaves;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -165,6 +167,17 @@ void TowerDefenseScene::updateCustom(){
         }
     }
     
+    //if there are no foes and the player is alive, the wave is over
+    if (foes.size() == 0 && playerHealth > 0){
+        pauseBetweenWavesTimer -= deltaTime;
+        if (pauseBetweenWavesTimer < 0){
+            if (curWave < waves.size()-1){
+                startNextWave();
+            }else{
+                cout<<"YOU WIN"<<endl;
+            }
+        }
+    }
 }
 
 //--------------------------------------------------------------------------------------------
@@ -316,4 +329,65 @@ void TowerDefenseScene::spawnStrongBabies(TDFoe parent){
         newFoe.setPos(newPos, parent.nextNodeID);
         foes.push_back(newFoe);
     }
+}
+
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::setWavesFromFile(string fileName){
+    ofFile file(fileName);
+    ofBuffer buffer(file);
+    
+    TDWaveInfo thisWave;
+    bool nextLineIsTimeInfo = false;
+    
+    while(!buffer.isLastLine()){
+        string line = buffer.getNextLine();
+        if (line.size() > 0){
+            //semicolon means comment
+            if (line[0] != ';'){
+                
+                //"WAVE" means a new wave
+                if (line.find("WAVE") == 0){
+                    //if there is existing info, add it to the vector
+                    if(thisWave.foes.size() > 0){
+                        waves.push_back(thisWave);
+                    }
+                    //clear it out
+                    thisWave.foes.clear();
+                    thisWave.timeBetweenFoes = 0;
+                    
+                    //mark that the next line should be parsed for time
+                    nextLineIsTimeInfo = true;;
+                }
+                
+                else if (nextLineIsTimeInfo){
+                    int millis = std::atoi(line.c_str());
+                    thisWave.timeBetweenFoes = (float)millis/1000.0;
+                    nextLineIsTimeInfo = false;
+                }
+                
+                //anything else should just be a list of chars for enemies to spawn
+                else{
+                    for (int i=0; i<line.size(); i++){
+                        if (line[i] == 'D')     thisWave.foes.push_back((FOE_DUMB));
+                        if (line[i] == 'S')     thisWave.foes.push_back((FOE_STRONG));
+                        if (line[i] == 'F')     thisWave.foes.push_back((FOE_FAST));
+                        if (line[i] == 'I')     thisWave.foes.push_back((FOE_IGNORE));
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    //add the last wave
+    if(thisWave.foes.size() > 0){
+        waves.push_back(thisWave);
+    }
+    
+//    for(int i=0; i<waves.size(); i++){
+//        cout<<"wave "<<i<<"   time: "<<waves[i].timeBetweenFoes<<"  foes: "<<waves[i].foes.size()<<endl;
+//    }
+    
+    
 }

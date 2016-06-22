@@ -21,6 +21,12 @@
 #include "TDFireball.h"
 #include "TDFreezeCone.h"
 
+class TDWaveInfo{
+public:
+    float timeBetweenFoes;
+    vector<FoeType> foes;
+};
+
 
 class TowerDefenseScene : public Scene{
 public:
@@ -28,6 +34,7 @@ public:
     
     void setupCustom();
     void resetCustom();
+    void startNextWave();
     void updateCustom();
     
     void drawCustom();
@@ -45,9 +52,18 @@ public:
     
     void spawnStrongBabies(TDFoe parent);
     
+    void setWavesFromFile(string fileName);
     
+    //wave info
+    vector<TDWaveInfo> waves;
+    int curWave;
+    float pauseBetweenWaves;
+    float pauseBetweenWavesTimer;
+    
+    //list of poitns for foes to follow
     vector<ofVec2f> path;
     
+    //the actual foes on screen
     vector<TDFoe> foes;
     
     vector<TDBullet> bullets;
