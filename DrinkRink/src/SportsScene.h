@@ -41,6 +41,8 @@ public:
     
     void triggerGameOver();
     
+    void addOutwardCircle(GridPos fieldPos, float fieldRange, float strength, ParticleType particleType, float particleTypeWeight);
+    
     
     //the balls
     vector<Ball *> balls;

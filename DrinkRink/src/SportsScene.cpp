@@ -75,6 +75,17 @@ void SportsScene::resetCustom(){
 //--------------------------------------------------------------------------------------------
 void SportsScene::updateCustom(){
     
+    //put an outward force on the edges to keep balls from getting stuck
+    float bumperRange = 8;
+    float bumperStrength = 0.5;
+    float bumerParticleWeight = 1;
+    
+    addOutwardCircle(GridPos(-1, -1), bumperRange, bumperStrength, PARTICLE_GOAL_LEFT, bumerParticleWeight);
+    addOutwardCircle(GridPos(-1, field.fieldHeight+1), bumperRange, bumperStrength, PARTICLE_GOAL_LEFT, bumerParticleWeight);
+    addOutwardCircle(GridPos(field.fieldWidth+1, -1), bumperRange, bumperStrength, PARTICLE_GOAL_RIGHT, bumerParticleWeight);
+    addOutwardCircle(GridPos(field.fieldWidth+1, field.fieldHeight+1), bumperRange, bumperStrength, PARTICLE_GOAL_RIGHT, bumerParticleWeight);
+    
+    
     //update goals
     for (int i=0; i<NUM_GOALS; i++){
         goals[i].update(deltaTime);
@@ -258,6 +269,34 @@ void SportsScene::triggerGameOver(){
     }else{
         winFillEffect.start(goals[1]);
         goals[0].hasLost = true;
+    }
+}
+
+
+
+//--------------------------------------------------------------------------------------------
+void SportsScene::addOutwardCircle(GridPos fieldPos, float fieldRange, float strength, ParticleType particleType, float particleTypeWeight){
+    Bounds bounds = field.getFieldBounds(fieldPos, fieldRange);
+    
+    for (int x=bounds.topLeft.x; x <= bounds.bottomRight.x; x++){
+        for (int y=bounds.topLeft.y; y  <= bounds.bottomRight.y; y++){
+            
+            float distance = ofDist(fieldPos.x, fieldPos.y, x, y);
+            //no divide by 0, pls
+            if (distance < 0.0001)  distance = 0.0001;
+            
+            if (distance < fieldRange){
+                float prct = 1.0f - (distance / fieldRange);
+                
+                ofVec2f dif;
+                dif.x = (x - fieldPos.x);
+                dif.y = (y - fieldPos.y);
+                dif.normalize();
+                
+                field.field[x][y].vel += dif * strength * prct;
+                field.field[x][y].addPotentialParticleType(particleType, particleTypeWeight);
+            }
+        }
     }
 }
 
