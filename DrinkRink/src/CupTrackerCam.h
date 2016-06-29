@@ -49,6 +49,13 @@ public:
     
     int imgWidth, imgHeight;
     
+    //fucking around with seperate threshold areas because god isn't real
+    bool                useThreshMap;
+    ofPixels            grayImagePixels;
+    ofxCvGrayscaleImage grayImageThresh;
+    int                 thresholdSections[24];
+    
+    //standard images
     ofxCvColorImage		fullImg, colorImg;
     ofxCvGrayscaleImage grayImageNoThresh;
     ofxCvGrayscaleImage grayBGImage;
