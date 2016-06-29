@@ -7,6 +7,7 @@
 //
 
 #include "Carnivale.h"
+#include "TowerPrism.h"
 
 
 //--------------------------------------------------------------------------------------------
@@ -37,7 +38,7 @@ void Carnivale::keyPressed(int key){
 
 //--------------------------------------------------------------------------------------------
 void Carnivale::addTower(CupInfo thisCup){
-//    TowerRock * newTower = new TowerRock();
-//    newTower->setup( thisCup, &field);
-//    towers.push_back(newTower);
+    TowerPrism * newTower = new TowerPrism();
+    newTower->setup( thisCup, &field);
+    towers.push_back(newTower);
 }
