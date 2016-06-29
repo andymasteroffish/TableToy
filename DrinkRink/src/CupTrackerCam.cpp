@@ -14,6 +14,12 @@ void CupTrackerCam::setupCustom(){
     imgWidth = 1280 ;
     imgHeight = 480 ;
     
+    //working with threshold sections
+    useThreshMap = true;    //this should be in panel
+    grayImageThresh.allocate(imgWidth, imgHeight);
+    for (int i=0; i<24; i++){
+        thresholdSections[i] = ofMap(i, 0, 24, 10, 240);
+    }
     
 
 #ifdef USE_VIDEO
@@ -81,7 +87,7 @@ void CupTrackerCam::setupCustom(){
     warpEndPoints[3].set(0,colorImg.height);
     
     
-    threshold = 69;
+    threshold = 128; //fuck it. why not this value?
     
     framesBeforeKillingCup = 20;//40;
     
@@ -105,7 +111,9 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     ARKit.activateAutoThreshold(useAutoThreshold);
     if (!useAutoThreshold){
         threshold = panel->getValueI("CAM_THRESHOLD");
-        ARKit.setThreshold(threshold);
+        if (!useThreshMap){
+            ARKit.setThreshold(threshold);
+        }
     }else{
         threshold = ARKit.getThreshold();
     }
@@ -146,6 +154,10 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     
     cupAdjustRightYtop = panel->getValueF("CUPS_ADJUST_Y_TOP_RIGHT");
     cupAdjustRightYbot = panel->getValueF("CUPS_ADJUST_Y_BOT_RIGHT");
+    
+    for (int i=0; i<24; i++){
+        thresholdSections[i] = panel->getValueI("THRESH_ZONE_"+ofToString(i));
+    }
 
     
 //    cupAdjustLeftSide.x = panel->getValueF("CUPS_ADJUST_X_LEFT");
@@ -203,15 +215,49 @@ void CupTrackerCam::update(){
         
         grayImageNoThresh.absDiff(grayBGImage);
         
-        grayImageDemo = grayImageNoThresh;
-        
-        grayImageDemo.threshold(threshold); //THIS IS REALLY JUST FOR DEMO SO WE CAN SEE IT
-        
-        //if we are flipping the image,w e need to unflip it before passing it to the ARKit
-        if (flipHorz || flipVert){
-            grayImageNoThresh.mirror(flipVert, flipHorz);
+        if(useThreshMap){
+            grayImagePixels = grayImageNoThresh.getPixelsRef();
+            
+            for(int i=0;i<grayImagePixels.size();i++){
+                int pixX = i % imgWidth;
+                int pixY = i / imgWidth;
+                
+                int threshX = pixX / (imgWidth/12);
+                int threshY = pixY / (imgHeight/2);
+                
+                //Thresh offset set here
+                if(grayImagePixels[i] <= thresholdSections[threshX + threshY*12]){
+                    grayImagePixels[i] = 0;
+                }
+                else{
+                    grayImagePixels[i] = 255;
+                }
+            }
+            
+            grayImageThresh.setFromPixels(grayImagePixels);
+            grayImageDemo = grayImageThresh;
+            
+            //if we are flipping the image,w e need to unflip it before passing it to the ARKit
+            if (flipHorz || flipVert){
+                grayImageThresh.mirror(flipVert, flipHorz);
+            }
+            
+            ARKit.update(grayImageThresh.getPixels());
+            
         }
-        ARKit.update(grayImageNoThresh.getPixels());
+        else{
+
+            grayImageDemo = grayImageNoThresh;
+            grayImageDemo.threshold(threshold); //THIS IS REALLY JUST FOR DEMO SO WE CAN SEE IT
+            
+            //if we are flipping the image,w e need to unflip it before passing it to the ARKit
+            if (flipHorz || flipVert){
+                grayImageNoThresh.mirror(flipVert, flipHorz);
+            }
+            ARKit.update(grayImageNoThresh.getPixels());
+            
+        }
+        
         
         
         //update our info
