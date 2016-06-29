@@ -22,6 +22,7 @@ void Beam::customSetup(){
 void Beam::customDraw(){
     ofPushMatrix();
     ofTranslate(startX, startY);
+    ofRotate(ofRadToDeg(rotation));
     ofSetColor(255, 255, 255);
     ofFill();
     ofRect(0, -startWidth/2, bLength, startWidth);

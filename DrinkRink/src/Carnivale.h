@@ -6,13 +6,14 @@
 //
 //
 
-#ifndef __DrinkRink__Carnivale__
-#define __DrinkRink__Carnivale__
+#pragma once
 
 #include "ofMain.h"
 #include "Scene.h"
 
 #include "Tower.h"
+#include "TowerPrism.h"
+#include "Beam.h"
 
 class Carnivale : public Scene{
 public:
@@ -28,9 +29,10 @@ public:
     
     
     void addTower(CupInfo thisCup);
+
+private:
     
+    vector<TowerPrism> prisms;
+
     
 };
-
-
-#endif /* defined(__DrinkRink__Carnivale__) */
