@@ -171,6 +171,20 @@ void CalibrationScene::drawCustom(){
     
     ofSetColor(255, 255*alphaPrc);
     tracker->grayImageDemo.draw(0, 0, tracker->imgWidth,  tracker->imgHeight);
+    
+    //draw threhsold regions over it
+    ofSetColor(201, 175, 0, 255*alphaPrc);
+    ofLine(0, tracker->imgHeight/2, tracker->imgWidth, tracker->imgHeight/2);
+    int spacing = tracker->imgWidth/12;
+    for (int i=0; i<12; i++){
+        int xPos = i*spacing;
+        ofLine(xPos, 0, xPos, tracker->imgHeight);
+        ofDrawBitmapString( ofToString(i), i*spacing + 5, 30);
+        ofDrawBitmapString( ofToString(i+12), i*spacing + 5, tracker->imgHeight/2+30);
+    }
+    
+    ofSetColor(255, 255*alphaPrc);
+    
     tracker->grayImageNoThresh.draw(tracker->imgWidth+10, 0, tracker->imgWidth*0.5,  tracker->imgHeight*0.5);
     
     tracker->drawARTags(0, 0);
