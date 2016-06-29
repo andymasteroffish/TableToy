@@ -26,7 +26,6 @@ void Beam::customDraw(){
     ofFill();
     ofRect(0, -startWidth/2, bLength, startWidth);
     ofPopMatrix();
-    
 }
 
 void Beam::customUpdate(){
