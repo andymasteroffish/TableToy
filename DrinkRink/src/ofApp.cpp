@@ -223,26 +223,26 @@ void ofApp::setup(){
     panel.setWhichPanel("Cam Position");
     panel.setWhichColumn(0);
     
-    panel.addSlider("Threshold", "CAM_THRESHOLD", 48, 0, 255, true);
-    panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", false);
+    panel.addSlider("Threshold", "CAM_THRESHOLD", 31, 0, 255, true);
+    panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", true);
     panel.addToggle("flip cams Horizontal", "CAMS_FLIP_HORZ", true);
     panel.addToggle("flip cams Vertical", "CAMS_FLIP_VERT", false);
-    panel.addSlider("cam 0 x adjust", "CAM_0_X", 0, -100, 100, false);
-    panel.addSlider("cam 0 y adjust", "CAM_0_Y", 1.1, -100, 100, false);
-    panel.addSlider("cam 1 x adjust", "CAM_1_X", 2.8, -100, 100, false);
-    panel.addSlider("cam 1 y adjust", "CAM_1_Y", -12.9, -100, 100, false);
+    panel.addSlider("cam 0 x adjust", "CAM_0_X", 8.9, -100, 100, false);
+    panel.addSlider("cam 0 y adjust", "CAM_0_Y", -5, -100, 100, false);
+    panel.addSlider("cam 1 x adjust", "CAM_1_X", -7.3, -100, 100, false);
+    panel.addSlider("cam 1 y adjust", "CAM_1_Y", 5.4, -100, 100, false);
     
     //calibrating the cups
-    panel.addSlider("cup left X", "CUPS_LEFT_X", 121.7, -100, gameWidth, false);
-    panel.addSlider("cup right X", "CUPS_RIGHT_X", 2367.8, 0, gameWidth+100, false);
+    panel.addSlider("cup left X", "CUPS_LEFT_X", 195.6, -100, gameWidth, false);
+    panel.addSlider("cup right X", "CUPS_RIGHT_X", 2453.1, 0, gameWidth+100, false);
     panel.addSlider("cup top Y", "CUPS_TOP_Y", -80, -100, gameHeight, false);
-    panel.addSlider("cup bottom Y", "CUPS_BOTTOM_Y", 845, 0, gameHeight+100, false);
+    panel.addSlider("cup bottom Y", "CUPS_BOTTOM_Y", 810, 0, gameHeight+100, false);
     
     
-    panel.addSlider("cup x adjust left", "CUPS_ADJUST_X_LEFT", 43.3, -300, 300, false);
-    panel.addSlider("cup top y adjust left", "CUPS_ADJUST_Y_TOP_LEFT", 3.3, -300, 300, false);
-    panel.addSlider("cup bot y adjust left", "CUPS_ADJUST_Y_BOT_LEFT", -60, -300, 300, false);
-    panel.addSlider("cup x adjust right", "CUPS_ADJUST_X_RIGHT", 33.3, -300, 300, false);
+    panel.addSlider("cup x adjust left", "CUPS_ADJUST_X_LEFT", 53.3, -300, 300, false);
+    panel.addSlider("cup top y adjust left", "CUPS_ADJUST_Y_TOP_LEFT", 33.3, -300, 300, false);
+    panel.addSlider("cup bot y adjust left", "CUPS_ADJUST_Y_BOT_LEFT", -30, -300, 300, false);
+    panel.addSlider("cup x adjust right", "CUPS_ADJUST_X_RIGHT", 63.3, -300, 300, false);
     panel.addSlider("cup top y adjust right", "CUPS_ADJUST_Y_TOP_RIGHT", 10, -300, 300, false);
     panel.addSlider("cup bot y adjust right", "CUPS_ADJUST_Y_BOT_RIGHT", -60, -300, 300, false);
     
