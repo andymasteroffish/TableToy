@@ -39,7 +39,7 @@ void ofApp::setup(){
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
     if (usingDebugCupTracker){
-        setScene(SCENE_SPORTS);
+        setScene(SCENE_TOWER_DEFENSE);
     }
     
     showField = false;
@@ -250,6 +250,9 @@ void ofApp::setup(){
     panel.addPanel("Threshold Zone Top", 1, false);
     panel.setWhichPanel("Threshold Zone Top");
     panel.setWhichColumn(0);
+    
+    panel.addToggle("show threshold lines", "SHOW_THRESH_LINES", true);
+    
     for (int i=0; i<12; i++){
         panel.addSlider("threshold slider "+ofToString(i), "THRESH_ZONE_"+ofToString(i), 28, 0, 255, true);
     }
@@ -275,6 +278,7 @@ void ofApp::setup(){
     panel.addPanel("Generic Testing", 1, false);
     panel.setWhichPanel("Generic Testing");
     panel.setWhichColumn(0);
+    
     
     for (int i=0; i<10; i++){
         panel.addSlider("test slder "+ofToString(i), "TEST_SLIDER_"+ofToString(i), 0.5, 0, 1, false);

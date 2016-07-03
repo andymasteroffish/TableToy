@@ -51,6 +51,8 @@ public:
     int curPointDragging;
     ofVec2f draggingOffset;
     
+    bool showThresholdGrid;
+    
 };
 
 #endif /* defined(__DrinkRink__CalibrationScene__) */

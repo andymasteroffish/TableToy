@@ -173,14 +173,16 @@ void CalibrationScene::drawCustom(){
     tracker->grayImageDemo.draw(0, 0, tracker->imgWidth,  tracker->imgHeight);
     
     //draw threhsold regions over it
-    ofSetColor(201, 175, 0, 255*alphaPrc);
-    ofLine(0, tracker->imgHeight/2, tracker->imgWidth, tracker->imgHeight/2);
-    int spacing = tracker->imgWidth/12;
-    for (int i=0; i<12; i++){
-        int xPos = i*spacing;
-        ofLine(xPos, 0, xPos, tracker->imgHeight);
-        ofDrawBitmapString( ofToString(i), i*spacing + 5, 30);
-        ofDrawBitmapString( ofToString(i+12), i*spacing + 5, tracker->imgHeight/2+30);
+    if (showThresholdGrid){
+        ofSetColor(201, 175, 0, 255*alphaPrc);
+        ofLine(0, tracker->imgHeight/2, tracker->imgWidth, tracker->imgHeight/2);
+        int spacing = tracker->imgWidth/12;
+        for (int i=0; i<12; i++){
+            int xPos = i*spacing;
+            ofLine(xPos, 0, xPos, tracker->imgHeight);
+            ofDrawBitmapString( ofToString(i), i*spacing + 5, 30);
+            ofDrawBitmapString( ofToString(i+12), i*spacing + 5, tracker->imgHeight/2+30);
+        }
     }
     
     ofSetColor(255, 255*alphaPrc);
@@ -213,6 +215,7 @@ void CalibrationScene::drawCustom(){
     ofLine(0, tracker->cupTopY,     gameWidth, tracker->cupTopY);
     ofLine(0, tracker->cupBottomY,  gameWidth, tracker->cupBottomY);
     
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -237,4 +240,6 @@ void CalibrationScene::addTower(CupInfo thisCup){
 //--------------------------------------------------------------------------------------------
 void CalibrationScene::checkPanelValuesCustom(ofxControlPanel *panel){
     controlPanel = panel;
+    
+    showThresholdGrid = panel->getValueB("SHOW_THRESH_LINES");
 }
