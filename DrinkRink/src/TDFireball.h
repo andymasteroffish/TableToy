@@ -10,11 +10,12 @@
 #define __emptyExample__TDFireball__
 
 #include "ofMain.h"
+#include "ofxControlPanel.h"
 
 class TDFireball{
 public:
     
-    void setup(ofVec2f _pos);
+    void setup(ofVec2f _pos, ofxControlPanel * panel);
     void update(float deltaTime);
     void draw(float alphaPrc);
     

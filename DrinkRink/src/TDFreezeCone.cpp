@@ -10,13 +10,19 @@
 
 
 
-void TDFreezeCone::setup(Tower * _parentTower){
+void TDFreezeCone::setup(Tower * _parentTower, ofxControlPanel * panel){
     parentTower = _parentTower;
     
-    dmg = 0.5;
-    freezeTime = 8;
+    //dmg = 0.5;
+    //freezeTime = 8;
+    //killTime = 1.5;
+    freezeTime = panel->getValueF("FREEZE_TOWER_DURATION");
+    killTime = panel->getValueF("FREEZE_TOWER_ON_TIME");
     
-    killTime = 1.5;
+    //spreadPrc = panel->getValueF("FREEZE_TOWER_SPREAD");
+    //SETTING SPREAD PRC EVERY FRAME IN THE SCENE
+    
+    
     timer = killTime;
     
     col.set(20, 40, 240);
@@ -37,8 +43,8 @@ void TDFreezeCone::update(float deltaTime, vector<TDFoe> * foes){
     //starts at the tower
     points[0].set(pos);
     
-    float range = 350;
-    float farDist = 150;
+    float range = 350 * spreadPrc;
+    float farDist = 150 * spreadPrc;
     
     ofVec2f farPoint(pos.x+cos(angle)*range, pos.y+sin(angle)*range);
     

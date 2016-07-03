@@ -46,9 +46,69 @@ void TowerDefenseScene::setupCustom(){
     path[7].set(2200,400);
     
     
+}
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
+    panel->addPanel(sceneName, 1, false);
+    panel->setWhichPanel(sceneName);
+    panel->setWhichColumn(0);
     
+    panel->addToggle("Reset", "TD_RESET", false);
+    panel->addToggle("Fast forward", "TD_FAST_FORWARD", false);
     
+    panel->addSlider("Shoot Tower Time", "SHOOT_TOWER_TIME", 1, 0.1, 7, false);
+    panel->addSlider("Shoot Tower Bullet Speed", "SHOOT_TOWER_BULLET_SPEED", 500, 1, 1000, false);
+    panel->addSlider("Shoot Tower Damage", "SHOOT_TOWER_DAMAGE", 1, 0, 5, false);
     
+    panel->addSlider("Bomb Tower Time", "BOMB_TOWER_TIME", 3, 0.1, 7, false);
+    panel->addSlider("Bomb Tower Bullet Speed", "BOMB_TOWER_BULLET_SPEED", 300, 1, 1000, false);
+    panel->addSlider("Bomb Tower Bomb Size", "BOMB_TOWER_BOMB_SIZE", 250, 10, 500, false);
+    panel->addSlider("Bomb Tower Damage", "BOMB_TOWER_DAMAGE", 3, 0, 5, false);
+    
+    panel->addSlider("Freeze Tower Time", "FREEZE_TOWER_TIME", 5, 0.1, 7, false);
+    panel->addSlider("Freeze Tower On Time", "FREEZE_TOWER_ON_TIME", 1.5, 0.1, 3, false);
+    panel->addSlider("Freeze Tower Spread", "FREEZE_TOWER_SPREAD", 1, 0, 2, false);
+    panel->addSlider("Freeze Time", "FREEZE_TOWER_DURATION", 8, 1, 20, false);
+    panel->addSlider("Freeze Speed Reduction", "FREEZE_TOWER_SPEED_REDUCTION", 0.25, 0, 1, false);
+    
+    myPanel = panel;
+}
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
+    if (panel->getValueB("TD_RESET")){
+        panel->setValueB("TD_RESET", false);
+        resetCustom();
+    }
+    
+    //go through and set fire times
+    for (int i=0; i<towers.size(); i++){
+        if (towers[i]->towerType == "tower_defense"){
+            TowerTD * thisTower = (TowerTD *)towers[i];
+            if (thisTower->tdType == TD_SHOOTER){
+                thisTower->timeBetweenShots = panel->getValueF("SHOOT_TOWER_TIME");
+            }
+            if (thisTower->tdType == TD_FIRE){
+                thisTower->timeBetweenShots = panel->getValueF("BOMB_TOWER_TIME");
+            }
+            if (thisTower->tdType == TD_ICE){
+                thisTower->timeBetweenShots = panel->getValueF("FREEZE_TOWER_TIME");
+            }
+        }
+    }
+    
+    //go through and set the freeze rays
+    for (int i=0; i<freezeCones.size(); i++){
+        freezeCones[i].spreadPrc = panel->getValueF("FREEZE_TOWER_SPREAD");
+    }
+    
+    //go through the foes
+    for (int i=0; i<foes.size(); i++){
+        foes[i].freezeSpeedReduction = panel->getValueF("FREEZE_TOWER_SPEED_REDUCTION");
+    }
+    
+    debugFastForward = panel->getValueB("TD_FAST_FORWARD");
 }
 
 //--------------------------------------------------------------------------------------------
@@ -77,7 +137,7 @@ void TowerDefenseScene::resetCustom(){
 void TowerDefenseScene::startNextWave(){
     curWave++;
     
-    cout<<"start wave "<<curWave<<endl;
+    //cout<<"start wave "<<curWave<<endl;
     
     foes.clear();
     
@@ -96,105 +156,110 @@ void TowerDefenseScene::startNextWave(){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::updateCustom(){
     
-    //check all towers to see if they are doing thangs (like Big Bear)
-    for (int i=0; i<towers.size(); i++){
-        if (towers[i]->towerType == "tower_defense"){
-            TowerTD * thisTower = (TowerTD *)towers[i];
-            if (thisTower->spawnShot){
-                
-                thisTower->spawnShot = false;
-                
-                if (thisTower->tdType == TD_SHOOTER || thisTower->tdType == TD_FIRE){
-                    spawnShot(thisTower);
-                }
-                if (thisTower->tdType == TD_ICE){
-                    spawnFreezeCone(towers[i]);
-                }
-            }
-        }
-    }
+    int numCycles = debugFastForward ? 4 : 1;
     
-    //update the bullets
-    for (int i=bullets.size()-1; i>=0; i--){
-        bullets[i].update(deltaTime);
-        
-        //if it out of bounds?
-        float padding = bullets[i].size*2;
-        if (bullets[i].pos.x < -padding || bullets[i].pos.x > gameWidth+padding || bullets[i].pos.y < -padding || bullets[i].pos.y > gameHeight+padding){
-            bullets.erase(bullets.begin()+i);
-        }
-        
-        //check all foes to see if it hit any
-        else{
-            for (int f=0; f<foes.size(); f++){
-                float minDistSq = powf( (foes[f].hitCircleSize + bullets[i].size), 2);
-                if ( ofDistSquared(foes[f].pos.x, foes[f].pos.y,  bullets[i].pos.x,  bullets[i].pos.y) < minDistSq){
-                    foes[f].takeDamage(bullets[i].dmg);
-                    if (bullets[i].isFire){
-                        spawnFireball(bullets[i].pos);
+    for (int cycles=0; cycles<numCycles; cycles++){
+    
+        //check all towers to see if they are doing thangs (like Big Bear)
+        for (int i=0; i<towers.size(); i++){
+            if (towers[i]->towerType == "tower_defense"){
+                TowerTD * thisTower = (TowerTD *)towers[i];
+                if (thisTower->spawnShot){
+                    
+                    thisTower->spawnShot = false;
+                    
+                    if (thisTower->tdType == TD_SHOOTER || thisTower->tdType == TD_FIRE){
+                        spawnShot(thisTower);
                     }
-                    bullets.erase(bullets.begin()+i);
+                    if (thisTower->tdType == TD_ICE){
+                        spawnFreezeCone(towers[i]);
+                    }
                 }
             }
         }
-    }
-    
-    //update fireballs
-    for (int i=fireballs.size()-1; i>=0; i--){
-        fireballs[i].update(deltaTime);
-        if (fireballs[i].timer < 0){
-            fireballs.erase(fireballs.begin() + i);
-        }
-    }
-    
-    //update freeze cones
-    for (int i=freezeCones.size()-1; i>=0; i--){
-        freezeCones[i].update(deltaTime, &foes);
-        if (freezeCones[i].timer < 0){
-            freezeCones.erase(freezeCones.begin()+i);
-        }
-    }
-    
-    
-    //update foes
-    for (int i=foes.size()-1; i>=0; i--){
-        foes[i].update(deltaTime);
         
-        if (foes[i].reachedTheEnd){
-            takeDamage();
-            foes[i].killMe = true;    //remove the foe
-        }
-        
-        //check if the foe died
-        if (foes[i].killMe){
-            if (foes[i].type == FOE_STRONG){
-                spawnStrongBabies(foes[i]);
+        //update the bullets
+        for (int i=bullets.size()-1; i>=0; i--){
+            bullets[i].update(deltaTime);
+            
+            //if it out of bounds?
+            float padding = bullets[i].size*2;
+            if (bullets[i].pos.x < -padding || bullets[i].pos.x > gameWidth+padding || bullets[i].pos.y < -padding || bullets[i].pos.y > gameHeight+padding){
+                bullets.erase(bullets.begin()+i);
             }
-            //delete foes[i];
-            foes.erase( foes.begin()+i );
-        }
-    }
-    
-    //if there are no foes and the player is alive, the wave is over
-    if (foes.size() == 0 && playerHealth > 0){
-        pauseBetweenWavesTimer -= deltaTime;
-        setMessage("WAVE COMPLETE", 1); //keep this message on screen until next wave starts
-        if (pauseBetweenWavesTimer < 0){
-            if (curWave < waves.size()-1){
-                startNextWave();
-            }else{
-                cout<<"YOU WIN"<<endl;
+            
+            //check all foes to see if it hit any
+            else{
+                for (int f=0; f<foes.size(); f++){
+                    float minDistSq = powf( (foes[f].hitCircleSize + bullets[i].size), 2);
+                    if ( ofDistSquared(foes[f].pos.x, foes[f].pos.y,  bullets[i].pos.x,  bullets[i].pos.y) < minDistSq){
+                        foes[f].takeDamage(bullets[i].dmg);
+                        if (bullets[i].isFire){
+                            spawnFireball(bullets[i].pos);
+                        }
+                        bullets.erase(bullets.begin()+i);
+                    }
+                }
             }
         }
+        
+        //update fireballs
+        for (int i=fireballs.size()-1; i>=0; i--){
+            fireballs[i].update(deltaTime);
+            if (fireballs[i].timer < 0){
+                fireballs.erase(fireballs.begin() + i);
+            }
+        }
+        
+        //update freeze cones
+        for (int i=freezeCones.size()-1; i>=0; i--){
+            freezeCones[i].update(deltaTime, &foes);
+            if (freezeCones[i].timer < 0){
+                freezeCones.erase(freezeCones.begin()+i);
+            }
+        }
+        
+        
+        //update foes
+        for (int i=foes.size()-1; i>=0; i--){
+            foes[i].update(deltaTime);
+            
+            if (foes[i].reachedTheEnd){
+                takeDamage();
+                foes[i].killMe = true;    //remove the foe
+            }
+            
+            //check if the foe died
+            if (foes[i].killMe){
+                if (foes[i].type == FOE_STRONG){
+                    spawnStrongBabies(foes[i]);
+                }
+                //delete foes[i];
+                foes.erase( foes.begin()+i );
+            }
+        }
+        
+        //if there are no foes and the player is alive, the wave is over
+        if (foes.size() == 0 && playerHealth > 0){
+            pauseBetweenWavesTimer -= deltaTime;
+            setMessage("WAVE COMPLETE", 1); //keep this message on screen until next wave starts
+            if (pauseBetweenWavesTimer < 0){
+                if (curWave < waves.size()-1){
+                    startNextWave();
+                }else{
+                    cout<<"YOU WIN"<<endl;
+                }
+            }
+        }
+        
+        //is the player dead?
+        if (playerHealth <= 0){
+            setMessage("YOU DEAD!!!", 1);
+        }
+        
+        //check the message
+        messageTimer -= deltaTime;
     }
-    
-    //is the player dead?
-    if (playerHealth <= 0){
-        setMessage("YOU DEAD!!!", 1);
-    }
-    
-    //check the message
-    messageTimer -= deltaTime;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -308,14 +373,14 @@ void TowerDefenseScene::takeDamage(){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::spawnShot(TowerTD * source){
     TDBullet newBullet;
-    newBullet.setup(source->pos, source->angle, source->tdType == TD_FIRE);
+    newBullet.setup(source->pos, source->angle, source->tdType == TD_FIRE, myPanel);
     bullets.push_back(newBullet);
 }
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::spawnFreezeCone(Tower * source){
     TDFreezeCone newCone;
-    newCone.setup(source);
+    newCone.setup(source, myPanel);
     freezeCones.push_back(newCone);
 }
 
@@ -323,7 +388,7 @@ void TowerDefenseScene::spawnFreezeCone(Tower * source){
 void TowerDefenseScene::spawnFireball(ofVec2f pos){
     //create a fireball
     TDFireball fireball;
-    fireball.setup(pos);
+    fireball.setup(pos, myPanel);
     fireballs.push_back(fireball);
     
     //damage all foes in the radius

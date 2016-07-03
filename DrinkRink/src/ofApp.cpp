@@ -272,7 +272,13 @@ void ofApp::setup(){
         panel.addSlider("test slder "+ofToString(i), "TEST_SLIDER_"+ofToString(i), 0.5, 0, 1, false);
     }
     
-    curPanel = 8;
+    
+    //go through each scene and allow them to add their own panel things
+    for (int i=0; i<NUM_SCENES; i++){
+        scenes[i]->setupPanelValues(&panel);
+    }
+    
+    curPanel = 12;
     panel.setSelectedPanel(curPanel);
     
     //set the game to be at 50% display scale if we're using the debugger tracker because that means it's on a laptop and won't be two screens wide

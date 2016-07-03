@@ -40,6 +40,7 @@ public:
     //override function that you can replace in your Scene class. These will be called automaticly as needed.
     //if you do not need them, don't do anything and they will be innactive (called but won't do anything)
     virtual void setupCustom(){}            //called when the scene is fist setup on launch. Use for initialization
+    virtual void setupPanelValues(ofxControlPanel * panel){}         //if you want to add a control panel screen for the scene, do it here
     virtual void resetCustom(){}            //called when this scene is switched to. Will be called every time we return to this scene
     virtual void updateCustom(){}           //update function called every frame while this scene is active
     virtual void drawBackgroundCustom(){}   //a draw call that is called first, before field particle are drawn

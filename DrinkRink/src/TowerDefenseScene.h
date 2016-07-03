@@ -35,6 +35,8 @@ public:
     
     
     void setupCustom();
+    void setupPanelValues(ofxControlPanel * panel);
+    void checkPanelValuesCustom(ofxControlPanel * panel);
     void resetCustom();
     void startNextWave();
     void updateCustom();
@@ -88,8 +90,11 @@ public:
     //images to pass to game elements
     ofImage towerPics[TD_FIRE+1];
     ofImage foePics[FOE_IGNORE+1];
-
     
+    //debug stuff
+    bool debugFastForward;
+
+    ofxControlPanel * myPanel;
     
 };
 

@@ -19,7 +19,7 @@ void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float 
     delayTimer = delay;
     
     freezeTimer = 0;
-    freezeSpeedReduction = 0.25;
+    freezeSpeedReduction = 0.25;    //THIS IS BEING OVERWRITTEN EVERY FRAME BY CONTROL PANEL
     
     //standard values
     startingHealth = 3;

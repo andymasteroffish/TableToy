@@ -9,23 +9,31 @@
 #include "TDBullet.h"
 
 
-void TDBullet::setup(ofVec2f _pos, float angle, bool _isFire){
+void TDBullet::setup(ofVec2f _pos, float angle, bool _isFire, ofxControlPanel * panel){
     
     pos.set(_pos);
     
     isFire = _isFire;
     
-    dmg = 1;
     float speed = 500;
-    size = 10;
-    col.set(0,0,0);
     
-    if (isFire){
+    //shoot tower bullets
+    if (!isFire){
+        speed = panel->getValueF("SHOOT_TOWER_BULLET_SPEED");
+        dmg = panel->getValueF("SHOOT_TOWER_DAMAGE");
+        size = 10;
+        
+        col.set(0,0,0);
+    }
+    //fireball bullet
+    else{
+    
+        speed = panel->getValueF("BOMB_TOWER_BULLET_SPEED");
         dmg = 0;
-        speed = 300;
         size = 20;
         col.set(250,20,10);
     }
+    
     
     vel.x = speed * cos(angle);
     vel.y = speed * sin(angle);

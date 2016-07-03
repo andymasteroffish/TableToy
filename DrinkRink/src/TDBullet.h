@@ -10,11 +10,12 @@
 #define __emptyExample__TDBullet__
 
 #include "ofMain.h"
+#include "ofxControlPanel.h"
 
 class TDBullet{
 public:
     
-    void setup(ofVec2f _pos, float angle, bool _isFire);
+    void setup(ofVec2f _pos, float angle, bool _isFire, ofxControlPanel * panel);
     void update(float deltaTime);
     void draw(float alphaPrc);
     

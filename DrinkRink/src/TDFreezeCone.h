@@ -12,11 +12,12 @@
 #include "ofMain.h"
 #include "Tower.h"
 #include "TDFoe.h"
+#include "ofxControlPanel.h"
 
 class TDFreezeCone{
 public:
     
-    void setup(Tower * _parentTower);
+    void setup(Tower * _parentTower, ofxControlPanel * panel);
     void update(float deltaTime, vector<TDFoe> * foes);
     void checkFoes(vector<TDFoe> * foes);
     void draw(float alphaPrc);
@@ -26,7 +27,6 @@ public:
     
     ofVec2f pos;
     
-    float dmg;
     float freezeTime;   //how long to chill the foe
     
     float timer;
@@ -35,6 +35,7 @@ public:
     ofColor col;
     
     vector<ofVec2f> points;
+    float spreadPrc;
     
     Tower * parentTower;
    

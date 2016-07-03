@@ -10,11 +10,13 @@
 
 
 
-void TDFireball::setup(ofVec2f _pos){
+void TDFireball::setup(ofVec2f _pos, ofxControlPanel * panel){
     pos = _pos;
     
-    startSize = 250;
-    dmg = 3;
+    //startSize = 250;
+    //dmg = 3;
+    startSize = panel->getValueF("BOMB_TOWER_BOMB_SIZE");
+    dmg = panel->getValueF("BOMB_TOWER_DAMAGE");
     
     killTime = 0.5;
     timer = killTime;

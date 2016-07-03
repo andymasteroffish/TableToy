@@ -24,6 +24,8 @@ void TowerTD::setupTowerDefense(TD_TOWER_TYPE type, ofImage * _pic){
     tdType = type;
     pic = _pic;
     
+    //MOST OF THESE VALUES ARE BING OVERWRITTEN EVERY FRAME BY CONTROL PANEL RIGHT NOW
+    
     if (tdType == TD_SHOOTER){
         timeBetweenShots = 1;
     }
