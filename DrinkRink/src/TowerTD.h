@@ -24,13 +24,15 @@ public:
     void customDraw(float alphaPrc);
     
     float timeBetweenShots;
-    float shotTimer;
     
     bool spawnShot;
     
     ofImage * pic;
     
     TD_TOWER_TYPE tdType;
+    
+    float modTimeLastFrame;
+    float modTimeOffset;
     
 };
 

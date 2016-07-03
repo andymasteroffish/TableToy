@@ -53,18 +53,6 @@ void ofApp::setup(){
     panel.setup("settings", ofGetWidth()-310, 0, 300, ofGetHeight());
     curPanel = 0;
     
-//    panel.addPanel("Presets", 1, false);
-//    panel.setWhichPanel("Presets");
-//    panel.setWhichColumn(0);
-//    panel.addLabel("PRESETS");
-//    panel.addToggle("Pastel", "PRESET_0", false);
-//    panel.addToggle("wiggler", "PRESET_1", true); //using wiggler for now
-//    panel.addToggle("Cyber Adventure", "PRESET_2", false);
-//    panel.addToggle("Blazing Suns", "PRESET_3", false);
-//    panel.addToggle("Desert", "PRESET_4", false);
-//    panel.addToggle("No Love/Deep Web", "PRESET_5", false);
-//    panel.addToggle("Blank", "PRESET_6", false);
-    
     panel.addPanel("Particle Settings", 1, false);
     panel.setWhichPanel("Particle Settings");
     panel.setWhichColumn(0);

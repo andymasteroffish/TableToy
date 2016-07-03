@@ -12,6 +12,8 @@
 #include "ofMain.h"
 #include "Scene.h"
 
+#include "BetterFont.h"
+
 #include "Tower.h"
 #include "TowerTD.h"
 
@@ -52,13 +54,23 @@ public:
     
     void spawnStrongBabies(TDFoe parent);
     
+    void setMessage(string newMessage, float displayTime);
+    
     void setWavesFromFile(string fileName);
+    
+    //displaying shit
+    BetterFont fontBig;
+    
+    string curMessage;
+    float messageDisplayTime;
+    float messageTimer;
     
     //wave info
     vector<TDWaveInfo> waves;
     int curWave;
     float pauseBetweenWaves;
     float pauseBetweenWavesTimer;
+    float pauseBeforeFirstFoeEachWave;
     
     //list of poitns for foes to follow
     vector<ofVec2f> path;

@@ -14,6 +14,11 @@ void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
     pauseBetweenWaves = 3;
+    pauseBeforeFirstFoeEachWave = 1.5;
+    
+    messageDisplayTime  = pauseBetweenWaves;
+    curMessage = "";
+    messageTimer = 0;
     
     towerPics[0].loadImage("pic/td/tower_shooter.png");
     towerPics[1].loadImage("pic/td/tower_ice.png");
@@ -25,7 +30,7 @@ void TowerDefenseScene::setupCustom(){
     foePics[FOE_WAVE].loadImage("pic/td/foe_wave.png");
     foePics[FOE_IGNORE].loadImage("pic/td/foe_ignore.png");
     
-    
+    fontBig.loadFont("frabk.ttf", 80);
     
     //gameW 2560
     //gameH 800
@@ -39,6 +44,7 @@ void TowerDefenseScene::setupCustom(){
     path[5].set(1800,250);
     path[6].set(1800,400);
     path[7].set(2200,400);
+    
     
     
     
@@ -78,11 +84,13 @@ void TowerDefenseScene::startNextWave(){
     for (int i=0; i<waves[curWave].foes.size(); i++){
         TDFoe newFoe;
         FoeType type = waves[curWave].foes[i];
-        newFoe.setup(type, &foePics[type], &path, i*waves[curWave].timeBetweenFoes);
+        newFoe.setup(type, &foePics[type], &path, pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes);
         foes.push_back(newFoe);
     }
     
     pauseBetweenWavesTimer = pauseBetweenWaves;
+    
+    setMessage("BEGIN WAVE "+ofToString(curWave+1), messageDisplayTime);
 }
 
 //--------------------------------------------------------------------------------------------
@@ -170,6 +178,7 @@ void TowerDefenseScene::updateCustom(){
     //if there are no foes and the player is alive, the wave is over
     if (foes.size() == 0 && playerHealth > 0){
         pauseBetweenWavesTimer -= deltaTime;
+        setMessage("WAVE COMPLETE", 1); //keep this message on screen until next wave starts
         if (pauseBetweenWavesTimer < 0){
             if (curWave < waves.size()-1){
                 startNextWave();
@@ -178,6 +187,14 @@ void TowerDefenseScene::updateCustom(){
             }
         }
     }
+    
+    //is the player dead?
+    if (playerHealth <= 0){
+        setMessage("YOU DEAD!!!", 1);
+    }
+    
+    //check the message
+    messageTimer -= deltaTime;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -240,6 +257,12 @@ void TowerDefenseScene::drawCustom(){
         }
     }
     
+    //do we have a message to draw?
+    if (messageTimer > 0){
+        ofSetColor( ofColor::darkBlue );
+        fontBig.drawStringCentered(curMessage, gameWidth/2, gameHeight/2);
+    }
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -279,6 +302,7 @@ void TowerDefenseScene::removingTowerCustom(Tower * towerBeingRemoved){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::takeDamage(){
     playerHealth--;
+    setMessage("Ouch! Health Left: "+ofToString(playerHealth), messageDisplayTime/2);
 }
 
 //--------------------------------------------------------------------------------------------
@@ -331,6 +355,11 @@ void TowerDefenseScene::spawnStrongBabies(TDFoe parent){
     }
 }
 
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::setMessage(string newMessage, float displayTime){
+    messageTimer = displayTime;
+    curMessage = newMessage;
+}
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::setWavesFromFile(string fileName){

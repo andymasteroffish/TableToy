@@ -16,6 +16,8 @@ void TowerTD::customSetup(){
     timeBetweenShots = 1;
     
     spawnShot = false;
+    
+    modTimeOffset = uniqueID * 0.11;
 }
 
 void TowerTD::setupTowerDefense(TD_TOWER_TYPE type, ofImage * _pic){
@@ -32,15 +34,17 @@ void TowerTD::setupTowerDefense(TD_TOWER_TYPE type, ofImage * _pic){
         timeBetweenShots = 3;
     }
     
-    shotTimer = timeBetweenShots;
+    modTimeLastFrame = fmod(ofGetElapsedTimef()+modTimeOffset, timeBetweenShots);
 }
 
 void TowerTD::customUpdate(){
-    shotTimer -= deltaTime;
-    if (shotTimer < 0){
+    
+    float modTime = fmod(ofGetElapsedTimef()+modTimeOffset, timeBetweenShots);
+    if (modTime < modTimeLastFrame){
         spawnShot = true;
-        shotTimer = timeBetweenShots;
     }
+    modTimeLastFrame = modTime;
+    
 }
 
 void TowerTD::customDraw(float alphaPrc){
