@@ -142,7 +142,7 @@ void guiTypeButtonSlider::loadSettings(string filename){
 
 //-----------------------------------------------
 void guiTypeButtonSlider::reloadSettings(){
-
+    
 }
 
 //-----------------------------------------------

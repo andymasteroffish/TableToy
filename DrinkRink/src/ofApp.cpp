@@ -291,6 +291,7 @@ void ofApp::setup(){
         
     }
     
+    panel.loadSettings("controlPanelSettings.xml");
 }
 
 //--------------------------------------------------------------
