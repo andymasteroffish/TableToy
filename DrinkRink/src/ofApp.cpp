@@ -9,6 +9,8 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     ofBackground(200,200,255);
     
+    
+    
     gameWidth =  2560;//2720;//1770;//1500;
     gameHeight = 800;// 768;//500;//420;//500;
     
@@ -42,6 +44,8 @@ void ofApp::setup(){
         setScene(SCENE_TOWER_DEFENSE);
     }
     
+    setupPanel();
+    
     showField = false;
     showDebugInfo = false;
     showCupDebug = false;
@@ -50,6 +54,10 @@ void ofApp::setup(){
     deltaTime = 0;
     prevFrameTime = ofGetElapsedTimef();
     
+    
+}
+//--------------------------------------------------------------
+void ofApp::setupPanel(){
     panel.setup("settings", ofGetWidth()-310, 0, 300, ofGetHeight());
     curPanel = 0;
     
@@ -186,7 +194,7 @@ void ofApp::setup(){
     panel.addSlider("display scale", "DISPLAY_SCALE", 1, 0.5, 10, false);
     panel.addSlider("display adjust x", "DISPLAY_ADJUST_X", 0, -300, 300, false);
     panel.addSlider("display adjust y", "DISPLAY_ADJUST_Y", 0, -300, 300, false);
-
+    
     
     panel.addToggle("Take BG pic", "CAM_TAKE_BG_PIC", false);
     panel.addToggle("Use Auto Threshold (ARToolKit)", "CAM_AUTO_THRESHOLD", false);

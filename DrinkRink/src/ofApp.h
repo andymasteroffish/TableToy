@@ -22,6 +22,7 @@ class ofApp : public ofBaseApp{
 public:
     
     void setup();
+    void setupPanel();
     
     void scrollScenes();
     void setScene(int sceneID);

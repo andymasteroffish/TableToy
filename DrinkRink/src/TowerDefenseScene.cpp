@@ -9,12 +9,15 @@
 #include "TowerDefenseScene.h"
 
 
+
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
     pauseBetweenWaves = 3;
     pauseBeforeFirstFoeEachWave = 1.5;
+    
+    curWave = 0;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -54,23 +57,64 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->setWhichPanel(sceneName);
     panel->setWhichColumn(0);
     
+    //basic shit
     panel->addToggle("Reset", "TD_RESET", false);
     panel->addToggle("Fast forward", "TD_FAST_FORWARD", false);
     
+    //towers
+    panel->addLabel("");
+    panel->addLabel("Shoot Tower");
     panel->addSlider("Shoot Tower Time", "SHOOT_TOWER_TIME", 1, 0.1, 7, false);
     panel->addSlider("Shoot Tower Bullet Speed", "SHOOT_TOWER_BULLET_SPEED", 500, 1, 1000, false);
     panel->addSlider("Shoot Tower Damage", "SHOOT_TOWER_DAMAGE", 1, 0, 5, false);
     
+    panel->addLabel("");
+    panel->addLabel("Bomb Tower");
     panel->addSlider("Bomb Tower Time", "BOMB_TOWER_TIME", 3, 0.1, 7, false);
     panel->addSlider("Bomb Tower Bullet Speed", "BOMB_TOWER_BULLET_SPEED", 300, 1, 1000, false);
     panel->addSlider("Bomb Tower Bomb Size", "BOMB_TOWER_BOMB_SIZE", 250, 10, 500, false);
     panel->addSlider("Bomb Tower Damage", "BOMB_TOWER_DAMAGE", 3, 0, 5, false);
     
+    panel->addLabel("");
+    panel->addLabel("Freeze Tower");
     panel->addSlider("Freeze Tower Time", "FREEZE_TOWER_TIME", 5, 0.1, 7, false);
     panel->addSlider("Freeze Tower On Time", "FREEZE_TOWER_ON_TIME", 1.5, 0.1, 3, false);
     panel->addSlider("Freeze Tower Spread", "FREEZE_TOWER_SPREAD", 1, 0, 2, false);
     panel->addSlider("Freeze Time", "FREEZE_TOWER_DURATION", 8, 1, 20, false);
     panel->addSlider("Freeze Speed Reduction", "FREEZE_TOWER_SPEED_REDUCTION", 0.25, 0, 1, false);
+    
+    
+    panel->addPanel(sceneName+"2", 1, false);
+    panel->setWhichPanel(sceneName+"2");
+    panel->setWhichColumn(0);
+    
+    //foes
+    panel->addSlider("Foe Hit Circle Size", "FOE_HIT_CIRCLE", 40, 5, 100, false);
+    
+    panel->addLabel("");
+    panel->addLabel("Dumb Foe");
+    panel->addSlider("Dumb Foe HP", "DUMB_FOE_HP", 3, 0.5, 10, false);
+    panel->addSlider("Dumb Foe Speed", "DUMB_FOE_SPEED", 200, 10, 800, false);
+    
+    panel->addLabel("Strong Foe");
+    panel->addSlider("Strong Foe HP", "STRONG_FOE_HP", 6, 0.5, 10, false);
+    panel->addSlider("Strong Foe Speed", "STRONG_FOE_SPEED", 100, 10, 800, false);
+    panel->addSlider("Num Babies", "STRONG_FOE_BABY_NUM", 2, 1, 5, true);
+    
+    panel->addLabel("Fast Foe");
+    panel->addSlider("Fast Foe HP", "FAST_FOE_HP", 3, 0.5, 10, false);
+    panel->addSlider("Fast Foe Speed", "FAST_FOE_SPEED", 400, 10, 800, false);
+    
+    panel->addLabel("Wave Foe");
+    panel->addSlider("Wave Foe HP", "WAVE_FOE_HP", 4, 0.5, 10, false);
+    panel->addSlider("Wave Foe Speed", "WAVE_FOE_SPEED", 150, 10, 800, false);
+    panel->addSlider("Wave Dist", "WAVE_FOE_WAVE_DIST", 100, 10, 200, false);
+    panel->addSlider("Wave Period", "WAVE_FOE_WAVE_PERIOD", 2, 0.1, 4, false);
+    
+    panel->addLabel("Ignore Foe");
+    panel->addSlider("Ignore Foe HP", "IGNORE_FOE_HP", 3, 0.5, 10, false);
+    panel->addSlider("Ignore Foe Speed", "IGNORE_FOE_SPEED", 200, 10, 800, false);
+    panel->addSlider("Ignore Speed increase", "IGNORE_FOE_SPEED_INCREASE", 1.5, 1, 3, false);
     
     myPanel = panel;
 }
@@ -109,6 +153,8 @@ void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
     }
     
     debugFastForward = panel->getValueB("TD_FAST_FORWARD");
+    
+    numStrongBabies = panel->getValueI("STRONG_FOE_BABY_NUM");
 }
 
 //--------------------------------------------------------------------------------------------
@@ -129,7 +175,7 @@ void TowerDefenseScene::resetCustom(){
     
 
     
-    startNextWave();
+    //startNextWave();
     
 }
 
@@ -144,7 +190,7 @@ void TowerDefenseScene::startNextWave(){
     for (int i=0; i<waves[curWave].foes.size(); i++){
         TDFoe newFoe;
         FoeType type = waves[curWave].foes[i];
-        newFoe.setup(type, &foePics[type], &path, pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes);
+        newFoe.setup(type, &foePics[type], &path, pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes, myPanel);
         foes.push_back(newFoe);
     }
     
@@ -155,6 +201,13 @@ void TowerDefenseScene::startNextWave(){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::updateCustom(){
+    
+    //if the game just started, the first update is used to spawn waves and not do anything else
+    //this is to make sure the game has a reference to the control panel before it creates any foes
+    if (curWave == -1){
+        startNextWave();
+        return;
+    }
     
     int numCycles = debugFastForward ? 4 : 1;
     
@@ -247,7 +300,7 @@ void TowerDefenseScene::updateCustom(){
                 if (curWave < waves.size()-1){
                     startNextWave();
                 }else{
-                    cout<<"YOU WIN"<<endl;
+                    setMessage("YOU WIN!", 1);
                 }
             }
         }
@@ -406,15 +459,15 @@ void TowerDefenseScene::spawnFireball(ofVec2f pos){
 void TowerDefenseScene::spawnStrongBabies(TDFoe parent){
     float angle = ofRandom(TWO_PI);
     float dist = 50;
-    for (int i=0; i<2; i++){
+    for (int i=0; i<numStrongBabies; i++){
         
         ofVec2f newPos;
         newPos.x = parent.pos.x + cos(angle) * dist;
         newPos.y = parent.pos.y + sin(angle) * dist;
-        angle +=  PI;
+        angle +=  TWO_PI/numStrongBabies;
         
         TDFoe newFoe;
-        newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB], &path, 0);
+        newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB], &path, 0, myPanel);
         newFoe.setPos(newPos, parent.nextNodeID);
         foes.push_back(newFoe);
     }
@@ -466,6 +519,7 @@ void TowerDefenseScene::setWavesFromFile(string fileName){
                         if (line[i] == 'D')     thisWave.foes.push_back((FOE_DUMB));
                         if (line[i] == 'S')     thisWave.foes.push_back((FOE_STRONG));
                         if (line[i] == 'F')     thisWave.foes.push_back((FOE_FAST));
+                        if (line[i] == 'W')     thisWave.foes.push_back((FOE_WAVE));
                         if (line[i] == 'I')     thisWave.foes.push_back((FOE_IGNORE));
                     }
                 }

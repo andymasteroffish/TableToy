@@ -5,20 +5,18 @@
 ;After that each char represents a foe. 
 ;line breaks and spaces are ignored so you can space the foe chars out however you like
 
-
 WAVE test
 5000
-D D D
+DSDWDID
 
 WAVE intro
 2000
 DDDDD
-S
+WSW
 I
 DDFFDD
-S
+WSW
 DD
-
 
 WAVE ignore city
 1000

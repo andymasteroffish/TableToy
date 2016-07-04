@@ -10,13 +10,14 @@
 #define __emptyExample__TDFoe__
 
 #include "ofMain.h"
+#include "ofxControlPanel.h"
 
 enum FoeType{ FOE_DUMB, FOE_STRONG, FOE_FAST, FOE_WAVE, FOE_IGNORE  };
 
 class TDFoe{
 public:
     
-    void setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay);
+    void setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay, ofxControlPanel * panel);
     void setPos(ofVec2f _pos, int _nextNode);
     void update(float deltaTime);
     void draw(float alphaPrc);
@@ -24,7 +25,7 @@ public:
     void takeDamage(float dmg);
     void freeze(float time);
     
-    void setStatsFromType();
+    //void setStatsFromType();
     
     FoeType type;
     
@@ -39,6 +40,10 @@ public:
     
     float freezeTimer;
     float freezeSpeedReduction;
+    
+    float waveDist, wavePeriod;
+    float ignoreFoeSpeedIncrease;
+    float randVal;
     
     ofVec2f velocity;   //set based on angle and speed
     ofVec2f basePos, pos;

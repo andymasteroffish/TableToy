@@ -33,6 +33,7 @@ public:
 class TowerDefenseScene : public Scene{
 public:
     
+    //TowerDefenseScene(ofxControlPanel * panel);
     
     void setupCustom();
     void setupPanelValues(ofxControlPanel * panel);
@@ -79,6 +80,7 @@ public:
     
     //the actual foes on screen
     vector<TDFoe> foes;
+    int numStrongBabies;
     
     vector<TDBullet> bullets;
     vector<TDFireball> fireballs;

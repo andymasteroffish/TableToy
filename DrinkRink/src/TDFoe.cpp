@@ -9,7 +9,7 @@
 #include "TDFoe.h"
 
 
-void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay){
+void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay, ofxControlPanel * panel){
     
     type = _type;
     pic = _pic;
@@ -21,12 +21,24 @@ void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float 
     freezeTimer = 0;
     freezeSpeedReduction = 0.25;    //THIS IS BEING OVERWRITTEN EVERY FRAME BY CONTROL PANEL
     
-    //standard values
-    startingHealth = 3;
-    speed = 100 * 2;
-    hitCircleSize = 40;
+    string typeXMLNames[5] = {"DUMB", "STRONG", "FAST", "WAVE", "IGNORE"};
     
-    setStatsFromType();
+    startingHealth = panel->getValueF(typeXMLNames[type]+"_FOE_HP");
+    speed = panel->getValueF(typeXMLNames[type]+"_FOE_SPEED");
+    hitCircleSize = panel->getValueF("FOE_HIT_CIRCLE");
+    
+    waveDist = panel->getValueF("WAVE_FOE_WAVE_DIST");
+    wavePeriod = panel->getValueF("WAVE_FOE_WAVE_PERIOD");
+    ignoreFoeSpeedIncrease = panel->getValueF("IGNORE_FOE_SPEED_INCREASE");
+    
+    randVal = ofRandom(0,1000);
+    
+    //standard values
+//    startingHealth = 3;
+//    speed = 200;
+//    hitCircleSize = 40;
+    
+//    setStatsFromType();
     
     minDistFromNodeToAdvance = speed / 20;
     
@@ -71,8 +83,8 @@ void TDFoe::update(float deltaTime){
         //the wave foe moves along a sin wave
         else{
             
-            float adjustAngle = ofGetElapsedTimef() * 2;
-            float dist = 100;
+            float adjustAngle = (ofGetElapsedTimef()+randVal) * wavePeriod;// 2;
+            float dist = waveDist; //100;
             pos.x = basePos.x + cos(adjustAngle) * dist;
             pos.y = basePos.y + sin(adjustAngle) * dist;
         }
@@ -142,7 +154,7 @@ void TDFoe::takeDamage(float dmg){
     
     //for the ignore type, the first time they take damage, they shoot towards the goal
     if (health == startingHealth-1 && type == FOE_IGNORE){
-        speed *= 1.5;
+        speed *= ignoreFoeSpeedIncrease;// 1.5;
         if (nextNodeID < path->size()-2){
             nextNodeID = path->size()-2;
             findNextNode(false);
@@ -154,19 +166,19 @@ void TDFoe::freeze(float time){
     freezeTimer = time;
 }
 
-void TDFoe::setStatsFromType(){
-    if (type == FOE_DUMB){
-        //do nothing
-    }
-    if (type == FOE_STRONG){
-        startingHealth *= 2;
-        speed *= 0.5;
-    }
-    if (type == FOE_FAST){
-        speed *= 2;
-    }
-    if (type == FOE_WAVE){
-        speed *= 0.75;
-        startingHealth += 1;
-    }
-}
+//void TDFoe::setStatsFromType(){
+//    if (type == FOE_DUMB){
+//        //do nothing
+//    }
+//    if (type == FOE_STRONG){
+//        startingHealth *= 2;
+//        speed *= 0.5;
+//    }
+//    if (type == FOE_FAST){
+//        speed *= 2;
+//    }
+//    if (type == FOE_WAVE){
+//        speed *= 0.75;
+//        startingHealth += 1;
+//    }
+//}
