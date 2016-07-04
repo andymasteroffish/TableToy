@@ -553,6 +553,8 @@ void ofApp::mousePressed(int x, int y, int button){
     if (showPanel){
         panel.mousePressed(x,y,button);
     }
+    
+    //cout<<".set("<<x/displayScale<<","<<y/displayScale<<");"<<endl;
 }
 
 //--------------------------------------------------------------

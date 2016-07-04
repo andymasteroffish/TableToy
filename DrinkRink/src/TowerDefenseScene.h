@@ -61,6 +61,8 @@ public:
     
     void setWavesFromFile(string fileName);
     
+    void setPath(int curWave);
+    
     //displaying shit
     BetterFont fontBig;
     

@@ -37,16 +37,6 @@ void TowerDefenseScene::setupCustom(){
     
     //gameW 2560
     //gameH 800
-    path.clear();
-    path.resize(8);
-    path[0].set(100,200);
-    path[1].set(500,200);
-    path[2].set(500,600);
-    path[3].set(1110,600);
-    path[4].set(1110,250);
-    path[5].set(1800,250);
-    path[6].set(1800,400);
-    path[7].set(2200,400);
     
     
 }
@@ -182,6 +172,8 @@ void TowerDefenseScene::resetCustom(){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::startNextWave(){
     curWave++;
+    
+    setPath(curWave);
     
     //cout<<"start wave "<<curWave<<endl;
     
@@ -538,4 +530,37 @@ void TowerDefenseScene::setWavesFromFile(string fileName){
 //    }
     
     
+}
+
+
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::setPath(int curWave){
+    path.clear();
+    
+    if (curWave%2 == 0){
+        path.resize(8);
+        path[0].set(100,200);
+        path[1].set(500,200);
+        path[2].set(500,600);
+        path[3].set(1110,600);
+        path[4].set(1110,250);
+        path[5].set(1800,250);
+        path[6].set(1800,400);
+        path[7].set(2200,400);
+    }
+    
+    else{
+        path.resize(10);
+        path[0].set(92,428);
+        path[1].set(496,98);
+        path[2].set(848,100);
+        path[3].set(844,408);
+        path[4].set(516,444);
+        path[5].set(508,688);
+        path[6].set(1320,684);
+        path[7].set(1626,102);
+        path[8].set(1930,646);
+        path[9].set(2344,398);
+    }
 }

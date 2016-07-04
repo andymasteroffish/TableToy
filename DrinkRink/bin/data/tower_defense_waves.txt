@@ -6,6 +6,11 @@
 ;line breaks and spaces are ignored so you can space the foe chars out however you like
 
 WAVE test
+1000
+DD
+
+
+WAVE test
 5000
 DSDWDID
 
