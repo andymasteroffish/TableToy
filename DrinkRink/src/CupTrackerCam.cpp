@@ -405,14 +405,11 @@ void CupTrackerCam::checkARTag(int idNum){
     
     //cout<<"putting "<<idNum<<" at "<<gameWorldX<<" , "<<gameWorldY<<endl;
     
-    //getting the angle is a bit of a chore
-    vector<ofPoint> corners;
-    ARKit.getDetectedMarkerCorners(idNum, corners);
-    int dir = ARKit.getDetectedMarkerDirection(idNum);
     
-    int cornerToUse = 2-dir;
-    if (cornerToUse < 0)    cornerToUse+=4;
-    float tagAngle = atan2(tagPos.y-corners[cornerToUse].y, tagPos.x-corners[cornerToUse].x);
+    //getting the angle isn't so bad
+    ofQuaternion q = ARKit.getOrientationQuaternion(idNum);
+    
+    float tagAngle = atan2(2*(q.x()*q.y()+q.w()*q.z()),q.w()*q.w()+q.x()*q.x()-q.y()*q.y()-q.z()*q.z());
     
     //angle needs to be flipped if image s flipped
     if (flipHorz){
