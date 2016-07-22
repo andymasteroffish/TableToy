@@ -23,6 +23,9 @@ public:
     ofImage walkCycles[NUM_TD_FOES][6];
     int walkCycleLength[NUM_TD_FOES];
     
+    ofImage deathCycles[NUM_TD_FOES][8];
+    int deathCycleLength[NUM_TD_FOES];
+    
 };
 
 #endif /* defined(__emptyExample__TDAnimationMinder__) */

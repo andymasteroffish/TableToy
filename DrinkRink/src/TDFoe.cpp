@@ -25,8 +25,8 @@ void TDFoe::setup(FoeType _type, TDAnimationMinder * _anims, vector<ofVec2f> * _
     curFrame = 0;
     frameTime = 0.15;
     
-//    numWalkFrames = 3;
-//    if (type == FOE_DUMB)   numWalkFrames = 4;
+    //    numWalkFrames = 3;
+    //    if (type == FOE_DUMB)   numWalkFrames = 4;
     
     //game shit
     freezeTimer = 0;
@@ -150,8 +150,8 @@ void TDFoe::draw(float alphaPrc){
     ofRotate( ofRadToDeg(displayAngle) - 90 );  //REMOVE THIS TWEAK ONCE THE IMAGES ARE FACING THE RIGHT WAY
     
     //hit circle
-//    ofSetColor(200, 0, 0, 100*alphaPrc);
-//    ofCircle(0, 0, hitCircleSize);
+    //    ofSetColor(200, 0, 0, 100*alphaPrc);
+    //    ofCircle(0, 0, hitCircleSize);
     
     //sprite
     ofSetColor(255, 255*alphaPrc);
