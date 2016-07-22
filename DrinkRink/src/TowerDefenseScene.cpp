@@ -18,6 +18,7 @@ void TowerDefenseScene::setupCustom(){
     pauseBeforeFirstFoeEachWave = 1.5;
     
     curWave = 0;
+    curPath = 0;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -35,6 +36,11 @@ void TowerDefenseScene::setupCustom(){
     
     fontBig.loadFont("frabk.ttf", 80);
     
+    bgPics.resize(2);
+    for (int i=0; i<bgPics.size(); i++){
+        bgPics[i].loadImage("td_paths/path"+ofToString(i)+".png");
+    }
+    
     //gameW 2560
     //gameH 800
     
@@ -50,6 +56,7 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     //basic shit
     panel->addToggle("Reset", "TD_RESET", false);
     panel->addToggle("Fast forward", "TD_FAST_FORWARD", false);
+    panel->addToggle("Show Path", "TD_SHOW_PATH", false);
     
     //towers
     panel->addLabel("");
@@ -143,8 +150,10 @@ void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
     }
     
     debugFastForward = panel->getValueB("TD_FAST_FORWARD");
+    debugShowPath = panel->getValueB("TD_SHOW_PATH");
     
     numStrongBabies = panel->getValueI("STRONG_FOE_BABY_NUM");
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -308,7 +317,14 @@ void TowerDefenseScene::updateCustom(){
 }
 
 //--------------------------------------------------------------------------------------------
+void TowerDefenseScene::drawBackgroundCustom(){
+    ofSetColor(255, 255*alphaPrc);
+    bgPics[curPath].draw(0, 0);
+}
+
+//--------------------------------------------------------------------------------------------
 void TowerDefenseScene::drawCustom(){
+    
     
     //draw the home
     ofFill();
@@ -329,12 +345,14 @@ void TowerDefenseScene::drawCustom(){
     }
     
     //debug draw the path
-    ofSetColor(20);
-    for (int i=0; i<path.size(); i++){
-        if (i>0){
-            ofLine(path[i], path[i-1]);
+    if (debugShowPath){
+        ofSetColor(20);
+        for (int i=0; i<path.size(); i++){
+            if (i>0){
+                ofLine(path[i], path[i-1]);
+            }
+            ofCircle(path[i].x, path[i].y, 10);
         }
-        ofCircle(path[i].x, path[i].y, 10);
     }
     
     
@@ -536,31 +554,68 @@ void TowerDefenseScene::setWavesFromFile(string fileName){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::setPath(int curWave){
+    
+    curPath ++;
+    if (curPath >= 2){
+        curPath = 0;
+    }
+    
     path.clear();
     
-    if (curWave%2 == 0){
-        path.resize(8);
-        path[0].set(100,200);
-        path[1].set(500,200);
-        path[2].set(500,600);
-        path[3].set(1110,600);
-        path[4].set(1110,250);
-        path[5].set(1800,250);
-        path[6].set(1800,400);
-        path[7].set(2200,400);
-    }
+    ofBuffer buffer = ofBufferFromFile("td_paths/path"+ofToString(curPath)+".txt");
     
-    else{
-        path.resize(10);
-        path[0].set(92,428);
-        path[1].set(496,98);
-        path[2].set(848,100);
-        path[3].set(844,408);
-        path[4].set(516,444);
-        path[5].set(508,688);
-        path[6].set(1320,684);
-        path[7].set(1626,102);
-        path[8].set(1930,646);
-        path[9].set(2344,398);
+    if (buffer.size()){
+        while(!buffer.isLastLine()){
+            string line = buffer.getNextLine();
+            string xString = "";
+            string yString = "";
+            bool hitComma = false;
+            if (line.length() >= 3){
+                for (int i=0; i<line.length(); i++){
+                    if (line[i] == ','){
+                        hitComma = true;
+                    }
+                    else if (hitComma == false){
+                        xString += line[i];
+                    }else{
+                        yString += line[i];
+                    }
+                }
+                
+                ofVec2f newPos;
+                newPos.x = std::atof(xString.c_str());
+                newPos.y = std::atof(yString.c_str());
+                path.push_back(newPos);
+            }
+        }
+        
+    }else{
+        cout<<"you done fucked up that file, brah"<<endl;
     }
+//    
+//    if (curWave%2 == 0){
+//        path.resize(8);
+//        path[0].set(100,200);
+//        path[1].set(500,200);
+//        path[2].set(500,600);
+//        path[3].set(1110,600);
+//        path[4].set(1110,250);
+//        path[5].set(1800,250);
+//        path[6].set(1800,400);
+//        path[7].set(2200,400);
+//    }
+//    
+//    else{
+//        path.resize(10);
+//        path[0].set(92,428);
+//        path[1].set(496,98);
+//        path[2].set(848,100);
+//        path[3].set(844,408);
+//        path[4].set(516,444);
+//        path[5].set(508,688);
+//        path[6].set(1320,684);
+//        path[7].set(1626,102);
+//        path[8].set(1930,646);
+//        path[9].set(2344,398);
+//    }
 }

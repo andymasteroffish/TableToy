@@ -48,6 +48,7 @@ public:
     ofVec2f velocity;   //set based on angle and speed
     ofVec2f basePos, pos;
     float curAngle;
+    float displayAngle;
     
     
     vector<ofVec2f> * path;

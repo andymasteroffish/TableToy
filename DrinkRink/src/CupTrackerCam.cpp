@@ -26,9 +26,6 @@ void CupTrackerCam::setupCustom(){
     ofVideoPlayer * thisGrabber = new ofVideoPlayer();
     vidGrabber.push_back(thisGrabber);
     vidGrabber[0]->loadMovie("/Users/awallace/Documents/projects/drink_rink/test_vids/ar_split.mp4");
-    //vidGrabber[0]->loadMovie("vid/ps3.mov");
-    //vidGrabber[0]->loadMovie("vid/spinners_no_border.mov");
-    //vidGrabber[0]->loadMovie("vid/mostly_still.mov");
     vidGrabber[0]->play();
     takeBGImageOnStart = false;
     

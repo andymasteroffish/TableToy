@@ -42,6 +42,7 @@ public:
     void startNextWave();
     void updateCustom();
     
+    void drawBackgroundCustom();
     void drawCustom();
     
     void keyPressed(int key);
@@ -77,8 +78,14 @@ public:
     float pauseBetweenWavesTimer;
     float pauseBeforeFirstFoeEachWave;
     
+    
     //list of poitns for foes to follow
+    int curPath;
     vector<ofVec2f> path;
+    bool debugShowPath;
+    
+    //background images
+    vector<ofImage> bgPics;
     
     //the actual foes on screen
     vector<TDFoe> foes;

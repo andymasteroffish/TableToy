@@ -47,6 +47,8 @@ void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float 
     nextNodeID = 0;
     findNextNode(true);
     
+    displayAngle = curAngle;
+    
     reachedTheEnd = false;
     killMe = false;
 }
@@ -94,6 +96,30 @@ void TDFoe::update(float deltaTime){
         }
     }
     
+    //xeno the display angle to catch up with the actual angle
+    float angleXeno = 0.8;
+    
+    float angleAdjust = 0;
+    while (curAngle + angleAdjust < displayAngle - TWO_PI){
+        angleAdjust += TWO_PI;
+    }
+    while (curAngle - angleAdjust > displayAngle + TWO_PI){
+        angleAdjust -= TWO_PI;
+    }
+    
+    float targetAngleNorm = curAngle + angleAdjust;
+    float targetAngleHigh = curAngle + TWO_PI + angleAdjust;
+    float targetAngleLow = curAngle - TWO_PI + angleAdjust;
+    float targetAngle = targetAngleNorm;
+    
+    if ( abs(displayAngle-targetAngleLow)<abs(displayAngle-targetAngle) && abs(displayAngle-targetAngleLow)<abs(displayAngle-targetAngleHigh)){
+        targetAngle = targetAngleLow;
+    }
+    if ( abs(displayAngle-targetAngleHigh)<abs(displayAngle-targetAngle) && abs(displayAngle-targetAngleHigh)<abs(displayAngle-targetAngleLow)){
+        targetAngle = targetAngleHigh;
+    }
+    
+    displayAngle = angleXeno * displayAngle + (1-angleXeno) * targetAngle;
     
     
     
@@ -107,7 +133,7 @@ void TDFoe::draw(float alphaPrc){
     
     ofPushMatrix();
     ofTranslate(pos.x, pos.y);
-    ofRotate( ofRadToDeg(curAngle) );
+    ofRotate( ofRadToDeg(displayAngle) );
     
     //hit circle
 //    ofSetColor(200, 0, 0, 100*alphaPrc);
