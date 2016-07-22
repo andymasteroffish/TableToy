@@ -81,7 +81,7 @@ public:
     
     //list of poitns for foes to follow
     int curPath;
-    vector<ofVec2f> path;
+    vector<ofVec2f> path[2];
     bool debugShowPath;
     
     //background images

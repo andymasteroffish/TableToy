@@ -18,7 +18,7 @@ void TowerDefenseScene::setupCustom(){
     pauseBeforeFirstFoeEachWave = 1.5;
     
     curWave = 0;
-    curPath = 0;
+    curPath = 1;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -38,7 +38,7 @@ void TowerDefenseScene::setupCustom(){
     
     fontBig.loadFont("frabk.ttf", 80);
     
-    bgPics.resize(2);
+    bgPics.resize(3);
     for (int i=0; i<bgPics.size(); i++){
         bgPics[i].loadImage("td_paths/path"+ofToString(i)+".png");
     }
@@ -196,10 +196,13 @@ void TowerDefenseScene::startNextWave(){
     
     foes.clear();
     
+    bool canSwitchPaths = path[1].size() > 0;
+    
     for (int i=0; i<waves[curWave].foes.size(); i++){
         TDFoe newFoe;
         FoeType type = waves[curWave].foes[i];
-        newFoe.setup(type, &foePics[type][0], &path, pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes, myPanel);
+        int thisPath = canSwitchPaths ? i%2 : 0;
+        newFoe.setup(type, &foePics[type][0], &path[thisPath], pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes, myPanel);
         foes.push_back(newFoe);
     }
     
@@ -338,7 +341,8 @@ void TowerDefenseScene::drawCustom(){
     ofFill();
     float homeSize = 60;
     ofSetColor(ofColor::purple);
-    ofCircle(path[path.size()-1].x, path[path.size()-1].y, homeSize);
+    ofVec2f homePos = path[0][path[0].size()-1];
+    ofCircle(homePos.x, homePos.y, homeSize);
     
     //show the player health aorund if
     float angleSpacing = TWO_PI/playerHealth;
@@ -347,19 +351,21 @@ void TowerDefenseScene::drawCustom(){
     for (int i=0; i<playerHealth; i++){
         ofSetColor(ofColor::pink);
         float thisAngle = angleSpacing*i + ofGetElapsedTimef()*0.5;
-        float xPos = path[path.size()-1].x + cos(thisAngle) * heartDist;
-        float yPos = path[path.size()-1].y + sin(thisAngle) * heartDist;
+        float xPos = homePos.x + cos(thisAngle) * heartDist;
+        float yPos = homePos.y + sin(thisAngle) * heartDist;
         ofCircle(xPos, yPos, heartSize);
     }
     
     //debug draw the path
     if (debugShowPath){
         ofSetColor(20);
-        for (int i=0; i<path.size(); i++){
-            if (i>0){
-                ofLine(path[i], path[i-1]);
+        for (int k=0; k<2; k++){
+            for (int i=0; i<path[k].size(); i++){
+                if (i>0){
+                    ofLine(path[k][i], path[k][i-1]);
+                }
+                ofCircle(path[k][i].x, path[k][i].y, 10);
             }
-            ofCircle(path[i].x, path[i].y, 10);
         }
     }
     
@@ -485,7 +491,7 @@ void TowerDefenseScene::spawnStrongBabies(TDFoe parent){
         angle +=  TWO_PI/numStrongBabies;
         
         TDFoe newFoe;
-        newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB][0], &path, 0, myPanel);
+        newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB][0], parent.path, 0, myPanel);
         newFoe.setPos(newPos, parent.nextNodeID);
         foes.push_back(newFoe);
     }
@@ -564,13 +570,16 @@ void TowerDefenseScene::setWavesFromFile(string fileName){
 void TowerDefenseScene::setPath(int curWave){
     
     curPath ++;
-    if (curPath >= 2){
+    if (curPath >= bgPics.size()){
         curPath = 0;
     }
     
-    path.clear();
+    path[0].clear();
+    path[1].clear();
     
     ofBuffer buffer = ofBufferFromFile("td_paths/path"+ofToString(curPath)+".txt");
+    
+    int curPath = 0;
     
     if (buffer.size()){
         while(!buffer.isLastLine()){
@@ -578,7 +587,10 @@ void TowerDefenseScene::setPath(int curWave){
             string xString = "";
             string yString = "";
             bool hitComma = false;
-            if (line.length() >= 3){
+            if (line == "------"){
+                curPath++;
+            }
+            else if (line.length() >= 3){
                 for (int i=0; i<line.length(); i++){
                     if (line[i] == ','){
                         hitComma = true;
@@ -593,7 +605,7 @@ void TowerDefenseScene::setPath(int curWave){
                 ofVec2f newPos;
                 newPos.x = std::atof(xString.c_str());
                 newPos.y = std::atof(yString.c_str());
-                path.push_back(newPos);
+                path[curPath].push_back(newPos);
             }
         }
         
