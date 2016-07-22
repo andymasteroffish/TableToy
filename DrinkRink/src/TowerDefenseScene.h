@@ -18,6 +18,7 @@
 #include "TowerTD.h"
 
 #include "TDFoe.h"
+#include "TDAnimationMinder.h"
 
 #include "TDBullet.h"
 #include "TDFireball.h"
@@ -97,10 +98,12 @@ public:
     
     int playerHealth;
     
-    
-    //images to pass to game elements
+    //animations and other images
+    TDAnimationMinder anims;
     ofImage towerPics[TD_FIRE+1];
-    ofImage foePics[FOE_IGNORE+1][NUM_TD_WALK_FRAMES];
+    
+//    //images to pass to game elements
+//    ofImage foeWalkPics[FOE_IGNORE+1][5];   //second number should be the 
     
     //debug stuff
     bool debugFastForward;

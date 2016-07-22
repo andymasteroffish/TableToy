@@ -18,7 +18,7 @@ void TowerDefenseScene::setupCustom(){
     pauseBeforeFirstFoeEachWave = 1.5;
     
     curWave = 0;
-    curPath = 1;
+    curPath = -1;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -28,13 +28,14 @@ void TowerDefenseScene::setupCustom(){
     towerPics[1].loadImage("pic/td/tower_ice.png");
     towerPics[2].loadImage("pic/td/tower_fire.png");
     
-    for (int i=0; i<NUM_TD_WALK_FRAMES; i++){
-        foePics[FOE_DUMB][i].loadImage("pic/td/foe_dumb"+ofToString(i)+".png");
-        foePics[FOE_STRONG][i].loadImage("pic/td/foe_strong"+ofToString(i)+".png");
-        foePics[FOE_FAST][i].loadImage("pic/td/foe_fast"+ofToString(i)+".png");
-        foePics[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
-        foePics[FOE_IGNORE][i].loadImage("pic/td/foe_ignore"+ofToString(i)+".png");
-    }
+    anims.setup();
+//    for (int i=0; i<5; i++){
+//        foeWalkPics[FOE_DUMB][i].loadImage("pic/td/foe_dumb"+ofToString(i)+".png");
+//        foeWalkPics[FOE_STRONG][i].loadImage("pic/td/foe_strong"+ofToString(i)+".png");
+//        foeWalkPics[FOE_FAST][i].loadImage("pic/td/foe_fast"+ofToString(i)+".png");
+//        foeWalkPics[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
+//        foeWalkPics[FOE_IGNORE][i].loadImage("pic/td/foe_ignore"+ofToString(i)+".png");
+//    }
     
     fontBig.loadFont("frabk.ttf", 80);
     
@@ -202,7 +203,7 @@ void TowerDefenseScene::startNextWave(){
         TDFoe newFoe;
         FoeType type = waves[curWave].foes[i];
         int thisPath = canSwitchPaths ? i%2 : 0;
-        newFoe.setup(type, &foePics[type][0], &path[thisPath], pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes, myPanel);
+        newFoe.setup(type, &anims, &path[thisPath], pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes, myPanel);
         foes.push_back(newFoe);
     }
     
@@ -491,7 +492,7 @@ void TowerDefenseScene::spawnStrongBabies(TDFoe parent){
         angle +=  TWO_PI/numStrongBabies;
         
         TDFoe newFoe;
-        newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB][0], parent.path, 0, myPanel);
+        newFoe.setup(FOE_DUMB, &anims, parent.path, 0, myPanel);
         newFoe.setPos(newPos, parent.nextNodeID);
         foes.push_back(newFoe);
     }

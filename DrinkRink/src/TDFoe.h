@@ -11,13 +11,14 @@
 
 #include "ofMain.h"
 #include "ofxControlPanel.h"
+#include "TDAnimationMinder.h"
 
-enum FoeType{ FOE_DUMB, FOE_STRONG, FOE_FAST, FOE_WAVE, FOE_IGNORE  };
+
 
 class TDFoe{
 public:
     
-    void setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay, ofxControlPanel * panel);
+    void setup(FoeType _type, TDAnimationMinder * _anims, vector<ofVec2f> * _path, float delay, ofxControlPanel * panel);
     void setPos(ofVec2f _pos, int _nextNode);
     void update(float deltaTime);
     void draw(float alphaPrc);
@@ -30,13 +31,11 @@ public:
     FoeType type;
     
     //animations
-#define NUM_TD_WALK_FRAMES 3
-    ofImage * pic;
+    TDAnimationMinder * anims;
     
     float animTimer;
     float frameTime;
     int curFrame;
-    
     
     //movement and game values
     float delayTimer;

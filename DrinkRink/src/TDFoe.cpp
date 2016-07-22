@@ -9,12 +9,12 @@
 #include "TDFoe.h"
 
 
-void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay, ofxControlPanel * panel){
+void TDFoe::setup(FoeType _type, TDAnimationMinder * _anims, vector<ofVec2f> * _path, float delay, ofxControlPanel * panel){
     
     randVal = ofRandom(0,1000);
     
     type = _type;
-    pic = _pic;
+    anims = _anims;
     
     path = _path;
     
@@ -24,6 +24,9 @@ void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float 
     animTimer = 0;
     curFrame = 0;
     frameTime = 0.15;
+    
+//    numWalkFrames = 3;
+//    if (type == FOE_DUMB)   numWalkFrames = 4;
     
     //game shit
     freezeTimer = 0;
@@ -129,7 +132,7 @@ void TDFoe::update(float deltaTime){
     if (animTimer >= frameTime){
         animTimer -= frameTime;
         curFrame++;
-        if (curFrame >= NUM_TD_WALK_FRAMES){
+        if (curFrame >= anims->walkCycleLength[type]){
             curFrame = 0;
         }
     }
@@ -144,7 +147,7 @@ void TDFoe::draw(float alphaPrc){
     
     ofPushMatrix();
     ofTranslate(pos.x, pos.y);
-    ofRotate( ofRadToDeg(displayAngle) );
+    ofRotate( ofRadToDeg(displayAngle) - 90 );  //REMOVE THIS TWEAK ONCE THE IMAGES ARE FACING THE RIGHT WAY
     
     //hit circle
 //    ofSetColor(200, 0, 0, 100*alphaPrc);
@@ -156,7 +159,10 @@ void TDFoe::draw(float alphaPrc){
         //tint blue when frozen
         ofSetColor(100,100,255, 255*alphaPrc);
     }
-    (pic+curFrame)->draw(-pic->getWidth()/2, -pic->getHeight()/2);
+    
+    //cout<<"type :"<<type<<"   frame:"<<curFrame<<endl;
+    ofImage * thisPic = &anims->walkCycles[type][curFrame];
+    thisPic->draw(-thisPic->getWidth()/2, -thisPic->getHeight()/2);
     
     ofPopMatrix();
     

@@ -7,8 +7,9 @@
 
 WAVE test
 1000
-DD
-
+DSFWI
+DSFWI
+DSFWI
 
 WAVE test
 5000
