@@ -57,6 +57,7 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->addToggle("Reset", "TD_RESET", false);
     panel->addToggle("Fast forward", "TD_FAST_FORWARD", false);
     panel->addToggle("Show Path", "TD_SHOW_PATH", false);
+    panel->addToggle("Skip Wave", "TD_SKIP_WAVE", false);
     
     //towers
     panel->addLabel("");
@@ -121,6 +122,11 @@ void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
     if (panel->getValueB("TD_RESET")){
         panel->setValueB("TD_RESET", false);
         resetCustom();
+    }
+    
+    if (panel->getValueB("TD_SKIP_WAVE")){
+        panel->setValueB("TD_SKIP_WAVE", false);
+        foes.clear();
     }
     
     //go through and set fire times
