@@ -15,7 +15,7 @@
 class TDBullet{
 public:
     
-    void setup(ofVec2f _pos, float angle, bool _isFire, ofxControlPanel * panel);
+    void setup(ofVec2f _pos, float angle, float startDist, bool _isFire, ofxControlPanel * panel);
     void update(float deltaTime);
     void draw(float alphaPrc);
     

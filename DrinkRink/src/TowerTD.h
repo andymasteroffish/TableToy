@@ -34,6 +34,13 @@ public:
     float modTimeLastFrame;
     float modTimeOffset;
     
+    //shot animaiton
+    float shotAnimationTimer;
+    float shotAnimationTime;
+    float shotAnimationCurve;
+    float curScale;
+    float shootScale;
+    
 };
 
 #endif /* defined(__emptyExample__TowerTD__) */

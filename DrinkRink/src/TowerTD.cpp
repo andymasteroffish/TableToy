@@ -18,6 +18,14 @@ void TowerTD::customSetup(){
     spawnShot = false;
     
     modTimeOffset = uniqueID * 0.11;
+    
+    //animaitons
+    shotAnimationTime = 0.2;
+    shotAnimationCurve = 0.75;
+    shootScale = 1.2;
+    
+    shotAnimationTimer = shotAnimationTime;
+    
 }
 
 void TowerTD::setupTowerDefense(TD_TOWER_TYPE type, ofImage * _pic){
@@ -44,8 +52,17 @@ void TowerTD::customUpdate(){
     float modTime = fmod(ofGetElapsedTimef()+modTimeOffset, timeBetweenShots);
     if (modTime < modTimeLastFrame){
         spawnShot = true;
+        shotAnimationTimer = 0;
     }
     modTimeLastFrame = modTime;
+    
+    curScale = 1;
+    if (shotAnimationTimer < shotAnimationTime){
+        shotAnimationTimer += deltaTime;
+        float prc = shotAnimationTimer/shotAnimationTime;
+        prc = powf(prc, shotAnimationCurve);
+        curScale = shootScale * (1-prc) + 1 * prc;
+    }
     
 }
 
@@ -55,6 +72,7 @@ void TowerTD::customDraw(float alphaPrc){
     ofTranslate(pos.x, pos.y);
     
     ofRotate( ofRadToDeg(angle) );
+    ofScale(curScale, curScale);
     
     ofSetColor(255, 255 * alphaPrc);
     pic->draw(-pic->getWidth()/2, -pic->getHeight()/2);

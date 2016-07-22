@@ -9,7 +9,7 @@
 #include "TDBullet.h"
 
 
-void TDBullet::setup(ofVec2f _pos, float angle, bool _isFire, ofxControlPanel * panel){
+void TDBullet::setup(ofVec2f _pos, float angle, float startDist, bool _isFire, ofxControlPanel * panel){
     
     pos.set(_pos);
     
@@ -34,6 +34,9 @@ void TDBullet::setup(ofVec2f _pos, float angle, bool _isFire, ofxControlPanel * 
         col.set(250,20,10);
     }
     
+    
+    pos.x += cos(angle) * startDist;
+    pos.y += sin(angle) * startDist;
     
     vel.x = speed * cos(angle);
     vel.y = speed * sin(angle);
