@@ -100,7 +100,7 @@ public:
     
     //images to pass to game elements
     ofImage towerPics[TD_FIRE+1];
-    ofImage foePics[FOE_IGNORE+1];
+    ofImage foePics[FOE_IGNORE+1][NUM_TD_WALK_FRAMES];
     
     //debug stuff
     bool debugFastForward;

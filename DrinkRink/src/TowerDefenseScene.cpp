@@ -28,11 +28,13 @@ void TowerDefenseScene::setupCustom(){
     towerPics[1].loadImage("pic/td/tower_ice.png");
     towerPics[2].loadImage("pic/td/tower_fire.png");
     
-    foePics[FOE_DUMB].loadImage("pic/td/foe_dumb.png");
-    foePics[FOE_STRONG].loadImage("pic/td/foe_strong.png");
-    foePics[FOE_FAST].loadImage("pic/td/foe_fast.png");
-    foePics[FOE_WAVE].loadImage("pic/td/foe_wave.png");
-    foePics[FOE_IGNORE].loadImage("pic/td/foe_ignore.png");
+    for (int i=0; i<NUM_TD_WALK_FRAMES; i++){
+        foePics[FOE_DUMB][i].loadImage("pic/td/foe_dumb"+ofToString(i)+".png");
+        foePics[FOE_STRONG][i].loadImage("pic/td/foe_strong"+ofToString(i)+".png");
+        foePics[FOE_FAST][i].loadImage("pic/td/foe_fast"+ofToString(i)+".png");
+        foePics[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
+        foePics[FOE_IGNORE][i].loadImage("pic/td/foe_ignore"+ofToString(i)+".png");
+    }
     
     fontBig.loadFont("frabk.ttf", 80);
     
@@ -197,7 +199,7 @@ void TowerDefenseScene::startNextWave(){
     for (int i=0; i<waves[curWave].foes.size(); i++){
         TDFoe newFoe;
         FoeType type = waves[curWave].foes[i];
-        newFoe.setup(type, &foePics[type], &path, pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes, myPanel);
+        newFoe.setup(type, &foePics[type][0], &path, pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes, myPanel);
         foes.push_back(newFoe);
     }
     
@@ -483,7 +485,7 @@ void TowerDefenseScene::spawnStrongBabies(TDFoe parent){
         angle +=  TWO_PI/numStrongBabies;
         
         TDFoe newFoe;
-        newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB], &path, 0, myPanel);
+        newFoe.setup(FOE_DUMB, &foePics[FOE_DUMB][0], &path, 0, myPanel);
         newFoe.setPos(newPos, parent.nextNodeID);
         foes.push_back(newFoe);
     }

@@ -11,6 +11,8 @@
 
 void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float delay, ofxControlPanel * panel){
     
+    randVal = ofRandom(0,1000);
+    
     type = _type;
     pic = _pic;
     
@@ -18,6 +20,12 @@ void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float 
     
     delayTimer = delay;
     
+    //animation
+    animTimer = 0;
+    curFrame = 0;
+    frameTime = 0.15;
+    
+    //game shit
     freezeTimer = 0;
     freezeSpeedReduction = 0.25;    //THIS IS BEING OVERWRITTEN EVERY FRAME BY CONTROL PANEL
     
@@ -31,24 +39,18 @@ void TDFoe::setup(FoeType _type, ofImage * _pic, vector<ofVec2f> * _path, float 
     wavePeriod = panel->getValueF("WAVE_FOE_WAVE_PERIOD");
     ignoreFoeSpeedIncrease = panel->getValueF("IGNORE_FOE_SPEED_INCREASE");
     
-    randVal = ofRandom(0,1000);
-    
-    //standard values
-//    startingHealth = 3;
-//    speed = 200;
-//    hitCircleSize = 40;
-    
-//    setStatsFromType();
+    health = startingHealth;
     
     minDistFromNodeToAdvance = speed / 20;
     
-    health = startingHealth;
     
+    //walking to the first node
     nextNodeID = 0;
     findNextNode(true);
     
     displayAngle = curAngle;
     
+    //some fl;age
     reachedTheEnd = false;
     killMe = false;
 }
@@ -122,6 +124,15 @@ void TDFoe::update(float deltaTime){
     displayAngle = angleXeno * displayAngle + (1-angleXeno) * targetAngle;
     
     
+    //animation
+    animTimer += deltaTime;
+    if (animTimer >= frameTime){
+        animTimer -= frameTime;
+        curFrame++;
+        if (curFrame >= NUM_TD_WALK_FRAMES){
+            curFrame = 0;
+        }
+    }
     
 }
 
@@ -145,7 +156,7 @@ void TDFoe::draw(float alphaPrc){
         //tint blue when frozen
         ofSetColor(100,100,255, 255*alphaPrc);
     }
-    pic->draw(-pic->getWidth()/2, -pic->getHeight()/2);
+    (pic+curFrame)->draw(-pic->getWidth()/2, -pic->getHeight()/2);
     
     ofPopMatrix();
     

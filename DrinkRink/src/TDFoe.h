@@ -29,8 +29,16 @@ public:
     
     FoeType type;
     
+    //animations
+#define NUM_TD_WALK_FRAMES 3
     ofImage * pic;
     
+    float animTimer;
+    float frameTime;
+    int curFrame;
+    
+    
+    //movement and game values
     float delayTimer;
     
     float startingHealth;
