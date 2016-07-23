@@ -18,7 +18,7 @@ void TDAnimationMinder::setup(){
     }
     deathCycleLength[FOE_DUMB] = 6;
     for (int i=0; i<deathCycleLength[FOE_DUMB]; i++){
-        walkCycles[FOE_DUMB][i].loadImage("pic/td/foe_dumb/eye_die_"+ofToString(i)+".png");
+        deathCycles[FOE_DUMB][i].loadImage("pic/td/foe_dumb/eye_die_"+ofToString(i)+".png");
     }
     
     walkCycleLength[FOE_STRONG] = 4;
@@ -27,7 +27,7 @@ void TDAnimationMinder::setup(){
     }
     deathCycleLength[FOE_STRONG] = 7;
     for (int i=0; i<deathCycleLength[FOE_STRONG]; i++){
-        walkCycles[FOE_STRONG][i].loadImage("pic/td/foe_strong/squid_die_"+ofToString(i)+".png");
+        deathCycles[FOE_STRONG][i].loadImage("pic/td/foe_strong/squid_die_"+ofToString(i)+".png");
     }
     
     walkCycleLength[FOE_FAST] = 6;
@@ -36,7 +36,7 @@ void TDAnimationMinder::setup(){
     }
     deathCycleLength[FOE_FAST] = 5;
     for (int i=0; i<deathCycleLength[FOE_FAST]; i++){
-        walkCycles[FOE_FAST][i].loadImage("pic/td/foe_fast/skate_die_"+ofToString(i)+".png");
+        deathCycles[FOE_FAST][i].loadImage("pic/td/foe_fast/skate_die_"+ofToString(i)+".png");
     }
     
     //wave not set yet
@@ -46,7 +46,7 @@ void TDAnimationMinder::setup(){
     }
     deathCycleLength[FOE_WAVE] = 1;
     for (int i=0; i<deathCycleLength[FOE_WAVE]; i++){
-        walkCycles[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
+        deathCycles[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
     }
     
     walkCycleLength[FOE_IGNORE] = 4;
@@ -55,9 +55,15 @@ void TDAnimationMinder::setup(){
     }
     deathCycleLength[FOE_IGNORE] = 8;
     for (int i=0; i<deathCycleLength[FOE_IGNORE]; i++){
-        walkCycles[FOE_IGNORE][i].loadImage("pic/td/foe_ignore/fly_die_"+ofToString(i)+".png");
+        deathCycles[FOE_IGNORE][i].loadImage("pic/td/foe_ignore/fly_die_"+ofToString(i)+".png");
     }
     
+    
+    //other shit
+    ignoreFoeAltWalkCycleLength = 2;
+    for (int i=0; i<ignoreFoeAltWalkCycleLength; i++){
+        ignoreFoeAltWalkCycle[i].loadImage("pic/td/foe_ignore/fly_fly_"+ofToString(i)+".png");
+    }
     
     
     

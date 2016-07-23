@@ -300,8 +300,20 @@ void TowerDefenseScene::updateCustom(){
                 if (foes[i].type == FOE_STRONG){
                     spawnStrongBabies(foes[i]);
                 }
-                //delete foes[i];
+                //spawn a dead foe animation
+                TDFoeDeath deadGuy;
+                deadGuy.steup(&foes[i]);
+                deadFoes.push_back(deadGuy);
+                //erase it
                 foes.erase( foes.begin()+i );
+            }
+        }
+        
+        //and the dead ones
+        for (int i=deadFoes.size()-1; i>=0; i--){
+            deadFoes[i].update(deltaTime);
+            if (deadFoes[i].killMe){
+                deadFoes.erase(deadFoes.begin()+i);
             }
         }
         
@@ -370,6 +382,11 @@ void TowerDefenseScene::drawCustom(){
         }
     }
     
+    
+    //draw the dead foes
+    for (int i=0; i<deadFoes.size(); i++){
+        deadFoes[i].draw(alphaPrc);
+    }
     
     //draw the foes
     for (int i=0; i<foes.size(); i++){

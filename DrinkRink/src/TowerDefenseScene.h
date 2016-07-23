@@ -18,6 +18,7 @@
 #include "TowerTD.h"
 
 #include "TDFoe.h"
+#include "TDFoeDeath.h"
 #include "TDAnimationMinder.h"
 
 #include "TDBullet.h"
@@ -90,6 +91,7 @@ public:
     
     //the actual foes on screen
     vector<TDFoe> foes;
+    vector<TDFoeDeath> deadFoes;
     int numStrongBabies;
     
     vector<TDBullet> bullets;

@@ -26,6 +26,10 @@ public:
     ofImage deathCycles[NUM_TD_FOES][8];
     int deathCycleLength[NUM_TD_FOES];
     
+    //other shit
+    ofImage ignoreFoeAltWalkCycle[2];
+    int ignoreFoeAltWalkCycleLength;
+    
 };
 
 #endif /* defined(__emptyExample__TDAnimationMinder__) */

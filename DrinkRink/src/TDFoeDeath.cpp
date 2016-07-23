@@ -40,9 +40,9 @@ void TDFoeDeath::update(float deltaTime){
     
 }
 
-void TDFoeDeath::draw(){
+void TDFoeDeath::draw(float alphaPrc){
     
-    ofSetColor(255);
+    ofSetColor(255 * alphaPrc);
     ofPushMatrix();
     
     ofTranslate(pos.x, pos.y);

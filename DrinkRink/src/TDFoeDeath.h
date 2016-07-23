@@ -15,13 +15,12 @@
 #include "TDFoe.h"
 
 
-
 class TDFoeDeath{
 public:
     
     void steup(TDFoe * parent);
     void update(float deltaTime);
-    void draw();
+    void draw(float alphaPrc);
     
     
     TDAnimationMinder * anims;

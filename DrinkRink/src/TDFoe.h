@@ -37,6 +37,11 @@ public:
     float frameTime;
     int curFrame;
     
+    //getting hit animation
+    float hitAnimationTime;
+    float hitAnimationTimer;
+    float hitBlinkSpeed;
+    
     //movement and game values
     float delayTimer;
     
@@ -50,6 +55,7 @@ public:
     
     float waveDist, wavePeriod;
     float ignoreFoeSpeedIncrease;
+    bool ignoringPath;
     float randVal;
     
     ofVec2f velocity;   //set based on angle and speed

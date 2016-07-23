@@ -25,8 +25,9 @@ void TDFoe::setup(FoeType _type, TDAnimationMinder * _anims, vector<ofVec2f> * _
     curFrame = 0;
     frameTime = 0.15;
     
-    //    numWalkFrames = 3;
-    //    if (type == FOE_DUMB)   numWalkFrames = 4;
+    hitAnimationTimer = 0;
+    hitAnimationTime = 0.3;
+    hitBlinkSpeed = 0.15;
     
     //game shit
     freezeTimer = 0;
@@ -56,6 +57,7 @@ void TDFoe::setup(FoeType _type, TDAnimationMinder * _anims, vector<ofVec2f> * _
     //some fl;age
     reachedTheEnd = false;
     killMe = false;
+    ignoringPath = false;
 }
 
 void TDFoe::setPos(ofVec2f _pos, int _nextNode){
@@ -137,6 +139,8 @@ void TDFoe::update(float deltaTime){
         }
     }
     
+    hitAnimationTimer -= deltaTime;
+    
 }
 
 void TDFoe::draw(float alphaPrc){
@@ -160,8 +164,17 @@ void TDFoe::draw(float alphaPrc){
         ofSetColor(100,100,255, 255*alphaPrc);
     }
     
+    if (hitAnimationTimer > 0){
+        if (fmod(ofGetElapsedTimef(), hitBlinkSpeed) < hitBlinkSpeed/2){
+            ofSetColor(235,100,100);
+        }
+    }
+    
     //cout<<"type :"<<type<<"   frame:"<<curFrame<<endl;
     ofImage * thisPic = &anims->walkCycles[type][curFrame];
+    if (type == FOE_IGNORE && ignoringPath){
+        thisPic = &anims->ignoreFoeAltWalkCycle[curFrame% anims->ignoreFoeAltWalkCycleLength];
+    }
     thisPic->draw(-thisPic->getWidth()/2, -thisPic->getHeight()/2);
     
     ofPopMatrix();
@@ -197,12 +210,15 @@ void TDFoe::takeDamage(float dmg){
     
     //for the ignore type, the first time they take damage, they shoot towards the goal
     if (health == startingHealth-1 && type == FOE_IGNORE){
-        speed *= ignoreFoeSpeedIncrease;// 1.5;
+        speed *= ignoreFoeSpeedIncrease;
         if (nextNodeID < path->size()-2){
             nextNodeID = path->size()-2;
+            ignoringPath = true;
             findNextNode(false);
         }
     }
+    
+    hitAnimationTimer = hitAnimationTime;
 }
 
 void TDFoe::freeze(float time){
