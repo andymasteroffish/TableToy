@@ -62,12 +62,13 @@ void TDFreezeCone::draw(float alphaPrc){
     
     ofSetColor(col.r, col.g, col.b, 200*alphaPrc);
     ofFill();
-    
-    ofBeginShape();
-    for (int i=0; i<points.size(); i++){
-        ofVertex(points[i].x, points[i].y);
-    }
-    ofEndShape();
+
+    ofTriangle(points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
+//    ofBeginShape();
+//    for (int i=0; i<points.size(); i++){
+//        ofVertex(points[i].x, points[i].y);
+//    }
+//    ofEndShape();
     
     
 }

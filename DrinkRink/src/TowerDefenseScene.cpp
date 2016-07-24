@@ -58,6 +58,7 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     
     //basic shit
     panel->addToggle("Reset", "TD_RESET", false);
+    panel->addToggle("Invincible", "TD_INVINC", false);
     panel->addToggle("Fast forward", "TD_FAST_FORWARD", false);
     panel->addToggle("Show Path", "TD_SHOW_PATH", false);
     panel->addToggle("Skip Wave", "TD_SKIP_WAVE", false);
@@ -160,6 +161,7 @@ void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
     
     debugFastForward = panel->getValueB("TD_FAST_FORWARD");
     debugShowPath = panel->getValueB("TD_SHOW_PATH");
+    debugInvincible = panel->getValueB("TD_INVINC");
     
     numStrongBabies = panel->getValueI("STRONG_FOE_BABY_NUM");
     
@@ -461,6 +463,9 @@ void TowerDefenseScene::removingTowerCustom(Tower * towerBeingRemoved){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::takeDamage(){
+    if (debugInvincible){
+        return;
+    }
     playerHealth--;
     setMessage("Ouch! Health Left: "+ofToString(playerHealth), messageDisplayTime/2);
 }

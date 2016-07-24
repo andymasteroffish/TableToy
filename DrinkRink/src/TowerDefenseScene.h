@@ -109,6 +109,7 @@ public:
     
     //debug stuff
     bool debugFastForward;
+    bool debugInvincible;
 
     ofxControlPanel * myPanel;
     
