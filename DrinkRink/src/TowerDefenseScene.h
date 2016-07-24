@@ -25,6 +25,8 @@
 #include "TDFireball.h"
 #include "TDFreezeCone.h"
 
+#include "TDHomeHit.h"
+
 class TDWaveInfo{
 public:
     float timeBetweenFoes;
@@ -99,6 +101,7 @@ public:
     vector<TDFreezeCone> freezeCones;
     
     int playerHealth;
+    vector<TDHomeHit> homeHits;
     
     //animations and other images
     TDAnimationMinder anims;
@@ -112,6 +115,7 @@ public:
     bool debugInvincible;
 
     ofxControlPanel * myPanel;
+    int towerSpawnRates[TD_NUM_TOWERS];
     
 };
 

@@ -16,10 +16,7 @@ void CupTrackerDebug::setupCustom(){
     
     //add some cups
     for (int i=0; i<3; i++){
-        debugAddCup(0);
-    }
-    for (int i=1; i<=2; i++){
-        debugAddCup(i);
+        debugAddCup();
     }
     
     isDebug = true;
@@ -83,9 +80,9 @@ void CupTrackerDebug::mouseReleased(int x, int y, int button){
 void CupTrackerDebug::keyPressed(int key){
     
     if (key >= '0' && key <= '9'){
-        int typeValue = key - '0';
+        //int typeValue = key - '0';
         //cout<<"gotta add "<<typeValue<<endl;
-        debugAddCup(typeValue);
+        debugAddCup();
     }
     
     if (key == 127){
@@ -100,7 +97,7 @@ void CupTrackerDebug::keyPressed(int key){
 }
 
 //creates a dummy cup with random values
-void CupTrackerDebug::debugAddCup(int typeID){
+void CupTrackerDebug::debugAddCup(){
     CupInfo thisCupInfo;
     
     thisCupInfo.uniqueID = nextUniqueID++;

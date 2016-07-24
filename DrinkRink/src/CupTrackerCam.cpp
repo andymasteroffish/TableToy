@@ -86,7 +86,7 @@ void CupTrackerCam::setupCustom(){
     
     threshold = 128; //fuck it. why not this value?
     
-    framesBeforeKillingCup = 20;//40;
+    framesBeforeKillingCup = 30;
     
     ARKit.setup(imgWidth, imgHeight);
     ARKit.setThreshold(threshold);
@@ -148,8 +148,6 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     cupRightX   = panel->getValueF("CUPS_RIGHT_X");
     cupTopY     = panel->getValueF("CUPS_TOP_Y");
     cupBottomY  = panel->getValueF("CUPS_BOTTOM_Y");
-//    cupAdjust.x = panel->getValueF("CUPS_ADJUST_X");
-//    cupAdjust.y = panel->getValueF("CUPS_ADJUST_Y");
     
     cupAdjustLeftX = panel->getValueF("CUPS_ADJUST_X_LEFT");
     cupAdjustRightX = panel->getValueF("CUPS_ADJUST_X_RIGHT");

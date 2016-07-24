@@ -12,7 +12,7 @@
 #include "ofMain.h"
 #include "ofxControlPanel.h"
 
-enum FoeType{ FOE_DUMB, FOE_STRONG, FOE_FAST, FOE_WAVE, FOE_IGNORE, NUM_TD_FOES  };
+enum FoeType{ FOE_DUMB, FOE_STRONG, FOE_FAST, FOE_IGNORE, FOE_WAVE, NUM_TD_FOES  };
 
 
 class TDAnimationMinder{

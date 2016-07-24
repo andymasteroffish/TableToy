@@ -39,16 +39,6 @@ void TDAnimationMinder::setup(){
         deathCycles[FOE_FAST][i].loadImage("pic/td/foe_fast/skate_die_"+ofToString(i)+".png");
     }
     
-    //wave not set yet
-    walkCycleLength[FOE_WAVE] = 3;
-    for (int i=0; i<walkCycleLength[FOE_WAVE]; i++){
-        walkCycles[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
-    }
-    deathCycleLength[FOE_WAVE] = 1;
-    for (int i=0; i<deathCycleLength[FOE_WAVE]; i++){
-        deathCycles[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
-    }
-    
     walkCycleLength[FOE_IGNORE] = 4;
     for (int i=0; i<walkCycleLength[FOE_IGNORE]; i++){
         walkCycles[FOE_IGNORE][i].loadImage("pic/td/foe_ignore/fly_walk_"+ofToString(i)+".png");
@@ -56,6 +46,16 @@ void TDAnimationMinder::setup(){
     deathCycleLength[FOE_IGNORE] = 8;
     for (int i=0; i<deathCycleLength[FOE_IGNORE]; i++){
         deathCycles[FOE_IGNORE][i].loadImage("pic/td/foe_ignore/fly_die_"+ofToString(i)+".png");
+    }
+    
+    //WAVE FOE IS DEFUNCT!
+    walkCycleLength[FOE_WAVE] = 3;
+    for (int i=0; i<walkCycleLength[FOE_WAVE]; i++){
+        walkCycles[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
+    }
+    deathCycleLength[FOE_WAVE] = 1;
+    for (int i=0; i<deathCycleLength[FOE_WAVE]; i++){
+        deathCycles[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
     }
     
     

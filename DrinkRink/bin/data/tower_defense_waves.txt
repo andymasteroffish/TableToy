@@ -6,25 +6,21 @@
 ;line breaks and spaces are ignored so you can space the foe chars out however you like
 
 WAVE test
-1000
+3000
 DDSDDF
 DDSDDF
-
-WAVE test
-5000
-DSDWDID
 
 WAVE intro
-2000
+3000
 DDDDD
-WSW
+S
 I
 DDFFDD
-WSW
+S
 DD
 
 WAVE ignore city
-1000
+2000
 DISIFI
 FFF
 III

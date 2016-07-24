@@ -66,12 +66,14 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     //towers
     panel->addLabel("");
     panel->addLabel("Shoot Tower");
+    panel->addSlider("Shoot Tower Spawn Rate", "SHOOT_TOWER_SPAWN", 5, 0, 15, true);
     panel->addSlider("Shoot Tower Time", "SHOOT_TOWER_TIME", 1, 0.1, 7, false);
     panel->addSlider("Shoot Tower Bullet Speed", "SHOOT_TOWER_BULLET_SPEED", 500, 1, 1000, false);
     panel->addSlider("Shoot Tower Damage", "SHOOT_TOWER_DAMAGE", 1, 0, 5, false);
     
     panel->addLabel("");
     panel->addLabel("Bomb Tower");
+    panel->addSlider("Bomb Tower Spawn Rate", "BOMB_TOWER_SPAWN", 3, 0, 15, true);
     panel->addSlider("Bomb Tower Time", "BOMB_TOWER_TIME", 3, 0.1, 7, false);
     panel->addSlider("Bomb Tower Bullet Speed", "BOMB_TOWER_BULLET_SPEED", 300, 1, 1000, false);
     panel->addSlider("Bomb Tower Bomb Size", "BOMB_TOWER_BOMB_SIZE", 250, 10, 500, false);
@@ -79,6 +81,7 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     
     panel->addLabel("");
     panel->addLabel("Freeze Tower");
+    panel->addSlider("Freeze Tower Spawn Rate", "FREEZE_TOWER_SPAWN", 1, 0, 15, true);
     panel->addSlider("Freeze Tower Time", "FREEZE_TOWER_TIME", 5, 0.1, 7, false);
     panel->addSlider("Freeze Tower On Time", "FREEZE_TOWER_ON_TIME", 1.5, 0.1, 3, false);
     panel->addSlider("Freeze Tower Spread", "FREEZE_TOWER_SPREAD", 1, 0, 2, false);
@@ -107,16 +110,16 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->addSlider("Fast Foe HP", "FAST_FOE_HP", 3, 0.5, 10, false);
     panel->addSlider("Fast Foe Speed", "FAST_FOE_SPEED", 400, 10, 800, false);
     
-    panel->addLabel("Wave Foe");
-    panel->addSlider("Wave Foe HP", "WAVE_FOE_HP", 4, 0.5, 10, false);
-    panel->addSlider("Wave Foe Speed", "WAVE_FOE_SPEED", 150, 10, 800, false);
-    panel->addSlider("Wave Dist", "WAVE_FOE_WAVE_DIST", 100, 10, 200, false);
-    panel->addSlider("Wave Period", "WAVE_FOE_WAVE_PERIOD", 2, 0.1, 4, false);
-    
     panel->addLabel("Ignore Foe");
     panel->addSlider("Ignore Foe HP", "IGNORE_FOE_HP", 3, 0.5, 10, false);
     panel->addSlider("Ignore Foe Speed", "IGNORE_FOE_SPEED", 200, 10, 800, false);
     panel->addSlider("Ignore Speed increase", "IGNORE_FOE_SPEED_INCREASE", 1.5, 1, 3, false);
+    
+    panel->addLabel("Wave Foe - NOT USED");
+    panel->addSlider("Wave Foe HP", "WAVE_FOE_HP", 4, 0.5, 10, false);
+    panel->addSlider("Wave Foe Speed", "WAVE_FOE_SPEED", 150, 10, 800, false);
+    panel->addSlider("Wave Dist", "WAVE_FOE_WAVE_DIST", 100, 10, 200, false);
+    panel->addSlider("Wave Period", "WAVE_FOE_WAVE_PERIOD", 2, 0.1, 4, false);
     
     myPanel = panel;
 }
@@ -132,6 +135,11 @@ void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
         panel->setValueB("TD_SKIP_WAVE", false);
         foes.clear();
     }
+    
+    //set the liklihood of each tower
+    towerSpawnRates[TD_SHOOTER] = panel->getValueI("SHOOT_TOWER_SPAWN");
+    towerSpawnRates[TD_FIRE] = panel->getValueI("BOMB_TOWER_SPAWN");
+    towerSpawnRates[TD_ICE] = panel->getValueI("FREEZE_TOWER_SPAWN");
     
     //go through and set fire times
     for (int i=0; i<towers.size(); i++){
@@ -224,7 +232,7 @@ void TowerDefenseScene::updateCustom(){
         return;
     }
     
-    int numCycles = debugFastForward ? 4 : 1;
+    int numCycles = debugFastForward ? 5 : 1;
     
     for (int cycles=0; cycles<numCycles; cycles++){
     
@@ -294,11 +302,10 @@ void TowerDefenseScene::updateCustom(){
             
             if (foes[i].reachedTheEnd){
                 takeDamage();
-                foes[i].killMe = true;    //remove the foe
+                foes.erase( foes.begin()+i );
             }
-            
             //check if the foe died
-            if (foes[i].killMe){
+            else if (foes[i].killMe){
                 if (foes[i].type == FOE_STRONG){
                     spawnStrongBabies(foes[i]);
                 }
@@ -316,6 +323,14 @@ void TowerDefenseScene::updateCustom(){
             deadFoes[i].update(deltaTime);
             if (deadFoes[i].killMe){
                 deadFoes.erase(deadFoes.begin()+i);
+            }
+        }
+        
+        //home getting hit nimation
+        for (int i=homeHits.size()-1; i>=0; i--){
+            homeHits[i].update(deltaTime);
+            if (homeHits[i].killMe){
+                homeHits.erase(homeHits.begin()+i);
             }
         }
         
@@ -359,17 +374,24 @@ void TowerDefenseScene::drawCustom(){
     ofVec2f homePos = path[0][path[0].size()-1];
     ofCircle(homePos.x, homePos.y, homeSize);
     
-    //show the player health aorund if
+    //show damage effects
+    for (int i=0; i<homeHits.size(); i++){
+        homeHits[i].draw(alphaPrc);
+    }
+    
+    //show the player health around if
     float angleSpacing = TWO_PI/playerHealth;
     float heartSize = 20;
     float heartDist = heartSize + homeSize + 15;
     for (int i=0; i<playerHealth; i++){
+        ofFill();
         ofSetColor(ofColor::pink);
         float thisAngle = angleSpacing*i + ofGetElapsedTimef()*0.5;
         float xPos = homePos.x + cos(thisAngle) * heartDist;
         float yPos = homePos.y + sin(thisAngle) * heartDist;
         ofCircle(xPos, yPos, heartSize);
     }
+    
     
     //debug draw the path
     if (debugShowPath){
@@ -429,24 +451,46 @@ void TowerDefenseScene::drawCustom(){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::keyPressed(int key){
-    
+    takeDamage();
 }
 
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::addTower(CupInfo thisCup){
-    TowerTD * newTower = new TowerTD();
-    newTower->setup( thisCup, &field);
-    if (thisCup.uniqueID % 3 == 0){
-        newTower->setupTowerDefense(TD_SHOOTER, &towerPics[TD_SHOOTER]);
+    
+    int totalTickets = 0;
+    for (int i=0; i<TD_NUM_TOWERS; i++){
+        totalTickets += towerSpawnRates[i];
     }
-    if (thisCup.uniqueID % 3 == 1){
-        newTower->setupTowerDefense(TD_ICE, &towerPics[TD_ICE]);
+    int thisTcket = thisCup.uniqueID % totalTickets;
+
+    
+    for (int i=0; i<TD_NUM_TOWERS; i++){
+        thisTcket -= towerSpawnRates[i];
+        if (thisTcket < 0){
+            TowerTD * newTower = new TowerTD();
+            newTower->setup( thisCup, &field);
+            newTower->setupTowerDefense((TD_TOWER_TYPE)i, &towerPics[i]);
+            towers.push_back(newTower);
+            return;
+        }
     }
-    if (thisCup.uniqueID % 3 == 2){
-        newTower->setupTowerDefense(TD_FIRE, &towerPics[TD_FIRE]);
-    }
-    towers.push_back(newTower);
+    
+    cout<<"What the fuck?"<<endl;
+    
+    
+//    TowerTD * newTower = new TowerTD();
+//    newTower->setup( thisCup, &field);
+//    if (thisCup.uniqueID % 3 == 0){
+//        newTower->setupTowerDefense(TD_SHOOTER, &towerPics[TD_SHOOTER]);
+//    }
+//    if (thisCup.uniqueID % 3 == 1){
+//        newTower->setupTowerDefense(TD_ICE, &towerPics[TD_ICE]);
+//    }
+//    if (thisCup.uniqueID % 3 == 2){
+//        newTower->setupTowerDefense(TD_FIRE, &towerPics[TD_FIRE]);
+//    }
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -463,10 +507,16 @@ void TowerDefenseScene::removingTowerCustom(Tower * towerBeingRemoved){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::takeDamage(){
+    
+    TDHomeHit newHit;
+    newHit.setup(path[0][path[0].size()-1]);
+    homeHits.push_back(newHit);
+    
     if (debugInvincible){
         return;
     }
     playerHealth--;
+    
     setMessage("Ouch! Health Left: "+ofToString(playerHealth), messageDisplayTime/2);
 }
 
@@ -566,7 +616,7 @@ void TowerDefenseScene::setWavesFromFile(string fileName){
                         if (line[i] == 'D')     thisWave.foes.push_back((FOE_DUMB));
                         if (line[i] == 'S')     thisWave.foes.push_back((FOE_STRONG));
                         if (line[i] == 'F')     thisWave.foes.push_back((FOE_FAST));
-                        if (line[i] == 'W')     thisWave.foes.push_back((FOE_WAVE));
+                        if (line[i] == 'W')     thisWave.foes.push_back((FOE_WAVE));    //WAVE IS DEFUNCT!
                         if (line[i] == 'I')     thisWave.foes.push_back((FOE_IGNORE));
                     }
                 }

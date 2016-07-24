@@ -73,6 +73,7 @@
 		4667FE0E1D234008003C126D /* TowerPrism.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4667FE0C1D234008003C126D /* TowerPrism.cpp */; };
 		4667FE111D23462D003C126D /* Beam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4667FE0F1D23462D003C126D /* Beam.cpp */; };
 		46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* Carnivale.cpp */; };
+		5723E7771D4564C200643B1D /* TDHomeHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7751D4564C200643B1D /* TDHomeHit.cpp */; };
 		5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574569791D199DAA006E45D0 /* TDFireball.cpp */; };
 		5745697E1D19A1C6006E45D0 /* TDFreezeCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */; };
 		575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575466621D0F895E001B056E /* TowerDefenseScene.cpp */; };
@@ -392,6 +393,8 @@
 		4667FE101D23462D003C126D /* Beam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beam.h; sourceTree = "<group>"; };
 		46CA36A91B8FEEDF00791398 /* Carnivale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carnivale.cpp; sourceTree = "<group>"; };
 		46CA36AA1B8FEEDF00791398 /* Carnivale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carnivale.h; sourceTree = "<group>"; };
+		5723E7751D4564C200643B1D /* TDHomeHit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDHomeHit.cpp; sourceTree = "<group>"; };
+		5723E7761D4564C200643B1D /* TDHomeHit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDHomeHit.h; sourceTree = "<group>"; };
 		574569791D199DAA006E45D0 /* TDFireball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFireball.cpp; sourceTree = "<group>"; };
 		5745697A1D199DAA006E45D0 /* TDFireball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDFireball.h; sourceTree = "<group>"; };
 		5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFreezeCone.cpp; sourceTree = "<group>"; };
@@ -1319,6 +1322,8 @@
 				5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */,
 				577928531D42B94500E1FAE9 /* TDAnimationMinder.h */,
 				577928521D42B94500E1FAE9 /* TDAnimationMinder.cpp */,
+				5723E7761D4564C200643B1D /* TDHomeHit.h */,
+				5723E7751D4564C200643B1D /* TDHomeHit.cpp */,
 			);
 			name = TowerDefense;
 			sourceTree = "<group>";
@@ -1543,6 +1548,7 @@
 				4667FE111D23462D003C126D /* Beam.cpp in Sources */,
 				57AB01B01C62E76D00791458 /* MyCameraInfo.mm in Sources */,
 				0AF37AA41B840E5300A9CFF7 /* Goal.cpp in Sources */,
+				5723E7771D4564C200643B1D /* TDHomeHit.cpp in Sources */,
 				0AF37AC01B840E7500A9CFF7 /* VectorField.cpp in Sources */,
 				5745697E1D19A1C6006E45D0 /* TDFreezeCone.cpp in Sources */,
 				57AB01B41C62E76D00791458 /* ofxMacamPs3Eye.mm in Sources */,

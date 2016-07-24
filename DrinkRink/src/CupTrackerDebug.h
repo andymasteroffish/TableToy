@@ -25,7 +25,7 @@ public:
     void mouseReleased(int x, int y, int button);
     void keyPressed(int key);
     
-    void debugAddCup(int idNum);
+    void debugAddCup();
     void debugRemoveCup(int idNum);
     
     

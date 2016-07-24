@@ -12,7 +12,7 @@
 #include "ofMain.h"
 #include "Tower.h"
 
-enum TD_TOWER_TYPE{ TD_SHOOTER, TD_ICE, TD_FIRE  };
+enum TD_TOWER_TYPE{ TD_SHOOTER, TD_ICE, TD_FIRE, TD_NUM_TOWERS  };
 
 class TowerTD : public Tower{
 public:
