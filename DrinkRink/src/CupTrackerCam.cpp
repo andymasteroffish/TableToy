@@ -136,6 +136,14 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     camPosAdjust[1].x =panel->getValueF("CAM_1_X");
     camPosAdjust[1].y =panel->getValueF("CAM_1_Y");
     
+    if (panel->getValueB("CAM_FLIP_ADJUSTS")){
+        panel->setValueF("CAM_0_X", camPosAdjust[1].x);
+        panel->setValueF("CAM_0_Y", camPosAdjust[1].y);
+        panel->setValueF("CAM_1_X", camPosAdjust[0].x);
+        panel->setValueF("CAM_1_Y", camPosAdjust[0].y);
+        panel->setValueB("CAM_FLIP_ADJUSTS", false);
+    }
+    
     cupLeftX    = panel->getValueF("CUPS_LEFT_X");
     cupRightX   = panel->getValueF("CUPS_RIGHT_X");
     cupTopY     = panel->getValueF("CUPS_TOP_Y");

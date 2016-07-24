@@ -227,6 +227,7 @@ void ofApp::setupPanel(){
     panel.addSlider("cam 0 y adjust", "CAM_0_Y", -5, -100, 100, false);
     panel.addSlider("cam 1 x adjust", "CAM_1_X", -7.3, -100, 100, false);
     panel.addSlider("cam 1 y adjust", "CAM_1_Y", 5.4, -100, 100, false);
+    panel.addToggle("flip cam adjusts", "CAM_FLIP_ADJUSTS", false);
     
     //calibrating the cups
     panel.addSlider("cup left X", "CUPS_LEFT_X", 195.6, -100, gameWidth, false);
