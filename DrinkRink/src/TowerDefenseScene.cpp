@@ -355,6 +355,8 @@ void TowerDefenseScene::updateCustom(){
         //check the message
         messageTimer -= deltaTime;
     }
+    
+    cout<<"num foes: "<<foes.size()<<endl;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -451,7 +453,7 @@ void TowerDefenseScene::drawCustom(){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::keyPressed(int key){
-    takeDamage();
+    //takeDamage();
 }
 
 

@@ -107,11 +107,17 @@ void TDFoe::update(float deltaTime){
     float angleXeno = 0.8;
     
     float angleAdjust = 0;
+    int numtimes = 0;
     while (curAngle + angleAdjust < displayAngle - TWO_PI){
         angleAdjust += TWO_PI;
+        numtimes++;
+        cout<<"num times going up: "<<numtimes<<endl;
     }
+    numtimes = 0;
     while (curAngle - angleAdjust > displayAngle + TWO_PI){
         angleAdjust -= TWO_PI;
+        numtimes++;
+        cout<<"num times going down: "<<numtimes<<endl;
     }
     
     float targetAngleNorm = curAngle + angleAdjust;

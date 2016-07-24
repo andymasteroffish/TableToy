@@ -7,8 +7,9 @@
 
 WAVE test
 3000
-DDSDDF
-DDSDDF
+DDSDDFDDI
+DDSDDFDDI
+DDSDDFDDI
 
 WAVE intro
 3000
@@ -18,6 +19,135 @@ I
 DDFFDD
 S
 DD
+
+WAVE here’s some shit
+3000
+DDDFDSIISSDDDD
+DDDFDSIISSDDDD
+
+WAVE A bunch of ignore duded
+3000
+IIIIIII
+SS
+IIIIIII
+
+WAVE a ton of quick dumb guys
+1000
+DDDDDDD
+S
+
+WAVE ignore city
+2000
+DISIFI
+FFF
+III
+
+;i’m copy pasting these waves a bunch so it runs longer
+
+WAVE test
+3000
+DDSDDFDDI
+DDSDDFDDI
+DDSDDFDDI
+
+WAVE intro
+3000
+DDDDD
+S
+I
+DDFFDD
+S
+DD
+
+WAVE here’s some shit
+3000
+DDDFDSIISSDDDD
+DDDFDSIISSDDDD
+
+WAVE A bunch of ignore duded
+3000
+IIIIIII
+SS
+IIIIIII
+
+WAVE a ton of quick dumb guys
+1000
+DDDDDDD
+S
+
+WAVE ignore city
+2000
+DISIFI
+FFF
+III
+
+WAVE test
+3000
+DDSDDFDDI
+DDSDDFDDI
+DDSDDFDDI
+
+WAVE intro
+3000
+DDDDD
+S
+I
+DDFFDD
+S
+DD
+
+WAVE here’s some shit
+3000
+DDDFDSIISSDDDD
+DDDFDSIISSDDDD
+
+WAVE A bunch of ignore duded
+3000
+IIIIIII
+SS
+IIIIIII
+
+WAVE a ton of quick dumb guys
+1000
+DDDDDDD
+S
+
+WAVE ignore city
+2000
+DISIFI
+FFF
+III
+
+WAVE test
+3000
+DDSDDFDDI
+DDSDDFDDI
+DDSDDFDDI
+
+WAVE intro
+3000
+DDDDD
+S
+I
+DDFFDD
+S
+DD
+
+WAVE here’s some shit
+3000
+DDDFDSIISSDDDD
+DDDFDSIISSDDDD
+
+WAVE A bunch of ignore duded
+3000
+IIIIIII
+SS
+IIIIIII
+
+WAVE a ton of quick dumb guys
+1000
+DDDDDDD
+S
 
 WAVE ignore city
 2000
