@@ -38,7 +38,7 @@ public:
         ofPushMatrix();
         ofTranslate(pos.x, pos.y);
         
-        ofRotate( angle * RAD_TO_DEG );
+        ofRotate( curAngle * RAD_TO_DEG );
         
         int linePadding = towerSize + 3*ringOffset;
         int lineNum = 8;

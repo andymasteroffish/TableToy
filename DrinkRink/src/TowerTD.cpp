@@ -71,7 +71,7 @@ void TowerTD::customDraw(float alphaPrc){
     ofPushMatrix();
     ofTranslate(pos.x, pos.y);
     
-    ofRotate( ofRadToDeg(angle) );
+    ofRotate( ofRadToDeg(curAngle) );
     ofScale(curScale, curScale);
     
     ofSetColor(255, 255 * alphaPrc);

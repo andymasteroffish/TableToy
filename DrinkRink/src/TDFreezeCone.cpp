@@ -38,7 +38,7 @@ void TDFreezeCone::update(float deltaTime, vector<TDFoe> * foes){
     //set the cone from the parent tower
     pos = parentTower->pos;
     
-    float angle = parentTower->angle;
+    float angle = parentTower->curAngle;
     
     //starts at the tower
     points[0].set(pos);

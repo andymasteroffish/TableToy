@@ -18,7 +18,7 @@ void TowerFlow::customSetup(){
 void TowerFlow::customUpdate(){
     float strength = 1.5;
     float spread = 1.5;// abs(cos(ofGetElapsedTimef())) * 4;
-    addFlowCircle(strength, -angle, spread);
+    addFlowCircle(strength, -curAngle, spread);
 }
 
 

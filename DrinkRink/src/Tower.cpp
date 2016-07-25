@@ -12,7 +12,8 @@
 //customSetup() is called near the end of this funciton. You can define an override function for customSetup to do any additional setup your Tower requires
 void Tower::setup(CupInfo thisCup, VectorField * _field){
     
-    angle = ofRandom(TWO_PI);
+    targetAngle = thisCup.angle;
+    curAngle = targetAngle;
     
     uniqueID = thisCup.uniqueID;
     startTime = thisCup.startTime;
@@ -30,6 +31,8 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     
     towerSize = 80;    //how big the physical cup is
     
+    angleXeno = 0.75;
+    
     randVal = ofRandom(9999);
     
     particleType = PARTICLE_NO_TYPE;
@@ -45,7 +48,7 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
 //This is called whenever the CupTracker senses that the cup moved. It updates the Tower's game world position based on the cups new physical location
 void Tower::setFromCupInfo(CupInfo thisInfo){
     pos.set(thisInfo.pos);
-    angle = thisInfo.angle;
+    targetAngle = thisInfo.angle;
 }
 
 //Update is called every frame.
@@ -55,6 +58,20 @@ void Tower::update(float _deltaTime){
     
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
+    //adjust the angle
+    float curAngleHigh = curAngle + TWO_PI;
+    float curAngleLow = curAngle - TWO_PI;
+    if ( abs(curAngleHigh-targetAngle) < abs(curAngleLow-targetAngle) && abs(curAngleHigh-targetAngle) < abs(curAngle-targetAngle)){
+        curAngle = curAngleHigh;
+    }
+    else if ( abs(curAngleLow-targetAngle) < abs(curAngleHigh-targetAngle) && abs(curAngleLow-targetAngle) < abs(curAngle-targetAngle)){
+        curAngle = curAngleLow;
+    }
+    
+    curAngle = angleXeno * curAngle + (1-angleXeno) * targetAngle;
+    
+    
+    //update
     customUpdate();
 }
 
@@ -79,6 +96,6 @@ void Tower::draw(float alphaPrc, bool showCupDebug){
         ofCircle(pos.x, pos.y, towerSize);
         ofSetColor(0);
         ofSetLineWidth(1);
-        ofLine(pos.x, pos.y, pos.x+cos(angle)*towerSize*0.8, pos.y+sin(angle)*towerSize*0.8);
+        ofLine(pos.x, pos.y, pos.x+cos(curAngle)*towerSize*0.8, pos.y+sin(curAngle)*towerSize*0.8);
     }
 }

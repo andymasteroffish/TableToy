@@ -309,7 +309,6 @@ void ofApp::scrollScenes(){
     
     //if the order list is empty, repopulate it
     if (sceneOrder.size() == 0){
-        cout<<"scene ID on randomize = "<<curSceneID<<endl;
         randomizeSceneOrder();
         
         //make sure that the first scene is not the one we just came from

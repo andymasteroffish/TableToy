@@ -518,7 +518,7 @@ void TowerDefenseScene::takeDamage(){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::spawnShot(TowerTD * source){
     TDBullet newBullet;
-    newBullet.setup(source->pos, source->angle, source->towerSize, source->tdType == TD_FIRE, myPanel);
+    newBullet.setup(source->pos, source->curAngle, source->towerSize, source->tdType == TD_FIRE, myPanel);
     bullets.push_back(newBullet);
 }
 
