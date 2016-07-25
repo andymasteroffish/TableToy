@@ -48,6 +48,7 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
     deltaTime = _deltaTime;
     
     activeTimer += deltaTime;
+    idleTimer += deltaTime;
     
     checkPanelValues(panel);
     
@@ -93,6 +94,9 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
 //--------------------------------------------------------------------------------------------
 void Scene::checkPanelValues(ofxControlPanel *panel){
     
+    idleTowerMoveThreshold = panel->getValueF("IDLE_MOVE_THRESH");
+    idleTowerRotateThreshold = panel->getValueF("IDLE_ROTATE_THRESH");
+    
     checkPanelValuesCustom(panel);
     
 }
@@ -115,15 +119,32 @@ void Scene::checkCups(){
         //check if there is a coresponding tower
         for (int k=0; k<towers.size(); k++){
             if (towers[k]->uniqueID == thisCup.uniqueID){
+                //store the old values
+                float prevAngle = towers[k]->targetAngle;
+                ofVec2f prevPos = towers[k]->pos;
+                
+                //update
                 towers[k]->setFromCupInfo(thisCup);
                 towers[k]->hasBeenCheckedThisFrame = true;    //mark that we checked it so it doesn't get killed
                 foundTower = true;                          //and mark that this cup is accounted for
+                
+                //check if it moved enough to not be considered idle
+                if ( ofDistSquared(prevPos.x, prevPos.y, towers[k]->pos.x, towers[k]->pos.y) > idleTowerMoveThreshold*idleTowerMoveThreshold){
+                    cout<<"big move"<<endl;
+                    idleTimer = 0;
+                }
+                if ( abs(prevAngle-towers[k]->targetAngle) > idleTowerRotateThreshold){
+                    cout<<"big angle"<<endl;
+                    idleTimer = 0;
+                }
+                
                 break;
             }
         }
         
         //if no tower was found, it is a new cup, and we need a tower for it!
         if ( !foundTower ){
+            idleTimer = 0;
             addTower(thisCup);
         }
         
@@ -132,6 +153,7 @@ void Scene::checkCups(){
     //now that we've gone through all cups, go through and remove any towers not accounted for
     for (int i=towers.size()-1; i>=0; i--){
         if ( !towers[i]->hasBeenCheckedThisFrame ){
+            idleTimer = 0;
             removeTower(i);
         }
     }

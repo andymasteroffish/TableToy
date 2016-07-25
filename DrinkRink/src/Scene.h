@@ -126,6 +126,10 @@ public:
     float fadeTimer;
     float alphaPrc;
     
+    //some stuff for tracking when a cup has been moved enough to reset the idle timer
+    float idleTowerMoveThreshold;
+    float idleTowerRotateThreshold;
+    
     
     //Testing different particle options
     //These maybe aren't being used? I don't know. Don't fuck with them I guess

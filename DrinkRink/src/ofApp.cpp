@@ -42,7 +42,7 @@ void ofApp::setup(){
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
     if (usingDebugCupTracker){
-        setScene(SCENE_TOWER_DEFENSE);
+        setScene(SCENE_STREAM);
     }
     
     setupPanel();
@@ -146,6 +146,12 @@ void ofApp::setupPanel(){
     panel.addSlider("right screen y adjust", "RIGHT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
     panel.addSlider("right screen rotation", "RIGHT_SCREEN_ROTATION", 0.1, -15, 15, false);
     
+    //throwing idle settings onto this screen too
+    panel.addLabel("");
+    panel.addLabel("idle settings");
+    
+    panel.addSlider("min cup move", "IDLE_MOVE_THRESH", 2, 1, 25, false);
+    panel.addSlider("min cup rotate", "IDLE_ROTATE_THRESH", 0.2, 0.1, PI, false);
     
     //Some generic sldiers to hook into while testing
     panel.addPanel("Generic Testing", 1, false);

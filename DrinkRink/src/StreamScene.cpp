@@ -27,8 +27,25 @@ void StreamScene::setupCustom(){
 }
 
 //--------------------------------------------------------------------------------------------
+void StreamScene::setupPanelValues(ofxControlPanel * panel){
+    panel->addPanel(sceneName, 1, false);
+    panel->setWhichPanel(sceneName);
+    panel->setWhichColumn(0);
+    
+    
+    panel->addSlider("kill time", "STREAM_KILL_TIME", 60, 1, 500, false);
+    panel->addSlider("idle time to kill", "STREAM_IDLE_KILL_TIME", 20, 1, 120, false);
+}
+
+//--------------------------------------------------------------------------------------------
 void StreamScene::resetCustom(){
     
+}
+
+//--------------------------------------------------------------------------------------------
+void StreamScene::checkPanelValuesCustom(ofxControlPanel * panel){
+    killTime = panel->getValueF("STREAM_KILL_TIME");
+    idleKillTime = panel->getValueF("STREAM_IDLE_KILL_TIME");
 }
 
 //--------------------------------------------------------------------------------------------
@@ -37,6 +54,13 @@ void StreamScene::updateCustom(){
     
     for (int i=0; i<bgShapes.size(); i++){
         bgShapes[i].update(deltaTime);
+    }
+    
+//    cout<<"timer "<<activeTimer<<endl;
+//    cout<<"idle timer "<<idleTimer<<endl;
+    
+    if (activeTimer > killTime || idleTimer > idleKillTime){
+        switchScenesFlag = true;
     }
 }
 

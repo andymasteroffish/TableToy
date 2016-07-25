@@ -22,7 +22,9 @@ public:
     
     
     void setupCustom();
+    void setupPanelValues(ofxControlPanel * panel);
     void resetCustom();
+    void checkPanelValuesCustom(ofxControlPanel * panel);
     void updateCustom();
     
     void setStreamForceOnField();
@@ -36,6 +38,8 @@ public:
     void addTower(CupInfo thisCup);
     
     vector<StreamBackgroundShape> bgShapes;
+    
+    float killTime, idleKillTime;
     
     
 };
