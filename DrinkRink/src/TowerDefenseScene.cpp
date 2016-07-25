@@ -18,7 +18,7 @@ void TowerDefenseScene::setupCustom(){
     pauseBeforeFirstFoeEachWave = 1.5;
     
     curWave = 0;
-    curPath = 0;
+    curPath = 2;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -32,7 +32,7 @@ void TowerDefenseScene::setupCustom(){
     
     fontBig.loadFont("frabk.ttf", 80);
     
-    bgPics.resize(3);
+    bgPics.resize(8);
     for (int i=0; i<bgPics.size(); i++){
         bgPics[i].loadImage("td_paths/path"+ofToString(i)+".png");
     }
@@ -180,6 +180,7 @@ void TowerDefenseScene::resetCustom(){
     foes.clear();
     
     //clear out bullets
+    cout<<"clear bullets"<<endl;
     bullets.clear();
     fireballs.clear();
     freezeCones.clear();
@@ -218,6 +219,9 @@ void TowerDefenseScene::startNextWave(){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::updateCustom(){
     
+    //cout<<"bullets "<<bullets.size()<<endl;
+    //cout<<"num foes: "<<foes.size()<<endl;
+    
     //if the game just started, the first update is used to spawn waves and not do anything else
     //this is to make sure the game has a reference to the control panel before it creates any foes
     if (curWave == -1){
@@ -228,8 +232,10 @@ void TowerDefenseScene::updateCustom(){
     int numCycles = debugFastForward ? 5 : 1;
     
     for (int cycles=0; cycles<numCycles; cycles++){
+        //cout<<"start cycle "<<cycles<<endl;
     
         //check all towers to see if they are doing thangs (like Big Bear)
+        //cout<<"update towers"<<endl;
         for (int i=0; i<towers.size(); i++){
             if (towers[i]->towerType == "tower_defense"){
                 TowerTD * thisTower = (TowerTD *)towers[i];
@@ -249,12 +255,15 @@ void TowerDefenseScene::updateCustom(){
         
         //update the bullets
         for (int i=bullets.size()-1; i>=0; i--){
+            //cout<<"update bullet "<<i<<endl;
             bullets[i].update(deltaTime);
             
-            //if it out of bounds?
+            //is it out of bounds?
             float padding = bullets[i].size*2;
             if (bullets[i].pos.x < -padding || bullets[i].pos.x > gameWidth+padding || bullets[i].pos.y < -padding || bullets[i].pos.y > gameHeight+padding){
+                //cout<<"bullet "<<i<<" out of bounds so dead frame"<<ofGetFrameNum()<<endl;
                 bullets.erase(bullets.begin()+i);
+                //cout<<"bullets left "<<bullets.size()<<endl;
             }
             
             //check all foes to see if it hit any
@@ -266,7 +275,10 @@ void TowerDefenseScene::updateCustom(){
                         if (bullets[i].isFire){
                             spawnFireball(bullets[i].pos);
                         }
+                        //cout<<"bullet "<<i<<" hit a foe so dead frame "<<ofGetFrameNum()<<endl;
                         bullets.erase(bullets.begin()+i);
+                        //cout<<"bullets left "<<bullets.size()<<endl;
+                        break;
                     }
                 }
             }
@@ -293,7 +305,13 @@ void TowerDefenseScene::updateCustom(){
         for (int i=foes.size()-1; i>=0; i--){
             foes[i].update(deltaTime);
             
-            if (foes[i].reachedTheEnd){
+            //if it out of bounds?
+            float padding = 300;
+            if (foes[i].pos.x < -padding || foes[i].pos.x > gameWidth+padding || foes[i].pos.y < -padding || foes[i].pos.y > gameHeight+padding){
+                foes.erase( foes.begin()+i );
+            }
+            //did it reach the end
+            else if (foes[i].reachedTheEnd){
                 takeDamage();
                 foes.erase( foes.begin()+i );
             }
@@ -348,8 +366,6 @@ void TowerDefenseScene::updateCustom(){
         //check the message
         messageTimer -= deltaTime;
     }
-    
-    //cout<<"num foes: "<<foes.size()<<endl;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -419,6 +435,7 @@ void TowerDefenseScene::drawCustom(){
     
     //draw the bullets
     for (int i=0; i<bullets.size(); i++){
+        //cout<<"bullets "<<bullets.size()<<"   i "<<i<<endl;
         bullets[i].draw(alphaPrc);
     }
     

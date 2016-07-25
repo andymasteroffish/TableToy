@@ -106,33 +106,16 @@ void TDFoe::update(float deltaTime){
     //xeno the display angle to catch up with the actual angle
     float angleXeno = 0.8;
     
-    float angleAdjust = 0;
-    int numtimes = 0;
-    while (curAngle + angleAdjust < displayAngle - TWO_PI){
-        angleAdjust += TWO_PI;
-        numtimes++;
-        cout<<"num times going up: "<<numtimes<<endl;
+    float dispAngleHigh = displayAngle + TWO_PI;
+    float dispAngleLow = displayAngle - TWO_PI;
+    if ( abs(dispAngleHigh-curAngle) < abs(dispAngleLow-curAngle) && abs(dispAngleHigh-curAngle) < abs(displayAngle-curAngle)){
+        displayAngle = dispAngleHigh;
     }
-    numtimes = 0;
-    while (curAngle - angleAdjust > displayAngle + TWO_PI){
-        angleAdjust -= TWO_PI;
-        numtimes++;
-        cout<<"num times going down: "<<numtimes<<endl;
+    else if ( abs(dispAngleLow-curAngle) < abs(dispAngleHigh-curAngle) && abs(dispAngleLow-curAngle) < abs(displayAngle-curAngle)){
+        displayAngle = dispAngleLow;
     }
     
-    float targetAngleNorm = curAngle + angleAdjust;
-    float targetAngleHigh = curAngle + TWO_PI + angleAdjust;
-    float targetAngleLow = curAngle - TWO_PI + angleAdjust;
-    float targetAngle = targetAngleNorm;
-    
-    if ( abs(displayAngle-targetAngleLow)<abs(displayAngle-targetAngle) && abs(displayAngle-targetAngleLow)<abs(displayAngle-targetAngleHigh)){
-        targetAngle = targetAngleLow;
-    }
-    if ( abs(displayAngle-targetAngleHigh)<abs(displayAngle-targetAngle) && abs(displayAngle-targetAngleHigh)<abs(displayAngle-targetAngleLow)){
-        targetAngle = targetAngleHigh;
-    }
-    
-    displayAngle = angleXeno * displayAngle + (1-angleXeno) * targetAngle;
+    displayAngle = angleXeno * displayAngle + (1-angleXeno) * curAngle;
     
     
     //animation
@@ -209,6 +192,10 @@ void TDFoe::findNextNode(bool snapPos){
 }
 
 void TDFoe::takeDamage(float dmg){
+    if (delayTimer > 0){
+        return;
+    }
+    
     health -= dmg;
     if (health <= 0){
         killMe = true;
