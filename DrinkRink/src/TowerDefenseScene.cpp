@@ -18,7 +18,7 @@ void TowerDefenseScene::setupCustom(){
     pauseBeforeFirstFoeEachWave = 1.5;
     
     curWave = 0;
-    curPath = -1;
+    curPath = 0;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -29,13 +29,6 @@ void TowerDefenseScene::setupCustom(){
     towerPics[2].loadImage("pic/td/tower_fire.png");
     
     anims.setup();
-//    for (int i=0; i<5; i++){
-//        foeWalkPics[FOE_DUMB][i].loadImage("pic/td/foe_dumb"+ofToString(i)+".png");
-//        foeWalkPics[FOE_STRONG][i].loadImage("pic/td/foe_strong"+ofToString(i)+".png");
-//        foeWalkPics[FOE_FAST][i].loadImage("pic/td/foe_fast"+ofToString(i)+".png");
-//        foeWalkPics[FOE_WAVE][i].loadImage("pic/td/foe_wave"+ofToString(i)+".png");
-//        foeWalkPics[FOE_IGNORE][i].loadImage("pic/td/foe_ignore"+ofToString(i)+".png");
-//    }
     
     fontBig.loadFont("frabk.ttf", 80);
     
@@ -66,14 +59,14 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     //towers
     panel->addLabel("");
     panel->addLabel("Shoot Tower");
-    panel->addSlider("Shoot Tower Spawn Rate", "SHOOT_TOWER_SPAWN", 5, 0, 15, true);
-    panel->addSlider("Shoot Tower Time", "SHOOT_TOWER_TIME", 1, 0.1, 7, false);
-    panel->addSlider("Shoot Tower Bullet Speed", "SHOOT_TOWER_BULLET_SPEED", 500, 1, 1000, false);
-    panel->addSlider("Shoot Tower Damage", "SHOOT_TOWER_DAMAGE", 1, 0, 5, false);
+    panel->addSlider("Shoot Tower Spawn Rate", "SHOOT_TOWER_SPAWN", 6, 0, 15, true);
+    panel->addSlider("Shoot Tower Time", "SHOOT_TOWER_TIME", 0.6, 0.1, 7, false);
+    panel->addSlider("Shoot Tower Bullet Speed", "SHOOT_TOWER_BULLET_SPEED", 350, 1, 1000, false);
+    panel->addSlider("Shoot Tower Damage", "SHOOT_TOWER_DAMAGE", 0.75, 0, 5, false);
     
     panel->addLabel("");
     panel->addLabel("Bomb Tower");
-    panel->addSlider("Bomb Tower Spawn Rate", "BOMB_TOWER_SPAWN", 3, 0, 15, true);
+    panel->addSlider("Bomb Tower Spawn Rate", "BOMB_TOWER_SPAWN", 4, 0, 15, true);
     panel->addSlider("Bomb Tower Time", "BOMB_TOWER_TIME", 3, 0.1, 7, false);
     panel->addSlider("Bomb Tower Bullet Speed", "BOMB_TOWER_BULLET_SPEED", 300, 1, 1000, false);
     panel->addSlider("Bomb Tower Bomb Size", "BOMB_TOWER_BOMB_SIZE", 250, 10, 500, false);
@@ -81,7 +74,7 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     
     panel->addLabel("");
     panel->addLabel("Freeze Tower");
-    panel->addSlider("Freeze Tower Spawn Rate", "FREEZE_TOWER_SPAWN", 1, 0, 15, true);
+    panel->addSlider("Freeze Tower Spawn Rate", "FREEZE_TOWER_SPAWN", 2, 0, 15, true);
     panel->addSlider("Freeze Tower Time", "FREEZE_TOWER_TIME", 5, 0.1, 7, false);
     panel->addSlider("Freeze Tower On Time", "FREEZE_TOWER_ON_TIME", 1.5, 0.1, 3, false);
     panel->addSlider("Freeze Tower Spread", "FREEZE_TOWER_SPREAD", 1, 0, 2, false);
@@ -99,25 +92,25 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->addLabel("");
     panel->addLabel("Dumb Foe");
     panel->addSlider("Dumb Foe HP", "DUMB_FOE_HP", 3, 0.5, 10, false);
-    panel->addSlider("Dumb Foe Speed", "DUMB_FOE_SPEED", 200, 10, 800, false);
+    panel->addSlider("Dumb Foe Speed", "DUMB_FOE_SPEED", 100, 10, 800, false);
     
     panel->addLabel("Strong Foe");
-    panel->addSlider("Strong Foe HP", "STRONG_FOE_HP", 6, 0.5, 10, false);
-    panel->addSlider("Strong Foe Speed", "STRONG_FOE_SPEED", 100, 10, 800, false);
+    panel->addSlider("Strong Foe HP", "STRONG_FOE_HP", 5, 0.5, 10, false);
+    panel->addSlider("Strong Foe Speed", "STRONG_FOE_SPEED", 50, 10, 800, false);
     panel->addSlider("Num Babies", "STRONG_FOE_BABY_NUM", 2, 1, 5, true);
     
     panel->addLabel("Fast Foe");
-    panel->addSlider("Fast Foe HP", "FAST_FOE_HP", 3, 0.5, 10, false);
-    panel->addSlider("Fast Foe Speed", "FAST_FOE_SPEED", 400, 10, 800, false);
+    panel->addSlider("Fast Foe HP", "FAST_FOE_HP", 2, 0.5, 10, false);
+    panel->addSlider("Fast Foe Speed", "FAST_FOE_SPEED", 175, 10, 800, false);
     
     panel->addLabel("Ignore Foe");
     panel->addSlider("Ignore Foe HP", "IGNORE_FOE_HP", 3, 0.5, 10, false);
-    panel->addSlider("Ignore Foe Speed", "IGNORE_FOE_SPEED", 200, 10, 800, false);
+    panel->addSlider("Ignore Foe Speed", "IGNORE_FOE_SPEED", 100, 10, 800, false);
     panel->addSlider("Ignore Speed increase", "IGNORE_FOE_SPEED_INCREASE", 1.5, 1, 3, false);
     
     panel->addLabel("Wave Foe - NOT USED");
     panel->addSlider("Wave Foe HP", "WAVE_FOE_HP", 4, 0.5, 10, false);
-    panel->addSlider("Wave Foe Speed", "WAVE_FOE_SPEED", 150, 10, 800, false);
+    panel->addSlider("Wave Foe Speed", "WAVE_FOE_SPEED", 74, 10, 800, false);
     panel->addSlider("Wave Dist", "WAVE_FOE_WAVE_DIST", 100, 10, 200, false);
     panel->addSlider("Wave Period", "WAVE_FOE_WAVE_PERIOD", 2, 0.1, 4, false);
     
@@ -326,7 +319,7 @@ void TowerDefenseScene::updateCustom(){
             }
         }
         
-        //home getting hit nimation
+        //home getting hit animation
         for (int i=homeHits.size()-1; i>=0; i--){
             homeHits[i].update(deltaTime);
             if (homeHits[i].killMe){
@@ -356,7 +349,7 @@ void TowerDefenseScene::updateCustom(){
         messageTimer -= deltaTime;
     }
     
-    cout<<"num foes: "<<foes.size()<<endl;
+    //cout<<"num foes: "<<foes.size()<<endl;
 }
 
 //--------------------------------------------------------------------------------------------

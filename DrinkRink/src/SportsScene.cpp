@@ -33,7 +33,7 @@ void SportsScene::setupCustom(){
     nextBallSpawnsOnTop = true; //this just flips with each spawn
     
     sceneName = "sports";
-    sceneToSwitchTo = 2;    //stream
+    //sceneToSwitchTo = 2;    //stream
     
     gameOverCupShrinkTime = 2;
     gameOverTimetoSwitchScene = 12;

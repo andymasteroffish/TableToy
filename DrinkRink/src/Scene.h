@@ -105,7 +105,8 @@ public:
     //Telling the main app to switch scenes
     //Use these to have your scene anounce that it is done so the main app can switch to the next one
     bool switchScenesFlag;      //set this to true to switch scenes. The main app will set it back to false after the switch has been made
-    int sceneToSwitchTo;        //the ID number of the scene you'd like to. At least for now, you must specify something, although you can always set it to be a random value
+    //int sceneToSwitchTo;        //the ID number of the scene you'd like to. At least for now, you must specify something, although you can always set it to be a random value
+        //THIS HAS BEEN REMOVED
     
     //Some color info
     ofColor bgCol;                  //set this in setupCustom. It will be the backgorund color of your scene

@@ -19,6 +19,7 @@ public:
     float startTime;
     
     int framesWithoutUpdate;
+    
 };
 
 

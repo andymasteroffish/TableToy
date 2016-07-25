@@ -14,12 +14,27 @@ void CupTrackerDebug::setupCustom(){
     debugDraggingCupID = -1;
     nextUniqueID = 0;
     
+    //generate some IDs
+    idList.reserve(99);
+    for (int i=1; i<100; i++){
+        idList.push_back(i);
+    }
+    for (int i=0; i<idList.size()*100; i++){
+        int a = (int)ofRandom(idList.size());
+        int b = (int)ofRandom(idList.size());
+        int temp = idList[a];
+        idList[a] = idList[b];
+        idList[b] = temp;
+    }
+    
     //add some cups
     for (int i=0; i<3; i++){
-        debugAddCup();
+        debugAddCup(false);
     }
     
     isDebug = true;
+    
+    overrideSceneSwicth = false;
     
 }
 
@@ -79,10 +94,14 @@ void CupTrackerDebug::mouseReleased(int x, int y, int button){
 
 void CupTrackerDebug::keyPressed(int key){
     
-    if (key >= '0' && key <= '9'){
+    if (key >= '1' && key <= '9'){
         //int typeValue = key - '0';
         //cout<<"gotta add "<<typeValue<<endl;
-        debugAddCup();
+        debugAddCup(false);
+    }
+    
+    if (key == '0'){
+        debugAddCup(true);
     }
     
     if (key == 127){
@@ -97,10 +116,15 @@ void CupTrackerDebug::keyPressed(int key){
 }
 
 //creates a dummy cup with random values
-void CupTrackerDebug::debugAddCup(){
+void CupTrackerDebug::debugAddCup(bool isOverrideCup){
     CupInfo thisCupInfo;
     
-    thisCupInfo.uniqueID = nextUniqueID++;
+    if (!isOverrideCup){
+        thisCupInfo.uniqueID = idList[nextUniqueID++];
+    }else{
+        thisCupInfo.uniqueID = OVERRIDE_CUP_ID;
+        overrideSceneSwicth = true;
+    }
     thisCupInfo.pos.set( ofRandom(gameWidth), ofRandom(gameHeight) );
     thisCupInfo.angle = ofRandom( TWO_PI );
     thisCupInfo.startTime = ofGetElapsedTimef();

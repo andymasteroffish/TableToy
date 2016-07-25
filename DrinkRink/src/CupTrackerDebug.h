@@ -25,11 +25,12 @@ public:
     void mouseReleased(int x, int y, int button);
     void keyPressed(int key);
     
-    void debugAddCup();
+    void debugAddCup(bool isOverrideCup);
     void debugRemoveCup(int idNum);
     
     
     int nextUniqueID;
+    vector<int> idList;
     
     //for testing/faking input.
     int aproxCupSize;

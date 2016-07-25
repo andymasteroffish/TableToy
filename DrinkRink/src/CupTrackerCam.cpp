@@ -100,6 +100,8 @@ void CupTrackerCam::setupCustom(){
     takeBGImage = false;
     
     isDebug = false;
+    
+    overrideSceneSwicth = false;
 }
 
 //--------------------------------------------------------------
@@ -439,6 +441,10 @@ void CupTrackerCam::checkARTag(int idNum){
     thisCupInfo.angle = tagAngle;
     thisCupInfo.framesWithoutUpdate = 0;
     thisCupInfo.startTime = ofGetElapsedTimef();
+    
+    if (tagID == OVERRIDE_CUP_ID){
+        overrideSceneSwicth = true;
+    }
     
     activeCups.push_back(thisCupInfo);
     

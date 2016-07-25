@@ -13,6 +13,7 @@
 #include "StreamScene.h"
 #include "FlyersScene.h"
 #include "TowerDefenseScene.h"
+#include "TitleCardScene.h"
 
 #include "CupTracker.h"
 #include "CupTrackerDebug.h"
@@ -25,6 +26,7 @@ public:
     void setupPanel();
     
     void scrollScenes();
+    void randomizeSceneOrder();
     void setScene(int sceneID);
     
     void update();
@@ -57,14 +59,18 @@ public:
     //scene
 #define NUM_SCENES          5
 #define SCENE_CALIBRATION   0
-#define SCENE_SPORTS        1
-#define SCENE_STREAM        2
-#define SCENE_FLYERS        3
+#define SCENE_TITLE_CARD    1
+#define SCENE_SPORTS        2
+#define SCENE_STREAM        3
 #define SCENE_TOWER_DEFENSE 4
+//#define SCENE_FLYERS        3
     Scene * scenes[NUM_SCENES];
     Scene * curScene;
     Scene * fadingScene;
     int curSceneID;
+    
+    vector<int> sceneOrder;
+    
     
     //drawing into an FBO to fuck with the two sides of teh screen
     ofFbo fbo;

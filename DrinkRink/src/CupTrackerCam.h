@@ -28,12 +28,10 @@ public:
     void updateFromPanel(ofxControlPanel * panel);
     void update();
     void draw();
-    //void drawFiducials(int x, int y);
     void drawARTags(int x, int y);
     
     void keyPressed(int key);
     
-    //void checkFiducial(list<ofxFiducial>::iterator fiducial);
     void checkARTag(int idNum);
     
 #ifdef USE_VIDEO

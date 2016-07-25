@@ -25,11 +25,12 @@ void ofApp::setup(){
     }
     
     cupTracker->setup(gameWidth, gameHeight);
-    scenes[SCENE_CALIBRATION] = new CalibrationScene();
-    scenes[SCENE_SPORTS] = new SportsScene();
-    scenes[SCENE_STREAM] = new StreamScene();
-    scenes[SCENE_FLYERS] = new FlyersScene();
+    scenes[SCENE_CALIBRATION]   = new CalibrationScene();
+    scenes[SCENE_TITLE_CARD]    = new TitleCardScene();
+    scenes[SCENE_SPORTS]        = new SportsScene();
+    scenes[SCENE_STREAM]        = new StreamScene();
     scenes[SCENE_TOWER_DEFENSE] = new TowerDefenseScene();
+    //scenes[SCENE_FLYERS] = new FlyersScene();
     
     for (int i=0; i<NUM_SCENES; i++){
         scenes[i]->setup(cupTracker, gameWidth, gameHeight);
@@ -41,7 +42,7 @@ void ofApp::setup(){
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
     if (usingDebugCupTracker){
-        setScene(SCENE_TOWER_DEFENSE);
+        setScene(SCENE_SPORTS);
     }
     
     setupPanel();
@@ -287,7 +288,7 @@ void ofApp::setupPanel(){
         scenes[i]->setupPanelValues(&panel);
     }
     
-    curPanel = 12;
+    curPanel = 7;
     panel.setSelectedPanel(curPanel);
     
     //set the game to be at 50% display scale if we're using the debugger tracker because that means it's on a laptop and won't be two screens wide
@@ -305,12 +306,45 @@ void ofApp::setupPanel(){
 
 //--------------------------------------------------------------
 void ofApp::scrollScenes(){
-    int targetScene = curSceneID + 1;
-    if (targetScene >= NUM_SCENES){
-        targetScene = 0;
+    
+    //if the order list is empty, repopulate it
+    if (sceneOrder.size() == 0){
+        cout<<"scene ID on randomize = "<<curSceneID<<endl;
+        randomizeSceneOrder();
+        
+        //make sure that the first scene is not the one we just came from
+        while (sceneOrder[0] == curSceneID){
+            randomizeSceneOrder();
+        }
     }
     
-    setScene(targetScene);
+    //if we were not on the title card, go there,
+    if (curSceneID != SCENE_TITLE_CARD){
+        setScene(SCENE_TITLE_CARD);
+        return;
+    }
+    
+    //otherwise, go to the next main scene
+    int thisSceneID = sceneOrder[0];
+    sceneOrder.erase(sceneOrder.begin());
+    setScene(thisSceneID);
+}
+
+//--------------------------------------------------------------
+void ofApp::randomizeSceneOrder(){
+    //first add all of the scenes in order
+    sceneOrder.push_back( (int)SCENE_SPORTS);
+    sceneOrder.push_back( (int)SCENE_STREAM);
+    sceneOrder.push_back( (int)SCENE_TOWER_DEFENSE);
+    
+    //randomize that shit
+    for (int i=0; i<sceneOrder.size()*100; i++){
+        int a = (int)ofRandom(sceneOrder.size());
+        int b = (int)ofRandom(sceneOrder.size());
+        int temp = sceneOrder[a];
+        sceneOrder[a] = sceneOrder[b];
+        sceneOrder[b] = temp;
+    }
 }
 
 //--------------------------------------------------------------
@@ -342,6 +376,10 @@ void ofApp::update(){
     ofShowCursor(); //the mouse was being hidden for some reason
     
     cupTracker->update();
+    if (cupTracker->overrideSceneSwicth){
+        cupTracker->overrideSceneSwicth = false;
+        scrollScenes();
+    }
     
     //update the panel
     panel.update();
@@ -372,10 +410,10 @@ void ofApp::update(){
     deltaTime = ofGetElapsedTimef() - prevFrameTime;
     prevFrameTime = ofGetElapsedTimef();
     
-    curScene->update(deltaTime, &panel);
     if (curScene->switchScenesFlag){
-        setScene(curScene->sceneToSwitchTo);
+        scrollScenes();
     }
+    curScene->update(deltaTime, &panel);
     
     //if we have a scene fading out, keep updating it until it is done
     if (fadingScene != NULL){
@@ -499,6 +537,10 @@ void ofApp::keyPressed(int key){
     
     if (key == 's'){
         curScene->showCupDebug = !curScene->showCupDebug;
+    }
+    
+    if (key == '/' || key == '?'){
+        setScene(SCENE_CALIBRATION);
     }
    
     

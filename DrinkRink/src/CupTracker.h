@@ -14,6 +14,8 @@
 #include "ofxControlPanel.h"
 #include "CamSettings.h"
 
+#define OVERRIDE_CUP_ID 0
+
 class CupTracker{
 public:
     
@@ -37,6 +39,9 @@ public:
     
     bool isDebug;
     float debugDisplayScale;
+    
+    
+    bool overrideSceneSwicth;
     
 };
 

@@ -74,6 +74,7 @@
 		4667FE111D23462D003C126D /* Beam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4667FE0F1D23462D003C126D /* Beam.cpp */; };
 		46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* Carnivale.cpp */; };
 		5723E7771D4564C200643B1D /* TDHomeHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7751D4564C200643B1D /* TDHomeHit.cpp */; };
+		5723E77B1D4674F700643B1D /* TitleCardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7791D4674F700643B1D /* TitleCardScene.cpp */; };
 		5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574569791D199DAA006E45D0 /* TDFireball.cpp */; };
 		5745697E1D19A1C6006E45D0 /* TDFreezeCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */; };
 		575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575466621D0F895E001B056E /* TowerDefenseScene.cpp */; };
@@ -395,6 +396,8 @@
 		46CA36AA1B8FEEDF00791398 /* Carnivale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carnivale.h; sourceTree = "<group>"; };
 		5723E7751D4564C200643B1D /* TDHomeHit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDHomeHit.cpp; sourceTree = "<group>"; };
 		5723E7761D4564C200643B1D /* TDHomeHit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDHomeHit.h; sourceTree = "<group>"; };
+		5723E7791D4674F700643B1D /* TitleCardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleCardScene.cpp; sourceTree = "<group>"; };
+		5723E77A1D4674F700643B1D /* TitleCardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCardScene.h; sourceTree = "<group>"; };
 		574569791D199DAA006E45D0 /* TDFireball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFireball.cpp; sourceTree = "<group>"; };
 		5745697A1D199DAA006E45D0 /* TDFireball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDFireball.h; sourceTree = "<group>"; };
 		5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFreezeCone.cpp; sourceTree = "<group>"; };
@@ -865,6 +868,7 @@
 		0AF37A901B840DEE00A9CFF7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				5723E7781D4674BE00643B1D /* TitleCard */,
 				0A2FE3E51B8E267900ABD7DB /* Calibration */,
 				46CA36AC1B8FEEEE00791398 /* Carnivale */,
 				0AF37A951B840E1400A9CFF7 /* Sports */,
@@ -1098,6 +1102,15 @@
 				0AF37A8E1B840DD100A9CFF7 /* Utils.h */,
 			);
 			name = utilities;
+			sourceTree = "<group>";
+		};
+		5723E7781D4674BE00643B1D /* TitleCard */ = {
+			isa = PBXGroup;
+			children = (
+				5723E77A1D4674F700643B1D /* TitleCardScene.h */,
+				5723E7791D4674F700643B1D /* TitleCardScene.cpp */,
+			);
+			name = TitleCard;
 			sourceTree = "<group>";
 		};
 		5797BB231C6433F500A752A5 /* ofxARtoolkitPlus */ = {
@@ -1528,6 +1541,7 @@
 				0AF37B261B840F4000A9CFF7 /* ofxXmlSettings.cpp in Sources */,
 				0AF37A9B1B840E4B00A9CFF7 /* Scene.cpp in Sources */,
 				57AB01AF1C62E76D00791458 /* MyCameraDriver.mm in Sources */,
+				5723E77B1D4674F700643B1D /* TitleCardScene.cpp in Sources */,
 				57AB01AD1C62E76D00791458 /* MiscTools.cpp in Sources */,
 				57AB01A81C62E76D00791458 /* FrameCounter.mm in Sources */,
 				0AF37B131B840F4000A9CFF7 /* guiTypeLabel.cpp in Sources */,
