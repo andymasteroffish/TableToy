@@ -202,7 +202,7 @@ void TDFoe::takeDamage(float dmg){
     }
     
     //for the ignore type, the first time they take damage, they shoot towards the goal
-    if (health == startingHealth-1 && type == FOE_IGNORE){
+    if (health < startingHealth && type == FOE_IGNORE){
         speed *= ignoreFoeSpeedIncrease;
         if (nextNodeID < path->size()-2){
             nextNodeID = path->size()-2;

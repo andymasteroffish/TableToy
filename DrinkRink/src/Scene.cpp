@@ -130,11 +130,11 @@ void Scene::checkCups(){
                 
                 //check if it moved enough to not be considered idle
                 if ( ofDistSquared(prevPos.x, prevPos.y, towers[k]->pos.x, towers[k]->pos.y) > idleTowerMoveThreshold*idleTowerMoveThreshold){
-                    cout<<"big move"<<endl;
+                    //cout<<"big move"<<endl;
                     idleTimer = 0;
                 }
                 if ( abs(prevAngle-towers[k]->targetAngle) > idleTowerRotateThreshold){
-                    cout<<"big angle"<<endl;
+                    //cout<<"big angle"<<endl;
                     idleTimer = 0;
                 }
                 

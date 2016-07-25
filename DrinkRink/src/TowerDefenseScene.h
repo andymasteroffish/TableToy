@@ -81,6 +81,7 @@ public:
     float pauseBetweenWaves;
     float pauseBetweenWavesTimer;
     float pauseBeforeFirstFoeEachWave;
+    float pauseBeforeVeryFirstWave;
     
     
     //list of poitns for foes to follow
@@ -107,8 +108,10 @@ public:
     TDAnimationMinder anims;
     ofImage towerPics[TD_FIRE+1];
     
-//    //images to pass to game elements
-//    ofImage foeWalkPics[FOE_IGNORE+1][5];   //second number should be the 
+    //switching out of the game whent he player wins or loses
+    bool gameOver;
+    float endGameTimer;
+    float endGameTimeBeforeNextScene;
     
     //debug stuff
     bool debugFastForward;

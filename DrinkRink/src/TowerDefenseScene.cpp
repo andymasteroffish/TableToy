@@ -15,14 +15,17 @@ void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
     pauseBetweenWaves = 3;
-    pauseBeforeFirstFoeEachWave = 1.5;
+    pauseBeforeFirstFoeEachWave = 2.5;
+    pauseBeforeVeryFirstWave = 10;
     
-    curWave = 0;
+    curWave = -1;
     curPath = 2;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
     messageTimer = 0;
+    
+    endGameTimeBeforeNextScene = 7;
     
     towerPics[0].loadImage("pic/td/tower_shooter.png");
     towerPics[1].loadImage("pic/td/tower_ice.png");
@@ -86,6 +89,8 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->setWhichPanel(sceneName+"2");
     panel->setWhichColumn(0);
     
+    panel->addSlider("Wait time after game end", "TD_TIME_BEFORE_SCENE_SWITCH", 7, 1, 30, false);
+    
     //foes
     panel->addSlider("Foe Hit Circle Size", "FOE_HIT_CIRCLE", 40, 5, 100, false);
     
@@ -128,6 +133,8 @@ void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
         panel->setValueB("TD_SKIP_WAVE", false);
         foes.clear();
     }
+    
+    endGameTimeBeforeNextScene = panel->getValueF("TD_TIME_BEFORE_SCENE_SWITCH");
     
     //set the liklihood of each tower
     towerSpawnRates[TD_SHOOTER] = panel->getValueI("SHOOT_TOWER_SPAWN");
@@ -185,7 +192,8 @@ void TowerDefenseScene::resetCustom(){
     fireballs.clear();
     freezeCones.clear();
     
-
+    gameOver = false;
+    endGameTimer = 0;
     
     //startNextWave();
     
@@ -207,7 +215,11 @@ void TowerDefenseScene::startNextWave(){
         TDFoe newFoe;
         FoeType type = waves[curWave].foes[i];
         int thisPath = canSwitchPaths ? i%2 : 0;
-        newFoe.setup(type, &anims, &path[thisPath], pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes, myPanel);
+        float pauseTime = pauseBeforeFirstFoeEachWave + i*waves[curWave].timeBetweenFoes;
+        if (curWave == 0){
+            pauseTime += pauseBeforeVeryFirstWave;
+        }
+        newFoe.setup(type, &anims, &path[thisPath], pauseTime, myPanel);
         foes.push_back(newFoe);
     }
     
@@ -354,6 +366,7 @@ void TowerDefenseScene::updateCustom(){
                     startNextWave();
                 }else{
                     setMessage("YOU WIN!", 1);
+                    gameOver = true;
                 }
             }
         }
@@ -361,6 +374,14 @@ void TowerDefenseScene::updateCustom(){
         //is the player dead?
         if (playerHealth <= 0){
             setMessage("YOU DEAD!!!", 1);
+            gameOver = true;
+        }
+        
+        if (gameOver){
+            endGameTimer += deltaTime;
+            if (endGameTimer > endGameTimeBeforeNextScene){
+                switchScenesFlag = true;
+            }
         }
         
         //check the message
@@ -697,30 +718,4 @@ void TowerDefenseScene::setPath(int curWave){
     }else{
         cout<<"you done fucked up that file, brah"<<endl;
     }
-//    
-//    if (curWave%2 == 0){
-//        path.resize(8);
-//        path[0].set(100,200);
-//        path[1].set(500,200);
-//        path[2].set(500,600);
-//        path[3].set(1110,600);
-//        path[4].set(1110,250);
-//        path[5].set(1800,250);
-//        path[6].set(1800,400);
-//        path[7].set(2200,400);
-//    }
-//    
-//    else{
-//        path.resize(10);
-//        path[0].set(92,428);
-//        path[1].set(496,98);
-//        path[2].set(848,100);
-//        path[3].set(844,408);
-//        path[4].set(516,444);
-//        path[5].set(508,688);
-//        path[6].set(1320,684);
-//        path[7].set(1626,102);
-//        path[8].set(1930,646);
-//        path[9].set(2344,398);
-//    }
 }
