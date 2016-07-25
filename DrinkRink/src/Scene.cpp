@@ -19,7 +19,6 @@ void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     
     fadeTime = 3;
     
-    ignorePanelValues = false;
     
     showCupDebug = false;
     
@@ -96,59 +95,6 @@ void Scene::checkPanelValues(ofxControlPanel *panel){
     
     checkPanelValuesCustom(panel);
     
-    if (ignorePanelValues){
-        return;
-    }
-    
-    //colors
-    bgCol.setHsb(panel->getValueF("BG_HUE"), panel->getValueF("BG_SAT"), panel->getValueF("BG_BRI"));
-    
-    //particle shit
-    p_friction = panel->getValueF("PARTICLE_FRICTION");
-    p_killTime = panel->getValueF("PARTICLE_KILL_TIME");
-    p_showDot = panel->getValueB("SHOW_DOT");
-    p_fillDot = panel->getValueF("FILL_DOT");
-    p_dotSize = panel->getValueF("DOT_SIZE");
-    
-    p_useNoiseWiggle = panel->getValueB("USE_NOISE_WIGGLE");
-    p_noiseWiggleRange = panel->getValueF("NOISE_WIGGLE_RANGE");
-    p_noiseWigglePower = panel->getValueF("NOISE_WIGGLE_POWER");
-    p_noiseWiggleRate = panel->getValueF("NOISE_WIGGLE_RATE");
-    
-    p_useTrails = panel->getValueB("USE_TRAIL");
-    p_numTrailPositions = panel->getValueF("TRAIL_LENGTH");
-    p_trailStartWidth = panel->getValueF("TRAIL_START_THICKNESS");
-    p_trailEndWidth = panel->getValueF("TRAIL_END_THICKNESS");
-    
-    particleColors.clear();
-    for (int i=0; i<5; i++){
-        ofColor thisCol;
-        thisCol.setHsb(panel->getValueF("PARTICLE_HUE_"+ofToString(i)), panel->getValueF("PARTICLE_SAT"), panel->getValueF("PARTICLE_BRI"));
-        particleColors.push_back(thisCol);
-    }
-    
-    //grid shit
-    field.gridDrawingAdjust = panel->getValueF("GRID_DRAWING_ADJUST");
-    field.showVerticalGrid = panel->getValueB("SHOW_VERTICAL_GRID");
-    field.showHorizontalGrid = panel->getValueB("SHOW_HORIZONTAL_GRID");
-    field.showGridFill = panel->getValueB("SHOW_GRID_FILL");
-    
-    field.gridValThreshold = panel->getValueF("GRID_VAL_THRESHOLD");
-    field.gridValCeiling = panel->getValueF("GRID_VAL_CEILING");
-    
-    field.useGridWiggle = panel->getValueB("USE_GRID_WIGGLE");
-    field.gridWiggleSpeed = panel->getValueF("GRID_WIGGLE_SPEED");
-    field.gridWiggleStrength = panel->getValueF("GRID_WIGGLE_STRENGTH");
-    
-    field.useGridFade = panel->getValueB("USE_GRID_LINE_FADE");
-    field.useVarryingWidths = panel->getValueB("USE_GRID_VARRYING_LINE_WIDTH");
-    field.gridMinLineWidth = panel->getValueF("GRID_MIN_LINE_WIDTH");
-    field.gridMaxLineWidth = panel->getValueF("GRID_MAX_LINE_WIDTH");
-    
-    field.showVerticalGridCurved = panel->getValueB("SHOW_VERTICAL_GRID_CURVED");
-    field.showHorizontalGridCurved = panel->getValueB("SHOW_HORIZONTAL_GRID_CURVED");
-    
-    field.gridColor.setHsb(panel->getValueF("GRID_HUE"), panel->getValueF("GRID_SAT"), panel->getValueF("GRID_BRI"));
 }
 
 
@@ -264,30 +210,6 @@ void Scene::makeFieldParticles(){
         }else{
             newP->setType(defaultParticleType);
         }
-        
-        if (!ignorePanelValues){
-            newP->fric = p_friction;
-            newP->killTime = p_killTime;
-            newP->showDot = p_showDot;
-            newP->fillDot = p_fillDot;
-            newP->dotSize = p_dotSize;
-            
-            newP->useNoiseWiggle = p_useNoiseWiggle;
-            newP->noiseWiggleRange = p_noiseWiggleRange;
-            newP->noiseWigglePower = p_noiseWigglePower;
-            newP->noiseWiggleRate = p_noiseWiggleRate;
-            
-            newP->useTrails = p_useTrails;
-            newP->numTrailPositions = p_numTrailPositions;
-            newP->trailStartWidth = p_trailStartWidth;
-            newP->trailEndWidth =  p_trailEndWidth;
-            
-            if (particleColors.size() > 0){
-                newP->col = particleColors[ (int)ofRandom(particleColors.size())];
-            }
-        }
-        
-        
         
         //add it to the list
         fieldParticles.push_back(newP);

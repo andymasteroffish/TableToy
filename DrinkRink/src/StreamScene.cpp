@@ -15,7 +15,6 @@ void StreamScene::setupCustom(){
     
     defaultParticleType =  PARTICLE_STREAM;
     bgCol.set(ofRandom(10),ofRandom(10),ofRandom(10));
-    ignorePanelValues = true;
     
     numFieldParticlesPerFrame = 25;
     

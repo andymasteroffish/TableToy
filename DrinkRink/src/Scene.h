@@ -127,11 +127,6 @@ public:
     float alphaPrc;
     
     
-    
-    //flag to not use our debug and testing values
-    //set this to true in setupCustom if you want to ignore the panel
-    bool ignorePanelValues;
-    
     //Testing different particle options
     //These maybe aren't being used? I don't know. Don't fuck with them I guess
     float p_friction;

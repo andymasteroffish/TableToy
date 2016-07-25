@@ -43,7 +43,48 @@ void SportsScene::setupCustom(){
     bgCol.set(250,249,240);
     defaultParticleType =  PARTICLE_SPORT;
     
-    ignorePanelValues = true;
+}
+
+void SportsScene::setupPanelValues(ofxControlPanel * panel){
+    
+    panel->addPanel("Sports Scene", 1, false);
+    panel->setWhichPanel("Sports Scene");
+    panel->setWhichColumn(0);
+    
+    
+    panel->addSlider("Score To Win", "GOAL_SCORE_TO_WIN", 40, 1, 100, true);
+    
+    panel->addSlider("Left Goal Hue", "GOAL_HUE_LEFT", 7, 0, 255, true);
+    panel->addSlider("Right Goal Hue", "GOAL_HUE_RIGHT", 154, 0, 255, true);
+    panel->addSlider("Goal Saturation", "GOAL_SAT", 255, 0, 255, false);
+    panel->addSlider("Goal Brightness", "GOAL_BRI", 255, 0, 255, false);
+    
+    panel->addSlider("X Dist From Edge", "GOAL_X_DIST_FROM_EDGE", 70, 0, 150, false);
+    panel->addSlider("Y % From Edge", "GOAL_Y_PRC_FROM_EDGE", 0.5, 0, 1, false);
+    
+    panel->addSlider("Near Pull Range", "GOAL_NEAR_RANGE", 50, 0, 300, false);
+    panel->addSlider("Near Pull Strength", "GOAL_NEAR_FIELD_STRENGTH", 1.5, 0, 3, false);
+    panel->addSlider("Far Pull Range", "GOAL_FAR_RANGE", 160, 0, 300, false);
+    panel->addSlider("Far Pull Strength", "GOAL_FAR_FIELD_STRENGTH", 0.5, 0, 3, false);
+    panel->addSlider("Kill Range", "GOAL_KILL_RANGE", 25, 0, 200, false);
+    
+    panel->addToggle("Show Ranges", "GOAL_SHOW_DEBUG", false);
+    
+    panel->addLabel("score bars");
+    panel->addSlider("Score Bar Alpha", "GOAL_SCORE_BAR_ALPHA", 50, 0, 255, false);
+    panel->addSlider("Score Bar Hue Range", "GOAL_SCORE_BAR_HUE_RANGE", 30, 0, 255, false);
+    panel->addSlider("Score Bar Noise Speed", "GOAL_SCORE_BAR_NOISE_SPEED", 0.1, 0, 1, false);
+    
+    panel->addSlider("Score Smoothing Speed", "GOAL_SCORE_XENO", 0.25, 0.01, 1, false);
+    
+    panel->addToggle("Add Score Left", "GOAL_ADD_SCORE_LEFT", false);
+    panel->addToggle("Add Score Right", "GOAL_ADD_SCORE_RIGHT", false);
+//    
+//    panel->addPanel("Goals Score Display", 1, false);
+//    panel->setWhichPanel("Goals Score Display");
+//    panel->setWhichColumn(0);
+    
+    
 }
 
 
@@ -158,11 +199,7 @@ void SportsScene::updateCustom(){
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::checkPanelValuesCustom(ofxControlPanel *panel){
-    if (ignorePanelValues){
-        return;
-    }
-    
-    ballColor.setHsb(panel->getValueF("BALL_HUE"), panel->getValueF("BALL_SAT"), panel->getValueF("BALL_BRI"));
+    //ballColor.setHsb(panel->getValueF("BALL_HUE"), panel->getValueF("BALL_SAT"), panel->getValueF("BALL_BRI"));
     
     for (int i=0; i<NUM_GOALS; i++){
         goals[i].checkPanelValues(panel);

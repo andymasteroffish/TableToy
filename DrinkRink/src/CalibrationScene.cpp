@@ -13,7 +13,6 @@
 void CalibrationScene::setupCustom(){
     sceneName = "calibration";
     
-    ignorePanelValues = true;
     bgCol.set(10,30,20);
     
     drawOffset.set(20, 10);

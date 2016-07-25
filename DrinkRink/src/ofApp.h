@@ -42,9 +42,6 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    void setPreset(int idNum);
-    
-    
     //general
     float deltaTime, prevFrameTime;
     int gameWidth, gameHeight;      //the size in pixels of the board. The image may be scaled up or down, but this is the size used for calculations

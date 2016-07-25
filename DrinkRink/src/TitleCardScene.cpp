@@ -14,7 +14,6 @@ void TitleCardScene::setupCustom(){
     sceneName = "title_card";
     
     bgCol.set(0,0,0);
-    ignorePanelValues = true;
     
     fbo.allocate(gameWidth/2, gameHeight);
     
@@ -25,8 +24,25 @@ void TitleCardScene::setupCustom(){
 }
 
 //--------------------------------------------------------------------------------------------
+void TitleCardScene::setupPanelValues(ofxControlPanel * panel){
+    
+    panel->addPanel(sceneName, 1, false);
+    panel->setWhichPanel(sceneName);
+    panel->setWhichColumn(0);
+    
+    
+    panel->addSlider("Time before moving on", "TITLE_CARD_WAIT_TIME", 10, 1, 60, true);
+}
+
+//--------------------------------------------------------------------------------------------
 void TitleCardScene::resetCustom(){
     
+}
+
+
+//--------------------------------------------------------------------------------------------
+void TitleCardScene::checkPanelValuesCustom(ofxControlPanel * panel){
+    killTime = panel->getValueF("TITLE_CARD_WAIT_TIME");
 }
 
 //--------------------------------------------------------------------------------------------
