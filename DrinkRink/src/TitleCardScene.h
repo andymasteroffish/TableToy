@@ -27,9 +27,12 @@ public:
     
     void keyPressed(int key);
     
+    void addTower(CupInfo thisCup);
     
-    //void addTower(CupInfo thisCup);
+    ofFbo fbo;
+    ofImage titleCardPic;
     
+    float killTime;
     
 };
 

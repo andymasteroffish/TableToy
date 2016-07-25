@@ -38,12 +38,17 @@ void Scene::reset(){
     
     switchScenesFlag = false;
     
+    idleTimer = 0;
+    activeTimer = 0;
+    
     resetCustom();
 }
 
 //--------------------------------------------------------------------------------------------
 void Scene::update(float _deltaTime, ofxControlPanel * panel){
     deltaTime = _deltaTime;
+    
+    activeTimer += deltaTime;
     
     checkPanelValues(panel);
     
