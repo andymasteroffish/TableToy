@@ -68,6 +68,10 @@ public:
     float gameOverCupShrinkTime;
     float gameOverTimetoSwitchScene;
     
+    //killing the scene if nothing is hapenning
+    float maxTimeWithoutScoreToEndScene;
+    float scoreTimer;
+    
 };
 
 #endif /* defined(__emptyExample__SportsScene__) */

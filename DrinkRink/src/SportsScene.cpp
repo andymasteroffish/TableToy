@@ -53,6 +53,7 @@ void SportsScene::setupPanelValues(ofxControlPanel * panel){
     
     
     panel->addSlider("Score To Win", "GOAL_SCORE_TO_WIN", 40, 1, 100, true);
+    panel->addSlider("no score idle timeout", "SPORTS_NO_SCORE_MAX_TIME", 60, 1, 300, false);
     
     panel->addSlider("Left Goal Hue", "GOAL_HUE_LEFT", 7, 0, 255, true);
     panel->addSlider("Right Goal Hue", "GOAL_HUE_RIGHT", 154, 0, 255, true);
@@ -79,10 +80,6 @@ void SportsScene::setupPanelValues(ofxControlPanel * panel){
     
     panel->addToggle("Add Score Left", "GOAL_ADD_SCORE_LEFT", false);
     panel->addToggle("Add Score Right", "GOAL_ADD_SCORE_RIGHT", false);
-//    
-//    panel->addPanel("Goals Score Display", 1, false);
-//    panel->setWhichPanel("Goals Score Display");
-//    panel->setWhichColumn(0);
     
     
 }
@@ -108,6 +105,8 @@ void SportsScene::resetCustom(){
     
     gameOver = false;
     gameOverTimer = 0;
+    
+    scoreTimer = 0;
     
     winFillEffect.setup();
 }
@@ -161,6 +160,7 @@ void SportsScene::updateCustom(){
         //ready to die in a goal?
         for (int g=0; g<NUM_GOALS; g++){
             if (goals[g].checkIsBallDead(balls[i])){
+                scoreTimer = 0;
                 killBall(i, g);
             }
         }
@@ -195,11 +195,19 @@ void SportsScene::updateCustom(){
         }
     }
     
+    //is nobody doing anything?
+    scoreTimer += deltaTime;
+    if (scoreTimer >= maxTimeWithoutScoreToEndScene && !gameOver){
+        switchScenesFlag = true;
+    }
+    
 }
 
 //--------------------------------------------------------------------------------------------
 void SportsScene::checkPanelValuesCustom(ofxControlPanel *panel){
     //ballColor.setHsb(panel->getValueF("BALL_HUE"), panel->getValueF("BALL_SAT"), panel->getValueF("BALL_BRI"));
+    
+    maxTimeWithoutScoreToEndScene = panel->getValueF("SPORTS_NO_SCORE_MAX_TIME");
     
     for (int i=0; i<NUM_GOALS; i++){
         goals[i].checkPanelValues(panel);
