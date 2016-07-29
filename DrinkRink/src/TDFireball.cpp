@@ -45,7 +45,15 @@ void TDFireball::draw(float alphaPrc){
 //    ofFill();
 //    ofCircle(pos.x, pos.y, size);
     
-    ofSetColor(255, 255*alphaPrc);
+    float colorPrc = abs(sin(ofGetElapsedTimef() * 10));
+    ofColor redTint(255,100,100);
+    ofColor thisCol;
+    thisCol.r = colorPrc * ofColor::white.r + (1.0-colorPrc) * redTint.r;
+    thisCol.g = colorPrc * ofColor::white.g + (1.0-colorPrc) * redTint.g;
+    thisCol.b = colorPrc * ofColor::white.b + (1.0-colorPrc) * redTint.b;
+    thisCol.a = 255 * alphaPrc;
+    
+    ofSetColor(thisCol);//, 255*alphaPrc);
     ofPushMatrix();
     ofTranslate(pos.x, pos.y);
     ofRotate(angleDeg);
