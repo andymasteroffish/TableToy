@@ -19,7 +19,7 @@ void TowerDefenseScene::setupCustom(){
     pauseBeforeVeryFirstWave = 10;
     
     curWave = -1;
-    curPath = 2;
+    curPath = 1;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -34,6 +34,9 @@ void TowerDefenseScene::setupCustom(){
     projectilePics[TD_SHOOTER].loadImage("td/projectiles/projectile_bullet.png");
     projectilePics[TD_ICE].loadImage("td/projectiles/freezeBeam.png");
     projectilePics[TD_FIRE].loadImage("td/projectiles/projectile_bomb.png");
+    
+    baseBorder.loadImage("td/goal/goal_border.png");
+    baseCenter.loadImage("td/goal/goal_center.png");
     
     anims.setup();
     
@@ -182,7 +185,7 @@ void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::resetCustom(){
     
-    playerHealth = 3;
+    playerHealth = 4;
     
     setWavesFromFile("tower_defense_waves.txt");
     curWave = -1;
@@ -398,6 +401,43 @@ void TowerDefenseScene::drawBackgroundCustom(){
     ofSetColor(255, 255*alphaPrc);
     bgPics[curPath].draw(0, 0);
     
+    //draw the home
+    ofFill();
+    float homeSize = 60;
+    ofSetColor(ofColor::purple);
+    ofVec2f homePos = path[0][path[0].size()-1];
+    //ofCircle(homePos.x, homePos.y, homeSize);
+    ofSetColor(255, 255*alphaPrc);
+    ofPushMatrix();
+    ofTranslate(homePos.x, homePos.y);
+    ofRotate(-ofGetElapsedTimef() * 30);
+    baseCenter.draw(-baseCenter.getWidth()/2, -baseCenter.getHeight()/2);
+    ofPopMatrix();
+    baseBorder.draw(homePos.x-baseCenter.getWidth()/2, homePos.y-baseCenter.getHeight()/2);
+    
+    //show the player health around it
+    float angleSpacing = TWO_PI/playerHealth;
+    float heartDist =  homeSize + 70;
+    
+    int heartFrame = (int)(ofGetElapsedTimef() * 15) % NUM_HEART_PICS;
+    
+    for (int i=0; i<playerHealth; i++){
+        float thisAngle = angleSpacing*i + ofGetElapsedTimef()*0.5;
+        float xPos = homePos.x + cos(thisAngle) * heartDist;
+        float yPos = homePos.y + sin(thisAngle) * heartDist;
+        
+        ofPushMatrix();
+        ofTranslate(xPos, yPos);
+        ofRotate( ofRadToDeg(thisAngle) +90 );
+        ofSetColor(255, 255*alphaPrc);
+        anims.heartCycle[heartFrame].draw(-anims.heartCycle[heartFrame].getWidth()/2, -anims.heartCycle[heartFrame].getHeight()/2);
+        
+        ofPopMatrix();
+        
+    }
+    
+    
+    
     //draw the bullets
     for (int i=0; i<bullets.size(); i++){
         //cout<<"bullets "<<bullets.size()<<"   i "<<i<<endl;
@@ -409,30 +449,14 @@ void TowerDefenseScene::drawBackgroundCustom(){
 void TowerDefenseScene::drawCustom(){
     
     
-    //draw the home
-    ofFill();
-    float homeSize = 60;
-    ofSetColor(ofColor::purple);
-    ofVec2f homePos = path[0][path[0].size()-1];
-    ofCircle(homePos.x, homePos.y, homeSize);
+    
     
     //show damage effects
     for (int i=0; i<homeHits.size(); i++){
         homeHits[i].draw(alphaPrc);
     }
     
-    //show the player health around if
-    float angleSpacing = TWO_PI/playerHealth;
-    float heartSize = 20;
-    float heartDist = heartSize + homeSize + 15;
-    for (int i=0; i<playerHealth; i++){
-        ofFill();
-        ofSetColor(ofColor::pink);
-        float thisAngle = angleSpacing*i + ofGetElapsedTimef()*0.5;
-        float xPos = homePos.x + cos(thisAngle) * heartDist;
-        float yPos = homePos.y + sin(thisAngle) * heartDist;
-        ofCircle(xPos, yPos, heartSize);
-    }
+    
     
     
     //debug draw the path

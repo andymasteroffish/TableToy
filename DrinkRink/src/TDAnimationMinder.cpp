@@ -65,6 +65,10 @@ void TDAnimationMinder::setup(){
         ignoreFoeAltWalkCycle[i].loadImage("td/foe_ignore/fly_fly_"+ofToString(i)+".png");
     }
     
+    for (int i=0; i<NUM_HEART_PICS; i++){
+        heartCycle[i].loadImage("td/heart/heart_"+ofToString(i)+".png");
+    }
+    
     
     
 }

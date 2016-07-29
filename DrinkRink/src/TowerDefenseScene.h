@@ -108,6 +108,7 @@ public:
     TDAnimationMinder anims;
     ofImage towerPics[TD_FIRE+1];
     ofImage projectilePics[TD_FIRE+1];
+    ofImage baseBorder, baseCenter;
     
     //switching out of the game whent he player wins or loses
     bool gameOver;

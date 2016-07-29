@@ -60,11 +60,11 @@ void TDFreezeCone::update(float deltaTime, vector<TDFoe> * foes){
 
 void TDFreezeCone::draw(float alphaPrc){
     
-    ofSetColor(0,255,0,200);
-    //ofSetColor(col.r, col.g, col.b, 200*alphaPrc);
-    ofFill();
-    
-    ofTriangle(points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
+//    ofSetColor(0,255,0,200);
+//    //ofSetColor(col.r, col.g, col.b, 200*alphaPrc);
+//    ofFill();
+//    
+//    ofTriangle(points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
     
     
     //set the cone from the parent tower
