@@ -16,7 +16,7 @@ void TowerDefenseScene::setupCustom(){
     
     pauseBetweenWaves = 3;
     pauseBeforeFirstFoeEachWave = 2.5;
-    pauseBeforeVeryFirstWave = 0;//10;  //PUT THIS BACK
+    pauseBeforeVeryFirstWave = 8;  //PUT THIS BACK
     
     curWave = -1;
     curPath = 1;
