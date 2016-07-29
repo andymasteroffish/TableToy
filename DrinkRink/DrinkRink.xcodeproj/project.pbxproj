@@ -80,6 +80,7 @@
 		575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575466621D0F895E001B056E /* TowerDefenseScene.cpp */; };
 		575B7A3D1D17590E005DD708 /* TowerTD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575B7A3B1D17590E005DD708 /* TowerTD.cpp */; };
 		575B7A401D175C88005DD708 /* TDBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575B7A3E1D175C88005DD708 /* TDBullet.cpp */; };
+		577002EA1D4BE93E00807C2C /* TDBulletHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577002E81D4BE93E00807C2C /* TDBulletHit.cpp */; };
 		577928541D42B94500E1FAE9 /* TDAnimationMinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577928521D42B94500E1FAE9 /* TDAnimationMinder.cpp */; };
 		577928571D42D11600E1FAE9 /* TDFoeDeath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577928551D42D11600E1FAE9 /* TDFoeDeath.cpp */; };
 		577EDED11D10ABAB00F7064D /* TDFoe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577EDECF1D10ABAB00F7064D /* TDFoe.cpp */; };
@@ -409,6 +410,8 @@
 		575B7A3C1D17590E005DD708 /* TowerTD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerTD.h; sourceTree = "<group>"; };
 		575B7A3E1D175C88005DD708 /* TDBullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDBullet.cpp; sourceTree = "<group>"; };
 		575B7A3F1D175C88005DD708 /* TDBullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBullet.h; sourceTree = "<group>"; };
+		577002E81D4BE93E00807C2C /* TDBulletHit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDBulletHit.cpp; sourceTree = "<group>"; };
+		577002E91D4BE93E00807C2C /* TDBulletHit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBulletHit.h; sourceTree = "<group>"; };
 		577928521D42B94500E1FAE9 /* TDAnimationMinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDAnimationMinder.cpp; sourceTree = "<group>"; };
 		577928531D42B94500E1FAE9 /* TDAnimationMinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAnimationMinder.h; sourceTree = "<group>"; };
 		577928551D42D11600E1FAE9 /* TDFoeDeath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFoeDeath.cpp; sourceTree = "<group>"; };
@@ -1329,6 +1332,8 @@
 				575B7A3B1D17590E005DD708 /* TowerTD.cpp */,
 				575B7A3F1D175C88005DD708 /* TDBullet.h */,
 				575B7A3E1D175C88005DD708 /* TDBullet.cpp */,
+				577002E91D4BE93E00807C2C /* TDBulletHit.h */,
+				577002E81D4BE93E00807C2C /* TDBulletHit.cpp */,
 				5745697A1D199DAA006E45D0 /* TDFireball.h */,
 				574569791D199DAA006E45D0 /* TDFireball.cpp */,
 				5745697D1D19A1C6006E45D0 /* TDFreezeCone.h */,
@@ -1529,6 +1534,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
+				577002EA1D4BE93E00807C2C /* TDBulletHit.cpp in Sources */,
 				0AF37B241B840F4000A9CFF7 /* tinyxmlerror.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				575B7A3D1D17590E005DD708 /* TowerTD.cpp in Sources */,

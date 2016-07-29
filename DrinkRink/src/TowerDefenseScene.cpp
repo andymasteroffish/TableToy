@@ -16,7 +16,7 @@ void TowerDefenseScene::setupCustom(){
     
     pauseBetweenWaves = 3;
     pauseBeforeFirstFoeEachWave = 2.5;
-    pauseBeforeVeryFirstWave = 10;
+    pauseBeforeVeryFirstWave = 0;//10;  //PUT THIS BACK
     
     curWave = -1;
     curPath = 1;
@@ -37,6 +37,9 @@ void TowerDefenseScene::setupCustom(){
     
     baseBorder.loadImage("td/goal/goal_border.png");
     baseCenter.loadImage("td/goal/goal_center.png");
+    
+    fireballPic.loadImage("td/impacts/explosion.png");
+    bulletHitPic.loadImage("td/impacts/bulletStrike.png");
     
     anims.setup();
     
@@ -293,6 +296,13 @@ void TowerDefenseScene::updateCustom(){
                         foes[f].takeDamage(bullets[i].dmg);
                         if (bullets[i].isFire){
                             spawnFireball(bullets[i].pos);
+                        }else{
+                            TDBulletHit thisHit;
+                            //put the hit effect between the bullet and the foe
+                            float midPrc = 0.5;
+                            ofVec2f effectPos = midPrc * bullets[i].pos + (1-midPrc) * foes[f].pos;
+                            thisHit.setup(effectPos, &bulletHitPic);
+                            bulletHits.push_back(thisHit);
                         }
                         //cout<<"bullet "<<i<<" hit a foe so dead frame "<<ofGetFrameNum()<<endl;
                         bullets.erase(bullets.begin()+i);
@@ -308,6 +318,14 @@ void TowerDefenseScene::updateCustom(){
             fireballs[i].update(deltaTime);
             if (fireballs[i].timer < 0){
                 fireballs.erase(fireballs.begin() + i);
+            }
+        }
+        
+        //update bullet hit effects
+        for (int i=bulletHits.size()-1; i>=0; i--){
+            bulletHits[i].update(deltaTime);
+            if (bulletHits[i].killMe){
+                bulletHits.erase(bulletHits.begin()+i);
             }
         }
         
@@ -443,6 +461,7 @@ void TowerDefenseScene::drawBackgroundCustom(){
         //cout<<"bullets "<<bullets.size()<<"   i "<<i<<endl;
         bullets[i].draw(alphaPrc);
     }
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -493,6 +512,11 @@ void TowerDefenseScene::drawCustom(){
     //draw fireballs
     for (int i=0; i<fireballs.size(); i++){
         fireballs[i].draw(alphaPrc);
+    }
+    
+    //bullet hits
+    for (int i=0; i<bulletHits.size(); i++){
+        bulletHits[i].draw(alphaPrc);
     }
     
     //is the player dead?
@@ -589,7 +613,7 @@ void TowerDefenseScene::spawnFreezeCone(Tower * source){
 void TowerDefenseScene::spawnFireball(ofVec2f pos){
     //create a fireball
     TDFireball fireball;
-    fireball.setup(pos, myPanel);
+    fireball.setup(pos, &fireballPic, myPanel);
     fireballs.push_back(fireball);
     
     //damage all foes in the radius

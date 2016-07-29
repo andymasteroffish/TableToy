@@ -22,6 +22,7 @@
 #include "TDAnimationMinder.h"
 
 #include "TDBullet.h"
+#include "TDBulletHit.h"
 #include "TDFireball.h"
 #include "TDFreezeCone.h"
 
@@ -101,6 +102,8 @@ public:
     vector<TDFireball> fireballs;
     vector<TDFreezeCone> freezeCones;
     
+    vector<TDBulletHit> bulletHits;
+    
     int playerHealth;
     vector<TDHomeHit> homeHits;
     
@@ -109,6 +112,7 @@ public:
     ofImage towerPics[TD_FIRE+1];
     ofImage projectilePics[TD_FIRE+1];
     ofImage baseBorder, baseCenter;
+    ofImage fireballPic, bulletHitPic;
     
     //switching out of the game whent he player wins or loses
     bool gameOver;

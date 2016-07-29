@@ -10,8 +10,9 @@
 
 
 
-void TDFireball::setup(ofVec2f _pos, ofxControlPanel * panel){
+void TDFireball::setup(ofVec2f _pos, ofImage * _pic, ofxControlPanel * panel){
     pos = _pos;
+    pic = _pic;
     
     //startSize = 250;
     //dmg = 3;
@@ -21,10 +22,13 @@ void TDFireball::setup(ofVec2f _pos, ofxControlPanel * panel){
     killTime = 0.5;
     timer = killTime;
     
+    angleDeg = ofRandom(360);
+    
     col.set(240, 40, 20);
 }
 
 void TDFireball::update(float deltaTime){
+    angleDeg += deltaTime * 100;
     
     timer -= deltaTime;
     
@@ -37,7 +41,16 @@ void TDFireball::draw(float alphaPrc){
     
     float size = startSize * prc;
     
-    ofSetColor(col.r, col.g, col.b, 180 * alphaPrc);
-    ofFill();
-    ofCircle(pos.x, pos.y, size);
+//    ofSetColor(col.r, col.g, col.b, 180 * alphaPrc);
+//    ofFill();
+//    ofCircle(pos.x, pos.y, size);
+    
+    ofSetColor(255, 255*alphaPrc);
+    ofPushMatrix();
+    ofTranslate(pos.x, pos.y);
+    ofRotate(angleDeg);
+    float curScale = size/(pic->getWidth()/2 - 60);
+    ofScale(curScale, curScale);
+    pic->draw(-pic->getWidth()/2,-pic->getHeight()/2);
+    ofPopMatrix();
 }

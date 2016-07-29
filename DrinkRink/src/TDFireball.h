@@ -15,7 +15,7 @@
 class TDFireball{
 public:
     
-    void setup(ofVec2f _pos, ofxControlPanel * panel);
+    void setup(ofVec2f _pos, ofImage * _pic, ofxControlPanel * panel);
     void update(float deltaTime);
     void draw(float alphaPrc);
     
@@ -28,7 +28,9 @@ public:
     float killTime;
     
     ofColor col;
-   
+    
+    ofImage * pic;
+    float angleDeg;
     
 };
 
