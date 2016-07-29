@@ -10,8 +10,9 @@
 
 
 
-void TDFreezeCone::setup(Tower * _parentTower, ofxControlPanel * panel){
+void TDFreezeCone::setup(Tower * _parentTower, ofImage * _pic, ofxControlPanel * panel){
     parentTower = _parentTower;
+    pic = _pic;
     
     //dmg = 0.5;
     //freezeTime = 8;
@@ -35,10 +36,9 @@ void TDFreezeCone::update(float deltaTime, vector<TDFoe> * foes){
     
     timer -= deltaTime;
     
-    //set the cone from the parent tower
-    pos = parentTower->pos;
     
-    float angle = parentTower->curAngle;
+    angle = parentTower->curAngle;
+    pos = parentTower->pos;
     
     //starts at the tower
     points[0].set(pos);
@@ -60,15 +60,27 @@ void TDFreezeCone::update(float deltaTime, vector<TDFoe> * foes){
 
 void TDFreezeCone::draw(float alphaPrc){
     
-    ofSetColor(col.r, col.g, col.b, 200*alphaPrc);
+    ofSetColor(0,255,0,200);
+    //ofSetColor(col.r, col.g, col.b, 200*alphaPrc);
     ofFill();
-
+    
     ofTriangle(points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
-//    ofBeginShape();
-//    for (int i=0; i<points.size(); i++){
-//        ofVertex(points[i].x, points[i].y);
-//    }
-//    ofEndShape();
+    
+    
+    //set the cone from the parent tower
+    float offset = 80;
+    ofVec2f drawPos;
+    drawPos.x = parentTower->pos.x + cos(angle) * offset;
+    drawPos.y = parentTower->pos.y + sin(angle) * offset;
+    
+    ofSetColor(255, 255*alphaPrc);
+    ofPushMatrix();
+    ofTranslate(drawPos.x, drawPos.y);
+    ofRotate( ofRadToDeg(angle));
+    pic->draw(0, -pic->getHeight()/2);
+    ofPopMatrix();
+    
+    
     
     
 }

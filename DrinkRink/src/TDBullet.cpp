@@ -9,9 +9,12 @@
 #include "TDBullet.h"
 
 
-void TDBullet::setup(ofVec2f _pos, float angle, float startDist, bool _isFire, ofxControlPanel * panel){
+void TDBullet::setup(ofVec2f _pos, float _angle, float startDist, bool _isFire, ofImage * _pic, ofxControlPanel * panel){
     
     pos.set(_pos);
+    
+    pic = _pic;
+    angle = _angle;
     
     isFire = _isFire;
     
@@ -51,7 +54,14 @@ void TDBullet::update(float deltaTime){
 
 void TDBullet::draw(float alphaPrc){
     
-    ofSetColor(col.r, col.g, col.b, 255 * alphaPrc);
-    ofCircle(pos.x, pos.y, size);
+    ofSetColor(255, 255 * alphaPrc);
+    ofPushMatrix();
+    ofTranslate(pos.x, pos.y);
+    ofRotate( ofRadToDeg(angle) );
+    pic->draw(-pic->getWidth()/2, -pic->getHeight()/2);
+    ofPopMatrix();
+    
+//    ofSetColor(col.r, col.g, col.b, 255 * alphaPrc);
+//    ofCircle(pos.x, pos.y, size);
     
 }

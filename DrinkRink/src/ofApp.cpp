@@ -35,14 +35,14 @@ void ofApp::setup(){
     for (int i=0; i<NUM_SCENES; i++){
         scenes[i]->setup(cupTracker, gameWidth, gameHeight);
         if (usingDebugCupTracker){
-            scenes[i]->showCupDebug = true;
+            scenes[i]->showCupDebug = false;
         }
     }
     
     curSceneID = -100;
     setScene(SCENE_CALIBRATION);
     if (usingDebugCupTracker){
-        setScene(SCENE_STREAM);
+        setScene(SCENE_TOWER_DEFENSE);
     }
     
     setupPanel();

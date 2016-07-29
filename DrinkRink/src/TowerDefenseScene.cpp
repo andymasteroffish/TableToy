@@ -27,9 +27,13 @@ void TowerDefenseScene::setupCustom(){
     
     endGameTimeBeforeNextScene = 7;
     
-    towerPics[0].loadImage("pic/td/tower_shooter.png");
-    towerPics[1].loadImage("pic/td/tower_ice.png");
-    towerPics[2].loadImage("pic/td/tower_fire.png");
+    towerPics[TD_SHOOTER].loadImage("td/guns/shoot.png");
+    towerPics[TD_ICE].loadImage("td/guns/freeze.png");
+    towerPics[TD_FIRE].loadImage("td/guns/explode.png");
+    
+    projectilePics[TD_SHOOTER].loadImage("td/projectiles/projectile_bullet.png");
+    projectilePics[TD_ICE].loadImage("td/projectiles/freezeBeam.png");
+    projectilePics[TD_FIRE].loadImage("td/projectiles/projectile_bomb.png");
     
     anims.setup();
     
@@ -37,7 +41,7 @@ void TowerDefenseScene::setupCustom(){
     
     bgPics.resize(8);
     for (int i=0; i<bgPics.size(); i++){
-        bgPics[i].loadImage("td_paths/path"+ofToString(i)+".png");
+        bgPics[i].loadImage("td/paths/path"+ofToString(i)+".png");
     }
     
     //gameW 2560
@@ -393,6 +397,12 @@ void TowerDefenseScene::updateCustom(){
 void TowerDefenseScene::drawBackgroundCustom(){
     ofSetColor(255, 255*alphaPrc);
     bgPics[curPath].draw(0, 0);
+    
+    //draw the bullets
+    for (int i=0; i<bullets.size(); i++){
+        //cout<<"bullets "<<bullets.size()<<"   i "<<i<<endl;
+        bullets[i].draw(alphaPrc);
+    }
 }
 
 //--------------------------------------------------------------------------------------------
@@ -454,11 +464,7 @@ void TowerDefenseScene::drawCustom(){
         freezeCones[i].draw(alphaPrc);
     }
     
-    //draw the bullets
-    for (int i=0; i<bullets.size(); i++){
-        //cout<<"bullets "<<bullets.size()<<"   i "<<i<<endl;
-        bullets[i].draw(alphaPrc);
-    }
+    
     
     //draw fireballs
     for (int i=0; i<fireballs.size(); i++){
@@ -512,18 +518,6 @@ void TowerDefenseScene::addTower(CupInfo thisCup){
     cout<<"What the fuck?"<<endl;
     
     
-//    TowerTD * newTower = new TowerTD();
-//    newTower->setup( thisCup, &field);
-//    if (thisCup.uniqueID % 3 == 0){
-//        newTower->setupTowerDefense(TD_SHOOTER, &towerPics[TD_SHOOTER]);
-//    }
-//    if (thisCup.uniqueID % 3 == 1){
-//        newTower->setupTowerDefense(TD_ICE, &towerPics[TD_ICE]);
-//    }
-//    if (thisCup.uniqueID % 3 == 2){
-//        newTower->setupTowerDefense(TD_FIRE, &towerPics[TD_FIRE]);
-//    }
-    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -556,14 +550,14 @@ void TowerDefenseScene::takeDamage(){
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::spawnShot(TowerTD * source){
     TDBullet newBullet;
-    newBullet.setup(source->pos, source->curAngle, source->towerSize, source->tdType == TD_FIRE, myPanel);
+    newBullet.setup(source->pos, source->curAngle, source->towerSize + 80, source->tdType == TD_FIRE, &projectilePics[source->tdType], myPanel);
     bullets.push_back(newBullet);
 }
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::spawnFreezeCone(Tower * source){
     TDFreezeCone newCone;
-    newCone.setup(source, myPanel);
+    newCone.setup(source, &projectilePics[TD_ICE], myPanel);
     freezeCones.push_back(newCone);
 }
 
@@ -683,7 +677,7 @@ void TowerDefenseScene::setPath(int curWave){
     path[0].clear();
     path[1].clear();
     
-    ofBuffer buffer = ofBufferFromFile("td_paths/path"+ofToString(curPath)+".txt");
+    ofBuffer buffer = ofBufferFromFile("td/paths/path"+ofToString(curPath)+".txt");
     
     int curPath = 0;
     

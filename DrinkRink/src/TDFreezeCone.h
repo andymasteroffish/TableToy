@@ -17,7 +17,7 @@
 class TDFreezeCone{
 public:
     
-    void setup(Tower * _parentTower, ofxControlPanel * panel);
+    void setup(Tower * _parentTower, ofImage * _pic, ofxControlPanel * panel);
     void update(float deltaTime, vector<TDFoe> * foes);
     void checkFoes(vector<TDFoe> * foes);
     void draw(float alphaPrc);
@@ -38,6 +38,8 @@ public:
     float spreadPrc;
     
     Tower * parentTower;
+    ofImage * pic;
+    float angle;
    
     
 };

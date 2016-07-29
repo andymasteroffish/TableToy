@@ -39,9 +39,12 @@ void TowerTD::setupTowerDefense(TD_TOWER_TYPE type, ofImage * _pic){
     }
     if (tdType == TD_ICE){
         timeBetweenShots = 5;
+        shotAnimationTime = 1.75;
     }
     if (tdType == TD_FIRE){
         timeBetweenShots = 3;
+        shotAnimationTime *= 2;
+        shootScale = 1.5;
     }
     
     modTimeLastFrame = fmod(ofGetElapsedTimef()+modTimeOffset, timeBetweenShots);
