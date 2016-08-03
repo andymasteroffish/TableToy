@@ -40,6 +40,8 @@ public:
     //functions that you may want to call depending on what you're doing
     void calculateFieldRange();     //call this any time you change the range
     
+    //you can ignore this one. It is just so I don't duplicate a funciton in the sports scene towers
+    void drawSportsTower(float alphaPrc);
     
     
     //---------

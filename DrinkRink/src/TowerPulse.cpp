@@ -12,7 +12,7 @@
 void TowerPulse::customSetup(){
     range = 400;
     
-    strength = 1.5;//0.8;
+    strength = 3;//1.5;//0.8;
     pulseWidth = 20;
     
     timer = 0;
@@ -45,15 +45,21 @@ void TowerPulse::customUpdate(){
 
 
 void TowerPulse::customDraw(float alphaPrc){
+    ofSetLineWidth(10);
     float prc = timer/timeForPulse;
     float prcCurved = powf(prc, 2);
-    ofSetColor( 185, 129, 204, 255.0 * alphaPrc * (1-prcCurved));
+    ofSetColor( 185, 129, 204, 180.0 * alphaPrc * (1-prcCurved));
     ofNoFill();
     
     float dist = range*prc;
     ofCircle(pos.x, pos.y, dist);
     float otherDist = range*prc + sin(ofGetElapsedTimef()*20) * 20;
     ofCircle(pos.x, pos.y, otherDist);
+    
+    //put it back
+    ofSetLineWidth(1);
+    
+    drawSportsTower(alphaPrc);
 }
 
 

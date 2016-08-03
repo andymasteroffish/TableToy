@@ -18,7 +18,7 @@ bool ballSort(  Ball * a, Ball * b ) {
 //--------------------------------------------------------------------------------------------
 void SportsScene::setupCustom(){
     
-    numFieldParticlesPerFrame = 15;
+    numFieldParticlesPerFrame = 20;
     
     ballRepulsionRange = 30;
     ballRepulsionMaxForce = 1;
@@ -33,7 +33,6 @@ void SportsScene::setupCustom(){
     nextBallSpawnsOnTop = true; //this just flips with each spawn
     
     sceneName = "sports";
-    //sceneToSwitchTo = 2;    //stream
     
     gameOverCupShrinkTime = 2;
     gameOverTimetoSwitchScene = 12;
@@ -116,8 +115,8 @@ void SportsScene::resetCustom(){
 void SportsScene::updateCustom(){
     
     //put an outward force on the edges to keep balls from getting stuck
-    float bumperRange = 8;
-    float bumperStrength = 0.5;
+    float bumperRange = 9;
+    float bumperStrength = 0.75;
     float bumerParticleWeight = 1;
     
     addOutwardCircle(GridPos(-1, -1), bumperRange, bumperStrength, PARTICLE_GOAL_LEFT, bumerParticleWeight);

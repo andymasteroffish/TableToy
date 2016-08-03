@@ -99,3 +99,50 @@ void Tower::draw(float alphaPrc, bool showCupDebug){
         ofLine(pos.x, pos.y, pos.x+cos(curAngle)*towerSize*0.8, pos.y+sin(curAngle)*towerSize*0.8);
     }
 }
+
+
+void Tower::drawSportsTower(float alphaPrc){
+    
+    ofSetColor(debugColor.r, debugColor.g, debugColor.b, 200 * alphaPrc);
+    
+    float elapsedTime = ofGetElapsedTimef() - startTime;
+    
+    int numCircles = 20;
+    float angleStep = TWO_PI/numCircles;
+    
+    float growTime = 0.4;
+    float bounceTime = 0.07;
+    
+    float targetSize = 30;
+    float bigSize = targetSize * 1.5;
+    float circleSize = ofMap(elapsedTime, 0, growTime, 0, targetSize, true);
+    
+    if (elapsedTime > growTime && elapsedTime <= growTime+bounceTime){
+        circleSize = ofMap(elapsedTime, growTime, growTime+bounceTime, targetSize, bigSize, true);
+    }
+    if (elapsedTime > growTime+bounceTime && elapsedTime <= growTime+bounceTime*2){
+        circleSize = ofMap(elapsedTime, growTime+bounceTime, growTime+bounceTime*2, bigSize, targetSize, true);
+    }
+    
+    
+    float drawRange = towerSize*0.8;
+    
+    
+    
+    ofFill();
+    
+    for (int i=0; i<numCircles; i++){
+        
+        float thisRange = drawRange + ofNoise(i+ofGetElapsedTimef()) * 15;
+        
+        float xPos = pos.x + cos(angleStep*i) * thisRange;
+        float yPos = pos.y + sin(angleStep*i) * thisRange;
+        
+        ofCircle(xPos, yPos, circleSize);
+        
+    }
+    
+    
+}
+
+

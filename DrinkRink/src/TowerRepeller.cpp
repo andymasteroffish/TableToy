@@ -11,7 +11,7 @@
 void TowerRepeller::customSetup(){
     
     range = 200;
-    repelStrength = 4;
+    repelStrength = 6;
     
     debugColor.setHex(0x49df20);
     particleType = PARTICLE_SPORT;
@@ -47,6 +47,10 @@ void TowerRepeller::addOutwardCircle(float strength){
             }
         }
     }
+}
+
+void TowerRepeller::customDraw(float alphaPrc){
+    drawSportsTower(alphaPrc);
 }
 
 

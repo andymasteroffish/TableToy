@@ -111,7 +111,7 @@ void FieldParticle::setType(ParticleType type){
         showDot = true;
         fillDot = true;
         dotSize = 2;
-        useTrails = false;
+        useTrails =  ofRandomuf() > 0.95;
         numTrailPositions = 10;
         trailStartWidth = 0.5;
         trailEndWidth = 2.5;

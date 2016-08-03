@@ -16,11 +16,14 @@ void TowerFlow::customSetup(){
 }
 
 void TowerFlow::customUpdate(){
-    float strength = 1.5;
+    float strength = 2.5;
     float spread = 1.5;// abs(cos(ofGetElapsedTimef())) * 4;
     addFlowCircle(strength, -curAngle, spread);
 }
 
+void TowerFlow::customDraw(float alphaPrc){
+    drawSportsTower(alphaPrc);
+}
 
 void TowerFlow::addFlowCircle(float strength, float thisAngle, float spread){
     Bounds bounds = field->getFieldBounds(fieldPos, fieldRange);

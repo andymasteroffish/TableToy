@@ -18,6 +18,8 @@ public:
     void customSetup();
     void customUpdate();
     
+    void customDraw(float alphaPrc);
+    
     void addFlowCircle(float strength, float thisAngle, float spread);
     
 };

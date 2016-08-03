@@ -20,6 +20,8 @@ public:
     void customSetup();
     void customUpdate();
     
+    void customDraw(float alphaPrc);
+    
     
     void addOutwardCircle(float strength);
     

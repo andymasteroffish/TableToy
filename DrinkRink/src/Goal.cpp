@@ -31,14 +31,14 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     showDebug = false;
     
     //range in pixels
-    nearRange = 172;//50;
-    farRange = 300;//160;
+    nearRange =90;
+    farRange = 250;
     //range in field units
     calculateFieldRange();
     
     //strength in field units
-    nearFieldStrength = 1.78;//1.5;
-    farFieldStrength = 0.75;//0.5;
+    nearFieldStrength = 2.5;
+    farFieldStrength = 1;
     
     //killing
     killRange = nearRange / 2;
