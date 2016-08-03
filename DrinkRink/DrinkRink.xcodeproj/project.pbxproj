@@ -109,6 +109,7 @@
 		57AB01B31C62E76D00791458 /* Sensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01A01C62E76D00791458 /* Sensor.mm */; };
 		57AB01B41C62E76D00791458 /* ofxMacamPs3Eye.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01A21C62E76D00791458 /* ofxMacamPs3Eye.mm */; };
 		57AB01B51C62E76D00791458 /* PS3EyeWindowAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01A41C62E76D00791458 /* PS3EyeWindowAppDelegate.mm */; };
+		57DC11BB1D52A6EB008A1D55 /* TowerPaddle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57DC11B91D52A6EB008A1D55 /* TowerPaddle.cpp */; };
 		57E5AA7F1D297ABF00BD722C /* BetterFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E5AA7D1D297ABF00BD722C /* BetterFont.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -478,6 +479,8 @@
 		57AB01A31C62E76D00791458 /* PS3EyeWindowAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PS3EyeWindowAppDelegate.h; sourceTree = "<group>"; };
 		57AB01A41C62E76D00791458 /* PS3EyeWindowAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PS3EyeWindowAppDelegate.mm; sourceTree = "<group>"; };
 		57C0136D1C4300AA002C4672 /* StreamBackgroundShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreamBackgroundShape.h; sourceTree = "<group>"; };
+		57DC11B91D52A6EB008A1D55 /* TowerPaddle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TowerPaddle.cpp; sourceTree = "<group>"; };
+		57DC11BA1D52A6EB008A1D55 /* TowerPaddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerPaddle.h; sourceTree = "<group>"; };
 		57E5AA7D1D297ABF00BD722C /* BetterFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BetterFont.cpp; sourceTree = "<group>"; };
 		57E5AA7E1D297ABF00BD722C /* BetterFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterFont.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -931,6 +934,8 @@
 				0AF37AA81B840E5D00A9CFF7 /* TowerFlow.cpp */,
 				0AF37AA91B840E5D00A9CFF7 /* TowerPulse.h */,
 				0AF37AAA1B840E5D00A9CFF7 /* TowerPulse.cpp */,
+				57DC11BA1D52A6EB008A1D55 /* TowerPaddle.h */,
+				57DC11B91D52A6EB008A1D55 /* TowerPaddle.cpp */,
 			);
 			name = Towers;
 			sourceTree = "<group>";
@@ -1542,6 +1547,7 @@
 				0AF37AB31B840E6500A9CFF7 /* StreamScene.cpp in Sources */,
 				0AF37B0E1B840F4000A9CFF7 /* guiTypeButtonSlider.cpp in Sources */,
 				0AF37A8C1B840D9A00A9CFF7 /* ofxCvImage.cpp in Sources */,
+				57DC11BB1D52A6EB008A1D55 /* TowerPaddle.cpp in Sources */,
 				0AF37A8A1B840D9A00A9CFF7 /* ofxCvGrayscaleImage.cpp in Sources */,
 				0AF37A871B840D9A00A9CFF7 /* ofxCvColorImage.cpp in Sources */,
 				0AF37B261B840F4000A9CFF7 /* ofxXmlSettings.cpp in Sources */,
