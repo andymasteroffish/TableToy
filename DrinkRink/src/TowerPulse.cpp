@@ -25,6 +25,11 @@ void TowerPulse::customSetup(){
     particleType = PARTICLE_SPORT;
 }
 
+void TowerPulse::setRelativeRangeAndStrength(float rangePrc, float strengthPrc){
+    rangeMod = rangePrc;
+    strengthMod = strengthPrc;
+}
+
 void TowerPulse::customUpdate(){
     
     timer += deltaTime;
@@ -38,7 +43,7 @@ void TowerPulse::customUpdate(){
         float prc = timer/timeForPulse;
         
         float pulseDist = range*prc;
-        addPulseCircle(strength, pulseDist, pulseWidth);
+        addPulseCircle(strength*strengthMod, pulseDist, pulseWidth*rangeMod);
         //field->addPulseCircle(pos.x, pos.y, range, strength, pulseDist, pulseWidth);
     }
 }
@@ -83,7 +88,7 @@ void TowerPulse::addPulseCircle(float strength, float externalPulseDist, float e
             if (distance < 0.0001)  distance = 0.0001;
             
             if (distance < maxFieldDist && distance > minFieldDist){
-                float prct = 1;//1.0f - (distance / fieldRange);
+                float prct = 1;
                 prct = powf(prct, pulseStrengthCurve);
                 
                 ofVec2f dif;

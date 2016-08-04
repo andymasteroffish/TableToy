@@ -16,11 +16,15 @@ class TowerFlow : public Tower{
 public:
     
     void customSetup();
+    void setRelativeRangeAndStrength(float rangePrc, float strengthPrc);
     void customUpdate();
     
     void customDraw(float alphaPrc);
     
     void addFlowCircle(float strength, float thisAngle, float spread);
+    
+    float baseRange;
+    float strengthMod;
     
 };
 

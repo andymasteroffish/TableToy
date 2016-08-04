@@ -18,14 +18,18 @@ class TowerRepeller : public Tower{
 public:
     
     void customSetup();
+    void setRelativeRangeAndStrength(float rangePrc, float strengthPrc);
+    
     void customUpdate();
+    
     
     void customDraw(float alphaPrc);
     
     
     void addOutwardCircle(float strength);
     
-    float repelStrength;
+    float baseRange;
+    float baseRepelStrength, repelStrength;
     
 };
 

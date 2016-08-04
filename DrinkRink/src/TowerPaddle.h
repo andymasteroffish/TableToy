@@ -16,6 +16,7 @@ class TowerPaddle : public Tower{
 public:
     
     void customSetup();
+    void setRelativeRangeAndStrength(float rangePrc, float strengthPrc);
     void customUpdate();
     
     void customDraw(float alphaPrc);
@@ -24,6 +25,9 @@ public:
     void addOutwardCircle(float xPos, float yPos, float thisFieldRange, float strength);
     
     vector<ofVec2f> points;
+    
+    float baseRange;
+    float strengthMod;
     
 };
 

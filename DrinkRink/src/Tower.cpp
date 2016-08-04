@@ -56,6 +56,8 @@ void Tower::setFromCupInfo(CupInfo thisInfo){
 void Tower::update(float _deltaTime){
     deltaTime = _deltaTime;
     
+    elapsedTime = ofGetElapsedTimef() - startTime;
+    
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
     //adjust the angle
@@ -104,8 +106,6 @@ void Tower::draw(float alphaPrc, bool showCupDebug){
 void Tower::drawSportsTower(float alphaPrc){
     
     ofSetColor(debugColor.r, debugColor.g, debugColor.b, 200 * alphaPrc);
-    
-    float elapsedTime = ofGetElapsedTimef() - startTime;
     
     int numCircles = 20;
     float angleStep = TWO_PI/numCircles;

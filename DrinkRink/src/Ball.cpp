@@ -20,7 +20,7 @@ Ball::Ball(bool spawnOnTop, int _gameWidth, int _gameHeight, ofColor _col){
 
 void Ball::setup(bool spawnOnTop, int _gameWidth, int _gameHeight, ofColor _col){
     
-    friction = 0.99;
+    friction = 0.993;
     
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;

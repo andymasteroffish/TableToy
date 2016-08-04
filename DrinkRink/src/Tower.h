@@ -42,6 +42,7 @@ public:
     
     //you can ignore this one. It is just so I don't duplicate a funciton in the sports scene towers
     void drawSportsTower(float alphaPrc);
+    virtual void setRelativeRangeAndStrength(float rangePrc, float strengthPrc){}
     
     
     //---------
@@ -52,6 +53,7 @@ public:
     float curAngle;     //angle in radians the tower is suing that quickly eases between the newest targeAngle and the tower's existing angle
     int uniqueID;       //this is the AR code value
     float startTime;    //when (in seconds) the cup was recognized. If the cup is removed and placed back down, this will be the time of the most recent recognition
+    float elapsedTime;  //how long it has been on the table
     float randVal;      //for noise or anything else where it would be useful to have a static but randomly decided value. This is set when the cup is recognizied.
     string towerType;   //a name to identify the tower type
     

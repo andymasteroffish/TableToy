@@ -16,6 +16,7 @@ class TowerPulse : public Tower{
 public:
     
     void customSetup();
+    void setRelativeRangeAndStrength(float rangePrc, float strengthPrc);
     void customUpdate();
     
     void customDraw(float alphaPrc);
@@ -31,6 +32,8 @@ public:
     
     float pulseStrengthCurve;
     
+    float rangeMod;
+    float strengthMod;
     
 };
 

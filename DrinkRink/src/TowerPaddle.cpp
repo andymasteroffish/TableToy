@@ -10,11 +10,18 @@
 
 void TowerPaddle::customSetup(){
     
-    range = 300;
+    baseRange = 300;
+    range = baseRange;
+    strengthMod = 1;
     
     debugColor.setHex(0x1010E6);
     particleType = PARTICLE_SPORT;
     
+}
+
+void TowerPaddle::setRelativeRangeAndStrength(float rangePrc, float strengthPrc){
+    range = baseRange * rangePrc;
+    strengthMod = strengthPrc;
 }
 
 void TowerPaddle::customUpdate(){
@@ -22,16 +29,21 @@ void TowerPaddle::customUpdate(){
     points.clear();
     
     float thisFieldRange = 3;
-    float thisStrength = 3;
+    float thisStrength = 3 * strengthMod;
     
     float stepDist = 15;
     int numSteps = range/stepDist;
+    
+    float growTime = 0.3;
+    if (elapsedTime < growTime){
+        float prc = elapsedTime/growTime;
+        stepDist *= prc;
+    }
+    
     ofVec2f step;
     step.x = cos(curAngle) * stepDist;
     step.y = sin(curAngle) * stepDist;
     
-    cout<<"num steps "<<numSteps<<endl;
-    cout<<"step.x "<<step.x<<endl;
     
     for (int i = 4; i<numSteps; i++){
         float thisX = pos.x + step.x * i;

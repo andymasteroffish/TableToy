@@ -10,9 +10,21 @@
 
 
 void TowerFlow::customSetup(){
-    range = 300;
+    baseRange = 300;
+    range = baseRange;
     debugColor.setHex(0xdfa320);
     particleType = PARTICLE_SPORT;
+}
+
+void TowerFlow::setRelativeRangeAndStrength(float rangePrc, float strengthPrc){
+    float oldRange = range;
+    
+    range = baseRange * rangePrc;
+    strengthMod = strengthPrc;
+    
+    if (oldRange != range){
+        calculateFieldRange();
+    }
 }
 
 void TowerFlow::customUpdate(){

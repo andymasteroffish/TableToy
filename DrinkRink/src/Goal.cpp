@@ -45,7 +45,7 @@ void Goal::setup(bool _isLeft, VectorField * _field){
     
     //position this thing
     pos.y = gameHeight/2;
-    pos.x = isLeft ? 0 : gameWidth;
+    pos.x = isLeft ? 70 : gameWidth-70;
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
     //showing the score bars
@@ -287,11 +287,11 @@ void Goal::checkPanelValues(ofxControlPanel * panel){
     
     baseCol.setHsb( panel->getValueI("GOAL_HUE_"+sideName) , panel->getValueF("GOAL_SAT"), panel->getValueF("GOAL_BRI"));
     
-    float xPadding = panel->getValueF("GOAL_X_DIST_FROM_EDGE");
-    float yPadding = panel->getValueF("GOAL_Y_PRC_FROM_EDGE") * gameHeight;
-    pos.x = isLeft ? xPadding : gameWidth-xPadding;
-    pos.y = isLeft ? gameHeight-yPadding : yPadding;
-    fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
+//    float xPadding = panel->getValueF("GOAL_X_DIST_FROM_EDGE");
+//    float yPadding = panel->getValueF("GOAL_Y_PRC_FROM_EDGE") * gameHeight;
+//    pos.x = isLeft ? xPadding : gameWidth-xPadding;
+//    pos.y = isLeft ? gameHeight-yPadding : yPadding;
+//    fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
     nearRange = panel->getValueF("GOAL_NEAR_RANGE");
     farRange = panel->getValueF("GOAL_FAR_RANGE");
@@ -304,36 +304,11 @@ void Goal::checkPanelValues(ofxControlPanel * panel){
     
     showDebug = panel->getValueB("GOAL_SHOW_DEBUG");
     
-    //score display
-    
-    scoreBarAlpha = panel->getValueF("GOAL_SCORE_BAR_ALPHA");
-    scoreBarHueRange = panel->getValueF("GOAL_SCORE_BAR_HUE_RANGE");
-    scoreBarNoiseSpeed = panel->getValueF("GOAL_SCORE_BAR_NOISE_SPEED");
-    
-    smoothScoreXeno = panel->getValueF("GOAL_SCORE_XENO");
     
     if (panel->getValueB("GOAL_ADD_SCORE_"+sideName)){
         markScore();
         panel->setValueB("GOAL_ADD_SCORE_"+sideName, false);
     }
     
-    
-    /*
-    
-    panel.addPanel("Goals Score Display", 1, false);
-    panel.setWhichPanel("Goals Score Display");
-    panel.setWhichColumn(0);
-    
-    panel.addToggle("Use Radial Score Display", "GOAL_USE_RADIAL", false);
-    
-    panel.addSlider("Score Bar Alpha", "GOAL_SCORE_BAR_ALPHA", 50, 0, 255, false);
-    panel.addSlider("Score Bar Hue Range", "GOAL_SCORE_BAR_HUE_RANGE", 30, 0, 255, false);
-    panel.addSlider("Score Bar Noise Speed", "GOAL_SCORE_BAR_NOISE_SPEED", 0.1, 0, 1, false);
-    
-    panel.addSlider("Score Smoothing Speed", "GOAL_SCORE_XENO", 0.25, 0, 1, false);
-    
-    panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_LEFT", false);
-    panel.addToggle("Add Score Left", "GOAL_ADD_SCORE_RIGHT", false);
-     */
 }
 

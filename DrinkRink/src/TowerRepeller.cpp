@@ -10,12 +10,26 @@
 
 void TowerRepeller::customSetup(){
     
-    range = 200;
-    repelStrength = 6;
+    baseRange = 200;
+    range = baseRange;
+    baseRepelStrength = 6;
+    repelStrength = baseRepelStrength;
     
     debugColor.setHex(0x49df20);
     particleType = PARTICLE_SPORT;
     
+}
+
+void TowerRepeller::setRelativeRangeAndStrength(float rangePrc, float strengthPrc){
+    float oldRange = range;
+    
+    range = baseRange * rangePrc;
+    repelStrength = baseRepelStrength * strengthPrc;
+    
+    if (oldRange != range){
+        cout<<"do it "<<ofGetElapsedTimef()<<endl;
+        calculateFieldRange();
+    }
 }
 
 void TowerRepeller::customUpdate(){
