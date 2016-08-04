@@ -21,6 +21,7 @@
 #include "TowerFlow.h"
 #include "TowerPulse.h"
 #include "TowerPaddle.h"
+#include "TowerPopper.h"
 
 class SportsScene : public Scene{
 public:

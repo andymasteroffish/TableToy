@@ -27,7 +27,6 @@ void TowerRepeller::setRelativeRangeAndStrength(float rangePrc, float strengthPr
     repelStrength = baseRepelStrength * strengthPrc;
     
     if (oldRange != range){
-        cout<<"do it "<<ofGetElapsedTimef()<<endl;
         calculateFieldRange();
     }
 }
