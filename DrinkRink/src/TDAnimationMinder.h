@@ -30,6 +30,9 @@ public:
     ofImage ignoreFoeAltWalkCycle[2];
     int ignoreFoeAltWalkCycleLength;
     
+    ofImage dumbFoeSpawnCycle[6];
+    int dumbFoeSpawnCycleLength;
+    
 #define NUM_HEART_PICS 8
     ofImage heartCycle[NUM_HEART_PICS];
     

@@ -47,6 +47,10 @@ void TDFoe::setup(FoeType _type, TDAnimationMinder * _anims, vector<ofVec2f> * _
     
     minDistFromNodeToAdvance = speed / 20;
     
+    if (type == FOE_STRONG){
+        hitCircleSize *= 1.4;
+    }
+    
     
     //walking to the first node
     nextNodeID = 0;
@@ -54,8 +58,9 @@ void TDFoe::setup(FoeType _type, TDAnimationMinder * _anims, vector<ofVec2f> * _
     
     displayAngle = curAngle;
     
-    //some fl;age
+    //some flags
     reachedTheEnd = false;
+    doingSpawnAnim = false;
     killMe = false;
     ignoringPath = false;
 }
@@ -65,6 +70,7 @@ void TDFoe::setPos(ofVec2f _pos, int _nextNode){
     nextNodeID = _nextNode - 1;
     
     basePos = _pos;
+    pos = basePos;
     
     findNextNode(false);
 }
@@ -80,7 +86,7 @@ void TDFoe::update(float deltaTime){
     }
     
     //move along
-    if (!reachedTheEnd){
+    if (!reachedTheEnd && !doingSpawnAnim){
         
         float freezeAdjust = freezeTimer > 0 ? freezeSpeedReduction : 1;
         
@@ -126,6 +132,13 @@ void TDFoe::update(float deltaTime){
         if (curFrame >= anims->walkCycleLength[type]){
             curFrame = 0;
         }
+        
+        if (doingSpawnAnim){
+            curSpawnFrame++;
+            if (curSpawnFrame >= anims->dumbFoeSpawnCycleLength){
+                doingSpawnAnim = false;
+            }
+        }
     }
     
     hitAnimationTimer -= deltaTime;
@@ -140,11 +153,7 @@ void TDFoe::draw(float alphaPrc){
     
     ofPushMatrix();
     ofTranslate(pos.x, pos.y);
-    ofRotate( ofRadToDeg(displayAngle) - 90 );  //REMOVE THIS TWEAK ONCE THE IMAGES ARE FACING THE RIGHT WAY
-    
-    //hit circle
-    //    ofSetColor(200, 0, 0, 100*alphaPrc);
-    //    ofCircle(0, 0, hitCircleSize);
+    ofRotate( ofRadToDeg(displayAngle) );
     
     //sprite
     ofSetColor(255, 255*alphaPrc);
@@ -164,9 +173,18 @@ void TDFoe::draw(float alphaPrc){
     if (type == FOE_IGNORE && ignoringPath){
         thisPic = &anims->ignoreFoeAltWalkCycle[curFrame% anims->ignoreFoeAltWalkCycleLength];
     }
+    if (doingSpawnAnim){
+        thisPic = &anims->dumbFoeSpawnCycle[curSpawnFrame];
+    }
     thisPic->draw(-thisPic->getWidth()/2, -thisPic->getHeight()/2);
     
+    //hit circle
+    ofSetColor(200, 0, 0, 100*alphaPrc);
+    ofCircle(0, 0, hitCircleSize);
+    
     ofPopMatrix();
+    
+    
     
 }
 
@@ -218,19 +236,7 @@ void TDFoe::freeze(float time){
     freezeTimer = time;
 }
 
-//void TDFoe::setStatsFromType(){
-//    if (type == FOE_DUMB){
-//        //do nothing
-//    }
-//    if (type == FOE_STRONG){
-//        startingHealth *= 2;
-//        speed *= 0.5;
-//    }
-//    if (type == FOE_FAST){
-//        speed *= 2;
-//    }
-//    if (type == FOE_WAVE){
-//        speed *= 0.75;
-//        startingHealth += 1;
-//    }
-//}
+void TDFoe::setSpawnAnimation(){
+    doingSpawnAnim = true;
+    curSpawnFrame = 0;
+}

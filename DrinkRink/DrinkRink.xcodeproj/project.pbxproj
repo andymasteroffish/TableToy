@@ -1348,10 +1348,10 @@
 				574569791D199DAA006E45D0 /* TDFireball.cpp */,
 				5745697D1D19A1C6006E45D0 /* TDFreezeCone.h */,
 				5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */,
-				577928531D42B94500E1FAE9 /* TDAnimationMinder.h */,
-				577928521D42B94500E1FAE9 /* TDAnimationMinder.cpp */,
 				5723E7761D4564C200643B1D /* TDHomeHit.h */,
 				5723E7751D4564C200643B1D /* TDHomeHit.cpp */,
+				577928531D42B94500E1FAE9 /* TDAnimationMinder.h */,
+				577928521D42B94500E1FAE9 /* TDAnimationMinder.cpp */,
 			);
 			name = TowerDefense;
 			sourceTree = "<group>";

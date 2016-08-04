@@ -25,6 +25,7 @@ public:
     void findNextNode(bool snapPos);
     void takeDamage(float dmg);
     void freeze(float time);
+    void setSpawnAnimation();
     
     //void setStatsFromType();
     
@@ -67,6 +68,10 @@ public:
     vector<ofVec2f> * path;
     int nextNodeID;
     float minDistFromNodeToAdvance;
+    
+    //when a strong foe dies, the two dumb foes should do a spawn animaiton
+    bool doingSpawnAnim;
+    int curSpawnFrame;
     
     //flags
     bool reachedTheEnd;

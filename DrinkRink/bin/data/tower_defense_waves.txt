@@ -6,10 +6,14 @@
 ;line breaks and spaces are ignored so you can space the foe chars out however you like
 
 WAVE test
-3000
-DDSDDFDDI
-DDSDDFDDI
-DDSDDFDDI
+2000
+SSSS
+
+WAVE test
+1000
+DSDFDI
+DSDFDI
+DSDFDI
 
 WAVE intro
 3000

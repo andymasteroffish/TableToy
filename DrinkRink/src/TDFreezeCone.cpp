@@ -29,7 +29,7 @@ void TDFreezeCone::setup(Tower * _parentTower, ofImage * _pic, ofxControlPanel *
     col.set(20, 40, 240);
     
     //set the three points
-    points.resize(3);
+    points.resize(4);
 }
 
 void TDFreezeCone::update(float deltaTime, vector<TDFoe> * foes){
@@ -41,18 +41,28 @@ void TDFreezeCone::update(float deltaTime, vector<TDFoe> * foes){
     pos = parentTower->pos;
     
     //starts at the tower
-    points[0].set(pos);
+    //points[0].set(pos);
     
-    float range = 350 * spreadPrc;
-    float farDist = 150 * spreadPrc;
+    float farRange = 440 * spreadPrc;
+    float farDist = 160 * spreadPrc;
     
-    ofVec2f farPoint(pos.x+cos(angle)*range, pos.y+sin(angle)*range);
+    float nearRange = 140 * spreadPrc;
+    float nearDist = 35 * spreadPrc;
     
-    points[1].x = farPoint.x + cos(angle-PI/2) * farDist;
-    points[1].y = farPoint.y + sin(angle-PI/2) * farDist;
+    ofVec2f farPoint(pos.x+cos(angle)*farRange, pos.y+sin(angle)*farRange);
+    ofVec2f nearPoint(pos.x+cos(angle)*nearRange, pos.y+sin(angle)*nearRange);
     
-    points[2].x = farPoint.x + cos(angle+PI/2) * farDist;
-    points[2].y = farPoint.y + sin(angle+PI/2) * farDist;
+    points[0].x = farPoint.x + cos(angle-PI/2) * farDist;
+    points[0].y = farPoint.y + sin(angle-PI/2) * farDist;
+    
+    points[1].x = farPoint.x + cos(angle+PI/2) * farDist;
+    points[1].y = farPoint.y + sin(angle+PI/2) * farDist;
+    
+    points[2].x = nearPoint.x + cos(angle+PI/2) * nearDist;
+    points[2].y = nearPoint.y + sin(angle+PI/2) * nearDist;
+    
+    points[3].x = nearPoint.x + cos(angle-PI/2) * nearDist;
+    points[3].y = nearPoint.y + sin(angle-PI/2) * nearDist;
     
     checkFoes(foes);
 }
@@ -60,20 +70,22 @@ void TDFreezeCone::update(float deltaTime, vector<TDFoe> * foes){
 
 void TDFreezeCone::draw(float alphaPrc){
     
-    ofSetColor(0,255,0,200);
-    //ofSetColor(col.r, col.g, col.b, 200*alphaPrc);
-    ofFill();
-    
-    ofTriangle(points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y);
-    
+//    ofSetColor(0,255,0,200);
+//    ofFill();    
+//    //THIS WILL CRASH THE GAME. COMMENT IT OUT WHEN DONE TESTING
+//    ofBeginShape();
+//    for (int i=0; i<points.size(); i++){
+//        ofVertex(points[i].x, points[i].y);
+//    }
+//    ofEndShape();
     
     //set the cone from the parent tower
-    float offset = 80;
+    float offset = 140;
     ofVec2f drawPos;
     drawPos.x = parentTower->pos.x + cos(angle) * offset;
     drawPos.y = parentTower->pos.y + sin(angle) * offset;
     
-    ofSetColor(255, 255*alphaPrc);
+    ofSetColor(255, 150*alphaPrc);
     ofPushMatrix();
     ofTranslate(drawPos.x, drawPos.y);
     ofRotate( ofRadToDeg(angle));
@@ -87,8 +99,10 @@ void TDFreezeCone::draw(float alphaPrc){
 
 void TDFreezeCone::checkFoes(vector<TDFoe> * foes){
     for (int i=0; i<foes->size(); i++){
-        if (isPointInCone(foes->at(i).pos)){
-            foes->at(i).freeze(freezeTime);
+        if (foes->at(i).delayTimer <= 0){
+            if (isPointInCone(foes->at(i).pos)){
+                foes->at(i).freeze(freezeTime);
+            }
         }
     }
     

@@ -16,7 +16,7 @@ void TowerDefenseScene::setupCustom(){
     
     pauseBetweenWaves = 3;
     pauseBeforeFirstFoeEachWave = 2.5;
-    pauseBeforeVeryFirstWave = 8;  //PUT THIS BACK
+    pauseBeforeVeryFirstWave = 0;//8;  //PUT THIS BACK
     
     curWave = -1;
     curPath = 1;
@@ -32,11 +32,11 @@ void TowerDefenseScene::setupCustom(){
     towerPics[TD_FIRE].loadImage("td/guns/explode.png");
     
     projectilePics[TD_SHOOTER].loadImage("td/projectiles/projectile_bullet.png");
-    projectilePics[TD_ICE].loadImage("td/projectiles/freezeBeam.png");
+    projectilePics[TD_ICE].loadImage("td/projectiles/freezeBeam_v2.png");
     projectilePics[TD_FIRE].loadImage("td/projectiles/projectile_bomb.png");
     
-    baseBorder.loadImage("td/goal/goal_border.png");
-    baseCenter.loadImage("td/goal/goal_center.png");
+    baseBorder.loadImage("td/goal/portalBase.png");
+    baseCenter.loadImage("td/goal/portalSpin.png");
     
     fireballPic.loadImage("td/impacts/explosion.png");
     bulletHitPic.loadImage("td/impacts/bulletStrike.png");
@@ -424,14 +424,16 @@ void TowerDefenseScene::drawBackgroundCustom(){
     float homeSize = 60;
     ofSetColor(ofColor::purple);
     ofVec2f homePos = path[0][path[0].size()-1];
-    //ofCircle(homePos.x, homePos.y, homeSize);
     ofSetColor(255, 255*alphaPrc);
+    
+    baseBorder.draw(homePos.x-baseBorder.getWidth()/2 - 5, homePos.y-baseBorder.getHeight()/2+5);
+    
     ofPushMatrix();
     ofTranslate(homePos.x, homePos.y);
     ofRotate(-ofGetElapsedTimef() * 30);
     baseCenter.draw(-baseCenter.getWidth()/2, -baseCenter.getHeight()/2);
     ofPopMatrix();
-    baseBorder.draw(homePos.x-baseCenter.getWidth()/2, homePos.y-baseCenter.getHeight()/2);
+    
     
     //show the player health around it
     float angleSpacing = TWO_PI/playerHealth;
@@ -455,6 +457,10 @@ void TowerDefenseScene::drawBackgroundCustom(){
     }
     
     
+    //draw freeze cones
+    for (int i=0; i<freezeCones.size(); i++){
+        freezeCones[i].draw(alphaPrc);
+    }
     
     //draw the bullets
     for (int i=0; i<bullets.size(); i++){
@@ -501,13 +507,6 @@ void TowerDefenseScene::drawCustom(){
     for (int i=0; i<foes.size(); i++){
         foes[i].draw(alphaPrc);
     }
-    
-    //draw freeze cones
-    for (int i=0; i<freezeCones.size(); i++){
-        freezeCones[i].draw(alphaPrc);
-    }
-    
-    
     
     //draw fireballs
     for (int i=0; i<fireballs.size(); i++){
@@ -641,6 +640,7 @@ void TowerDefenseScene::spawnStrongBabies(TDFoe parent){
         TDFoe newFoe;
         newFoe.setup(FOE_DUMB, &anims, parent.path, 0, myPanel);
         newFoe.setPos(newPos, parent.nextNodeID);
+        newFoe.setSpawnAnimation();
         foes.push_back(newFoe);
     }
 }
