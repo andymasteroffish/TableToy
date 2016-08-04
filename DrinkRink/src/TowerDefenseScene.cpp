@@ -16,7 +16,7 @@ void TowerDefenseScene::setupCustom(){
     
     pauseBetweenWaves = 3;
     pauseBeforeFirstFoeEachWave = 2.5;
-    pauseBeforeVeryFirstWave = 0;//8;  //PUT THIS BACK
+    pauseBeforeVeryFirstWave = 8;  //PUT THIS BACK
     
     curWave = -1;
     curPath = 1;
@@ -43,7 +43,7 @@ void TowerDefenseScene::setupCustom(){
     
     anims.setup();
     
-    fontBig.loadFont("frabk.ttf", 80);
+    fontBig.loadFont("td/orangejuice2.0.ttf", 100);
     
     bgPics.resize(8);
     for (int i=0; i<bgPics.size(); i++){
@@ -398,7 +398,7 @@ void TowerDefenseScene::updateCustom(){
         
         //is the player dead?
         if (playerHealth <= 0){
-            setMessage("YOU DEAD!!!", 1);
+            setMessage("YOU'RE DEAD!", 1);
             gameOver = true;
         }
         
@@ -529,8 +529,16 @@ void TowerDefenseScene::drawCustom(){
     
     //do we have a message to draw?
     if (messageTimer > 0){
-        ofSetColor( ofColor::darkBlue );
-        fontBig.drawStringCentered(curMessage, gameWidth/2, gameHeight/2);
+        ofSetColor( 0 );
+        float offset = ofGetHeight() * 0.35;
+        
+        ofPushMatrix();
+        ofTranslate(gameWidth/2, gameHeight/2 - offset);
+        ofRotate(180);
+        fontBig.drawStringCentered(curMessage, 0,0);
+        ofPopMatrix();
+        
+        fontBig.drawStringCentered(curMessage, gameWidth/2, gameHeight/2 + offset);
     }
     
 }

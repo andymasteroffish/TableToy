@@ -179,8 +179,8 @@ void TDFoe::draw(float alphaPrc){
     thisPic->draw(-thisPic->getWidth()/2, -thisPic->getHeight()/2);
     
     //hit circle
-    ofSetColor(200, 0, 0, 100*alphaPrc);
-    ofCircle(0, 0, hitCircleSize);
+//    ofSetColor(200, 0, 0, 100*alphaPrc);
+//    ofCircle(0, 0, hitCircleSize);
     
     ofPopMatrix();
     
