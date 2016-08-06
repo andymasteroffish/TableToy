@@ -381,6 +381,7 @@ void CupTrackerCam::checkARTag(int idNum){
     
     //get some info about this bad boy
     int tagID = ARKit.getMarkerID(idNum);
+    //cout<<"TAG ID "<<tagID<<endl;
     ofPoint tagPos = ARKit.getDetectedMarkerCenter(idNum);
     
     //adjust the image to fit the screen

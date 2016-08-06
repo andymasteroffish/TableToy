@@ -529,16 +529,30 @@ void TowerDefenseScene::drawCustom(){
     
     //do we have a message to draw?
     if (messageTimer > 0){
-        ofSetColor( 0 );
+        
         float offset = ofGetHeight() * 0.35;
         
-        ofPushMatrix();
-        ofTranslate(gameWidth/2, gameHeight/2 - offset);
-        ofRotate(180);
-        fontBig.drawStringCentered(curMessage, 0,0);
-        ofPopMatrix();
+        for (int i=0; i<2; i++){
         
-        fontBig.drawStringCentered(curMessage, gameWidth/2, gameHeight/2 + offset);
+            ofPushMatrix();
+            
+            float thisOffset = i==0 ? offset : -offset;
+            
+            ofTranslate(gameWidth/2, gameHeight/2 + thisOffset);
+            ofRotate(180 * i);
+            
+            ofSetColor( 0,150*alphaPrc );
+            ofRectangle box = fontBig.font.getStringBoundingBox(curMessage, 0, 0);
+            box.width += 40;
+            box.height += 30;
+            ofRect(-box.width/2, -box.height/2, box.width, box.height);
+            
+            ofSetColor( 255, 255 * alphaPrc );
+            fontBig.drawStringCentered(curMessage, 0,0);
+            ofPopMatrix();
+        }
+        
+        //fontBig.drawStringCentered(curMessage, gameWidth/2, gameHeight/2 + offset);
     }
     
 }

@@ -23,7 +23,6 @@ void BetterFont::drawString(string s, float x, float y){
 void BetterFont::drawStringCentered(string s, float x, float y){
     ofRectangle box = font.getStringBoundingBox(s, 0, 0);
     font.drawString(s, x-box.width/2, y+box.height/2);
-    
 }
 
 void BetterFont::drawStringRightAligned(string s, float x, float y){
