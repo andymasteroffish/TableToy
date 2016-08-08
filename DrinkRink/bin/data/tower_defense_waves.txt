@@ -6,164 +6,53 @@
 ;line breaks and spaces are ignored so you can space the foe chars out however you like
 
 WAVE test
-600
-FFFFFFFF
-
+1000
+DDDDDDDDDD
 
 WAVE test
 1000
-FDF
+SSDDDSDSS
 
 WAVE test
 1000
-FD
+FFFFF
+FFFFF
+
+WAVE test
+700
+DDSDDFDDII
+
+WAVE test
+500
+IIIS
+
+WAVE test
+900
+FSFSFSDDDDFFFF
 
 WAVE test
 1000
-DSDFDI
-DSDFDI
-DSDFDI
-
-WAVE intro
-3000
-DDDDD
-S
-I
-DDFFDD
-S
-DD
-
-WAVE here’s some shit
-3000
-DDDFDSIISSDDDD
-DDDFDSIISSDDDD
-
-WAVE A bunch of ignore duded
-3000
-IIIIIII
-SS
-IIIIIII
-
-WAVE a ton of quick dumb guys
-1000
-DDDDDDD
-S
-
-WAVE ignore city
-2000
-DISIFI
-FFF
-III
-
-;i’m copy pasting these waves a bunch so it runs longer
+SSIIFFFFF
+SSIIFFFFF
 
 WAVE test
-3000
-DDSDDFDDI
-DDSDDFDDI
-DDSDDFDDI
-
-WAVE intro
-3000
-DDDDD
-S
-I
-DDFFDD
-S
-DD
-
-WAVE here’s some shit
-3000
-DDDFDSIISSDDDD
-DDDFDSIISSDDDD
-
-WAVE A bunch of ignore duded
-3000
-IIIIIII
-SS
-IIIIIII
-
-WAVE a ton of quick dumb guys
-1000
-DDDDDDD
-S
-
-WAVE ignore city
-2000
-DISIFI
-FFF
-III
+400
+DDDDDDDDDSS
 
 WAVE test
-3000
-DDSDDFDDI
-DDSDDFDDI
-DDSDDFDDI
-
-WAVE intro
-3000
-DDDDD
-S
-I
-DDFFDD
-S
-DD
-
-WAVE here’s some shit
-3000
-DDDFDSIISSDDDD
-DDDFDSIISSDDDD
-
-WAVE A bunch of ignore duded
-3000
-IIIIIII
-SS
-IIIIIII
-
-WAVE a ton of quick dumb guys
-1000
-DDDDDDD
-S
-
-WAVE ignore city
-2000
-DISIFI
-FFF
-III
-
-WAVE test
-3000
-DDSDDFDDI
-DDSDDFDDI
-DDSDDFDDI
-
-WAVE intro
-3000
-DDDDD
-S
-I
-DDFFDD
-S
-DD
-
-WAVE here’s some shit
-3000
-DDDFDSIISSDDDD
-DDDFDSIISSDDDD
-
-WAVE A bunch of ignore duded
-3000
-IIIIIII
-SS
-IIIIIII
-
-WAVE a ton of quick dumb guys
-1000
-DDDDDDD
-S
-
-WAVE ignore city
-2000
-DISIFI
-FFF
-III
+800
+DFSI
+FDIS
+IFSD
+DFSI
+FDIS
+IFSD
+DFSI
+FDIS
+IFSD
+DFSI
+FDIS
+IFSD
+DFSI
+FDIS
+IFSD
