@@ -6,8 +6,17 @@
 ;line breaks and spaces are ignored so you can space the foe chars out however you like
 
 WAVE test
-2000
-SSSS
+600
+FFFFFFFF
+
+
+WAVE test
+1000
+FDF
+
+WAVE test
+1000
+FD
 
 WAVE test
 1000

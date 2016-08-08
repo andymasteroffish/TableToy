@@ -47,6 +47,11 @@ void ofApp::setup(){
     
     setupPanel();
     
+    //on the actual table, make sure you default to using the full scale
+    if (!usingDebugCupTracker){
+        panel.setValueF("DISPLAY_SCALE", 1.0);
+    }
+    
     showField = false;
     showDebugInfo = false;
     showCupDebug = false;

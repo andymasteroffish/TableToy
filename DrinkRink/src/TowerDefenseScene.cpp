@@ -14,9 +14,9 @@
 void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
-    pauseBetweenWaves = 3;
-    pauseBeforeFirstFoeEachWave = 2.5;
-    pauseBeforeVeryFirstWave = 8;  //PUT THIS BACK
+    pauseBetweenWaves = 5;
+    pauseBeforeFirstFoeEachWave = pauseBetweenWaves+1;// 2.5;
+    pauseBeforeVeryFirstWave = 1;//8;  //PUT THIS BACK
     
     curWave = -1;
     curPath = 1;
@@ -25,7 +25,7 @@ void TowerDefenseScene::setupCustom(){
     curMessage = "";
     messageTimer = 0;
     
-    endGameTimeBeforeNextScene = 7;
+   // endGameTimeBeforeNextScene = 15;  //set by panel
     
     towerPics[TD_SHOOTER].loadImage("td/guns/shoot.png");
     towerPics[TD_ICE].loadImage("td/guns/freeze.png");
@@ -99,7 +99,7 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->setWhichPanel(sceneName+"2");
     panel->setWhichColumn(0);
     
-    panel->addSlider("Wait time after game end", "TD_TIME_BEFORE_SCENE_SWITCH", 7, 1, 30, false);
+    panel->addSlider("Wait time after game end", "TD_TIME_BEFORE_SCENE_SWITCH", 12, 1, 30, false);
     
     //foes
     panel->addSlider("Foe Hit Circle Size", "FOE_HIT_CIRCLE", 40, 5, 100, false);
@@ -203,6 +203,7 @@ void TowerDefenseScene::resetCustom(){
     freezeCones.clear();
     
     gameOver = false;
+    didWin = false;
     endGameTimer = 0;
     
     //startNextWave();
@@ -235,7 +236,11 @@ void TowerDefenseScene::startNextWave(){
     
     pauseBetweenWavesTimer = pauseBetweenWaves;
     
-    setMessage("BEGIN WAVE "+ofToString(curWave+1), messageDisplayTime);
+    if (curWave > 0){
+        setMessage("BEGIN WAVE "+ofToString(curWave+1), messageDisplayTime);
+    }else{
+        firstWaveMessageLeadTimer = 0;
+    }
 }
 
 //--------------------------------------------------------------------------------------------
@@ -385,13 +390,16 @@ void TowerDefenseScene::updateCustom(){
         //if there are no foes and the player is alive, the wave is over
         if (foes.size() == 0 && playerHealth > 0){
             pauseBetweenWavesTimer -= deltaTime;
-            setMessage("WAVE COMPLETE", 1); //keep this message on screen until next wave starts
+            if (pauseBetweenWavesTimer > 0.6){
+                setMessage("WAVE COMPLETE", 0.1); //keep this message on screen until next wave starts
+            }
             if (pauseBetweenWavesTimer < 0){
                 if (curWave < waves.size()-1){
                     startNextWave();
                 }else{
                     setMessage("YOU WIN!", 1);
                     gameOver = true;
+                    didWin = true;
                 }
             }
         }
@@ -411,6 +419,14 @@ void TowerDefenseScene::updateCustom(){
         
         //check the message
         messageTimer -= deltaTime;
+        
+        //for the very first wave, we give them some lead time before starting the first wave
+        if (curWave == 0 ){
+            firstWaveMessageLeadTimer += deltaTime;
+            if (firstWaveMessageLeadTimer > pauseBeforeVeryFirstWave-1 && firstWaveMessageLeadTimer < pauseBeforeVeryFirstWave){
+                setMessage("BEGIN WAVE "+ofToString(curWave+1), messageDisplayTime);
+            }
+        }
     }
 }
 
@@ -518,43 +534,92 @@ void TowerDefenseScene::drawCustom(){
         bulletHits[i].draw(alphaPrc);
     }
     
-    //is the player dead?
-    if (playerHealth <= 0){
-        ofSetColor(255,0,0);
-        
-        for (int i=0; i<30; i++){
-            ofDrawBitmapString("YOU DEAD", gameWidth * ofNoise(ofGetElapsedTimef()*0.2, i), gameHeight * ofNoise(ofGetElapsedTimef()*0.1, i, 10));
-        }
-    }
+//    //is the player dead?
+//    if (playerHealth <= 0){
+//        ofSetColor(255,0,0);
+//        
+//        for (int i=0; i<30; i++){
+//            ofDrawBitmapString("YOU DEAD", gameWidth * ofNoise(ofGetElapsedTimef()*0.2, i), gameHeight * ofNoise(ofGetElapsedTimef()*0.1, i, 10));
+//        }
+//    }
     
     //do we have a message to draw?
     if (messageTimer > 0){
         
-        float offset = ofGetHeight() * 0.35;
-        
-        for (int i=0; i<2; i++){
-        
-            ofPushMatrix();
-            
-            float thisOffset = i==0 ? offset : -offset;
-            
-            ofTranslate(gameWidth/2, gameHeight/2 + thisOffset);
-            ofRotate(180 * i);
-            
-            ofSetColor( 0,150*alphaPrc );
-            ofRectangle box = fontBig.font.getStringBoundingBox(curMessage, 0, 0);
-            box.width += 40;
-            box.height += 30;
-            ofRect(-box.width/2, -box.height/2, box.width, box.height);
-            
-            ofSetColor( 255, 255 * alphaPrc );
-            fontBig.drawStringCentered(curMessage, 0,0);
-            ofPopMatrix();
-        }
-        
-        //fontBig.drawStringCentered(curMessage, gameWidth/2, gameHeight/2 + offset);
+        drawMessage();
     }
     
+}
+
+//--------------------------------------------------------------------------------------------
+void TowerDefenseScene::drawMessage(){
+    bool isDead = playerHealth <= 0;
+    
+    float offset = ofGetHeight() * 0.35;
+    if (isDead || didWin){
+        offset -= 50;
+    }
+    float blinkSpeed = 4;
+    
+    ofColor textCol(255,255,255,255*alphaPrc);
+    if (isDead){
+        textCol.set(235, 0, 5);
+    }
+    if (didWin){
+        textCol.set(72, 165, 236);
+    }
+    textCol.a *= (1.0f - abs(sin(ofGetElapsedTimef()*blinkSpeed)) * 0.75);
+    
+    for (int i=0; i<2; i++){
+        
+        ofPushMatrix();
+        
+        float thisOffset = i==0 ? offset : -offset;
+        
+        ofTranslate(gameWidth/2, gameHeight/2 + thisOffset);
+        ofRotate(180 * i);
+        
+        ofSetColor( 0,150*alphaPrc );
+        ofFill();
+        ofRectangle box = fontBig.font.getStringBoundingBox(curMessage, 0, 0);
+        box.width += 40;
+        box.height += 30;
+        ofRect(-box.width/2, -box.height/2, box.width, box.height);
+        
+        
+        ofSetColor( textCol);
+        fontBig.drawStringCentered(curMessage, 0,0);
+        
+        if (isDead || didWin){
+            int deadSteps = 6;
+            float deadOffset = 10;
+            float deadAngle = ofGetElapsedTimef() * 3;;
+            for (int d=0; d<deadSteps; d++){
+                
+                if (isDead){
+                    int r = ofMap(d, 0, deadSteps, 0, 200);
+                    ofSetColor(r, 0, 0, 255*alphaPrc);
+                }
+                if (didWin){
+                    float prc = 1 - (float)d/(float)deadSteps;
+                    float grey = 255;
+                    float thisR = prc * textCol.r + (1-prc) * grey;
+                    float thisG = prc * textCol.g + (1-prc) * grey;
+                    float thisB = prc * textCol.b + (1-prc) * grey;
+                    ofSetColor(thisR, thisG, thisB, 255 * alphaPrc);
+                }
+                
+                float xPos = cos(deadAngle) * deadOffset * d;
+                float yPos = sin(deadAngle) * deadOffset * d;
+                fontBig.drawStringCentered(curMessage, xPos, yPos);
+            }
+        }
+        
+        
+        
+        ofPopMatrix();
+    }
+
 }
 
 //--------------------------------------------------------------------------------------------

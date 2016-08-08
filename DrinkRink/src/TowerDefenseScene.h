@@ -50,6 +50,8 @@ public:
     void drawBackgroundCustom();
     void drawCustom();
     
+    void drawMessage();
+    
     void keyPressed(int key);
     
     void addTower(CupInfo thisCup);
@@ -75,6 +77,7 @@ public:
     string curMessage;
     float messageDisplayTime;
     float messageTimer;
+    float firstWaveMessageLeadTimer;
     
     //wave info
     vector<TDWaveInfo> waves;
@@ -116,6 +119,7 @@ public:
     
     //switching out of the game whent he player wins or loses
     bool gameOver;
+    bool didWin;
     float endGameTimer;
     float endGameTimeBeforeNextScene;
     

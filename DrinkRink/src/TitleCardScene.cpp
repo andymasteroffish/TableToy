@@ -77,8 +77,8 @@ void TitleCardScene::drawBackgroundCustom(){
 //--------------------------------------------------------------------------------------------
 void TitleCardScene::drawCustom(){
     
-    ofSetColor(255);
-    ofDrawBitmapString("welcome to hell, fuck bird", gameWidth/2-30, gameHeight/2+80);
+    //ofSetColor(255);
+    //ofDrawBitmapString("welcome to hell, fuck bird", gameWidth/2-30, gameHeight/2+80);
 }
 
 //--------------------------------------------------------------------------------------------

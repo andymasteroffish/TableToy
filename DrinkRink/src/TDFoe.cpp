@@ -164,7 +164,7 @@ void TDFoe::draw(float alphaPrc){
     
     if (hitAnimationTimer > 0){
         if (fmod(ofGetElapsedTimef(), hitBlinkSpeed) < hitBlinkSpeed/2){
-            ofSetColor(235,100,100);
+            ofSetColor(235,100,100, 255*alphaPrc);
         }
     }
     
