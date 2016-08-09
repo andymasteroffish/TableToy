@@ -94,6 +94,8 @@ public:
     
     bool isDebugSelectedForAngle;
     
+    bool ignoreAutoRemove;       //Prevent the system from removing this tower if the cup tracking is lost
+    
 };
 
 #endif /* defined(__emptyExample__CupTower__) */

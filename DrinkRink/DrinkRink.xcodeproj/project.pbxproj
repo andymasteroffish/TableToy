@@ -72,7 +72,7 @@
 		0AF37B421B840FC000A9CFF7 /* CupTrackerCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF37B401B840FC000A9CFF7 /* CupTrackerCam.cpp */; };
 		4667FE0E1D234008003C126D /* TowerPrism.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4667FE0C1D234008003C126D /* TowerPrism.cpp */; };
 		4667FE111D23462D003C126D /* Beam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4667FE0F1D23462D003C126D /* Beam.cpp */; };
-		46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* Carnivale.cpp */; };
+		46CA36AB1B8FEEDF00791398 /* BeamScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46CA36A91B8FEEDF00791398 /* BeamScene.cpp */; };
 		5723E7771D4564C200643B1D /* TDHomeHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7751D4564C200643B1D /* TDHomeHit.cpp */; };
 		5723E77B1D4674F700643B1D /* TitleCardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7791D4674F700643B1D /* TitleCardScene.cpp */; };
 		5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574569791D199DAA006E45D0 /* TDFireball.cpp */; };
@@ -395,8 +395,8 @@
 		4667FE0D1D234008003C126D /* TowerPrism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerPrism.h; sourceTree = "<group>"; };
 		4667FE0F1D23462D003C126D /* Beam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Beam.cpp; sourceTree = "<group>"; };
 		4667FE101D23462D003C126D /* Beam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beam.h; sourceTree = "<group>"; };
-		46CA36A91B8FEEDF00791398 /* Carnivale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carnivale.cpp; sourceTree = "<group>"; };
-		46CA36AA1B8FEEDF00791398 /* Carnivale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carnivale.h; sourceTree = "<group>"; };
+		46CA36A91B8FEEDF00791398 /* BeamScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BeamScene.cpp; sourceTree = "<group>"; };
+		46CA36AA1B8FEEDF00791398 /* BeamScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeamScene.h; sourceTree = "<group>"; };
 		5723E7751D4564C200643B1D /* TDHomeHit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDHomeHit.cpp; sourceTree = "<group>"; };
 		5723E7761D4564C200643B1D /* TDHomeHit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDHomeHit.h; sourceTree = "<group>"; };
 		5723E7791D4674F700643B1D /* TitleCardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleCardScene.cpp; sourceTree = "<group>"; };
@@ -879,7 +879,7 @@
 			children = (
 				5723E7781D4674BE00643B1D /* TitleCard */,
 				0A2FE3E51B8E267900ABD7DB /* Calibration */,
-				46CA36AC1B8FEEEE00791398 /* Carnivale */,
+				46CA36AC1B8FEEEE00791398 /* Beams */,
 				0AF37A951B840E1400A9CFF7 /* Sports */,
 				0AF37A961B840E1900A9CFF7 /* Stream */,
 				0AF37A971B840E1F00A9CFF7 /* Flyers */,
@@ -1090,17 +1090,17 @@
 			path = libfidtrack;
 			sourceTree = "<group>";
 		};
-		46CA36AC1B8FEEEE00791398 /* Carnivale */ = {
+		46CA36AC1B8FEEEE00791398 /* Beams */ = {
 			isa = PBXGroup;
 			children = (
 				4667FE0F1D23462D003C126D /* Beam.cpp */,
 				4667FE101D23462D003C126D /* Beam.h */,
 				4667FE0C1D234008003C126D /* TowerPrism.cpp */,
 				4667FE0D1D234008003C126D /* TowerPrism.h */,
-				46CA36A91B8FEEDF00791398 /* Carnivale.cpp */,
-				46CA36AA1B8FEEDF00791398 /* Carnivale.h */,
+				46CA36A91B8FEEDF00791398 /* BeamScene.cpp */,
+				46CA36AA1B8FEEDF00791398 /* BeamScene.h */,
 			);
-			name = Carnivale;
+			name = Beams;
 			sourceTree = "<group>";
 		};
 		570F11851D1088FA00402B69 /* utilities */ = {
@@ -1630,7 +1630,7 @@
 				0AF37B081B840F4000A9CFF7 /* guiBaseObject.cpp in Sources */,
 				0AF37B1B1B840F4000A9CFF7 /* guiTypeToggle.cpp in Sources */,
 				0ADE08931B8F606900FF021C /* GoalWinFill.cpp in Sources */,
-				46CA36AB1B8FEEDF00791398 /* Carnivale.cpp in Sources */,
+				46CA36AB1B8FEEDF00791398 /* BeamScene.cpp in Sources */,
 				57AB01AB1C62E76D00791458 /* LookUpTable.mm in Sources */,
 				575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */,
 				57AB01A51C62E76D00791458 /* AGC.mm in Sources */,

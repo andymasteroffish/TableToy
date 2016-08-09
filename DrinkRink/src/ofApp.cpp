@@ -30,6 +30,7 @@ void ofApp::setup(){
     scenes[SCENE_SPORTS]        = new SportsScene();
     scenes[SCENE_STREAM]        = new StreamScene();
     scenes[SCENE_TOWER_DEFENSE] = new TowerDefenseScene();
+    scenes[SCENE_BEAM]          = new BeamScene();
     //scenes[SCENE_FLYERS] = new FlyersScene();
     
     for (int i=0; i<NUM_SCENES; i++){
@@ -221,6 +222,7 @@ void ofApp::randomizeSceneOrder(){
     sceneOrder.push_back( (int)SCENE_SPORTS);
     sceneOrder.push_back( (int)SCENE_STREAM);
     sceneOrder.push_back( (int)SCENE_TOWER_DEFENSE);
+    sceneOrder.push_back( (int)SCENE_BEAM);
     
     //randomize that shit
     for (int i=0; i<sceneOrder.size()*100; i++){

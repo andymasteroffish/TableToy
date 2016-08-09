@@ -152,7 +152,7 @@ void Scene::checkCups(){
     
     //now that we've gone through all cups, go through and remove any towers not accounted for
     for (int i=towers.size()-1; i>=0; i--){
-        if ( !towers[i]->hasBeenCheckedThisFrame ){
+        if ( !towers[i]->hasBeenCheckedThisFrame && !towers[i]->ignoreAutoRemove){
             idleTimer = 0;
             removeTower(i);
         }

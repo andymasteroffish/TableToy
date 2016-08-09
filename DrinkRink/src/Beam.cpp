@@ -11,22 +11,20 @@
 
 
 void Beam::customSetup(){
-    if(endWidth == 0){
-        endWidth = startWidth;
-    }
   
     
 }
 
 
 void Beam::customDraw(){
+    
     ofPushMatrix();
-    ofTranslate(startX, startY);
-    ofRotate(ofRadToDeg(rotation));
+    ofTranslate(pos.x, pos.y-beamWidth/2);
     ofSetColor(255, 255, 255);
     ofFill();
-    ofRect(0, -startWidth/2, bLength, startWidth);
+    ofRect(0, 0, beamLength, beamWidth);
     ofPopMatrix();
+    
 }
 
 void Beam::customUpdate(){

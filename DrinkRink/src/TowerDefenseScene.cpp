@@ -191,7 +191,7 @@ void TowerDefenseScene::resetCustom(){
     
     setWavesFromFile("tower_defense_waves.txt");
     
-    curWave = -1   //PUT THIS BACK TO -1
+    curWave = -1;   //PUT THIS BACK TO -1
     curPath = 1;
     
     //clear out any old foes

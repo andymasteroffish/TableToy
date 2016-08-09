@@ -10,15 +10,10 @@
 #include "ofMain.h"
 
 class Beam {
-    bool isSource = false;
-    float startWidth = 100;
-    float endWidth = 0;
-    float startX = 0;
-    float startY = 0;
-    float bLength = 3000;
-    float endX = 0;
-    float endY = 0;
-    float rotation = 0;
+public:
+    ofVec2f pos;
+    float beamWidth = 20;
+    float beamLength = 3000;
     
     void customSetup();
     void customDraw();
