@@ -18,8 +18,6 @@ void TowerDefenseScene::setupCustom(){
     pauseBeforeFirstFoeEachWave = pauseBetweenWaves+1;// 2.5;
     pauseBeforeVeryFirstWave = 1;//8;  //PUT THIS BACK
     
-    curWave = -1;
-    curPath = 1;
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -68,16 +66,16 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->addToggle("Fast forward", "TD_FAST_FORWARD", false);
     panel->addToggle("Show Path", "TD_SHOW_PATH", false);
     panel->addToggle("Skip Wave", "TD_SKIP_WAVE", false);
+    panel->addToggle("Pause", "TD_PAUSE", false);
     
     //towers
     panel->addLabel("");
     panel->addLabel("Shoot Tower");
-    panel->addSlider("Shoot Tower Spawn Rate", "SHOOT_TOWER_SPAWN", 6, 0, 15, true);
+    panel->addSlider("Shoot Tower Spawn Rate", "SHOOT_TOWER_SPAWN", 7, 0, 15, true);
     panel->addSlider("Shoot Tower Time", "SHOOT_TOWER_TIME", 0.6, 0.1, 7, false);
     panel->addSlider("Shoot Tower Bullet Speed", "SHOOT_TOWER_BULLET_SPEED", 350, 1, 1000, false);
     panel->addSlider("Shoot Tower Damage", "SHOOT_TOWER_DAMAGE", 0.75, 0, 5, false);
     
-    panel->addLabel("");
     panel->addLabel("Bomb Tower");
     panel->addSlider("Bomb Tower Spawn Rate", "BOMB_TOWER_SPAWN", 4, 0, 15, true);
     panel->addSlider("Bomb Tower Time", "BOMB_TOWER_TIME", 3, 0.1, 7, false);
@@ -85,7 +83,6 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->addSlider("Bomb Tower Bomb Size", "BOMB_TOWER_BOMB_SIZE", 250, 10, 500, false);
     panel->addSlider("Bomb Tower Damage", "BOMB_TOWER_DAMAGE", 3, 0, 5, false);
     
-    panel->addLabel("");
     panel->addLabel("Freeze Tower");
     panel->addSlider("Freeze Tower Spawn Rate", "FREEZE_TOWER_SPAWN", 2, 0, 15, true);
     panel->addSlider("Freeze Tower Time", "FREEZE_TOWER_TIME", 5, 0.1, 7, false);
@@ -121,7 +118,7 @@ void TowerDefenseScene::setupPanelValues(ofxControlPanel * panel){
     panel->addLabel("Ignore Foe");
     panel->addSlider("Ignore Foe HP", "IGNORE_FOE_HP", 3, 0.5, 10, false);
     panel->addSlider("Ignore Foe Speed", "IGNORE_FOE_SPEED", 100, 10, 800, false);
-    panel->addSlider("Ignore Speed increase", "IGNORE_FOE_SPEED_INCREASE", 1.5, 1, 3, false);
+    panel->addSlider("Ignore Speed increase", "IGNORE_FOE_SPEED_INCREASE", 0.8, 0.1, 3, false);
     
     panel->addLabel("Wave Foe - NOT USED");
     panel->addSlider("Wave Foe HP", "WAVE_FOE_HP", 4, 0.5, 10, false);
@@ -143,6 +140,8 @@ void TowerDefenseScene::checkPanelValuesCustom(ofxControlPanel *panel){
         panel->setValueB("TD_SKIP_WAVE", false);
         foes.clear();
     }
+    
+    debugPause = panel->getValueB("TD_PAUSE");
     
     endGameTimeBeforeNextScene = panel->getValueF("TD_TIME_BEFORE_SCENE_SWITCH");
     
@@ -191,7 +190,9 @@ void TowerDefenseScene::resetCustom(){
     playerHealth = 4;
     
     setWavesFromFile("tower_defense_waves.txt");
-    curWave = -1;
+    
+    curWave = -1   //PUT THIS BACK TO -1
+    curPath = 1;
     
     //clear out any old foes
     foes.clear();
@@ -237,7 +238,11 @@ void TowerDefenseScene::startNextWave(){
     pauseBetweenWavesTimer = pauseBetweenWaves;
     
     if (curWave > 0){
-        setMessage("BEGIN WAVE "+ofToString(curWave+1), messageDisplayTime);
+        if (curWave != waves.size()-1){
+            setMessage("BEGIN WAVE "+ofToString(curWave+1), messageDisplayTime);
+        }else{
+            setMessage("BEGIN FINAL WAVE", messageDisplayTime);
+        }
     }else{
         firstWaveMessageLeadTimer = 0;
     }
@@ -245,7 +250,9 @@ void TowerDefenseScene::startNextWave(){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::updateCustom(){
-    
+    if (debugPause){
+        deltaTime = 0;
+    }
     //cout<<"bullets "<<bullets.size()<<endl;
     //cout<<"num foes: "<<foes.size()<<endl;
     
@@ -740,6 +747,8 @@ void TowerDefenseScene::setMessage(string newMessage, float displayTime){
 
 //--------------------------------------------------------------------------------------------
 void TowerDefenseScene::setWavesFromFile(string fileName){
+    waves.clear();
+    
     ofFile file(fileName);
     ofBuffer buffer(file);
     

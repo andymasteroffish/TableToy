@@ -15,8 +15,8 @@ void CupTrackerDebug::setupCustom(){
     nextUniqueID = 0;
     
     //generate some IDs
-    idList.reserve(99);
-    for (int i=1; i<100; i++){
+    idList.reserve(100);
+    for (int i=0; i<100; i++){
         idList.push_back(i);
     }
     for (int i=0; i<idList.size()*100; i++){

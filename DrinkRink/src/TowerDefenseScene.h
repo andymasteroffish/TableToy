@@ -126,6 +126,7 @@ public:
     //debug stuff
     bool debugFastForward;
     bool debugInvincible;
+    bool debugPause;
 
     ofxControlPanel * myPanel;
     int towerSpawnRates[TD_NUM_TOWERS];

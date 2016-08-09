@@ -14,7 +14,8 @@
 #include "ofxControlPanel.h"
 #include "CamSettings.h"
 
-#define OVERRIDE_CUP_ID 0
+//this is a code we chose arbitrarily 
+#define OVERRIDE_CUP_ID 322
 
 class CupTracker{
 public:
