@@ -14,6 +14,7 @@
 #include "Tower.h"
 #include "TowerPrism.h"
 #include "Beam.h"
+#include "ofxCameraFilter.h"
 
 class BeamScene : public Scene{
 public:
@@ -22,7 +23,8 @@ public:
     void setupCustom();
     void resetCustom();
     void updateCustom();
-        
+    
+    void drawBackgroundCustom();
     void drawCustom();
     
     void keyPressed(int key);
@@ -31,7 +33,7 @@ public:
     void addTower(CupInfo thisCup);
 
 private:
-    
+    ofxCameraFilter filter;
     bool checkForHit(TowerPrism candidate, TowerPrism thisPrism);
 
     

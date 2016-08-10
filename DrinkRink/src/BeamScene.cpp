@@ -14,7 +14,15 @@
 void BeamScene::setupCustom(){
     sceneName = "beamscene";
     
-    bgCol.set(0,0,0);
+    ofSetCircleResolution(360);
+    
+    filter.setup(ofGetWidth(), ofGetHeight());
+    filter.setAberrationAmount(.5);
+    filter.setBlurBrightness(100);
+    filter.setBlurScale(2);
+    filter.setVignetteSize(.9);
+    filter.setDistortion(0);
+    filter.setNoiseAmount(.1);
     
     //Setup source
     TowerPrism * newTower = new TowerPrism();
@@ -39,7 +47,17 @@ void BeamScene::updateCustom(){
 }
 
 //--------------------------------------------------------------------------------------------
+void BeamScene::drawBackgroundCustom(){
+
+    
+    
+}
+
+//--------------------------------------------------------------------------------------------
+
 void BeamScene::drawCustom(){
+    
+    
     
     //Reset length to check against
     for (int i=0; i<towers.size(); i++){
@@ -83,8 +101,16 @@ void BeamScene::drawCustom(){
     }
     
     //Draw towers
+    filter.begin();
     for (int i=0; i<towers.size(); i++){
-        ((TowerPrism*) towers[i])->customDraw(1);
+        if ( ((TowerPrism*) towers[i])->isLit) ((TowerPrism*) towers[i])->customDraw(1);
+    }
+    filter.end();
+
+    filter.draw();
+    
+    for (int i=0; i<towers.size(); i++){
+        if ( !((TowerPrism*) towers[i])->isLit) ((TowerPrism*) towers[i])->customDraw(1);
     }
     
 }
