@@ -17,7 +17,14 @@ void TitleCardScene::setupCustom(){
     
     fbo.allocate(gameWidth/2, gameHeight);
     
-    titleCardPic.loadImage("pic/title_card.png");
+    frameRate = 0.1;
+    frameTimer = 0;
+    
+    for (int i=0; i<NUM_TITLE_PICS; i++){
+        titleCardPic[i].loadImage("pic/title/title_"+ofToString(i+1)+".png");
+    }
+    curPic = 0;
+    
     
     killTime = 10;
     
@@ -52,12 +59,21 @@ void TitleCardScene::updateCustom(){
     ofClear(0, 0, 0);
     
     ofSetColor(255);
-    titleCardPic.draw(0, 0);
+    titleCardPic[curPic].draw(0, 0);
     
     fbo.end();
     
     if (activeTimer >= killTime){
         switchScenesFlag = true;
+    }
+    
+    frameTimer += deltaTime;
+    if (frameTimer > frameRate){
+        frameTimer -= frameRate;
+        curPic++;
+        if (curPic >= NUM_TITLE_PICS){
+            curPic = 0;
+        }
     }
     
 }

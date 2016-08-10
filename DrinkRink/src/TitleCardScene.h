@@ -32,7 +32,12 @@ public:
     void addTower(CupInfo thisCup);
     
     ofFbo fbo;
-    ofImage titleCardPic;
+    
+#define NUM_TITLE_PICS 3
+    ofImage titleCardPic[NUM_TITLE_PICS];
+    int curPic;
+    float frameRate;
+    float frameTimer;
     
     float killTime;
     

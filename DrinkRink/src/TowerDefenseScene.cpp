@@ -16,7 +16,7 @@ void TowerDefenseScene::setupCustom(){
     
     pauseBetweenWaves = 5;
     pauseBeforeFirstFoeEachWave = pauseBetweenWaves+1;// 2.5;
-    pauseBeforeVeryFirstWave = 1;//8;  //PUT THIS BACK
+    pauseBeforeVeryFirstWave = 8;  //PUT THIS BACK
     
     
     messageDisplayTime  = pauseBetweenWaves;
