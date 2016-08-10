@@ -43,7 +43,7 @@ void TowerDefenseScene::setupCustom(){
     
     fontBig.loadFont("td/orangejuice2.0.ttf", 100);
     
-    bgPics.resize(8);
+    bgPics.resize(5);
     for (int i=0; i<bgPics.size(); i++){
         bgPics[i].loadImage("td/paths/path"+ofToString(i)+".png");
     }
@@ -192,7 +192,7 @@ void TowerDefenseScene::resetCustom(){
     setWavesFromFile("tower_defense_waves.txt");
     
     curWave = -1;   //PUT THIS BACK TO -1
-    curPath = 1;
+    curPath = -1;
     
     //clear out any old foes
     foes.clear();
@@ -823,7 +823,7 @@ void TowerDefenseScene::setPath(int curWave){
     
     ofBuffer buffer = ofBufferFromFile("td/paths/path"+ofToString(curPath)+".txt");
     
-    int curPath = 0;
+    int curTrail = 0;
     
     if (buffer.size()){
         while(!buffer.isLastLine()){
@@ -832,7 +832,7 @@ void TowerDefenseScene::setPath(int curWave){
             string yString = "";
             bool hitComma = false;
             if (line == "------"){
-                curPath++;
+                curTrail++;
             }
             else if (line.length() >= 3){
                 for (int i=0; i<line.length(); i++){
@@ -849,7 +849,7 @@ void TowerDefenseScene::setPath(int curWave){
                 ofVec2f newPos;
                 newPos.x = std::atof(xString.c_str());
                 newPos.y = std::atof(yString.c_str());
-                path[curPath].push_back(newPos);
+                path[curTrail].push_back(newPos);
             }
         }
         

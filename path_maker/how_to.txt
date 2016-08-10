@@ -1,0 +1,11 @@
+drag a path image into the app to load it
+
+click to make paths
+
+Press 1 or 2 to change which path you’re working on
+
+s to save. The file will be path.txt in data folder
+
+del to remove most recent point
+
+c to clear all paths
