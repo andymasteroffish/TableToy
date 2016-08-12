@@ -32,8 +32,17 @@ void BeamScene::setupCustom(){
     newTower->isSource = true;
     newTower->ignoreAutoRemove = true;
     newTower->pos.x = 0;
-    newTower->pos.y = ofGetHeight()/2;
-    towers.push_back(newTower);
+    newTower-> targetAngle = 0;
+    newTower-> curAngle = 0;
+    newTower->pos.y = ofGetHeight()/4;
+    
+    TowerPrism * newTower2 = new TowerPrism();
+    newTower2->setup( *new CupInfo, &field);
+    newTower2->isSource = true;
+    newTower2->ignoreAutoRemove = true;
+    newTower2->pos.x = ofGetWidth();
+    newTower2->pos.y = 3 * ofGetHeight()/4;
+    towers.push_back(newTower2);
 
 }
 

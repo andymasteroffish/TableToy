@@ -34,7 +34,7 @@ void TowerPrism::customDraw(float alphaPrc){
     
     ofPushMatrix();
     ofTranslate(pos.x, pos.y);
-    ofRotate( ofRadToDeg(targetAngle));
+    ofRotate( ofRadToDeg(curAngle));
     
     //How the tower actually looks
     ofSetColor(255, 255, 255, 255*alphaPrc);
