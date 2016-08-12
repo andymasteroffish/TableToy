@@ -150,6 +150,10 @@ void ofApp::setupPanel(){
     panel.setWhichPanel("Screen Adjust");
     panel.setWhichColumn(0);
     
+    panel.addSlider("left screen x adjust", "LEFT_SCREEN_X_ADJUST", -4.5, -100, 100, false);
+    panel.addSlider("left screen y adjust", "LEFT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
+    panel.addSlider("left screen rotation", "LEFT_SCREEN_ROTATION", 0.1, -15, 15, false);
+    
     panel.addSlider("right screen x adjust", "RIGHT_SCREEN_X_ADJUST", -4.5, -100, 100, false);
     panel.addSlider("right screen y adjust", "RIGHT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
     panel.addSlider("right screen rotation", "RIGHT_SCREEN_ROTATION", 0.1, -15, 15, false);
@@ -283,6 +287,10 @@ void ofApp::update(){
     rightScreenOffset.y = panel.getValueF("RIGHT_SCREEN_Y_ADJUST");
     rightScreenRotate = panel.getValueF("RIGHT_SCREEN_ROTATION");
     
+    leftScreenOffset.x = panel.getValueF("LEFT_SCREEN_X_ADJUST");
+    leftScreenOffset.y = panel.getValueF("LEFT_SCREEN_Y_ADJUST");
+    leftScreenRotate = panel.getValueF("LEFT_SCREEN_ROTATION");
+    
     //pass the info to the cup tracker
     cupTracker->updateFromPanel(&panel);
     
@@ -306,6 +314,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofBackground(curScene->bgCol);
     
     fbo.begin();
     ofClear(255);
@@ -333,7 +342,12 @@ void ofApp::draw(){
     ofSetColor(255);
     
     //draw left side
-    fbo.getTextureReference().drawSubsection(0, 0, gameWidth/2, gameHeight, 0, 0, gameWidth/2, gameHeight);
+    ofPushMatrix();
+    ofTranslate(gameWidth*0.25, gameHeight/2);
+    ofRotate(leftScreenRotate);
+    //fbo.getTextureReference().drawSubsection(0, 0, gameWidth/2, gameHeight, 0, 0, gameWidth/2, gameHeight);
+    fbo.getTextureReference().drawSubsection(-gameWidth/4,-gameHeight/2, gameWidth/2, gameHeight,leftScreenOffset.x, 0+leftScreenOffset.y, gameWidth/2, gameHeight);
+    ofPopMatrix();
     
     //draw right side
     ofPushMatrix();
