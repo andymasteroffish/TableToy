@@ -82,6 +82,10 @@ void BeamScene::checkPanelValuesCustom(ofxControlPanel * panel){
 
 void BeamScene::updateCustom(){
     
+    if(idleTimer > 30 || activeTimer > (60 * 2)){
+        switchScenesFlag = true;
+    }
+    
 
 }
 
