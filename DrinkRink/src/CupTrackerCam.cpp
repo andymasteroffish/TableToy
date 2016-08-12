@@ -72,16 +72,16 @@ void CupTrackerCam::setupCustom(){
     grayImageDemo.allocate(imgWidth, imgHeight);
     
     //start the warp points to include the whole camera(s) image(s)
-    warpPoints[0].set(0, 0);
-    warpPoints[1].set(imgWidth, 0);
-    warpPoints[2].set(imgWidth, imgHeight);
-    warpPoints[3].set(0, imgHeight);
-    
-    //warp end points don't change
-    warpEndPoints[0].set(0,0);
-    warpEndPoints[1].set(colorImg.width,0);
-    warpEndPoints[2].set(colorImg.width, colorImg.height);
-    warpEndPoints[3].set(0,colorImg.height);
+//    warpPoints[0].set(0, 0);
+//    warpPoints[1].set(imgWidth, 0);
+//    warpPoints[2].set(imgWidth, imgHeight);
+//    warpPoints[3].set(0, imgHeight);
+//    
+//    //warp end points don't change
+//    warpEndPoints[0].set(0,0);
+//    warpEndPoints[1].set(colorImg.width,0);
+//    warpEndPoints[2].set(colorImg.width, colorImg.height);
+//    warpEndPoints[3].set(0,colorImg.height);
     
     
     threshold = 128; //fuck it. why not this value?
@@ -125,10 +125,10 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     
     cupOffset.x = panel->getValueF("CAM_X_OFFSET");
     cupOffset.y = panel->getValueF("CAM_Y_OFFSET");
-    for (int i=0; i<4; i++){
-        warpPoints[i].x = panel->getValueF("CAM_WARP_X_"+ofToString(i)) * fullImg.width;
-        warpPoints[i].y = panel->getValueF("CAM_WARP_Y_"+ofToString(i)) * fullImg.height;
-    }
+//    for (int i=0; i<4; i++){
+//        warpPoints[i].x = panel->getValueF("CAM_WARP_X_"+ofToString(i)) * fullImg.width;
+//        warpPoints[i].y = panel->getValueF("CAM_WARP_Y_"+ofToString(i)) * fullImg.height;
+//    }
     
     cam0onLeft = panel->getValueB("CAM_0_ON_LEFT");
     flipHorz = panel->getValueB("CAMS_FLIP_HORZ");
@@ -137,6 +137,9 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     camPosAdjust[0].y =panel->getValueF("CAM_0_Y");
     camPosAdjust[1].x =panel->getValueF("CAM_1_X");
     camPosAdjust[1].y =panel->getValueF("CAM_1_Y");
+    
+    camLeftRotateVal = panel->getValueF("CAM_LEFT_ROT");
+    camRightRotateVal = panel->getValueF("CAM_RIGHT_ROT");
     
     if (panel->getValueB("CAM_FLIP_ADJUSTS")){
         panel->setValueF("CAM_0_X", camPosAdjust[1].x);
@@ -199,6 +202,13 @@ void CupTrackerCam::update(){
             ofTranslate(camPosAdjust[i].x, camPosAdjust[i].y);
             ofTranslate(vidPos[i].x + vidGrabber[i]->getWidth()/2, vidPos[i].y + vidGrabber[i]->getHeight()/2);
             ofScale(flipHorz ? -1 : 1, flipVert ? -1 : 1);
+            
+            if (i== cam0onLeft ? 0 : 1){
+                ofRotate(camLeftRotateVal);
+            }else{
+                ofRotate(camRightRotateVal);
+            }
+            
             vidGrabber[i]->draw(-vidGrabber[i]->getWidth()/2, -vidGrabber[i]->getHeight()/2);
             ofPopMatrix();
         }
@@ -220,6 +230,7 @@ void CupTrackerCam::update(){
         }
         
         grayImageNoThresh.absDiff(grayBGImage);
+        
         
         if(useThreshMap){
             grayImagePixels = grayImageNoThresh.getPixelsRef();

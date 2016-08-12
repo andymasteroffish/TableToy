@@ -14,6 +14,8 @@
 void TowerDefenseScene::setupCustom(){
     sceneName = "tower defense";
     
+    bgCol.set(0);
+    
     pauseBetweenWaves = 5;
     pauseBeforeFirstFoeEachWave = pauseBetweenWaves+1;// 2.5;
     pauseBeforeVeryFirstWave = 8;  //PUT THIS BACK
