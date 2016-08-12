@@ -5,7 +5,7 @@
 
 class ofxCameraFilter {
 protected:
-	ofFbo preblur, postblur;
+	ofFbo preblur, postblur, theWholeDamnThing;
 	ofxBlur blur;
 	ofShader shader;
 	
@@ -18,7 +18,7 @@ public:
 	void setup(int width, int height);
 	void begin();
 	void end();
-	void draw();
+	void draw(float a);
 	
 	void setBlurScale(float scale);
 	void setBlurRotation(float rotation);

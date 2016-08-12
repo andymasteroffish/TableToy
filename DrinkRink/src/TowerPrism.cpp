@@ -37,12 +37,12 @@ void TowerPrism::customDraw(float alphaPrc){
     ofRotate( ofRadToDeg(targetAngle));
     
     //How the tower actually looks
-    ofSetColor(255, 255, 255);
+    ofSetColor(255, 255, 255, 255*alphaPrc);
     ofCircle(0, 0, towerSize);
     
     //Draw Beam
     if (isLit) {
-        beam.customDraw();
+        beam.customDraw(alphaPrc);
     }
     
     //Debug

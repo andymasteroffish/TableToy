@@ -16,7 +16,7 @@ public:
     float beamLength = 3000;
     
     void customSetup();
-    void customDraw();
+    void customDraw(float a);
     void customUpdate();
     void calculateBeam();
     

@@ -24,6 +24,8 @@ void BeamScene::setupCustom(){
     filter.setDistortion(0);
     filter.setNoiseAmount(.1);
     
+    bgCol.set(0, 0, 0);
+    
     //Setup source
     TowerPrism * newTower = new TowerPrism();
     newTower->setup( *new CupInfo, &field);
@@ -143,11 +145,12 @@ void BeamScene::drawCustom(){
         if ( ((TowerPrism*) towers[i])->isLit) ((TowerPrism*) towers[i])->customDraw(1);
     }
     filter.end();
-
-    filter.draw();
+    
+    ofSetColor(255, 255, 255, 255*alphaPrc);
+    filter.draw(alphaPrc);
     
     for (int i=0; i<towers.size(); i++){
-        if ( !((TowerPrism*) towers[i])->isLit) ((TowerPrism*) towers[i])->customDraw(1);
+        if ( !((TowerPrism*) towers[i])->isLit) ((TowerPrism*) towers[i])->customDraw(alphaPrc);
     }
     
 }

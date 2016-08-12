@@ -15,6 +15,7 @@ void ofxCameraFilter::setup(int width, int height) {
 ofSetLogLevel(OF_LOG_VERBOSE);
 	preblur.allocate(width, height);
 	postblur.allocate(width, height);
+    theWholeDamnThing.allocate(width, height, GL_RGB32F_ARB);
 	blur.setup(width, height, 16, .1, 1, .8);
 	shader.setupShaderFromSource(GL_FRAGMENT_SHADER, cameraFilterSource);
 	shader.linkProgram();
@@ -41,7 +42,9 @@ void ofxCameraFilter::end() {
 	postblur.end();
 }
 
-void ofxCameraFilter::draw() {
+void ofxCameraFilter::draw(float a) {
+    theWholeDamnThing.begin();
+    ofClear(0,0,0,25);
 	ofPushStyle();
 	shader.begin();
 	shader.setUniformTexture("preblur", preblur.getTextureReference(), 1);
@@ -55,9 +58,11 @@ void ofxCameraFilter::draw() {
 	shader.setUniform1f("vignetteSharpness", vignetteSharpness);
 	shader.setUniform1f("vignetteSize", vignetteSize);
 	shader.setUniform1f("noiseAmount", noiseAmount);
-	ofSetColor(255);
+	ofSetColor(255, 255, 255, 255*a);
 	preblur.draw(0, 0);
 	shader.end();
+    theWholeDamnThing.end();
+    theWholeDamnThing.draw(0,0);
 }
 
 void ofxCameraFilter::setBlurScale(float scale) {

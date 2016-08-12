@@ -16,11 +16,11 @@ void Beam::customSetup(){
 }
 
 
-void Beam::customDraw(){
+void Beam::customDraw(float a){
     
     ofPushMatrix();
     ofTranslate(pos.x, pos.y-beamWidth/2);
-    ofSetColor(255, 255, 255);
+    ofSetColor(255, 255, 255, 255*a);
     ofFill();
     ofRect(0, 0, beamLength, beamWidth);
     ofPopMatrix();
