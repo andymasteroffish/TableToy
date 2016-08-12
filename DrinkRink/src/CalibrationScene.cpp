@@ -29,7 +29,7 @@ void CalibrationScene::setupCustom(){
     
     tracker = (CupTrackerCam *) cupTracker;
     
-    curPointDragging = -1;
+    //curPointDragging = -1;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -55,20 +55,20 @@ void CalibrationScene::updateCustom(){
 
 //--------------------------------------------------------------------------------------------
 void CalibrationScene::mousePressed(int x, int y, int button){
-    int adjustedX = x - drawOffset.x;
-    int adjustedY = y - drawOffset.y;
-    
-    int distToClick = 50;
-    
-    for (int i=0; i<4; i++){
-        
-        if (ofDist(adjustedX, adjustedY, tracker->warpPoints[i].x*drawScale, tracker->warpPoints[i].y*drawScale) < distToClick){
-            curPointDragging = i;
-            draggingOffset.x =  tracker->warpPoints[i].x * drawScale - adjustedX;
-            draggingOffset.y =  tracker->warpPoints[i].y * drawScale - adjustedY;
-        
-        }
-    }
+//    int adjustedX = x - drawOffset.x;
+//    int adjustedY = y - drawOffset.y;
+//    
+//    int distToClick = 50;
+//    
+//    for (int i=0; i<4; i++){
+//        
+//        if (ofDist(adjustedX, adjustedY, tracker->warpPoints[i].x*drawScale, tracker->warpPoints[i].y*drawScale) < distToClick){
+//            curPointDragging = i;
+//            draggingOffset.x =  tracker->warpPoints[i].x * drawScale - adjustedX;
+//            draggingOffset.y =  tracker->warpPoints[i].y * drawScale - adjustedY;
+//        
+//        }
+//    }
     
 }
 
@@ -79,23 +79,23 @@ void CalibrationScene::mouseDragged(int x, int y, int button){
         return;
     }
     
-    int adjustedX = x - drawOffset.x;
-    int adjustedY = y - drawOffset.y;
-    
-    if (curPointDragging >= 0){
-        
-        
-        float newXVal = CLAMP( (adjustedX+draggingOffset.x)/(tracker->fullImg.width*drawScale) , 0, 1);
-        float newYVal = CLAMP( (adjustedY+draggingOffset.y)/(tracker->fullImg.height*drawScale) , 0,1);
-        
-        controlPanel->setValueF("CAM_WARP_X_"+ofToString(curPointDragging), newXVal);
-        controlPanel->setValueF("CAM_WARP_Y_"+ofToString(curPointDragging), newYVal);
-    }
+//    int adjustedX = x - drawOffset.x;
+//    int adjustedY = y - drawOffset.y;
+//    
+//    if (curPointDragging >= 0){
+//        
+//        
+//        float newXVal = CLAMP( (adjustedX+draggingOffset.x)/(tracker->fullImg.width*drawScale) , 0, 1);
+//        float newYVal = CLAMP( (adjustedY+draggingOffset.y)/(tracker->fullImg.height*drawScale) , 0,1);
+//        
+//        controlPanel->setValueF("CAM_WARP_X_"+ofToString(curPointDragging), newXVal);
+//        controlPanel->setValueF("CAM_WARP_Y_"+ofToString(curPointDragging), newYVal);
+//    }
 }
 
 //--------------------------------------------------------------------------------------------
 void CalibrationScene::mouseReleased(int x, int y, int button){
-    curPointDragging = -1;
+    //curPointDragging = -1;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -118,24 +118,27 @@ void CalibrationScene::drawCustom(){
     //draw what the camera sees
     tracker->fullImg.draw(0, 0, tracker->fullImg.width, tracker->fullImg.height);
     
-    //draw the warp points
-    int pointSize = 10;
-    int lineSize = pointSize*1.5;
-    for (int i=0; i<4; i++){
-        
-        ofSetColor(255,0,0,255*alphaPrc);
-        ofNoFill();
-        
-        ofPoint pnt = tracker->warpPoints[i];
-        
-        ofCircle(pnt.x, pnt.y, pointSize);
-        
-        //draw lines
-        ofLine(pnt.x, pnt.y, pnt.x-lineSize, pnt.y);
-        ofLine(pnt.x, pnt.y, pnt.x, pnt.y-lineSize);
-        ofLine(pnt.x, pnt.y, pnt.x+lineSize, pnt.y);
-        ofLine(pnt.x, pnt.y, pnt.x, pnt.y+lineSize);
-    }
+    //testing
+    tracker->grayImageNoThresh.draw(0, tracker->fullImg.height*2 + 60, tracker->fullImg.width, tracker->fullImg.height);
+    
+//    //draw the warp points
+//    int pointSize = 10;
+//    int lineSize = pointSize*1.5;
+//    for (int i=0; i<4; i++){
+//        
+//        ofSetColor(255,0,0,255*alphaPrc);
+//        ofNoFill();
+//        
+//        ofPoint pnt = tracker->warpPoints[i];
+//        
+//        ofCircle(pnt.x, pnt.y, pointSize);
+//        
+//        //draw lines
+//        ofLine(pnt.x, pnt.y, pnt.x-lineSize, pnt.y);
+//        ofLine(pnt.x, pnt.y, pnt.x, pnt.y-lineSize);
+//        ofLine(pnt.x, pnt.y, pnt.x+lineSize, pnt.y);
+//        ofLine(pnt.x, pnt.y, pnt.x, pnt.y+lineSize);
+//    }
     
     //draw the BG image
     ofSetColor(255);

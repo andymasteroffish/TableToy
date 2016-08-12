@@ -84,16 +84,16 @@ void ofApp::setupPanel(){
     panel.addSlider("Y Offset", "CAM_Y_OFFSET", 0, -100, 100, false);
     
     //the 4 warp points
-    for (int i=0; i<4; i++){
-        if (i==0) panel.addLabel("Top Left Warp");
-        if (i==1) panel.addLabel("Top Right Warp");
-        if (i==2) panel.addLabel("Bottom Right Warp");
-        if (i==3) panel.addLabel("Bottom Left Warp");
-        float xVal = i==0 || i==3 ? 0 : 1;
-        float yVal = i<2 ? 0 : 1;
-        panel.addSlider("X Prc", "CAM_WARP_X_"+ofToString(i), xVal, 0, 1, false);
-        panel.addSlider("Y Prc", "CAM_WARP_Y_"+ofToString(i), yVal, 0, 1, false);
-    }
+//    for (int i=0; i<4; i++){
+//        if (i==0) panel.addLabel("Top Left Warp");
+//        if (i==1) panel.addLabel("Top Right Warp");
+//        if (i==2) panel.addLabel("Bottom Right Warp");
+//        if (i==3) panel.addLabel("Bottom Left Warp");
+//        float xVal = i==0 || i==3 ? 0 : 1;
+//        float yVal = i<2 ? 0 : 1;
+//        panel.addSlider("X Prc", "CAM_WARP_X_"+ofToString(i), xVal, 0, 1, false);
+//        panel.addSlider("Y Prc", "CAM_WARP_Y_"+ofToString(i), yVal, 0, 1, false);
+//    }
     
     
     
@@ -105,6 +105,8 @@ void ofApp::setupPanel(){
     panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", true);
     panel.addToggle("flip cams Horizontal", "CAMS_FLIP_HORZ", true);
     panel.addToggle("flip cams Vertical", "CAMS_FLIP_VERT", false);
+    panel.addSlider("left cam rotate", "CAM_LEFT_ROT", 0, -5, 5, false);
+    panel.addSlider("right cam rotate", "CAM_RIGHT_ROT", 0, -5, 5, false);
     panel.addSlider("cam 0 x adjust", "CAM_0_X", 8.9, -100, 100, false);
     panel.addSlider("cam 0 y adjust", "CAM_0_Y", -5, -100, 100, false);
     panel.addSlider("cam 1 x adjust", "CAM_1_X", -7.3, -100, 100, false);
@@ -175,7 +177,7 @@ void ofApp::setupPanel(){
         scenes[i]->setupPanelValues(&panel);
     }
     
-    curPanel = 9;
+    curPanel = 1;
     panel.setSelectedPanel(curPanel);
     
     //set the game to be at 50% display scale if we're using the debugger tracker because that means it's on a laptop and won't be two screens wide
@@ -185,7 +187,6 @@ void ofApp::setupPanel(){
         panel.setValueF("RIGHT_SCREEN_X_ADJUST", 0);
         panel.setValueF("RIGHT_SCREEN_Y_ADJUST", 0);
         panel.setValueF("RIGHT_SCREEN_ROTATION", 0);
-        
     }
     
     panel.loadSettings("controlPanelSettings.xml");

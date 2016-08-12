@@ -63,8 +63,8 @@ public:
     ofxARToolkitPlus ARKit;
     
     int  threshold;
-    ofPoint warpPoints[4];          //the points from the source image to use. These can be adjusted.
-    ofPoint warpEndPoints[4];       //the points into the end image. These will always be the corners of our end image.
+//    ofPoint warpPoints[4];          //the points from the source image to use. These can be adjusted.
+//    ofPoint warpEndPoints[4];       //the points into the end image. These will always be the corners of our end image.
     
     ofVec2f cupOffset;
     int framesBeforeKillingCup;
@@ -86,6 +86,8 @@ public:
     float cupAdjustLeftX, cupAdjustRightX;
     float cupAdjustLeftYtop, cupAdjustRightYtop;
     float cupAdjustLeftYbot, cupAdjustRightYbot;
+    
+    float camLeftRotateVal, camRightRotateVal;
     
     //ofVec2f cupAdjustLeftSide, cupAdjustRightSide;
     

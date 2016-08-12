@@ -48,8 +48,8 @@ public:
     float maxDisplayHeight;
     
     //dragging shit
-    int curPointDragging;
-    ofVec2f draggingOffset;
+//    int curPointDragging;
+//    ofVec2f draggingOffset;
     
     bool showThresholdGrid;
     
