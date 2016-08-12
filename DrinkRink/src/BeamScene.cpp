@@ -41,6 +41,43 @@ void BeamScene::resetCustom(){
 }
 
 //--------------------------------------------------------------------------------------------
+void BeamScene::setupPanelValues(ofxControlPanel * panel){
+    panel->addPanel(sceneName, 1, false);
+    panel->setWhichPanel(sceneName);
+    panel->setWhichColumn(0);
+    
+    //Beam Variables
+    panel->addLabel("");
+    panel->addLabel("Glow Shit");
+    
+    panel->addSlider("Aberration Amount", "BEAM_ABBERATION", .5, 0, 2, false);
+    panel->addSlider("Blur Scale", "BEAM_BLUR_SCALE", 2, 0, 5, false);
+    panel->addSlider("Blur Rotation", "BEAM_BLUR_ROTATION", 0, -PI, PI, false);
+    panel->addSlider("Blur Brightness", "BEAM_BLUR_BRIGHTNESS", 100, 0, 200, false);
+    panel->addSlider("Distortion", "BEAM_DISTORTION", 0, 0, 2, false);
+    panel->addSlider("Distortion Size", "BEAM_DISTORTION_SIZE", 1, 0, 2, false);
+    panel->addSlider("Noise Amount", "BEAM_NOISE_AMOUNT", .1, 0, 2, false);
+    panel->addSlider("Vignette Sharpness", "BEAM_VIGNETTE_SHARPNESS", 0, 0, 10, false);
+    panel->addSlider("Vignette Size", "BEAM_VIGNETTE_SIZE", .9, 0, 5, false);
+     
+    myPanel = panel;
+}
+
+//--------------------------------------------------------------------------------------------
+void BeamScene::checkPanelValuesCustom(ofxControlPanel * panel){
+    filter.setAberrationAmount(panel->getValueF("BEAM_ABBERATION"));
+    filter.setBlurScale(panel->getValueF("BEAM_BLUR_SCALE"));
+    filter.setBlurRotation(panel->getValueF("BEAM_BLUR_ROTATION"));
+    filter.setBlurBrightness(panel->getValueF("BEAM_BLUR_BRIGHTNESS"));
+    filter.setDistortion(panel->getValueF("BEAM_DISTORTION"));
+    filter.setDistortionSize(panel->getValueF("BEAM_DISTORTION_SIZE"));
+    filter.setNoiseAmount(panel->getValueF("BEAM_NOISE_AMOUNT"));
+    filter.setVignetteSharpness(panel->getValueF("BEAM_VIGNETTE_SHARPNESS"));
+    filter.setVignetteSize(panel->getValueF("BEAM_VIGNETTE_SIZE"));
+}
+
+//--------------------------------------------------------------------------------------------
+
 void BeamScene::updateCustom(){
     
 

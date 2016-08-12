@@ -22,6 +22,8 @@ public:
     
     void setupCustom();
     void resetCustom();
+    void setupPanelValues(ofxControlPanel * panel);
+    void checkPanelValuesCustom(ofxControlPanel * panel);
     void updateCustom();
     
     void drawBackgroundCustom();
@@ -34,6 +36,7 @@ public:
 
 private:
     ofxCameraFilter filter;
+    ofxControlPanel * myPanel;
     bool checkForHit(TowerPrism candidate, TowerPrism thisPrism);
 
     
