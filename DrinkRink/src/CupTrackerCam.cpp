@@ -210,7 +210,8 @@ void CupTrackerCam::update(){
         
         fullImg.setFromPixels(pix);
         
-        colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
+        //colorImg.warpIntoMe(fullImg, warpPoints, warpEndPoints);
+        colorImg = fullImg;
         grayImageNoThresh = colorImg;
         
         if (takeBGImage || (ofGetFrameNum() == 10 && takeBGImageOnStart)){
