@@ -184,7 +184,10 @@ void ofApp::setupPanel(){
         scenes[i]->setupPanelValues(&panel);
     }
     
-    curPanel = 1;
+    curPanel = 9;
+    if (!usingDebugCupTracker){
+        curPanel = 1;
+    }
     panel.setSelectedPanel(curPanel);
     
     //set the game to be at 50% display scale if we're using the debugger tracker because that means it's on a laptop and won't be two screens wide

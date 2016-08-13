@@ -14,7 +14,7 @@ void TDHomeHit::setup(ofVec2f _pos){
     pos = _pos;
     
     growthPerSec = 1400;
-    killDist = 1300;
+    killDist = 2300;
     
     fadeDist = killDist * 0.75;
     
@@ -44,7 +44,7 @@ void TDHomeHit::draw(float alphaPrc){
         }
     }
     
-    ofSetLineWidth(50);
+    ofSetLineWidth(150);
     
     ofNoFill();
     ofSetColor(colors[0]);

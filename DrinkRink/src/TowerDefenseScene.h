@@ -109,6 +109,8 @@ public:
     
     int playerHealth;
     vector<TDHomeHit> homeHits;
+    float hitFlashTime;
+    float hitFlashTimer;
     
     //animations and other images
     TDAnimationMinder anims;
