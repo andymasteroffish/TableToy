@@ -16,7 +16,7 @@ void TowerPulse::customSetup(){
     pulseWidth = 20;
     
     timer = 0;
-    timeBetweenPulses = 2;
+    timeBetweenPulses = 1;
     timeForPulse = 1;
     
     pulseStrengthCurve = 0.5;
@@ -64,7 +64,7 @@ void TowerPulse::customDraw(float alphaPrc){
     //put it back
     ofSetLineWidth(1);
     
-    drawSportsTower(alphaPrc);
+    drawSportsTower(alphaPrc, false);
 }
 
 

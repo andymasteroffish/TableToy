@@ -10,9 +10,9 @@
 
 void TowerRepeller::customSetup(){
     
-    baseRange = 200;
+    baseRange = 250;
     range = baseRange;
-    baseRepelStrength = 6;
+    baseRepelStrength = 7;
     repelStrength = baseRepelStrength;
     
     debugColor.setHex(0x49df20);
@@ -63,7 +63,7 @@ void TowerRepeller::addOutwardCircle(float strength){
 }
 
 void TowerRepeller::customDraw(float alphaPrc){
-    drawSportsTower(alphaPrc);
+    drawSportsTower(alphaPrc, true);
 }
 
 

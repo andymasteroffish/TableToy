@@ -26,6 +26,11 @@ public:
     float baseRange;
     float strengthMod;
     
+    ofVec2f ballPos;
+    ofVec2f ballVel;
+    float ballTimer;
+    float ballTime;
+    
 };
 
 #endif /* defined(__emptyExample__CupFlow__) */

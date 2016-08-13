@@ -107,7 +107,7 @@ void Tower::draw(float alphaPrc, bool showCupDebug){
 }
 
 
-void Tower::drawSportsTower(float alphaPrc){
+void Tower::drawSportsTower(float alphaPrc, bool strongerBounce){
     
     ofSetColor(debugColor.r, debugColor.g, debugColor.b, 200 * alphaPrc);
     
@@ -138,6 +138,10 @@ void Tower::drawSportsTower(float alphaPrc){
     for (int i=0; i<numCircles; i++){
         
         float thisRange = drawRange + ofNoise(i+ofGetElapsedTimef()) * 15;
+        
+        if (strongerBounce){
+            thisRange += ofMap(ofNoise(i+ofGetElapsedTimef()*3), 0, 1, -10, 25);
+        }
         
         float xPos = pos.x + cos(angleStep*i) * thisRange;
         float yPos = pos.y + sin(angleStep*i) * thisRange;
