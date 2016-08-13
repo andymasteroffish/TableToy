@@ -9,6 +9,7 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     ofBackground(200,200,255);
     
+    ofHideCursor();
     
     
     gameWidth =  2560;//2720;//1770;//1500;
@@ -82,6 +83,8 @@ void ofApp::setupPanel(){
     panel.addToggle("Use Auto Threshold (ARToolKit)", "CAM_AUTO_THRESHOLD", false);
     panel.addSlider("X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
     panel.addSlider("Y Offset", "CAM_Y_OFFSET", 0, -100, 100, false);
+    
+    panel.addSlider("Frames before killing cup", "FRAMES_WITH_NO_CUP", 30, 1, 100, true);
     
     //the 4 warp points
 //    for (int i=0; i<4; i++){
@@ -394,14 +397,16 @@ void ofApp::draw(){
         ofSetColor(255);
         string panelInfo = ofToString(curPanel+1)+"/"+ofToString(panel.panels.size());
         ofDrawBitmapString(panelInfo, ofGetWidth()-50, ofGetHeight()-5);
+        
+        //show the mouse because it goes away some times what the hell even
+        ofSetColor(200,10,10);
+        ofCircle(mouseX, mouseY, 4);
+        ofSetColor(ofColor::yellow);
+        ofCircle(mouseX, mouseY, 2);
     }
     
     
-    //show the mouse because it goes away some times what the hell even
-    ofSetColor(200,10,10);
-    ofCircle(mouseX, mouseY, 4);
-    ofSetColor(ofColor::yellow);
-    ofCircle(mouseX, mouseY, 2);
+    
     
     
 }

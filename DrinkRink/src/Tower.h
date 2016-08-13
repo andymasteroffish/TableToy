@@ -49,6 +49,7 @@ public:
     //Useful public variables
     //---------
     ofVec2f pos;        //x,y location in game world value
+    ofVec2f targetPos;  //the new position info from the cup. pos will be lerped to this
     float targetAngle;  //angle in radians of the physical cup's current rotation (updated by cup tracker)
     float curAngle;     //angle in radians the tower is suing that quickly eases between the newest targeAngle and the tower's existing angle
     int uniqueID;       //this is the AR code value
@@ -76,6 +77,7 @@ public:
     float towerSize;            //used for debugging. This is an aproximation of how big the cup is
     
     float angleXeno;            //prcentage of how close the tower's angle should get to the cup's actual angle each frame
+    float posXeno;              //prcentage of how close the tower's position should get to the cup's actual position each frame
     
     VectorField * field;        //pointer to the vector field so the tower can affect the field
     GridPos fieldPos;           //word pos coverted into the vector field position

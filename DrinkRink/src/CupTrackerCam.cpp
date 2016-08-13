@@ -86,7 +86,7 @@ void CupTrackerCam::setupCustom(){
     
     threshold = 128; //fuck it. why not this value?
     
-    framesBeforeKillingCup = 30;
+    //framesBeforeKillingCup = 30;
     
     ARKit.setup(imgWidth, imgHeight);
     ARKit.setThreshold(threshold);
@@ -140,6 +140,8 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     
     camLeftRotateVal = panel->getValueF("CAM_LEFT_ROT");
     camRightRotateVal = panel->getValueF("CAM_RIGHT_ROT");
+    
+    framesBeforeKillingCup = panel->getValueI("FRAMES_WITH_NO_CUP");
     
     if (panel->getValueB("CAM_FLIP_ADJUSTS")){
         panel->setValueF("CAM_0_X", camPosAdjust[1].x);

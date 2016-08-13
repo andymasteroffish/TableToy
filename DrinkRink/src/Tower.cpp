@@ -19,6 +19,8 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     startTime = thisCup.startTime;
     
     pos.set(thisCup.pos.x, thisCup.pos.y);
+    targetPos = pos;
+    
     field = _field;
     
     towerType = "none";
@@ -32,6 +34,7 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
     towerSize = 80;    //how big the physical cup is
     
     angleXeno = 0.75;
+    posXeno = 0.75;
     
     randVal = ofRandom(9999);
     
@@ -47,7 +50,7 @@ void Tower::setup(CupInfo thisCup, VectorField * _field){
 
 //This is called whenever the CupTracker senses that the cup moved. It updates the Tower's game world position based on the cups new physical location
 void Tower::setFromCupInfo(CupInfo thisInfo){
-    pos.set(thisInfo.pos);
+    targetPos.set(thisInfo.pos);
     targetAngle = thisInfo.angle;
 }
 
@@ -57,6 +60,8 @@ void Tower::update(float _deltaTime){
     deltaTime = _deltaTime;
     
     elapsedTime = ofGetElapsedTimef() - startTime;
+    
+    pos = posXeno * pos + (1-posXeno) * targetPos;
     
     fieldPos = field->getInternalPointFromExternal(pos.x, pos.y);
     
@@ -71,7 +76,6 @@ void Tower::update(float _deltaTime){
     }
     
     curAngle = angleXeno * curAngle + (1-angleXeno) * targetAngle;
-    
     
     //update
     customUpdate();
