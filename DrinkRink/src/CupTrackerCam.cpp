@@ -102,6 +102,18 @@ void CupTrackerCam::setupCustom(){
     isDebug = false;
     
     overrideSceneSwicth = false;
+    
+    //setting up threshold cycling
+    for (int i=0; i<24; i++){
+        zoneHasCup[i] = false;
+        
+        int thisX = i%12;
+        int thisY = i/12;
+        threshZoneBorders[i].width = imgWidth/12;
+        threshZoneBorders[i].height = imgHeight/2;
+        threshZoneBorders[i].x = threshZoneBorders[i].width * thisX;
+        threshZoneBorders[i].y = threshZoneBorders[i].height * thisY;
+    }
 }
 
 //--------------------------------------------------------------
@@ -165,9 +177,24 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     cupAdjustRightYtop = panel->getValueF("CUPS_ADJUST_Y_TOP_RIGHT");
     cupAdjustRightYbot = panel->getValueF("CUPS_ADJUST_Y_BOT_RIGHT");
     
-    for (int i=0; i<24; i++){
-        thresholdSections[i] = panel->getValueI("THRESH_ZONE_"+ofToString(i));
+    if (!doingThresholdCycling){
+        for (int i=0; i<24; i++){
+            thresholdSections[i] = panel->getValueI("THRESH_ZONE_"+ofToString(i));
+        }
+    }else{
+        for (int i=0; i<24; i++){
+            panel->setValueI("THRESH_ZONE_"+ofToString(i), thresholdSections[i]);
+        }
     }
+    
+    invertGreyImage = panel->getValueB("CAM_INVERT_GREY");
+    
+    doingThresholdCycling = panel->getValueB("CAM_THRESHOLD_CYCLE");
+    thresholdCyclingPaddingDist = panel->getValueF("CAM_THRESHOLD_CYCLE_PADDING");
+    
+    thresholdCyclingMinVal = panel->getValueI("MIN_THRESHOLD_CYCLE");
+    thresholdCyclingMaxVal = panel->getValueI("MAX_THRESHOLD_CYCLE");
+    thresholdCyclingSpeed = panel->getValueI("THRESHOLD_CYCLE_SPEED");
 
     
 //    cupAdjustLeftSide.x = panel->getValueF("CUPS_ADJUST_X_LEFT");
@@ -233,6 +260,10 @@ void CupTrackerCam::update(){
         
         grayImageNoThresh.absDiff(grayBGImage);
         
+        if (invertGreyImage){
+            grayImageNoThresh.invert();
+        }
+        
         
         if(useThreshMap){
             grayImagePixels = grayImageNoThresh.getPixelsRef();
@@ -278,6 +309,12 @@ void CupTrackerCam::update(){
         }
         
         
+        //threhsold cyclinging refresh
+        if (doingThresholdCycling){
+            for (int i=0; i<24; i++){
+                zoneHasCup[i] = false;
+            }
+        }
         
         //update our info
         for (int i=0; i<ARKit.getNumDetectedMarkers(); i++){
@@ -292,6 +329,17 @@ void CupTrackerCam::update(){
             }
         }
         
+    }
+    
+    if (doingThresholdCycling){
+        for (int i=0; i<24; i++){
+            if (!zoneHasCup[i]){
+                thresholdSections[i] += thresholdCyclingSpeed;
+                if (thresholdSections[i] >= thresholdCyclingMaxVal){
+                    thresholdSections[i] = thresholdCyclingMinVal;
+                }
+            }
+        }
     }
 }
 
@@ -404,6 +452,7 @@ void CupTrackerCam::checkARTag(int idNum){
     
     float gameWorldX = tagPos.x * xAdjust + cupOffset.x;
     float gameWorldY = tagPos.y * yAdjust + cupOffset.y;
+    
     if (flipHorz)   gameWorldX = gameWidth-gameWorldX;
     if (flipVert)   gameWorldY = gameHeight-gameWorldY;
     
@@ -424,7 +473,7 @@ void CupTrackerCam::checkARTag(int idNum){
     }
     
     //cout<<"putting "<<idNum<<" at "<<gameWorldX<<" , "<<gameWorldY<<endl;
-    
+    //cout<<"tag pos "<<tagPos.x<<" , "<<tagPos.y<<endl;
     
     //getting the angle isn't so bad
     ofQuaternion q = ARKit.getOrientationQuaternion(idNum);
@@ -435,7 +484,27 @@ void CupTrackerCam::checkARTag(int idNum){
     if (flipHorz){
         tagAngle *= -1;
     }
-
+    
+    //if doing threshold cycling, update the map so that this cup's zone(s) is not cycled until this cup leaves
+    if (doingThresholdCycling){
+        
+        if (flipHorz)   tagPos.x = imgWidth-tagPos.x;
+        if (flipVert)   tagPos.y = imgHeight-tagPos.y;
+        
+        for (int i=0; i<24; i++){
+            
+            if ( tagPos.x + thresholdCyclingPaddingDist > threshZoneBorders[i].x &&
+                tagPos.x - thresholdCyclingPaddingDist < threshZoneBorders[i].x+threshZoneBorders[i].width &&
+                tagPos.y + thresholdCyclingPaddingDist > threshZoneBorders[i].y &&
+                tagPos.y - thresholdCyclingPaddingDist < threshZoneBorders[i].y+threshZoneBorders[i].height){
+                
+                zoneHasCup[i] = true;
+                //cout<<"zone "<<i<<" is true af"<<endl;
+            }
+            
+        }
+    }
+    
     //does a cup with this ID exist in the list? If so, update the info
     for (int i=0; i<activeCups.size(); i++){
         if (activeCups[i].uniqueID == tagID){

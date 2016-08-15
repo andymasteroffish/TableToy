@@ -86,6 +86,13 @@ void ofApp::setupPanel(){
     
     panel.addSlider("Frames before killing cup", "FRAMES_WITH_NO_CUP", 30, 1, 100, true);
     
+    panel.addToggle("Threshold cycle empy regions", "CAM_THRESHOLD_CYCLE", false);
+    panel.addSlider("Threshold Cycle padding dist", "CAM_THRESHOLD_CYCLE_PADDING", 20, 0, 40, false);
+    
+    panel.addSlider("Min Threshold Cycle Val", "MIN_THRESHOLD_CYCLE", 10, 0, 255, true);
+    panel.addSlider("Max Threshold Cycle Val", "MAX_THRESHOLD_CYCLE", 80, 0, 255, true);
+    panel.addSlider("Threshold Cycle Speed per frame", "THRESHOLD_CYCLE_SPEED", 3, 1, 10, true);
+    
     //the 4 warp points
 //    for (int i=0; i<4; i++){
 //        if (i==0) panel.addLabel("Top Left Warp");
@@ -108,6 +115,7 @@ void ofApp::setupPanel(){
     panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", true);
     panel.addToggle("flip cams Horizontal", "CAMS_FLIP_HORZ", true);
     panel.addToggle("flip cams Vertical", "CAMS_FLIP_VERT", false);
+    panel.addToggle("invert grey image", "CAM_INVERT_GREY", false);
     panel.addSlider("left cam rotate", "CAM_LEFT_ROT", 0, -5, 5, false);
     panel.addSlider("right cam rotate", "CAM_RIGHT_ROT", 0, -5, 5, false);
     panel.addSlider("cam 0 x adjust", "CAM_0_X", 8.9, -100, 100, false);
