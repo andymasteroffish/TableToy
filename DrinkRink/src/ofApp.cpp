@@ -194,7 +194,7 @@ void ofApp::setupPanel(){
     
     curPanel = 9;
     if (!usingDebugCupTracker){
-        curPanel = 1;
+        curPanel = 0;
     }
     panel.setSelectedPanel(curPanel);
     
