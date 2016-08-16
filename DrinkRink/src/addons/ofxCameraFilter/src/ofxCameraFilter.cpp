@@ -12,7 +12,7 @@ ofxCameraFilter::ofxCameraFilter()
 }
 
 void ofxCameraFilter::setup(int width, int height) {
-ofSetLogLevel(OF_LOG_VERBOSE);
+//ofSetLogLevel(OF_LOG_VERBOSE);
 	preblur.allocate(width, height);
 	postblur.allocate(width, height);
     theWholeDamnThing.allocate(width, height, GL_RGB32F_ARB);
