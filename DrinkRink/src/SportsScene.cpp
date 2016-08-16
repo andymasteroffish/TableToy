@@ -113,7 +113,7 @@ void SportsScene::resetCustom(){
 void SportsScene::updateCustom(){
     
     //put an outward force on the edges to keep balls from getting stuck
-    float bumperRange = 9;
+    float bumperRange = 13;
     float bumperStrength = 0.75;
     float bumerParticleWeight = 1;
     

@@ -126,6 +126,9 @@ void TDFoe::update(float deltaTime){
     
     //animation
     animTimer += deltaTime;
+    if (type == FOE_IGNORE && ignoringPath){
+        animTimer += deltaTime * 3;
+    }
     if (animTimer >= frameTime){
         animTimer -= frameTime;
         curFrame++;

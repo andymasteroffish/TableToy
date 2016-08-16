@@ -89,11 +89,24 @@ public:
     
     float camLeftRotateVal, camRightRotateVal;
     
+    bool invertGreyImage;
+    
     //ofVec2f cupAdjustLeftSide, cupAdjustRightSide;
+    
+    //trying out cycling the threhsold values of areas that have no cups
+    bool doingThresholdCycling;
+    float thresholdCyclingPaddingDist;
+    
+    float thresholdCyclingMinVal, thresholdCyclingMaxVal;
+    float thresholdCyclingSpeed;
+    
+    bool zoneHasCup[24];
+    ofRectangle threshZoneBorders[24];
     
     //debug stuff
     float timeForDoubleKeyPress;
     float lastKeyPressTime; //for double presses
+   
     
     
 };

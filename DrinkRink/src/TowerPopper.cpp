@@ -104,7 +104,7 @@ void TowerPopper::addOutwardCircle(float strength, float thisRange){
 }
 
 void TowerPopper::customDraw(float alphaPrc){
-    drawSportsTower(alphaPrc);
+    drawSportsTower(alphaPrc, false);
     
     ofSetColor(debugColor.r, debugColor.g, debugColor.b, 120*alphaPrc);
     

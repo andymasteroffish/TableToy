@@ -121,7 +121,7 @@ void FieldParticle::setType(ParticleType type){
         noiseWiggleRate = 2;
         
         float thisSat = 238;
-        float thisBri = 164;
+        float thisBri = 20;//164;
         float thisHue = 0;
         int hueID = (int)ofRandom(5);
         if (hueID == 0) thisHue = 28;

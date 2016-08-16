@@ -14,7 +14,7 @@ void TowerPaddle::customSetup(){
     range = baseRange;
     strengthMod = 1;
     
-    debugColor.setHex(0x1010E6);
+    debugColor.setHex(0x6F1BDE);
     particleType = PARTICLE_SPORT;
     
 }
@@ -85,7 +85,7 @@ void TowerPaddle::addOutwardCircle(float xPos, float yPos, float thisFieldRange,
 }
 
 void TowerPaddle::customDraw(float alphaPrc){
-    drawSportsTower(alphaPrc);
+    drawSportsTower(alphaPrc, false);
     
     //ofSetColor(255,0,0);
     for (int i=0; i<points.size(); i++){

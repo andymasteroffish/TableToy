@@ -10,10 +10,12 @@
 
 
 void TowerFlow::customSetup(){
-    baseRange = 300;
+    baseRange = 400;
     range = baseRange;
     debugColor.setHex(0xdfa320);
     particleType = PARTICLE_SPORT;
+    
+    ballTime = 0.5;
 }
 
 void TowerFlow::setRelativeRangeAndStrength(float rangePrc, float strengthPrc){
@@ -28,13 +30,43 @@ void TowerFlow::setRelativeRangeAndStrength(float rangePrc, float strengthPrc){
 }
 
 void TowerFlow::customUpdate(){
-    float strength = 2.5;
-    float spread = 1.5;// abs(cos(ofGetElapsedTimef())) * 4;
+    float strength = 3;//2.5;
+    float spread = 2;//1.5;// abs(cos(ofGetElapsedTimef())) * 4;
     addFlowCircle(strength, -curAngle, spread);
+    
+    ballTimer -= deltaTime;
+    if (ballTimer < -0.2){
+        
+        ballPos = pos;
+        
+        float force = 600;
+        
+        float thisAngle = curAngle + ofRandom(-PI/8, PI/8);
+        ballVel.x = cos(thisAngle) * force;
+        ballVel.y = sin(thisAngle) * force;
+        
+        ballTimer = ballTime + ofRandom(0.1);
+        
+    }
+    
+    ballPos += ballVel * deltaTime;
 }
 
 void TowerFlow::customDraw(float alphaPrc){
-    drawSportsTower(alphaPrc);
+    drawSportsTower(alphaPrc, false);
+    
+    if (ballTimer >= 0){
+        ofColor ballCol = debugColor;
+        ballCol.a = 200 * alphaPrc;
+        float ballFadeTime = 0.2;
+        if (ballTimer < ballFadeTime){
+            float prc = ballTimer / ballFadeTime;
+            ballCol.a *= prc;
+        }
+        ofSetColor(ballCol);
+        ofCircle(ballPos.x, ballPos.y, 30);
+    }
+    
 }
 
 void TowerFlow::addFlowCircle(float strength, float thisAngle, float spread){
@@ -66,6 +98,7 @@ void TowerFlow::addFlowCircle(float strength, float thisAngle, float spread){
                 
                 if ( relY < powf((relX/fieldRange),2.0f) * fieldRange + spread ){
                     if ( relY > -powf((relX/fieldRange),2.0f) * fieldRange - spread ){
+                        
                         float strengthPrct = 1.0f - (distance / fieldRange);
                         
                         ofVec2f forceToAdd;
@@ -75,6 +108,8 @@ void TowerFlow::addFlowCircle(float strength, float thisAngle, float spread){
                         
                         if (relX < 0){
                             forceToAdd *= -1;
+                        }else{
+                            forceToAdd *= 0;    //this is hacky
                         }
                         
                         field->field[x][y].vel += forceToAdd;

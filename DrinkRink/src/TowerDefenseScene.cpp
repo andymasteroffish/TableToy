@@ -20,6 +20,8 @@ void TowerDefenseScene::setupCustom(){
     pauseBeforeFirstFoeEachWave = pauseBetweenWaves+1;// 2.5;
     pauseBeforeVeryFirstWave = 8;  //PUT THIS BACK
     
+    hitFlashTime = 0.25;
+    
     
     messageDisplayTime  = pauseBetweenWaves;
     curMessage = "";
@@ -200,7 +202,6 @@ void TowerDefenseScene::resetCustom(){
     foes.clear();
     
     //clear out bullets
-    cout<<"clear bullets"<<endl;
     bullets.clear();
     fireballs.clear();
     freezeCones.clear();
@@ -208,6 +209,8 @@ void TowerDefenseScene::resetCustom(){
     gameOver = false;
     didWin = false;
     endGameTimer = 0;
+    
+    hitFlashTimer = 0;
     
     //startNextWave();
     
@@ -255,6 +258,8 @@ void TowerDefenseScene::updateCustom(){
     if (debugPause){
         deltaTime = 0;
     }
+    
+    hitFlashTimer -= deltaTime;
     //cout<<"bullets "<<bullets.size()<<endl;
     //cout<<"num foes: "<<foes.size()<<endl;
     
@@ -415,7 +420,7 @@ void TowerDefenseScene::updateCustom(){
         
         //is the player dead?
         if (playerHealth <= 0){
-            setMessage("YOU'RE DEAD!", 1);
+            setMessage("YOU'RE DEAD ON WAVE "+ofToString(curWave+1), 1);
             gameOver = true;
         }
         
@@ -493,6 +498,13 @@ void TowerDefenseScene::drawBackgroundCustom(){
         bullets[i].draw(alphaPrc);
     }
     
+    if (gameOver && !didWin){
+        float tintAlpha = ofMap(sin(ofGetElapsedTimef()*3), -1, 1, 50*alphaPrc, 200*alphaPrc);
+        ofSetColor(170,30,30, tintAlpha);
+        ofFill();
+        ofRect(0, 0, gameWidth, gameHeight);
+    }
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -543,20 +555,23 @@ void TowerDefenseScene::drawCustom(){
         bulletHits[i].draw(alphaPrc);
     }
     
-//    //is the player dead?
-//    if (playerHealth <= 0){
-//        ofSetColor(255,0,0);
-//        
-//        for (int i=0; i<30; i++){
-//            ofDrawBitmapString("YOU DEAD", gameWidth * ofNoise(ofGetElapsedTimef()*0.2, i), gameHeight * ofNoise(ofGetElapsedTimef()*0.1, i, 10));
-//        }
-//    }
+    
+    //show the hit flash
+    if (hitFlashTimer > 0){
+        float prc = hitFlashTimer/hitFlashTime;
+        prc = powf(prc, 2);
+        ofSetColor(222,27,27, 255 * alphaPrc * prc );
+        ofFill();
+        ofRect(0, 0, gameWidth, gameHeight);
+        //cout<<"prc "<<prc<<endl;
+    }
     
     //do we have a message to draw?
     if (messageTimer > 0){
         
         drawMessage();
     }
+    
     
 }
 
@@ -688,6 +703,8 @@ void TowerDefenseScene::takeDamage(){
     playerHealth--;
     
     setMessage("Ouch! Health Left: "+ofToString(playerHealth), messageDisplayTime/2);
+    
+    hitFlashTimer = hitFlashTime;
 }
 
 //--------------------------------------------------------------------------------------------
