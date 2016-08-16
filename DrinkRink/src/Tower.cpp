@@ -77,6 +77,10 @@ void Tower::update(float _deltaTime){
     
     curAngle = angleXeno * curAngle + (1-angleXeno) * targetAngle;
     
+    if(isnan(curAngle)) curAngle = targetAngle;
+    
+
+    
     //update
     customUpdate();
 }

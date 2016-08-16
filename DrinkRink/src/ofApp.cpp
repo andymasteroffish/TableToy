@@ -11,6 +11,8 @@ void ofApp::setup(){
     
     ofHideCursor();
     
+    ofLogToFile("log.txt", false);
+    
     
     gameWidth =  2560;//2720;//1770;//1500;
     gameHeight = 800;// 768;//500;//420;//500;

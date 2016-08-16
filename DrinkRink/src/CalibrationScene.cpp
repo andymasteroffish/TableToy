@@ -225,6 +225,17 @@ void CalibrationScene::keyPressed(int key){
     if (usingDebug){
         return;
     }
+    
+    if(key == 'l'){
+        for(int i=0; i < towers.size(); i++){
+            string msg = ofToString( towers[i]->uniqueID );
+            msg += ": ";
+            msg += ofToString(towers[i]->curAngle);
+            msg += " vs ";
+            msg += ofToString(towers[i]->targetAngle);
+            ofLog() << msg;
+        }
+    }
 }
 
 
