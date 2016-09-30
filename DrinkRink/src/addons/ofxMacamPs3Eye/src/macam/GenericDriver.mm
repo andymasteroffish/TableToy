@@ -1418,39 +1418,6 @@ static bool startNextBulkRead(GenericGrabContext * gCtx, int transferIdx)
      00290                 colorspace_ref = NULL;
      */
     
-    /*
-     CGColorSpaceRef CreateSystemColorSpace () 
-     {
-         CMProfileRef sysprof = NULL;
-         CGColorSpaceRef dispColorSpace = NULL;
-         
-         // Get the Systems Profile for the main display
-         if (CMGetSystemProfile(&sysprof) == noErr)
-         {
-             // Create a colorspace with the systems profile
-             dispColorSpace = CGColorSpaceCreateWithPlatformColorSpace(sysprof);
-             
-             // Close the profile
-             CMCloseProfile(sysprof);
-         }
-         
-         return dispColorSpace;
-     }
-     */
-    
-    CMProfileRef sysprof = NULL;
-    CGColorSpaceRef dispColorSpace = NULL;
-    
-    // Get the Systems Profile for the main display
-    if (CMGetSystemProfile(&sysprof) == noErr)
-    {
-        // Create a colorspace with the systems profile
-        dispColorSpace = CGColorSpaceCreateWithPlatformColorSpace(sysprof);
-        
-        // Close the profile
-        CMCloseProfile(sysprof);
-    }
-    
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
     
     CocoaDecoding.imageContext = CGBitmapContextCreate( [CocoaDecoding.imageRep bitmapData],
@@ -1458,7 +1425,6 @@ static bool startNextBulkRead(GenericGrabContext * gCtx, int transferIdx)
                                                         colorspace, kCGImageAlphaPremultipliedLast);
     
     CGColorSpaceRelease(colorspace);
-    CGColorSpaceRelease(dispColorSpace);
     
     return YES;
 }
