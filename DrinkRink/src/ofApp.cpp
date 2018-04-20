@@ -34,7 +34,7 @@ void ofApp::setup(){
     scenes[SCENE_STREAM]        = new StreamScene();
     scenes[SCENE_TOWER_DEFENSE] = new TowerDefenseScene();
     scenes[SCENE_BEAM]          = new BeamScene();
-    //scenes[SCENE_FLYERS] = new FlyersScene();
+    scenes[SCENE_DEEP_PATH]     = new DeepPathScene();
     
     for (int i=0; i<NUM_SCENES; i++){
         scenes[i]->setup(cupTracker, gameWidth, gameHeight);
@@ -44,7 +44,7 @@ void ofApp::setup(){
     }
     
     curSceneID = -100;
-    setScene(SCENE_CALIBRATION);
+    setScene(SCENE_DEEP_PATH);// SCENE_CALIBRATION);
     if (usingDebugCupTracker){
         setScene(SCENE_SPORTS);
     }

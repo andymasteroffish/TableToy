@@ -77,6 +77,7 @@
 		46DF54731D5BAF7F008B5E27 /* ofxBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46DF54701D5BAF7F008B5E27 /* ofxBlur.cpp */; };
 		46DF547B1D5BB1CE008B5E27 /* readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 46DF54761D5BB1CE008B5E27 /* readme.md */; };
 		46DF547C1D5BB1CE008B5E27 /* ofxCameraFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46DF54791D5BB1CE008B5E27 /* ofxCameraFilter.cpp */; };
+		570975C4208A8CC400A9A240 /* DeepPathScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 570975C2208A8CC400A9A240 /* DeepPathScene.cpp */; settings = {ASSET_TAGS = (); }; };
 		5723E7771D4564C200643B1D /* TDHomeHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7751D4564C200643B1D /* TDHomeHit.cpp */; };
 		5723E77B1D4674F700643B1D /* TitleCardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7791D4674F700643B1D /* TitleCardScene.cpp */; };
 		5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574569791D199DAA006E45D0 /* TDFireball.cpp */; };
@@ -409,6 +410,8 @@
 		46DF54781D5BB1CE008B5E27 /* CameraFilter.frag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFilter.frag.h; sourceTree = "<group>"; };
 		46DF54791D5BB1CE008B5E27 /* ofxCameraFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCameraFilter.cpp; sourceTree = "<group>"; };
 		46DF547A1D5BB1CE008B5E27 /* ofxCameraFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCameraFilter.h; sourceTree = "<group>"; };
+		570975C2208A8CC400A9A240 /* DeepPathScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeepPathScene.cpp; sourceTree = "<group>"; };
+		570975C3208A8CC400A9A240 /* DeepPathScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DeepPathScene.hpp; sourceTree = "<group>"; };
 		5723E7751D4564C200643B1D /* TDHomeHit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDHomeHit.cpp; sourceTree = "<group>"; };
 		5723E7761D4564C200643B1D /* TDHomeHit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDHomeHit.h; sourceTree = "<group>"; };
 		5723E7791D4674F700643B1D /* TitleCardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleCardScene.cpp; sourceTree = "<group>"; };
@@ -889,6 +892,7 @@
 		0AF37A901B840DEE00A9CFF7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				570975C0208A8C0400A9A240 /* DeepPath */,
 				5723E7781D4674BE00643B1D /* TitleCard */,
 				0A2FE3E51B8E267900ABD7DB /* Calibration */,
 				46CA36AC1B8FEEEE00791398 /* Beams */,
@@ -1153,6 +1157,15 @@
 				46DF547A1D5BB1CE008B5E27 /* ofxCameraFilter.h */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		570975C0208A8C0400A9A240 /* DeepPath */ = {
+			isa = PBXGroup;
+			children = (
+				570975C3208A8CC400A9A240 /* DeepPathScene.hpp */,
+				570975C2208A8CC400A9A240 /* DeepPathScene.cpp */,
+			);
+			name = DeepPath;
 			sourceTree = "<group>";
 		};
 		570F11851D1088FA00402B69 /* utilities */ = {
@@ -1688,6 +1701,7 @@
 				0AF37B1B1B840F4000A9CFF7 /* guiTypeToggle.cpp in Sources */,
 				0ADE08931B8F606900FF021C /* GoalWinFill.cpp in Sources */,
 				46CA36AB1B8FEEDF00791398 /* BeamScene.cpp in Sources */,
+				570975C4208A8CC400A9A240 /* DeepPathScene.cpp in Sources */,
 				57AB01AB1C62E76D00791458 /* LookUpTable.mm in Sources */,
 				575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */,
 				57AB01A51C62E76D00791458 /* AGC.mm in Sources */,
