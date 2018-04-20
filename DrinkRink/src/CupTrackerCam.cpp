@@ -308,6 +308,9 @@ void CupTrackerCam::update(){
             
         }
         
+        //sourceImage, min blob size, max blob size, max num blobs, find holes
+        contourFinder.findContours(grayImageDemo, 60, (imgWidth*imgHeight)/3, 30, true);
+        
         
         //threhsold cyclinging refresh
         if (doingThresholdCycling){
@@ -347,10 +350,12 @@ void CupTrackerCam::update(){
 void CupTrackerCam::draw(){
     
     //WE MOSTLY JUST USE THE CALIBRAITON SCREEN!
+    ofPushMatrix();
+    ofScale(0.5,0.5);
     
-    ofSetColor(255, 200);
+    ofSetColor(255);
     
-    fbo.draw(0,0);
+    //fbo.draw(0,0);
     //fullImg.draw(20,20);
     
     ofVec2f drawStart(100,0);
@@ -360,6 +365,25 @@ void CupTrackerCam::draw(){
     
     //drawFiducials(drawStart.x, drawStart.y);
     drawARTags(drawStart.x, drawStart.y);
+    
+//    //testing blobs
+//    ofVec2f blobStart(drawStart.x, drawStart.y+5+fullImg.getHeight());
+//    for (int i = 0; i < contourFinder.nBlobs; i++){
+//        contourFinder.blobs[i].draw(blobStart.x, blobStart.y);
+//        
+//        // draw over the centroid if the blob is a hole
+//        ofSetColor(255);
+//        if(contourFinder.blobs[i].hole){
+//            ofDrawBitmapString("hole",
+//                               contourFinder.blobs[i].boundingRect.getCenter().x + blobStart.x,
+//                               contourFinder.blobs[i].boundingRect.getCenter().y + blobStart.y);
+//        }
+//    }
+//    
+//    ofSetColor(255,0,0);
+//    ofDrawBitmapString("blobs: "+ofToString(contourFinder.nBlobs), blobStart.x, blobStart.y+fullImg.getHeight()+15);
+    
+    ofPopMatrix();
 }
 
 //--------------------------------------------------------------

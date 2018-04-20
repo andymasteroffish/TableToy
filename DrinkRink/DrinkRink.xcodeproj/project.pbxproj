@@ -1957,7 +1957,7 @@
 					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/osx",
 					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/win32",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = app;
@@ -2051,7 +2051,7 @@
 					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/osx",
 					"$(PROJECT_DIR)/src/addons/ofxARtoolkitPlus/libs/ARToolKitPlus/lib/win32",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = app;

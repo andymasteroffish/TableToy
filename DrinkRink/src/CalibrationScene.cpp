@@ -119,7 +119,7 @@ void CalibrationScene::drawCustom(){
     tracker->fullImg.draw(0, 0, tracker->fullImg.width, tracker->fullImg.height);
     
     //testing
-    tracker->grayImageNoThresh.draw(0, tracker->fullImg.height*2 + 60, tracker->fullImg.width, tracker->fullImg.height);
+    //tracker->grayImageNoThresh.draw(0, tracker->fullImg.height*2 + 60, tracker->fullImg.width, tracker->fullImg.height);
     
 //    //draw the warp points
 //    int pointSize = 10;
@@ -193,6 +193,25 @@ void CalibrationScene::drawCustom(){
     
     tracker->drawARTags(0, 0);
     
+    //trying out drawing the blobs
+    //testing blobs
+    ofVec2f blobStart(0,0);
+    for (int i = 0; i < tracker->contourFinder.nBlobs; i++){
+        tracker->contourFinder.blobs[i].draw(blobStart.x, blobStart.y);
+        
+        // draw over the centroid if the blob is a hole
+        ofSetColor(255);
+        if(tracker->contourFinder.blobs[i].hole){
+            ofDrawBitmapString("hole",
+                               tracker->contourFinder.blobs[i].boundingRect.getCenter().x + blobStart.x,
+                               tracker->contourFinder.blobs[i].boundingRect.getCenter().y + blobStart.y);
+        }
+    }
+    
+    ofSetColor(255,0,0);
+    ofDrawBitmapString("blobs: "+ofToString(tracker->contourFinder.nBlobs), blobStart.x, blobStart.y+tracker->fullImg.getHeight()+25);
+    
+    //info text
     ofPopMatrix();
     
     ofPushMatrix();
