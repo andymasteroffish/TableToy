@@ -44,6 +44,7 @@ public:
     vector<StreamBlob> curBlobs;
     
     
+    
 };
 
 #endif /* StreamBlobScene_hpp */

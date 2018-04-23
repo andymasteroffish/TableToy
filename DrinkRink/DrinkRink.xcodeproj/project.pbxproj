@@ -90,6 +90,7 @@
 		577928571D42D11600E1FAE9 /* TDFoeDeath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577928551D42D11600E1FAE9 /* TDFoeDeath.cpp */; };
 		5779D0BD208E318200ADAA4C /* StreamBlobScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5779D0BB208E318200ADAA4C /* StreamBlobScene.cpp */; settings = {ASSET_TAGS = (); }; };
 		5779D0C0208E354800ADAA4C /* StreamBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5779D0BE208E354800ADAA4C /* StreamBlob.cpp */; settings = {ASSET_TAGS = (); }; };
+		5779D0C5208E3E7E00ADAA4C /* EyeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5779D0C3208E3E7E00ADAA4C /* EyeScene.cpp */; settings = {ASSET_TAGS = (); }; };
 		577EDED11D10ABAB00F7064D /* TDFoe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577EDECF1D10ABAB00F7064D /* TDFoe.cpp */; };
 		5797BB491C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3A1C6433F500A752A5 /* libARToolKitPlus.a */; };
 		5797BB4A1C6433F500A752A5 /* libARToolKitPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797BB3C1C6433F500A752A5 /* libARToolKitPlus.a */; };
@@ -439,6 +440,8 @@
 		5779D0BC208E318200ADAA4C /* StreamBlobScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StreamBlobScene.hpp; sourceTree = "<group>"; };
 		5779D0BE208E354800ADAA4C /* StreamBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StreamBlob.cpp; sourceTree = "<group>"; };
 		5779D0BF208E354800ADAA4C /* StreamBlob.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StreamBlob.hpp; sourceTree = "<group>"; };
+		5779D0C3208E3E7E00ADAA4C /* EyeScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EyeScene.cpp; sourceTree = "<group>"; };
+		5779D0C4208E3E7E00ADAA4C /* EyeScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EyeScene.hpp; sourceTree = "<group>"; };
 		577EDECF1D10ABAB00F7064D /* TDFoe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFoe.cpp; sourceTree = "<group>"; };
 		577EDED01D10ABAB00F7064D /* TDFoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDFoe.h; sourceTree = "<group>"; };
 		5797BB281C6433F500A752A5 /* ar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ar.h; sourceTree = "<group>"; };
@@ -898,6 +901,7 @@
 		0AF37A901B840DEE00A9CFF7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				5779D0C2208E3E6300ADAA4C /* Eye */,
 				570975C0208A8C0400A9A240 /* DeepPath */,
 				5723E7781D4674BE00643B1D /* TitleCard */,
 				0A2FE3E51B8E267900ABD7DB /* Calibration */,
@@ -1207,6 +1211,15 @@
 				5779D0BE208E354800ADAA4C /* StreamBlob.cpp */,
 			);
 			name = StreamBlob;
+			sourceTree = "<group>";
+		};
+		5779D0C2208E3E6300ADAA4C /* Eye */ = {
+			isa = PBXGroup;
+			children = (
+				5779D0C4208E3E7E00ADAA4C /* EyeScene.hpp */,
+				5779D0C3208E3E7E00ADAA4C /* EyeScene.cpp */,
+			);
+			name = Eye;
 			sourceTree = "<group>";
 		};
 		5797BB231C6433F500A752A5 /* ofxARtoolkitPlus */ = {
@@ -1640,6 +1653,7 @@
 				57DC11BB1D52A6EB008A1D55 /* TowerPaddle.cpp in Sources */,
 				0AF37A8A1B840D9A00A9CFF7 /* ofxCvGrayscaleImage.cpp in Sources */,
 				0AF37A871B840D9A00A9CFF7 /* ofxCvColorImage.cpp in Sources */,
+				5779D0C5208E3E7E00ADAA4C /* EyeScene.cpp in Sources */,
 				0AF37B261B840F4000A9CFF7 /* ofxXmlSettings.cpp in Sources */,
 				0AF37A9B1B840E4B00A9CFF7 /* Scene.cpp in Sources */,
 				57AB01AF1C62E76D00791458 /* MyCameraDriver.mm in Sources */,

@@ -130,7 +130,7 @@ void DeepPathScene::drawCustom(){
     
     //draw the floor
     //ofSetColor(30);
-    ofSetHexColor(0xFFFFFF);
+    ofSetColor(255,255,255,255*alphaPrc);
     for (int x=0; x<FLOOR_GRID_WIDTH-1; x++){
         for (int z=0; z<FLOOR_GRID_DEPTH-1; z++ ){
             
