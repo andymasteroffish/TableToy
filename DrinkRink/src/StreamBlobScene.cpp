@@ -25,6 +25,8 @@ void StreamBlobScene::setupCustom(){
         bgShape.setup(gameWidth, gameHeight);
         bgShapes.push_back(bgShape);
     }
+    
+    drawDebugBobs = false;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -63,8 +65,10 @@ void StreamBlobScene::updateCustom(){
     float newYScale = gameWidth/srcImgWidth;
     
     for (int i = 0; i < cupTracker->contourFinder.nBlobs; i++){
+        ofVec2f center(cupTracker->contourFinder.blobs[i].centroid.x*newXScale, cupTracker->contourFinder.blobs[i].centroid.y*newYScale);
+        
         StreamBlob blob;
-        blob.center.set( cupTracker->contourFinder.blobs[i].centroid.x*newXScale, cupTracker->contourFinder.blobs[i].centroid.y*newYScale);
+        blob.center.set( center );
         
         for (int k=0; k<cupTracker->contourFinder.blobs[i].nPts; k++){
             ofVec2f pnt;
@@ -83,7 +87,7 @@ void StreamBlobScene::updateCustom(){
             //cout<<"field size "<<field.fieldWidth<<","<<field.fieldHeight<<endl;
             //cout<<"field pos "<<fieldX<<","<<fieldY<<endl;
             
-            ofVec2f normalized = pnt - blob.center;
+            ofVec2f normalized = pnt - center;
             normalized.normalize();
             
             //ofVec2f force(0,1);
@@ -144,29 +148,11 @@ void StreamBlobScene::drawBackgroundCustom(){
 //--------------------------------------------------------------------------------------------
 void StreamBlobScene::drawCustom(){
     
-    for (int i=0; i<curBlobs.size(); i++){
-        curBlobs[i].draw();
+    if (drawDebugBobs){
+        for (int i=0; i<curBlobs.size(); i++){
+            curBlobs[i].draw();
+        }
     }
-    
-//    float srcImgWidth = 1280 ;
-//    float srcImgHeight = 480 ;
-//    
-//    float newXScale = gameHeight/srcImgHeight;
-//    float newYScale = gameWidth/srcImgWidth;
-//    
-//    cout<<"new "<<newXScale<<" "<<newYScale<<endl;
-//    
-//    ofPushMatrix();
-//    ofScale(newXScale, newYScale);
-//    
-//    //blobs
-//    ofVec2f blobStart(0,0);
-//    for (int i = 0; i < cupTracker->contourFinder.nBlobs; i++){
-//        cupTracker->contourFinder.blobs[i].draw(blobStart.x, blobStart.y);
-//        
-//    }
-//    
-//    ofPopMatrix();
     
     
 }

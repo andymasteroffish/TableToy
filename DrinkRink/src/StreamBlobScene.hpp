@@ -39,6 +39,8 @@ public:
     float killTime;
     
     float blobForce;
+    
+    bool drawDebugBobs;
     vector<StreamBlob> curBlobs;
     
     
