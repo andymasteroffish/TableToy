@@ -14,6 +14,8 @@
 #include "ofxControlPanel.h"
 #include "CamSettings.h"
 
+#include "ofxOpenCv.h"
+
 //this is a code we chose arbitrarily 
 #define OVERRIDE_CUP_ID 322
 
@@ -43,6 +45,10 @@ public:
     
     
     bool overrideSceneSwicth;
+    
+    
+    //adding in blobs because fuck it
+    ofxCvContourFinder 	contourFinder;
     
 };
 

@@ -103,8 +103,6 @@ public:
     bool zoneHasCup[24];
     ofRectangle threshZoneBorders[24];
     
-    //adding in blobs because fuck it
-    ofxCvContourFinder 	contourFinder;
     
     //debug stuff
     float timeForDoubleKeyPress;

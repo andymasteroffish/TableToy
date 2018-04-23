@@ -9,7 +9,9 @@
 #include "DeepPathScene.hpp"
 
 void DeepPathScene::setupCustom(){
-    ofSetBackgroundColorHex(0x000000);
+    bgCol.set(0,0,0);
+    
+    sceneName = "deep_path";
     
     
     
@@ -20,17 +22,17 @@ void DeepPathScene::setupCustom(){
     camPos.set(0, 10, 0);
     camSpeed = 100;
     
-    //and the light
-    areaLight.setup();
-    areaLight.enable();
-    areaLight.setPointLight();
-    //areaLight.  . setAreaLight(400, 400);
-    float fCol = 1.0;   // 0.1
-    areaLight.setAmbientColor(ofColor(255.0, 255.0, 255.0));
-    areaLight.setAttenuation(1.0,0.0001,0.0001);
-    //areaLight.setAttenuation(0.0001,0.0001,0.0001);
-    areaLight.setDiffuseColor(ofColor(255.0, 255.0, 255.0));
-    areaLight.setSpecularColor(ofColor(255.0, 255.0, 255.0));
+//    //and the light
+//    areaLight.setup();
+//    //areaLight.enable();
+//    areaLight.setPointLight();
+//    //areaLight.  . setAreaLight(400, 400);
+//    float fCol = 1.0;   // 0.1
+//    areaLight.setAmbientColor(ofColor(255.0, 255.0, 255.0));
+//    areaLight.setAttenuation(1.0,0.0001,0.0001);
+//    //areaLight.setAttenuation(0.0001,0.0001,0.0001);
+//    areaLight.setDiffuseColor(ofColor(255.0, 255.0, 255.0));
+//    areaLight.setSpecularColor(ofColor(255.0, 255.0, 255.0));
     
     
     //create floor tiles
@@ -105,8 +107,7 @@ void DeepPathScene::updateCustom(){
     
     cam.lookAt(camLookAtPoint);
     
-    areaLight.setPosition( cam.getPosition() );
-    areaLight.draw();
+    
     
     //check if the closest floor row is behind the camera
     if (floorPoints[0][closeRow].z > camPos.z){
@@ -120,12 +121,11 @@ void DeepPathScene::drawBackgroundCustom(){
 
 void DeepPathScene::drawCustom(){
     ofEnableDepthTest();
-    ofEnableLighting();
+    //ofEnableLighting();
     
     float lineSize = 50;
     
     cam.begin();
-    
     
     
     //draw the floor
@@ -149,7 +149,7 @@ void DeepPathScene::drawCustom(){
     cam.end();
     
     ofDisableDepthTest();
-    ofDisableLighting();
+    //ofDisableLighting();
 }
 
 void DeepPathScene::keyPressed(int key){
