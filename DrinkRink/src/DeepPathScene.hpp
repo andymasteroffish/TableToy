@@ -46,6 +46,7 @@ public:
     int curFurthestFloorRow;
     
 
+    int killTime;
     
 };
 

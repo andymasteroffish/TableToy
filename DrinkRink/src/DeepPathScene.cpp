@@ -55,7 +55,12 @@ void DeepPathScene::setupCustom(){
 }
 
 void DeepPathScene::setupPanelValues(ofxControlPanel * panel){
+    panel->addPanel(sceneName, 1, false);
+    panel->setWhichPanel(sceneName);
+    panel->setWhichColumn(0);
     
+    
+    panel->addSlider("kill time", "DEEP_PATH_KILL_TIME", 60, 1, 500, false);
 }
 
 void DeepPathScene::resetCustom(){
@@ -63,7 +68,7 @@ void DeepPathScene::resetCustom(){
 }
 
 void DeepPathScene::checkPanelValuesCustom(ofxControlPanel * panel){
-    
+    killTime = panel->getValueF("DEEP_PATH_KILL_TIME");
 }
 
 void DeepPathScene::updateCustom(){
@@ -107,11 +112,14 @@ void DeepPathScene::updateCustom(){
     
     cam.lookAt(camLookAtPoint);
     
-    
-    
     //check if the closest floor row is behind the camera
     if (floorPoints[0][closeRow].z > camPos.z){
         moveFloorRowToBack(closeRow);
+    }
+    
+    
+    if (activeTimer > killTime){
+        switchScenesFlag = true;
     }
 }
 
