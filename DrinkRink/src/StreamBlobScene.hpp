@@ -13,7 +13,6 @@
 #include "Scene.h"
 
 #include "StreamBackgroundShape.h"
-#include "StreamBlob.hpp"
 
 class StreamBlobScene : public Scene{
 public:
@@ -41,8 +40,6 @@ public:
     float blobForce;
     
     bool drawDebugBobs;
-    vector<StreamBlob> curBlobs;
-    
     
     
 };

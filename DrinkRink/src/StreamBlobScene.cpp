@@ -36,6 +36,7 @@ void StreamBlobScene::setupPanelValues(ofxControlPanel * panel){
     panel->setWhichColumn(0);
     
     panel->addSlider("blob force", "STREAM_BLOB_FORCE", 0.4, 0, 2, false);
+    panel->addToggle("show contours", "STREAM_SHOW_BLOBS", false);
     
     //panel->addSlider("kill time", "STREAM_KILL_TIME", 60, 1, 500, false);
     //panel->addSlider("idle time to kill", "STREAM_IDLE_KILL_TIME", 20, 1, 120, false);
@@ -50,31 +51,19 @@ void StreamBlobScene::resetCustom(){
 void StreamBlobScene::checkPanelValuesCustom(ofxControlPanel * panel){
     killTime = panel->getValueF("STREAM_KILL_TIME");
     blobForce = panel->getValueF("STREAM_BLOB_FORCE");
+    drawDebugBobs = panel->getValueB("STREAM_SHOW_BLOBS");
 }
 
 //--------------------------------------------------------------------------------------------
 void StreamBlobScene::updateCustom(){
     setStreamForceOnField();
     
-    //our blobs (this is super inificient)
-    curBlobs.clear();
-    float srcImgWidth = 1280 ;
-    float srcImgHeight = 480 ;
-    
-    float newXScale = gameHeight/srcImgHeight;
-    float newYScale = gameWidth/srcImgWidth;
-    
-    for (int i = 0; i < cupTracker->contourFinder.nBlobs; i++){
-        ofVec2f center(cupTracker->contourFinder.blobs[i].centroid.x*newXScale, cupTracker->contourFinder.blobs[i].centroid.y*newYScale);
+    for (int i=0; i<cupTracker->blobs.size(); i++){
         
-        StreamBlob blob;
-        blob.center.set( center );
-        
-        for (int k=0; k<cupTracker->contourFinder.blobs[i].nPts; k++){
+        for (int k=0; k<cupTracker->blobs[i].points.size(); k++){
             ofVec2f pnt;
-            pnt.x =  cupTracker->contourFinder.blobs[i].pts[k].x * newXScale;
-            pnt.y =  cupTracker->contourFinder.blobs[i].pts[k].y * newYScale;
-            blob.points.push_back(pnt);
+            pnt.x =  cupTracker->blobs[i].points[k].x;
+            pnt.y =  cupTracker->blobs[i].points[k].y;
             
             //for each of these points, calculate the field position
             float xPrc = pnt.x / (float)gameWidth;
@@ -87,18 +76,14 @@ void StreamBlobScene::updateCustom(){
             //cout<<"field size "<<field.fieldWidth<<","<<field.fieldHeight<<endl;
             //cout<<"field pos "<<fieldX<<","<<fieldY<<endl;
             
-            ofVec2f normalized = pnt - center;
+            ofVec2f normalized = pnt - cupTracker->blobs[i].center;
             normalized.normalize();
             
             //ofVec2f force(0,1);
             field.field[fieldX][fieldY].vel += normalized * blobForce;;
         }
-        
-        curBlobs.push_back(blob);
-        
+
     }
-    
-    
     
     
     //background
@@ -149,8 +134,9 @@ void StreamBlobScene::drawBackgroundCustom(){
 void StreamBlobScene::drawCustom(){
     
     if (drawDebugBobs){
-        for (int i=0; i<curBlobs.size(); i++){
-            curBlobs[i].draw();
+        for (int i=0; i<cupTracker->blobs.size(); i++){
+
+            cupTracker->blobs[i].draw();
         }
     }
     

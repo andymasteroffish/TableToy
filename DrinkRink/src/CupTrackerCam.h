@@ -34,6 +34,8 @@ public:
     
     void checkARTag(int idNum);
     
+    void checkBlobs();
+    
 #ifdef USE_VIDEO
     vector<ofVideoPlayer*>       vidGrabber;
 #elif defined(USE_WEBCAM)
@@ -108,7 +110,7 @@ public:
     float timeForDoubleKeyPress;
     float lastKeyPressTime; //for double presses
    
-    
+    float blobXAdjust, blobYAdjust;
     
 };
 

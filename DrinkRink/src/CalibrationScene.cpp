@@ -237,6 +237,25 @@ void CalibrationScene::drawCustom(){
     ofLine(0, tracker->cupBottomY,  gameWidth, tracker->cupBottomY);
     
     
+    //testing the seam
+    int circSize = gameHeight*0.1;
+    ofSetColor(ofColor::cyan);
+    for (int y=-circSize; y<=gameHeight+circSize; y+=circSize){
+        ofNoFill();
+        ofCircle(gameWidth/2, y, circSize);
+    }
+    ofFill();
+    ofSetColor(ofColor::orangeRed);
+    ofRect(gameWidth/2-2, 0, 4, gameHeight);
+    
+    
+    //give us them blobs!
+    for (int i=0; i<cupTracker->blobs.size(); i++){
+        cupTracker->blobs[i].draw();
+    }
+    
+    
+    
 }
 
 //--------------------------------------------------------------------------------------------

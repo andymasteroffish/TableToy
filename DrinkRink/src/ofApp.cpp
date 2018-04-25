@@ -46,7 +46,7 @@ void ofApp::setup(){
     }
     
     curSceneID = -100;
-    setScene(SCENE_EYE);// SCENE_CALIBRATION);
+    setScene(SCENE_CALIBRATION);// SCENE_CALIBRATION);
     if (usingDebugCupTracker){
         setScene(SCENE_SPORTS);
     }
@@ -141,6 +141,17 @@ void ofApp::setupPanel(){
     panel.addSlider("cup x adjust right", "CUPS_ADJUST_X_RIGHT", 63.3, -300, 300, false);
     panel.addSlider("cup top y adjust right", "CUPS_ADJUST_Y_TOP_RIGHT", 10, -300, 300, false);
     panel.addSlider("cup bot y adjust right", "CUPS_ADJUST_Y_BOT_RIGHT", -60, -300, 300, false);
+    
+    //Blob settings
+    panel.addPanel("Blobs", 1, false);
+    panel.setWhichPanel("Blobs");
+    panel.setWhichColumn(0);
+    
+    panel.addSlider("blob x adjust", "BLOB_X_ADJUST", 0, -300, 300, false);
+    panel.addSlider("blob y adjust", "BLOB_Y_ADJUST", 0, -300, 300, false);
+
+    
+    
     
     //Thresholding
     panel.addPanel("Threshold Zone Top", 1, false);
@@ -242,11 +253,11 @@ void ofApp::scrollScenes(){
 //--------------------------------------------------------------
 void ofApp::randomizeSceneOrder(){
     //first add all of the scenes in order
-    sceneOrder.push_back( (int)SCENE_SPORTS);
-    sceneOrder.push_back( (int)SCENE_STREAM);
-    sceneOrder.push_back( (int)SCENE_TOWER_DEFENSE);
-    sceneOrder.push_back( (int)SCENE_BEAM);
-    sceneOrder.push_back( (int)SCENE_EYE);
+    //sceneOrder.push_back( (int)SCENE_SPORTS);
+    //sceneOrder.push_back( (int)SCENE_STREAM);
+    //sceneOrder.push_back( (int)SCENE_TOWER_DEFENSE);
+    //sceneOrder.push_back( (int)SCENE_BEAM);
+    //sceneOrder.push_back( (int)SCENE_EYE);
     sceneOrder.push_back( (int)SCENE_STREAM_BLOB);
     sceneOrder.push_back( (int)SCENE_DEEP_PATH);
     

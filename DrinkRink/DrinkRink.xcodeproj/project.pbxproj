@@ -415,6 +415,7 @@
 		46DF547A1D5BB1CE008B5E27 /* ofxCameraFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCameraFilter.h; sourceTree = "<group>"; };
 		570975C2208A8CC400A9A240 /* DeepPathScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeepPathScene.cpp; sourceTree = "<group>"; };
 		570975C3208A8CC400A9A240 /* DeepPathScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DeepPathScene.hpp; sourceTree = "<group>"; };
+		5712BAC42091345800CB7852 /* GameBlob.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameBlob.hpp; sourceTree = "<group>"; };
 		5723E7751D4564C200643B1D /* TDHomeHit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDHomeHit.cpp; sourceTree = "<group>"; };
 		5723E7761D4564C200643B1D /* TDHomeHit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDHomeHit.h; sourceTree = "<group>"; };
 		5723E7791D4674F700643B1D /* TitleCardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleCardScene.cpp; sourceTree = "<group>"; };
@@ -887,6 +888,7 @@
 		0AF37A8F1B840DE200A9CFF7 /* RealWorldTracking */ = {
 			isa = PBXGroup;
 			children = (
+				5712BAC42091345800CB7852 /* GameBlob.hpp */,
 				0AF37A931B840E0800A9CFF7 /* CupInfo.h */,
 				0AC3B92F1B86C14E001DC9C5 /* CupTracker.h */,
 				0AC3B92E1B86C14E001DC9C5 /* CupTracker.cpp */,

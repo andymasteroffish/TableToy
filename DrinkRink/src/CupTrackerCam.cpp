@@ -195,6 +195,10 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     thresholdCyclingMinVal = panel->getValueI("MIN_THRESHOLD_CYCLE");
     thresholdCyclingMaxVal = panel->getValueI("MAX_THRESHOLD_CYCLE");
     thresholdCyclingSpeed = panel->getValueI("THRESHOLD_CYCLE_SPEED");
+    
+    
+    blobXAdjust = panel->getValueF("BLOB_X_ADJUST");
+    blobYAdjust = panel->getValueF("BLOB_Y_ADJUST");
 
     
 //    cupAdjustLeftSide.x = panel->getValueF("CUPS_ADJUST_X_LEFT");
@@ -310,6 +314,7 @@ void CupTrackerCam::update(){
         
         //sourceImage, min blob size, max blob size, max num blobs, find holes
         contourFinder.findContours(grayImageDemo, 60, (imgWidth*imgHeight)/3, 30, true);
+        checkBlobs();
         
         
         //threhsold cyclinging refresh
@@ -343,6 +348,40 @@ void CupTrackerCam::update(){
                 }
             }
         }
+    }
+}
+
+//--------------------------------------------------------------
+void CupTrackerCam::checkBlobs(){
+    //our blobs (this is super inificient)
+    blobs.clear();
+    float srcImgWidth = imgWidth ;
+    float srcImgHeight = imgHeight ;
+    
+    float newXScale = gameHeight/srcImgHeight;
+    float newYScale = gameWidth/srcImgWidth;
+    
+    for (int i = 0; i < contourFinder.nBlobs; i++){
+        ofVec2f center;
+        center.x = contourFinder.blobs[i].centroid.x*newXScale + blobXAdjust;
+        center.y = contourFinder.blobs[i].centroid.y*newYScale + blobYAdjust;
+        
+        GameBlob blob;
+        blob.center.set( center );
+        
+        for (int k=0; k<contourFinder.blobs[i].nPts; k++){
+            ofVec2f pnt;
+            pnt.x =  contourFinder.blobs[i].pts[k].x * newXScale + blobXAdjust;
+            pnt.y =  contourFinder.blobs[i].pts[k].y * newYScale + blobYAdjust;
+            blob.points.push_back(pnt);
+            
+            //for each of these points, calculate the field position
+            float xPrc = pnt.x / (float)gameWidth;
+            float yPrc = pnt.y / (float)gameHeight;
+        }
+        
+        blobs.push_back(blob);
+        
     }
 }
 

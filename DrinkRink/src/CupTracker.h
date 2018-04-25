@@ -15,6 +15,7 @@
 #include "CamSettings.h"
 
 #include "ofxOpenCv.h"
+#include "GameBlob.hpp"
 
 //this is a code we chose arbitrarily 
 #define OVERRIDE_CUP_ID 322
@@ -49,6 +50,7 @@ public:
     
     //adding in blobs because fuck it
     ofxCvContourFinder 	contourFinder;
+    vector<GameBlob> blobs;
     
 };
 
