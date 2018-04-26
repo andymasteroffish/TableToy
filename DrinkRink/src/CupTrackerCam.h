@@ -113,12 +113,19 @@ public:
     
     
     //blobs
-   
+    int maxNumBlobsToFind;
+    int blobMinSize;
+    
     float blobXAdjust, blobYAdjust;
     float blobXRightAdjust, blobYRightAdjust;
     float blobLeftXCurve, blobRightXCurve;
     
     float camToGameXScale, camToGameYScale;
+    
+    //tracking blobs form frame to frame
+    float blobTrackingMaxCenterMove;
+    float blobTrackingMacPrcAreaChange;
+    int nextUniqueBlobID;
     
 };
 

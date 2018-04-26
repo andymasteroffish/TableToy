@@ -147,6 +147,7 @@ void ofApp::setupPanel(){
     panel.setWhichPanel("Blobs");
     panel.setWhichColumn(0);
     
+    
     panel.addSlider("blob general x adjust", "BLOB_X_ADJUST", 0, -300, 300, false);
     panel.addSlider("blob general y adjust", "BLOB_Y_ADJUST", 0, -300, 300, false);
     
@@ -155,6 +156,12 @@ void ofApp::setupPanel(){
     
     panel.addSlider("blob left x curve", "BLOB_LEFT_X_CURVE", 1, 0, 2, false);
     panel.addSlider("blob right x curve", "BLOB_RIGHT_X_CURVE", 1, 0, 2, false);
+    
+    panel.addLabel("tracking");
+    panel.addSlider("max num blobs", "MAX_NUM_BLOBS", 30, 1, 120, true);
+    panel.addSlider("blob min size", "BLOB_MIN_SIZE", 60, 0, 1000, true);
+    panel.addSlider("max offset for same blob", "BLOB_MAX_TRACKING_DIST", 350, 10, 500, false);
+    panel.addSlider("max area prc change", "BLOB_MAX_AREA_PRC_CHANGE", 0.5, 0, 1, false);
     
     
     

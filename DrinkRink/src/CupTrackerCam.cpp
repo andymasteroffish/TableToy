@@ -14,7 +14,7 @@ void CupTrackerCam::setupCustom(){
     imgWidth = 1280 ;
     imgHeight = 480 ;
     
-    
+    nextUniqueBlobID = 1;
     
     //working with threshold sections
     useThreshMap = true;    //this should be in panel
@@ -198,6 +198,8 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     thresholdCyclingMaxVal = panel->getValueI("MAX_THRESHOLD_CYCLE");
     thresholdCyclingSpeed = panel->getValueI("THRESHOLD_CYCLE_SPEED");
     
+    maxNumBlobsToFind = panel->getValueI("MAX_NUM_BLOBS");
+    blobMinSize = panel->getValueI("BLOB_MIN_SIZE");
     
     blobXAdjust = panel->getValueF("BLOB_X_ADJUST");
     blobYAdjust = panel->getValueF("BLOB_Y_ADJUST");
@@ -207,6 +209,9 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     
     blobLeftXCurve = panel->getValueF("BLOB_LEFT_X_CURVE");
     blobRightXCurve = panel->getValueF("BLOB_RIGHT_X_CURVE");
+    
+    blobTrackingMaxCenterMove = panel->getValueF("BLOB_MAX_TRACKING_DIST");
+    blobTrackingMacPrcAreaChange= panel->getValueF("BLOB_MAX_AREA_PRC_CHANGE");
     
 
     
@@ -322,7 +327,7 @@ void CupTrackerCam::update(){
         }
         
         //sourceImage, min blob size, max blob size, max num blobs, find holes
-        contourFinder.findContours(grayImageDemo, 60, (imgWidth*imgHeight)/3, 30, true);
+        contourFinder.findContours(grayImageDemo, blobMinSize, (imgWidth*imgHeight)/3, maxNumBlobsToFind, true);
         checkBlobs();
         
         
@@ -362,40 +367,65 @@ void CupTrackerCam::update(){
 
 //--------------------------------------------------------------
 void CupTrackerCam::checkBlobs(){
-    //our blobs (this is super inificient)
-    blobs.clear();
+    //blobs.clear();
+    
+    //tick up the timeout on all blobs
+    for (int i=0; i<blobs.size(); i++){
+        blobs[i].foundThisFrame = false;
+    }
     
     
     camToGameYScale = gameHeight/(float)imgHeight;
     camToGameXScale = gameWidth/(float)imgWidth;
     
-    
-//    float srcImgWidth = imgWidth ;
-//    float srcImgHeight = imgHeight ;
-//    
-//    float newXScale = gameHeight/srcImgHeight;
-//    float newYScale = gameWidth/srcImgWidth;
-    
     for (int i = 0; i < contourFinder.nBlobs; i++){
+        bool existingBlobMatched = false;
+        
         ofVec2f center = getGameBlobPointFromCamPoint(contourFinder.blobs[i].centroid);
-        //center.x = contourFinder.blobs[i].centroid.x*camToGameScale + blobXAdjust;
-        //center.y = contourFinder.blobs[i].centroid.y*camToGameScale + blobYAdjust;
+        float blobArea = contourFinder.blobs[i].area * camToGameXScale;
+        float blobLength = contourFinder.blobs[i].length * camToGameXScale;
         
-        GameBlob blob;
-        blob.center.set( center );
-        blob.area = contourFinder.blobs[i].area * camToGameXScale;
-        blob.length = contourFinder.blobs[i].length * camToGameXScale;
-        
+        vector<ofVec2f> blobPnts;
         for (int k=0; k<contourFinder.blobs[i].nPts; k++){
             ofVec2f pnt = getGameBlobPointFromCamPoint(contourFinder.blobs[i].pts[k]);
-            //pnt.x =  contourFinder.blobs[i].pts[k].x * camToGameXScale + blobXAdjust;
-            //pnt.y =  contourFinder.blobs[i].pts[k].y * camToGameYScale + blobYAdjust;
-            blob.points.push_back(pnt);
+            blobPnts.push_back(pnt);
             
         }
         
-        blobs.push_back(blob);
+        //run through our existing blobs to see if any match
+        for (int b=0; b<blobs.size() && !existingBlobMatched; b++){
+            //skip blobs alreayd found this frame
+            if (blobs[b].foundThisFrame == false){
+                float centerDist = ofDistSquared(center.x, center.y, blobs[b].center.x, blobs[b].center.y);
+                float areaPrcChange = 1.0 - MIN(blobArea, blobs[b].area) / MAX(blobArea, blobs[b].area);
+                
+                if (centerDist < blobTrackingMaxCenterMove && areaPrcChange < blobTrackingMacPrcAreaChange){
+                    blobs[b].update(center, blobArea, blobLength, blobPnts);
+//                    cout<<"area prc: "<<areaPrcChange<<endl;
+//                    cout<<"cent dist: "<<centerDist<<endl;
+                    existingBlobMatched = true;
+                }
+            }
+            
+        }
         
+        //if no match was found, make a new blob
+        if (!existingBlobMatched){
+            GameBlob blob;
+            blob.setup(nextUniqueBlobID++);
+            blob.update(center, blobArea, blobLength, blobPnts);
+            
+            blobs.push_back(blob);
+        }
+        
+    }
+    
+    
+    //kill any blobs that have timed out
+    for (int i=blobs.size()-1; i>=0; i--){
+        if (blobs[i].foundThisFrame == false){
+            blobs.erase(blobs.begin()+i);
+        }
     }
 }
 
