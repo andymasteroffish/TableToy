@@ -149,7 +149,8 @@ void ofApp::setupPanel(){
     
     panel.addSlider("blob x adjust", "BLOB_X_ADJUST", 0, -300, 300, false);
     panel.addSlider("blob y adjust", "BLOB_Y_ADJUST", 0, -300, 300, false);
-
+    panel.addSlider("blob left x curve", "BLOB_LEFT_X_CURCE", 1, 0, 2, false);
+    panel.addSlider("blob right x curve", "BLOB_RIGHT_X_CURCE", 1, 0, 2, false);
     
     
     

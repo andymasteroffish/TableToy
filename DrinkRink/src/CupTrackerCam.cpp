@@ -14,6 +14,9 @@ void CupTrackerCam::setupCustom(){
     imgWidth = 1280 ;
     imgHeight = 480 ;
     
+    camToGameScale = gameHeight/imgHeight;
+    //camToGameYScale = gameWidth/imgWidth;
+    
     //working with threshold sections
     useThreshMap = true;    //this should be in panel
     grayImageThresh.allocate(imgWidth, imgHeight);
@@ -199,6 +202,9 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     
     blobXAdjust = panel->getValueF("BLOB_X_ADJUST");
     blobYAdjust = panel->getValueF("BLOB_Y_ADJUST");
+    
+    blobLeftXCurve = panel->getValueF("BLOB_LEFT_X_CURCE");
+    blobRightXCurve = panel->getValueF("BLOB_RIGHT_X_CURCE");
 
     
 //    cupAdjustLeftSide.x = panel->getValueF("CUPS_ADJUST_X_LEFT");
@@ -355,34 +361,48 @@ void CupTrackerCam::update(){
 void CupTrackerCam::checkBlobs(){
     //our blobs (this is super inificient)
     blobs.clear();
-    float srcImgWidth = imgWidth ;
-    float srcImgHeight = imgHeight ;
     
-    float newXScale = gameHeight/srcImgHeight;
-    float newYScale = gameWidth/srcImgWidth;
     
     for (int i = 0; i < contourFinder.nBlobs; i++){
-        ofVec2f center;
-        center.x = contourFinder.blobs[i].centroid.x*newXScale + blobXAdjust;
-        center.y = contourFinder.blobs[i].centroid.y*newYScale + blobYAdjust;
+        ofVec2f center = getGameBlobPointFromCamPoint(contourFinder.blobs[i].centroid);
+        //center.x = contourFinder.blobs[i].centroid.x*camToGameScale + blobXAdjust;
+        //center.y = contourFinder.blobs[i].centroid.y*camToGameScale + blobYAdjust;
         
         GameBlob blob;
         blob.center.set( center );
         
         for (int k=0; k<contourFinder.blobs[i].nPts; k++){
-            ofVec2f pnt;
-            pnt.x =  contourFinder.blobs[i].pts[k].x * newXScale + blobXAdjust;
-            pnt.y =  contourFinder.blobs[i].pts[k].y * newYScale + blobYAdjust;
+            ofVec2f pnt = getGameBlobPointFromCamPoint(contourFinder.blobs[i].pts[k]);
+            //pnt.x =  contourFinder.blobs[i].pts[k].x * camToGameScale + blobXAdjust;
+            //pnt.y =  contourFinder.blobs[i].pts[k].y * camToGameScale + blobYAdjust;
             blob.points.push_back(pnt);
             
-            //for each of these points, calculate the field position
-            float xPrc = pnt.x / (float)gameWidth;
-            float yPrc = pnt.y / (float)gameHeight;
         }
         
         blobs.push_back(blob);
         
     }
+}
+
+//--------------------------------------------------------------
+ofVec2f CupTrackerCam::getGameBlobPointFromCamPoint(ofPoint camPnt){
+    ofVec2f gamePnt;
+    gamePnt.x = camPnt.x * camToGameScale + blobXAdjust;
+    gamePnt.y = camPnt.y * camToGameScale + blobXAdjust;
+    
+    if (gamePnt.x < gameWidth/2){
+        float prc = gamePnt.x / (float)(gameWidth/2);
+        prc = powf(prc, 2.0-blobLeftXCurve);
+        gamePnt.x = (gameWidth/2) * prc;
+    }
+    else{
+        float prc = (gamePnt.x - (gameWidth/2)) / (float)(gameWidth/2);
+        prc = powf(prc, 2.0-blobRightXCurve);
+        gamePnt.x = (gameWidth/2) +  (gameWidth/2) * prc;
+    }
+    
+    
+    return gamePnt;
 }
 
 //--------------------------------------------------------------

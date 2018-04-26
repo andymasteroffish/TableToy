@@ -35,6 +35,7 @@ public:
     void checkARTag(int idNum);
     
     void checkBlobs();
+    ofVec2f getGameBlobPointFromCamPoint(ofPoint camPnt);
     
 #ifdef USE_VIDEO
     vector<ofVideoPlayer*>       vidGrabber;
@@ -109,8 +110,14 @@ public:
     //debug stuff
     float timeForDoubleKeyPress;
     float lastKeyPressTime; //for double presses
+    
+    
+    //blobs
    
     float blobXAdjust, blobYAdjust;
+    float blobLeftXCurve, blobRightXCurve;
+    
+    float camToGameScale;
     
 };
 
