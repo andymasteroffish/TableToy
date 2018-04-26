@@ -46,7 +46,7 @@ void ofApp::setup(){
     }
     
     curSceneID = -100;
-    setScene(SCENE_CALIBRATION);// SCENE_CALIBRATION);
+    setScene(SCENE_STREAM_BLOB);// SCENE_CALIBRATION);
     if (usingDebugCupTracker){
         setScene(SCENE_SPORTS);
     }

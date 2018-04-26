@@ -38,6 +38,19 @@ void StreamBlobScene::setupPanelValues(ofxControlPanel * panel){
     panel->addSlider("blob force", "STREAM_BLOB_FORCE", 0.4, 0, 2, false);
     panel->addToggle("show contours", "STREAM_SHOW_BLOBS", false);
     
+    panel->addSlider("blob Hue", "STREAM_BLOB_HUE", 250, 0, 255, true);
+    panel->addSlider("blob Saturation", "STREAM_BLOB_SAT", 196, 0, 255, true);
+    panel->addSlider("blob Brightness", "STREAM_BLOB_BRI", 107, 0, 255, true);
+    panel->addSlider("blob Base Alpha", "STREAM_BLOB_ALPHA", 75, 0, 255, true);
+    
+    panel->addSlider("alpha pulse range", "STREAM_BLOB_ALPHA_RANGE", 40, 0, 255, false);
+    panel->addSlider("alpha pulse speed", "STREAM_BLOB_ALPHA_SPEED", 0.3, 0.0001, 1.5, false);
+    
+    panel->addToggle("use noise", "STREAM_BLOB_USE_NOISE", true);
+    panel->addSlider("noise speed", "STREAM_BLOB_NOISE_SPEED", 1, 0, 3, false);
+    panel->addSlider("noise range", "STREAM_BLOB_NOISE_RANGE", 20, 0, 100, false);
+    
+    
     //panel->addSlider("kill time", "STREAM_KILL_TIME", 60, 1, 500, false);
     //panel->addSlider("idle time to kill", "STREAM_IDLE_KILL_TIME", 20, 1, 120, false);
 }
@@ -52,6 +65,16 @@ void StreamBlobScene::checkPanelValuesCustom(ofxControlPanel * panel){
     killTime = panel->getValueF("STREAM_KILL_TIME");
     blobForce = panel->getValueF("STREAM_BLOB_FORCE");
     drawDebugBobs = panel->getValueB("STREAM_SHOW_BLOBS");
+    
+    blobCol.setHsb(panel->getValueI("STREAM_BLOB_HUE"), panel->getValueI("STREAM_BLOB_SAT"), panel->getValueI("STREAM_BLOB_BRI"));
+    blobCol.a = panel->getValueI("STREAM_BLOB_ALPHA");
+    
+    alphaPulseRange = panel->getValueF("STREAM_BLOB_ALPHA_RANGE");
+    alphaPulseSpeed = panel->getValueF("STREAM_BLOB_ALPHA_SPEED");
+    
+    useNoiseForBlobs = panel->getValueB("STREAM_BLOB_USE_NOISE");
+    blobNoiseSpeed = panel->getValueF("STREAM_BLOB_NOISE_SPEED");
+    blobNoiseRange = panel->getValueF("STREAM_BLOB_NOISE_RANGE");
 }
 
 //--------------------------------------------------------------------------------------------
@@ -138,6 +161,35 @@ void StreamBlobScene::drawCustom(){
 
             cupTracker->blobs[i].draw();
         }
+    }
+    
+    
+    //styalized blobs
+    float alpha = blobCol.a + sin(ofGetElapsedTimef() * alphaPulseSpeed) * alphaPulseRange;
+    alpha = CLAMP(alpha, 0, 255);
+    ofSetColor(blobCol, alpha * alphaPrc);
+    
+    
+    for (int i=0; i<cupTracker->blobs.size(); i++){
+        
+        ofFill();
+        ofBeginShape();
+        for (int p=0; p<cupTracker->blobs[i].points.size(); p++){
+            float thisX = cupTracker->blobs[i].points[p].x;
+            float thisY = cupTracker->blobs[i].points[p].y;
+            
+            
+            float xNoise = 0;
+            float yNoise = 0;
+            if (useNoiseForBlobs){
+                xNoise = ofSignedNoise(thisX, thisY, ofGetElapsedTimef()*blobNoiseSpeed, 100) * blobNoiseRange;
+                yNoise =ofSignedNoise(thisX, thisY, ofGetElapsedTimef()*blobNoiseSpeed) * blobNoiseRange;
+            }
+            ofVertex(thisX + xNoise, thisY + yNoise);
+        }
+        ofEndShape();
+        
+        
     }
     
     

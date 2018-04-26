@@ -41,6 +41,12 @@ public:
     
     bool drawDebugBobs;
     
+    ofColor blobCol;
+    float alphaPulseRange, alphaPulseSpeed;
+    
+    bool useNoiseForBlobs;
+    float blobNoiseSpeed, blobNoiseRange;
+    
     
 };
 
