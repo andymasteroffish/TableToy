@@ -115,9 +115,10 @@ public:
     //blobs
    
     float blobXAdjust, blobYAdjust;
+    float blobXRightAdjust, blobYRightAdjust;
     float blobLeftXCurve, blobRightXCurve;
     
-    float camToGameScale;
+    float camToGameXScale, camToGameYScale;
     
 };
 

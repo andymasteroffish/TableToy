@@ -151,7 +151,7 @@ void CalibrationScene::drawCustom(){
     ofTranslate(drawOffset.x+tracker->fullImg.width*drawScale+10, 20);
     ofSetColor(255,0,0, 255*alphaPrc);
     ofDrawBitmapString("<-- This is the input from the camera(s)", 0, 0);
-    ofDrawBitmapString("<-- you can drag these warp points with mouse", 0, 15);
+    //ofDrawBitmapString("<-- you can drag these warp points with mouse", 0, 15);
     
     ofDrawBitmapString(".-- This is the background image used for differencing.", 20, 65);
     ofDrawBitmapString("|   It should be the empty table.", 20, 80);

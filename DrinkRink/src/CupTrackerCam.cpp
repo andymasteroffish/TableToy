@@ -14,8 +14,7 @@ void CupTrackerCam::setupCustom(){
     imgWidth = 1280 ;
     imgHeight = 480 ;
     
-    camToGameScale = gameHeight/imgHeight;
-    //camToGameYScale = gameWidth/imgWidth;
+    
     
     //working with threshold sections
     useThreshMap = true;    //this should be in panel
@@ -203,8 +202,12 @@ void CupTrackerCam::updateFromPanel(ofxControlPanel * panel){
     blobXAdjust = panel->getValueF("BLOB_X_ADJUST");
     blobYAdjust = panel->getValueF("BLOB_Y_ADJUST");
     
-    blobLeftXCurve = panel->getValueF("BLOB_LEFT_X_CURCE");
-    blobRightXCurve = panel->getValueF("BLOB_RIGHT_X_CURCE");
+    blobXRightAdjust = panel->getValueF("BLOB_X_RIGHT_ADJUST");
+    blobYRightAdjust = panel->getValueF("BLOB_Y_RIGHT_ADJUST");
+    
+    blobLeftXCurve = panel->getValueF("BLOB_LEFT_X_CURVE");
+    blobRightXCurve = panel->getValueF("BLOB_RIGHT_X_CURVE");
+    
 
     
 //    cupAdjustLeftSide.x = panel->getValueF("CUPS_ADJUST_X_LEFT");
@@ -363,6 +366,16 @@ void CupTrackerCam::checkBlobs(){
     blobs.clear();
     
     
+    camToGameYScale = gameHeight/(float)imgHeight;
+    camToGameXScale = gameWidth/(float)imgWidth;
+    
+    
+//    float srcImgWidth = imgWidth ;
+//    float srcImgHeight = imgHeight ;
+//    
+//    float newXScale = gameHeight/srcImgHeight;
+//    float newYScale = gameWidth/srcImgWidth;
+    
     for (int i = 0; i < contourFinder.nBlobs; i++){
         ofVec2f center = getGameBlobPointFromCamPoint(contourFinder.blobs[i].centroid);
         //center.x = contourFinder.blobs[i].centroid.x*camToGameScale + blobXAdjust;
@@ -370,11 +383,13 @@ void CupTrackerCam::checkBlobs(){
         
         GameBlob blob;
         blob.center.set( center );
+        blob.area = contourFinder.blobs[i].area * camToGameXScale;
+        blob.length = contourFinder.blobs[i].length * camToGameXScale;
         
         for (int k=0; k<contourFinder.blobs[i].nPts; k++){
             ofVec2f pnt = getGameBlobPointFromCamPoint(contourFinder.blobs[i].pts[k]);
-            //pnt.x =  contourFinder.blobs[i].pts[k].x * camToGameScale + blobXAdjust;
-            //pnt.y =  contourFinder.blobs[i].pts[k].y * camToGameScale + blobYAdjust;
+            //pnt.x =  contourFinder.blobs[i].pts[k].x * camToGameXScale + blobXAdjust;
+            //pnt.y =  contourFinder.blobs[i].pts[k].y * camToGameYScale + blobYAdjust;
             blob.points.push_back(pnt);
             
         }
@@ -387,17 +402,23 @@ void CupTrackerCam::checkBlobs(){
 //--------------------------------------------------------------
 ofVec2f CupTrackerCam::getGameBlobPointFromCamPoint(ofPoint camPnt){
     ofVec2f gamePnt;
-    gamePnt.x = camPnt.x * camToGameScale + blobXAdjust;
-    gamePnt.y = camPnt.y * camToGameScale + blobXAdjust;
+    gamePnt.x = camPnt.x * camToGameXScale + blobXAdjust;
+    gamePnt.y = camPnt.y * camToGameYScale + blobYAdjust;
     
+    //left side
     if (gamePnt.x < gameWidth/2){
         float prc = gamePnt.x / (float)(gameWidth/2);
         prc = powf(prc, 2.0-blobLeftXCurve);
         gamePnt.x = (gameWidth/2) * prc;
     }
+    
+    //right side
     else{
-        float prc = (gamePnt.x - (gameWidth/2)) / (float)(gameWidth/2);
+        gamePnt.x += blobXRightAdjust;
+        gamePnt.y += blobYRightAdjust;
+        float prc = ofMap(gamePnt.x, gameWidth/2, gameWidth, 0, 1);
         prc = powf(prc, 2.0-blobRightXCurve);
+        //cout<<"prc "<<prc<<endl;
         gamePnt.x = (gameWidth/2) +  (gameWidth/2) * prc;
     }
     
@@ -425,22 +446,6 @@ void CupTrackerCam::draw(){
     //drawFiducials(drawStart.x, drawStart.y);
     drawARTags(drawStart.x, drawStart.y);
     
-//    //testing blobs
-//    ofVec2f blobStart(drawStart.x, drawStart.y+5+fullImg.getHeight());
-//    for (int i = 0; i < contourFinder.nBlobs; i++){
-//        contourFinder.blobs[i].draw(blobStart.x, blobStart.y);
-//        
-//        // draw over the centroid if the blob is a hole
-//        ofSetColor(255);
-//        if(contourFinder.blobs[i].hole){
-//            ofDrawBitmapString("hole",
-//                               contourFinder.blobs[i].boundingRect.getCenter().x + blobStart.x,
-//                               contourFinder.blobs[i].boundingRect.getCenter().y + blobStart.y);
-//        }
-//    }
-//    
-//    ofSetColor(255,0,0);
-//    ofDrawBitmapString("blobs: "+ofToString(contourFinder.nBlobs), blobStart.x, blobStart.y+fullImg.getHeight()+15);
     
     ofPopMatrix();
 }

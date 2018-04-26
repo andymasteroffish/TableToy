@@ -17,8 +17,10 @@ public:
     
     vector<ofVec2f> points;
     ofVec2f center;
+    float   area;
+    float   length;
     
-    
+    //for debug
     void draw(){
         ofSetColor(255, 0, 0);
         ofNoFill();
