@@ -51,7 +51,7 @@ void EyeScene::setupPanelValues(ofxControlPanel * panel){
 
 //--------------------------------------------------------------------------------------------
 void EyeScene::resetCustom(){
-    
+    cupTracker->useCups = false;
     vid.play();
 
     

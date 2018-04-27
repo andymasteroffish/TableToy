@@ -57,7 +57,7 @@ void StreamBlobScene::setupPanelValues(ofxControlPanel * panel){
 
 //--------------------------------------------------------------------------------------------
 void StreamBlobScene::resetCustom(){
-    
+    cupTracker->useCups = false;
 }
 
 //--------------------------------------------------------------------------------------------

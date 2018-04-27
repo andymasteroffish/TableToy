@@ -52,6 +52,10 @@ public:
     ofxCvContourFinder 	contourFinder;
     vector<GameBlob> blobs;
     
+    //turing some funcitolnalit on or off
+    bool useCups;
+    bool useBlobs;
+    
 };
 
 #endif /* defined(__DrinkRink__CupTracker__) */

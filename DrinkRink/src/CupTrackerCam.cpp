@@ -310,7 +310,9 @@ void CupTrackerCam::update(){
                 grayImageThresh.mirror(flipVert, flipHorz);
             }
             
-            ARKit.update(grayImageThresh.getPixels());
+            if (useCups){
+                ARKit.update(grayImageThresh.getPixels());
+            }
             
         }
         else{
@@ -322,13 +324,18 @@ void CupTrackerCam::update(){
             if (flipHorz || flipVert){
                 grayImageNoThresh.mirror(flipVert, flipHorz);
             }
-            ARKit.update(grayImageNoThresh.getPixels());
+            if (useCups){
+                ARKit.update(grayImageNoThresh.getPixels());
+            }
             
         }
         
-        //sourceImage, min blob size, max blob size, max num blobs, find holes
-        contourFinder.findContours(grayImageDemo, blobMinSize, (imgWidth*imgHeight)/3, maxNumBlobsToFind, true);
-        checkBlobs();
+        //BLOBS!
+        if (useBlobs){
+            //sourceImage, min blob size, max blob size, max num blobs, find holes
+            contourFinder.findContours(grayImageDemo, blobMinSize, (imgWidth*imgHeight)/3, maxNumBlobsToFind, true);
+            checkBlobs();
+        }
         
         
         //threhsold cyclinging refresh
@@ -339,15 +346,17 @@ void CupTrackerCam::update(){
         }
         
         //update our info
-        for (int i=0; i<ARKit.getNumDetectedMarkers(); i++){
-            checkARTag(i);
-        }
-        
-        //go through and check for cups that have been removed
-        for (int i=activeCups.size()-1; i>=0 ; i--){
-            activeCups[i].framesWithoutUpdate++;
-            if (activeCups[i].framesWithoutUpdate > framesBeforeKillingCup){
-                activeCups.erase( activeCups.begin()+i );
+        if (useCups){
+            for (int i=0; i<ARKit.getNumDetectedMarkers(); i++){
+                checkARTag(i);
+            }
+            
+            //go through and check for cups that have been removed
+            for (int i=activeCups.size()-1; i>=0 ; i--){
+                activeCups[i].framesWithoutUpdate++;
+                if (activeCups[i].framesWithoutUpdate > framesBeforeKillingCup){
+                    activeCups.erase( activeCups.begin()+i );
+                }
             }
         }
         

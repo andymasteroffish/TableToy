@@ -13,6 +13,8 @@ void DeepPathScene::setupCustom(){
     
     sceneName = "deep_path";
     
+   
+    
     
     
     //set up the camera
@@ -64,7 +66,7 @@ void DeepPathScene::setupPanelValues(ofxControlPanel * panel){
 }
 
 void DeepPathScene::resetCustom(){
-    
+     cupTracker->useCups = false;
 }
 
 void DeepPathScene::checkPanelValuesCustom(ofxControlPanel * panel){

@@ -40,6 +40,10 @@ void Scene::reset(){
     idleTimer = 0;
     activeTimer = 0;
     
+    //assume we need full funcitonality
+    cupTracker->useBlobs = true;
+    cupTracker->useCups = true;
+    
     resetCustom();
 }
 
