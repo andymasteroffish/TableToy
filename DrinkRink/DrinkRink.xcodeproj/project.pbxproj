@@ -116,6 +116,7 @@
 		57AB01B31C62E76D00791458 /* Sensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01A01C62E76D00791458 /* Sensor.mm */; };
 		57AB01B41C62E76D00791458 /* ofxMacamPs3Eye.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01A21C62E76D00791458 /* ofxMacamPs3Eye.mm */; };
 		57AB01B51C62E76D00791458 /* PS3EyeWindowAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57AB01A41C62E76D00791458 /* PS3EyeWindowAppDelegate.mm */; };
+		57D2D1392093B81400DA0BCC /* PaintScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57D2D1372093B81400DA0BCC /* PaintScene.cpp */; settings = {ASSET_TAGS = (); }; };
 		57DC11BB1D52A6EB008A1D55 /* TowerPaddle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57DC11B91D52A6EB008A1D55 /* TowerPaddle.cpp */; };
 		57DC11BE1D5396A4008A1D55 /* TowerPopper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57DC11BC1D5396A4008A1D55 /* TowerPopper.cpp */; };
 		57E5AA7F1D297ABF00BD722C /* BetterFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E5AA7D1D297ABF00BD722C /* BetterFont.cpp */; };
@@ -502,6 +503,8 @@
 		57AB01A31C62E76D00791458 /* PS3EyeWindowAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PS3EyeWindowAppDelegate.h; sourceTree = "<group>"; };
 		57AB01A41C62E76D00791458 /* PS3EyeWindowAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PS3EyeWindowAppDelegate.mm; sourceTree = "<group>"; };
 		57C0136D1C4300AA002C4672 /* StreamBackgroundShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreamBackgroundShape.h; sourceTree = "<group>"; };
+		57D2D1372093B81400DA0BCC /* PaintScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PaintScene.cpp; sourceTree = "<group>"; };
+		57D2D1382093B81400DA0BCC /* PaintScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaintScene.hpp; sourceTree = "<group>"; };
 		57DC11B91D52A6EB008A1D55 /* TowerPaddle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TowerPaddle.cpp; sourceTree = "<group>"; };
 		57DC11BA1D52A6EB008A1D55 /* TowerPaddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerPaddle.h; sourceTree = "<group>"; };
 		57DC11BC1D5396A4008A1D55 /* TowerPopper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TowerPopper.cpp; sourceTree = "<group>"; };
@@ -900,6 +903,7 @@
 		0AF37A901B840DEE00A9CFF7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				57D2D1362093B7ED00DA0BCC /* Paint */,
 				5779D0C2208E3E6300ADAA4C /* Eye */,
 				570975C0208A8C0400A9A240 /* DeepPath */,
 				5723E7781D4674BE00643B1D /* TitleCard */,
@@ -1449,6 +1453,15 @@
 			name = TowerDefense;
 			sourceTree = "<group>";
 		};
+		57D2D1362093B7ED00DA0BCC /* Paint */ = {
+			isa = PBXGroup;
+			children = (
+				57D2D1382093B81400DA0BCC /* PaintScene.hpp */,
+				57D2D1372093B81400DA0BCC /* PaintScene.cpp */,
+			);
+			name = Paint;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1685,6 +1698,7 @@
 				0AF37B3C1B840FA600A9CFF7 /* segment.cpp in Sources */,
 				0AF37AAC1B840E5D00A9CFF7 /* TowerFlow.cpp in Sources */,
 				0AF37AC21B840E7500A9CFF7 /* Tower.cpp in Sources */,
+				57D2D1392093B81400DA0BCC /* PaintScene.cpp in Sources */,
 				0AF37AB91B840E6C00A9CFF7 /* Flyer.cpp in Sources */,
 				0AF37AA31B840E5200A9CFF7 /* Ball.cpp in Sources */,
 				0AF37B0A1B840F4000A9CFF7 /* guiCallbackValue.cpp in Sources */,

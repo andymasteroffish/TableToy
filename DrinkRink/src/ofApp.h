@@ -18,6 +18,7 @@
 #include "DeepPathScene.hpp"
 #include "StreamBlobScene.hpp"
 #include "EyeScene.hpp"
+#include "PaintScene.hpp"
 
 #include "CupTracker.h"
 #include "CupTrackerDebug.h"
@@ -58,7 +59,7 @@ public:
     CupTracker * cupTracker;
     
     //scene
-#define NUM_SCENES          9
+#define NUM_SCENES          10
 #define SCENE_CALIBRATION   0
 #define SCENE_TITLE_CARD    1
 #define SCENE_SPORTS        2
@@ -68,6 +69,7 @@ public:
 #define SCENE_DEEP_PATH     6
 #define SCENE_STREAM_BLOB   7
 #define SCENE_EYE           8
+#define SCENE_PAINT         9
 //#define SCENE_FLYERS        3
     Scene * scenes[NUM_SCENES];
     Scene * curScene;
