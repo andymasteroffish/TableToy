@@ -42,9 +42,9 @@ void EyeScene::setupCustom(){
 
 //--------------------------------------------------------------------------------------------
 void EyeScene::setupPanelValues(ofxControlPanel * panel){
-    panel->addPanel(sceneName, 1, false);
-    panel->setWhichPanel(sceneName);
-    panel->setWhichColumn(0);
+//    panel->addPanel(sceneName, 1, false);
+//    panel->setWhichPanel(sceneName);
+//    panel->setWhichColumn(0);
     
     
 }
@@ -59,7 +59,6 @@ void EyeScene::resetCustom(){
 
 //--------------------------------------------------------------------------------------------
 void EyeScene::checkPanelValuesCustom(ofxControlPanel * panel){
-    killTime = panel->getValueF("STREAM_KILL_TIME");
 }
 
 //--------------------------------------------------------------------------------------------
@@ -115,10 +114,6 @@ void EyeScene::updateCustom(){
     float scaleMod = 1 + sin(ofGetElapsedTimef() * 0.3) * scaleRange;
     curScale = baseScale * scaleMod;
     
-    
-    if (activeTimer > killTime ){
-        switchScenesFlag = true;
-    }
 }
 
 

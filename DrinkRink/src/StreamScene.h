@@ -39,7 +39,7 @@ public:
     
     vector<StreamBackgroundShape> bgShapes;
     
-    float killTime, idleKillTime;
+    float idleKillTime;
     
     
 };

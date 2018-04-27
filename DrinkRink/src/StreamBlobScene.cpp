@@ -51,8 +51,6 @@ void StreamBlobScene::setupPanelValues(ofxControlPanel * panel){
     panel->addSlider("noise range", "STREAM_BLOB_NOISE_RANGE", 20, 0, 100, false);
     
     
-    //panel->addSlider("kill time", "STREAM_KILL_TIME", 60, 1, 500, false);
-    //panel->addSlider("idle time to kill", "STREAM_IDLE_KILL_TIME", 20, 1, 120, false);
 }
 
 //--------------------------------------------------------------------------------------------
@@ -62,7 +60,6 @@ void StreamBlobScene::resetCustom(){
 
 //--------------------------------------------------------------------------------------------
 void StreamBlobScene::checkPanelValuesCustom(ofxControlPanel * panel){
-    killTime = panel->getValueF("STREAM_KILL_TIME");
     blobForce = panel->getValueF("STREAM_BLOB_FORCE");
     drawDebugBobs = panel->getValueB("STREAM_SHOW_BLOBS");
     
@@ -115,9 +112,6 @@ void StreamBlobScene::updateCustom(){
     }
     
     
-    if (activeTimer > killTime ){
-        switchScenesFlag = true;
-    }
 }
 
 //--------------------------------------------------------------------------------------------

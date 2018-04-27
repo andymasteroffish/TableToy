@@ -39,7 +39,6 @@ public:
     float frameRate;
     float frameTimer;
     
-    float killTime;
     
 };
 

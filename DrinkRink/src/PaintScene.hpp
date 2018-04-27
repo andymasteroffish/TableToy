@@ -39,8 +39,6 @@ public:
     
     int bgFade;
     
-    float killTime;
-    
     
     
 };

@@ -24,6 +24,8 @@ void Scene::setup(CupTracker * _cupTracker, int _gameWidth, int _gameHeight){
     
     numFieldParticlesPerFrame = 15;
     
+    killTime = 10;
+    
     setupCustom();
 }
 
@@ -80,6 +82,12 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
             delete fieldParticles[i];
             fieldParticles.erase( fieldParticles.begin() + i);
         }
+    }
+    
+    
+    //time to move on?
+    if (activeTimer > killTime ){
+        switchScenesFlag = true;
     }
     
     //When switching scenes, the current scene fades out

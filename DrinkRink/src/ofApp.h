@@ -28,6 +28,7 @@ class ofApp : public ofBaseApp{
 public:
     
     void setup();
+    void loadSceneTimes();
     void setupPanel();
     
     void scrollScenes();
@@ -46,6 +47,7 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+    
     
     //general
     float deltaTime, prevFrameTime;

@@ -54,9 +54,6 @@ public:
     float curScale;
     
     
-    
-    float killTime;
-    
 };
 
 

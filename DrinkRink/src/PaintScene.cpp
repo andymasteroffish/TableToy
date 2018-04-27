@@ -30,8 +30,6 @@ void PaintScene::setupPanelValues(ofxControlPanel * panel){
     panel->setWhichPanel(sceneName);
     panel->setWhichColumn(0);
     
-    panel->addSlider("kill time", "PAINT_KILL_TIME", 60, 1, 180, true);
-    
     panel->addSlider("bg fade", "PAINT_BG_FADE", 1, 0, 100, true);
     
     
@@ -63,7 +61,6 @@ void PaintScene::resetCustom(){
 
 //--------------------------------------------------------------------------------------------
 void PaintScene::checkPanelValuesCustom(ofxControlPanel * panel){
-    killTime = panel->getValueF("PAINT_KILL_TIME");
     
     bgFade              = panel->getValueI("PAINT_BG_FADE");
     
@@ -122,10 +119,6 @@ void PaintScene::updateCustom(){
     fbo.end();
     
     
-    //time to move on?
-    if (activeTimer > killTime ){
-        switchScenesFlag = true;
-    }
     
 }
 
@@ -137,7 +130,7 @@ void PaintScene::drawBackgroundCustom(){
 //--------------------------------------------------------------------------------------------
 void PaintScene::drawCustom(){
     
-    ofSetColor(255);
+    ofSetColor(255, 255*alphaPrc);
     fbo.draw(0,0);
     
     

@@ -29,6 +29,8 @@ void CalibrationScene::setupCustom(){
     
     tracker = (CupTrackerCam *) cupTracker;
     
+    killTime = 999999;
+    
     //curPointDragging = -1;
 }
 

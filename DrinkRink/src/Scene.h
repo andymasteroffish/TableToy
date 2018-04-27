@@ -96,6 +96,8 @@ public:
     float activeTimer;          //how long has this scene been running?
     float idleTimer;            //how long has it been since somebody moved a cup?
     
+    float killTime;             //how long before the scene will change over
+    
     vector<FieldParticle *> fieldParticles; //a list of all of the field particles currently active
     ParticleType defaultParticleType;       //the default particle that this scene should spawn. If you do not define this in setupCustom, the default particle will be used
     int numFieldParticlesPerFrame;          //how many field particles to generate every frame. If not set in setupCustom a default value is used

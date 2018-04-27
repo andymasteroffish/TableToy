@@ -54,6 +54,8 @@ void ofApp::setup(){
     
     setupPanel();
     
+    loadSceneTimes();
+    
     //on the actual table, make sure you default to using the full scale
     if (!usingDebugCupTracker){
         panel.setValueF("DISPLAY_SCALE", 1.0);
@@ -69,6 +71,33 @@ void ofApp::setup(){
     
     
 }
+
+//--------------------------------------------------------------
+void ofApp::loadSceneTimes(){
+    ofBuffer buffer = ofBufferFromFile("scene_times.txt");
+    vector<string> files;
+    
+    int curScene = 1;   //ignoring calibration scene whihc is 0
+    
+    if (buffer.size() > 0){
+        while(buffer.isLastLine() == false){
+            
+            string line = buffer.getNextLine();
+            
+            if (line.size() > 0){
+                if (line[0] != ';'){
+                    //cout << "add:" << line << endl;
+                    float time = ofToFloat(line);
+                    scenes[curScene]->killTime = time;
+                    curScene++;
+                    //cout<<"gotta wait "<<time<<endl;
+                }
+            }
+        }
+    }
+
+}
+
 //--------------------------------------------------------------
 void ofApp::setupPanel(){
     panel.setup("settings", ofGetWidth()-310, 0, 300, ofGetHeight());
@@ -265,15 +294,14 @@ void ofApp::scrollScenes(){
 
 //--------------------------------------------------------------
 void ofApp::randomizeSceneOrder(){
-    //first add all of the scenes in order
-    //sceneOrder.push_back( (int)SCENE_SPORTS);
-    //sceneOrder.push_back( (int)SCENE_STREAM);
-    //sceneOrder.push_back( (int)SCENE_TOWER_DEFENSE);
-    //sceneOrder.push_back( (int)SCENE_BEAM);
-    //sceneOrder.push_back( (int)SCENE_EYE);
-    sceneOrder.push_back( (int)SCENE_STREAM_BLOB);
-    sceneOrder.push_back( (int)SCENE_DEEP_PATH);
-    sceneOrder.push_back( (int)SCENE_PAINT);
+    
+    //add all scenes with non-0 kill time
+    //skipping 0 because it is the calibration scene
+    for (int i=1; i<NUM_SCENES; i++){
+        if (scenes[i]->killTime > 0){
+            sceneOrder.push_back(i);
+        }
+    }
     
     //randomize that shit
     for (int i=0; i<sceneOrder.size()*100; i++){
@@ -578,7 +606,6 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){
     
 }
-
 
 
 

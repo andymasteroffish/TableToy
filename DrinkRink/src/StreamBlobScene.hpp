@@ -35,8 +35,6 @@ public:
     
     vector<StreamBackgroundShape> bgShapes;
     
-    float killTime;
-    
     float blobForce;
     
     bool drawDebugBobs;
