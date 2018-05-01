@@ -1,0 +1,134 @@
+*********************
+Setting up drink rink
+*********************
+
+Launch the application from Dropbox/drink_rink/builds/new
+
+
+*********************
+scene_times.txt
+*********************
+
+This text tile lives in the data folder. It controls which scenes will be shown and how long they'll run. The order matches the scene order listed in ofApp.h and the time is measured in seconds. Putting a time of 0 will cause the scene to be skipped entirely.
+
+If you add a new scene to the project, don't forget to add it here as well.
+
+These values are loaded on launch, so you'll need to restart Drink Rink if you make changes
+
+
+*********************
+Hot keys!
+*********************
+
+M - Switch Scenes
+
+? - Return to calibration scene
+
+spacebar - retake difference image (do this if lighting conditions change. Make sure the bar is clear first)
+
+left/right - change control panel page
+
+P - show/hide the control panel
+
+F - show the vector field (for debugging particle scenes)
+
+C - show cam debug (just shows the camera image, not very useful in general)
+
+S - show cup debug (don't use this)
+
+
+
+*********************
+Calibrating
+*********************
+
+It should start in the calibration scene, but you can go back to this scene at any time by pressing ‘?’
+
+All of the calibration should be able to be done here and is mostly controlled via the control panel. You can switch tabs in the control panel using left and right arrow keys
+
+You can click and drag the control panel around which is really useful to actually see what you're doing.
+
+IMPORTANT: you must click "save" on the top of the control panel to save your changes!
+
+A lot of the settings in here are from when we did cup tracking and may not be relevant
+
+If you get things feeling good in the calibration scene, the other scenes should more or less work.
+
+I'm putting a "!" by settings that you are likely to need to mess with
+
+
+*********************
+Page 1 - Cam Setup
+*********************
+
+Honestly, don't both changing anything here.
+
+The only thing worth messing with here is turning on "Threshold Cycle Empty Regions" if you are trying to use cups
+
+
+*********************
+Page 2 - Cam Position
+*********************
+
+These settings are for getting the two camera images to look nice. You can see the results of these changes in the top left video in the calibration scene.
+
+Threshold - this was for cups and you can ignore it
+
+!! Cam 0 On Left - sometimes the cameras will read in the reverse order. check or uncheck this if they are showing on the wrong side
+
+Flip Cams Horizontal - Does what it says. You shouldn't need to change this.
+Flip Cams Vertical - Does what it says. You shouldn't need to change this.
+
+Invert Grey Image - This was for dealing with white or back tracking markers. You shouldn't need to mess with it
+
+!! Left/Right Cam Rotate - rotates the source image. Useful for getting them as seamless as possible
+!! Left/Right Cam X/Y Adjust - Moves the image around. Also for getting it seamless
+
+Flip Cam Adjusts - this flips the values of the above adjust and rotate values. Useful if you need to check or uncheck Cam 0 On Left 
+
+Ignore all of the cup settings after "flip cam adjusts"
+
+
+*********************
+Page 3 - Blobs
+*********************
+
+!! Blob General X/Y Adjust - shifts all blobs by X/Y - Get this looking good on the left side of the screen
+!! Blob Right X/Y Adjust - This is an extra layer of adjustment for the right side of the screen
+
+Blob Left/Right Curve - This pushes the blobs out as they get closer to the edge of the screen. Can be useful for fiddling to really get things to line up
+
+Max Num Blobs - The maximum number of blobs this thing can detect in a single frame
+Blob Min Size - How big a blob needs to be to count
+Max Offset for same blob - how far a blob can move in a single frame and still be considered the same
+Max Area Prc Change - Maximum percentage change in area a blob can have in a single frame and still be counted as the same
+
+
+*********************
+Page 4 - Screen Adjust
+*********************
+
+!! All these setting are for getting the two projectors to line up. If things are really weird, try setting them all to 0 and starting there. The calibration scene has a bunch of circles going down the middle to help with this.
+
+Ignore the idle settings on this screen. Those were for cups.
+
+
+*********************
+Page 5 & 6 - Threshold regions
+*********************
+
+Ignore this shit!
+
+
+*********************
+Page 7 - Generic Testing
+*********************
+
+These were just generic sliders used while testing new scenes. They have no purpose in the final build
+
+
+*********************
+All Other Pages
+*********************
+
+From here on out, all of the control panels are for specific scenes. Feel free to go through 'em but there's no calibration info here
