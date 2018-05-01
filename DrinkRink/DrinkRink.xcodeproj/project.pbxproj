@@ -80,6 +80,8 @@
 		570975C4208A8CC400A9A240 /* DeepPathScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 570975C2208A8CC400A9A240 /* DeepPathScene.cpp */; settings = {ASSET_TAGS = (); }; };
 		5723E7771D4564C200643B1D /* TDHomeHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7751D4564C200643B1D /* TDHomeHit.cpp */; };
 		5723E77B1D4674F700643B1D /* TitleCardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7791D4674F700643B1D /* TitleCardScene.cpp */; };
+		57451D322098E15900952452 /* WigglerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57451D302098E15900952452 /* WigglerScene.cpp */; settings = {ASSET_TAGS = (); }; };
+		57451D362098F42A00952452 /* WigglerBGShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57451D342098F42A00952452 /* WigglerBGShape.cpp */; settings = {ASSET_TAGS = (); }; };
 		5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574569791D199DAA006E45D0 /* TDFireball.cpp */; };
 		5745697E1D19A1C6006E45D0 /* TDFreezeCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */; };
 		575466641D0F895E001B056E /* TowerDefenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575466621D0F895E001B056E /* TowerDefenseScene.cpp */; };
@@ -420,6 +422,10 @@
 		5723E7761D4564C200643B1D /* TDHomeHit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDHomeHit.h; sourceTree = "<group>"; };
 		5723E7791D4674F700643B1D /* TitleCardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleCardScene.cpp; sourceTree = "<group>"; };
 		5723E77A1D4674F700643B1D /* TitleCardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCardScene.h; sourceTree = "<group>"; };
+		57451D302098E15900952452 /* WigglerScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WigglerScene.cpp; sourceTree = "<group>"; };
+		57451D312098E15900952452 /* WigglerScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WigglerScene.hpp; sourceTree = "<group>"; };
+		57451D342098F42A00952452 /* WigglerBGShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WigglerBGShape.cpp; sourceTree = "<group>"; };
+		57451D352098F42A00952452 /* WigglerBGShape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WigglerBGShape.hpp; sourceTree = "<group>"; };
 		574569791D199DAA006E45D0 /* TDFireball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFireball.cpp; sourceTree = "<group>"; };
 		5745697A1D199DAA006E45D0 /* TDFireball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDFireball.h; sourceTree = "<group>"; };
 		5745697C1D19A1C6006E45D0 /* TDFreezeCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDFreezeCone.cpp; sourceTree = "<group>"; };
@@ -903,6 +909,7 @@
 		0AF37A901B840DEE00A9CFF7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				57451D2F2098E13A00952452 /* Wigglers */,
 				57D2D1362093B7ED00DA0BCC /* Paint */,
 				5779D0C2208E3E6300ADAA4C /* Eye */,
 				570975C0208A8C0400A9A240 /* DeepPath */,
@@ -1203,6 +1210,17 @@
 				5723E7791D4674F700643B1D /* TitleCardScene.cpp */,
 			);
 			name = TitleCard;
+			sourceTree = "<group>";
+		};
+		57451D2F2098E13A00952452 /* Wigglers */ = {
+			isa = PBXGroup;
+			children = (
+				57451D312098E15900952452 /* WigglerScene.hpp */,
+				57451D302098E15900952452 /* WigglerScene.cpp */,
+				57451D352098F42A00952452 /* WigglerBGShape.hpp */,
+				57451D342098F42A00952452 /* WigglerBGShape.cpp */,
+			);
+			name = Wigglers;
 			sourceTree = "<group>";
 		};
 		5779D0BA208E316C00ADAA4C /* StreamBlob */ = {
@@ -1652,9 +1670,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
+				57451D362098F42A00952452 /* WigglerBGShape.cpp in Sources */,
 				577002EA1D4BE93E00807C2C /* TDBulletHit.cpp in Sources */,
 				0AF37B241B840F4000A9CFF7 /* tinyxmlerror.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				57451D322098E15900952452 /* WigglerScene.cpp in Sources */,
 				575B7A3D1D17590E005DD708 /* TowerTD.cpp in Sources */,
 				57AB01B21C62E76D00791458 /* Resolvers.cpp in Sources */,
 				0AF37AB31B840E6500A9CFF7 /* StreamScene.cpp in Sources */,

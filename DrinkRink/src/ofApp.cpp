@@ -38,6 +38,7 @@ void ofApp::setup(){
     scenes[SCENE_STREAM_BLOB]   = new StreamBlobScene();
     scenes[SCENE_EYE]           = new EyeScene();
     scenes[SCENE_PAINT]         = new PaintScene();
+    scenes[SCENE_WIGGLER]       = new WigglerScene();
     
     for (int i=0; i<NUM_SCENES; i++){
         scenes[i]->setup(cupTracker, gameWidth, gameHeight);
@@ -47,7 +48,7 @@ void ofApp::setup(){
     }
     
     curSceneID = -100;
-    setScene(SCENE_PAINT);// SCENE_CALIBRATION);
+    setScene(SCENE_CALIBRATION);// SCENE_CALIBRATION);
     if (usingDebugCupTracker){
         setScene(SCENE_SPORTS);
     }
@@ -193,26 +194,6 @@ void ofApp::setupPanel(){
     panel.addSlider("max offset for same blob", "BLOB_MAX_TRACKING_DIST", 350, 10, 500, false);
     panel.addSlider("max area prc change", "BLOB_MAX_AREA_PRC_CHANGE", 0.5, 0, 1, false);
     
-    
-    
-    //Thresholding
-    panel.addPanel("Threshold Zone Top", 1, false);
-    panel.setWhichPanel("Threshold Zone Top");
-    panel.setWhichColumn(0);
-    
-    panel.addToggle("show threshold lines", "SHOW_THRESH_LINES", true);
-    
-    for (int i=0; i<12; i++){
-        panel.addSlider("threshold slider "+ofToString(i), "THRESH_ZONE_"+ofToString(i), 28, 0, 255, true);
-    }
-    
-    panel.addPanel("Threshold Zone Bottom", 1, false);
-    panel.setWhichPanel("Threshold Zone Bottom");
-    panel.setWhichColumn(0);
-    for (int i=12; i<24; i++){
-        panel.addSlider("threshold slider "+ofToString(i), "THRESH_ZONE_"+ofToString(i), 28, 0, 255, true);
-    }
-    
     //fucksing with the right screen
     panel.addPanel("Screen Adjust", 1, false);
     panel.setWhichPanel("Screen Adjust");
@@ -232,6 +213,26 @@ void ofApp::setupPanel(){
     
     panel.addSlider("min cup move", "IDLE_MOVE_THRESH", 2, 1, 25, false);
     panel.addSlider("min cup rotate", "IDLE_ROTATE_THRESH", 0.2, 0.1, PI, false);
+
+    
+    //Thresholding
+    panel.addPanel("Threshold Zone Top", 1, false);
+    panel.setWhichPanel("Threshold Zone Top");
+    panel.setWhichColumn(0);
+    
+    panel.addToggle("show threshold lines", "SHOW_THRESH_LINES", true);
+    
+    for (int i=0; i<12; i++){
+        panel.addSlider("threshold slider "+ofToString(i), "THRESH_ZONE_"+ofToString(i), 28, 0, 255, true);
+    }
+    
+    panel.addPanel("Threshold Zone Bottom", 1, false);
+    panel.setWhichPanel("Threshold Zone Bottom");
+    panel.setWhichColumn(0);
+    for (int i=12; i<24; i++){
+        panel.addSlider("threshold slider "+ofToString(i), "THRESH_ZONE_"+ofToString(i), 28, 0, 255, true);
+    }
+    
     
     //Some generic sldiers to hook into while testing
     panel.addPanel("Generic Testing", 1, false);

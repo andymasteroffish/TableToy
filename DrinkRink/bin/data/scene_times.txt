@@ -11,7 +11,7 @@
 0
 
 ;tower defense (ends itself)
-99999
+0
 
 ;beam
 0
@@ -26,6 +26,9 @@
 60
 
 ;paint
+120
+
+;wiggler
 120
 
 

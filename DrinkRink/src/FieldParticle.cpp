@@ -163,5 +163,63 @@ void FieldParticle::setType(ParticleType type){
         col.setHsb(0, 0, ofRandom(50,255));
         
     }
+    
+    //this is base dont he old SUNS preset, not wiggler
+    if (type == PARTICLE_WIGGLER){
+//        fric = 0.2;
+//        killTime = 3;
+//        showDot = true;
+//        fillDot = true;
+//        dotSize = 2;
+//        useTrails = true;
+//        trailStartWidth = 0.5;
+//        trailEndWidth = 2.5;
+//        useNoiseWiggle = true;
+//        noiseWiggleRange = PI;
+//        noiseWigglePower = 0.2;
+//        noiseWiggleRate = 3;
+//        
+//        float thisSat = 238;
+//        float thisBri = 164;
+//        float thisHue = 0;
+//        int hueID = (int)ofRandom(5);
+//        if (hueID == 0) thisHue = 28;
+//        if (hueID == 1) thisHue = 4;
+//        if (hueID == 2) thisHue = 99;
+//        if (hueID == 3) thisHue = 38;
+//        if (hueID == 4) thisHue = 28;
+//        
+//        col.setHsb(thisHue, thisSat, thisBri);
+        
+        
+        fric = 0.35;//0.2;
+        killTime = 3;
+        showDot = false;
+        fillDot = true;
+        dotSize = 2;
+        useTrails = true;
+        numTrailPositions = 40;
+        trailStartWidth = 25;
+        trailEndWidth = 2.5;
+        
+        useNoiseWiggle = true;
+        noiseWiggleRange = PI;
+        noiseWigglePower = 0.275;
+        noiseWiggleRate = 2.65;
+        
+        float thisSat = 255;
+        float thisBri = 218;
+        float thisHue = 0;
+        int hueID = (int)ofRandom(5);
+        if (hueID == 0) thisHue = 202;
+        if (hueID == 1) thisHue = 46;
+        if (hueID == 2) thisHue = 2;
+        if (hueID == 3) thisHue = 34;
+        if (hueID == 4) thisHue = 48;
+        
+        col.setHsb(thisHue, thisSat, thisBri);
+
+
+    }
 }
 
