@@ -27,7 +27,9 @@ void CupTrackerCam::setupCustom(){
 #ifdef USE_VIDEO
     ofVideoPlayer * thisGrabber = new ofVideoPlayer();
     vidGrabber.push_back(thisGrabber);
-    vidGrabber[0]->loadMovie("/Users/awallace/Documents/projects/drink_rink/test_vids/ar_split.mp4");
+    //vidGrabber[0]->loadMovie("/Users/awallace/Documents/projects/drink_rink/test_vids/ar_split.mp4");
+    //vidGrabber[0]->loadMovie("/Users/awallace/Documents/projects/drink_rink/test_vids/test_2018-05-01.mp4");
+    vidGrabber[0]->loadMovie("../../../test_vids/test_2018-05-01.mp4");
     vidGrabber[0]->play();
     takeBGImageOnStart = false;
     
@@ -470,20 +472,22 @@ void CupTrackerCam::draw(){
     
     //WE MOSTLY JUST USE THE CALIBRAITON SCREEN!
     ofPushMatrix();
-    ofScale(0.5,0.5);
+    ofScale(0.25,0.25);
     
+    //ofClear(255);
     ofSetColor(255);
     
     //fbo.draw(0,0);
     //fullImg.draw(20,20);
     
-    ofVec2f drawStart(100,0);
+    ofVec2f drawStart(0,0);
     
     colorImg.draw(drawStart.x,drawStart.y);
-    grayImageDemo.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
+    //cout<<colorImg.getWidth()<<endl;
+    //grayImageDemo.draw(drawStart.x,drawStart.y+5+fullImg.getHeight());
     
     //drawFiducials(drawStart.x, drawStart.y);
-    drawARTags(drawStart.x, drawStart.y);
+    //drawARTags(drawStart.x, drawStart.y);
     
     
     ofPopMatrix();

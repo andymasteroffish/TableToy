@@ -384,6 +384,11 @@ void ofApp::update(){
             fadingScene = NULL;
         }
     }
+    
+    //snap the background early on
+    if (ofGetFrameNum() == 10){
+        panel.setValueB("CAM_TAKE_BG_PIC", true);
+    }
 }
 
 //--------------------------------------------------------------
