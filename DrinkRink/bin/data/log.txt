@@ -1,5 +1,5 @@
 
 
---------------------------------------- 2018-05-01-16-34-55-960
+--------------------------------------- 2018-05-01-16-42-54-416
 [ error ] ofImage: loadImage(): couldn't load image from "paint/paper.jpg"
 [ error ] ofImage: loadImage(): couldn't load image from "paint/paper_fade_trans.png"

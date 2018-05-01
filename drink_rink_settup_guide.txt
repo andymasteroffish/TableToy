@@ -20,7 +20,7 @@ These values are loaded on launch, so you'll need to restart Drink Rink if you m
 Hot keys!
 *********************
 
-M - Switch Scenes
+M - Switch Scenes - PRESS THIS WHEN YOU ARE DONE WITH CALIBRATION
 
 ? - Return to calibration scene
 

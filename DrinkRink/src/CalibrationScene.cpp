@@ -224,6 +224,8 @@ void CalibrationScene::drawCustom(){
     
     ofDrawBitmapString("<-- This is the image with the tracker's thresholding applied", 0, 65);
     ofDrawBitmapString("<-- This recreates the image ultimately used for the game", 0, 80);
+    
+    ofDrawBitmapString("PRESS M WHEN YOU ARE DONE", 0, 150);
     ofPopMatrix();
     
     //redraw the towers so we can see them
