@@ -105,75 +105,61 @@ void ofApp::setupPanel(){
     curPanel = 0;
     
     
-    panel.addPanel("Cam Setup", 1, false);
-    panel.setWhichPanel("Cam Setup");
+    //---------------
+    //Basic Setup
+    
+    panel.addPanel("Basic Setup", 1, false);
+    panel.setWhichPanel("Basic Setup");
     panel.setWhichColumn(0);
     
+    panel.addLabel("moving the overall image around");
     panel.addSlider("display scale", "DISPLAY_SCALE", 1, 0.5, 10, false);
     panel.addSlider("display adjust x", "DISPLAY_ADJUST_X", 0, -300, 300, false);
     panel.addSlider("display adjust y", "DISPLAY_ADJUST_Y", 0, -300, 300, false);
     
-    
+    panel.addLabel("spacebar also takes BG pic");
     panel.addToggle("Take BG pic", "CAM_TAKE_BG_PIC", false);
-    panel.addToggle("Use Auto Threshold (ARToolKit)", "CAM_AUTO_THRESHOLD", false);
-    panel.addSlider("X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
-    panel.addSlider("Y Offset", "CAM_Y_OFFSET", 0, -100, 100, false);
+
+    panel.addLabel("adjusting projector seam");
+    panel.addSlider("left screen x adjust", "LEFT_SCREEN_X_ADJUST", -4.5, -100, 100, false);
+    panel.addSlider("left screen y adjust", "LEFT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
+    panel.addSlider("left screen rotation", "LEFT_SCREEN_ROTATION", 0.1, -15, 15, false);
     
-    panel.addSlider("Frames before killing cup", "FRAMES_WITH_NO_CUP", 30, 1, 100, true);
+    panel.addSlider("right screen x adjust", "RIGHT_SCREEN_X_ADJUST", -4.5, -100, 100, false);
+    panel.addSlider("right screen y adjust", "RIGHT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
+    panel.addSlider("right screen rotation", "RIGHT_SCREEN_ROTATION", 0.1, -15, 15, false);
+
     
-    panel.addToggle("Threshold cycle empy regions", "CAM_THRESHOLD_CYCLE", false);
-    panel.addSlider("Threshold Cycle padding dist", "CAM_THRESHOLD_CYCLE_PADDING", 20, 0, 40, false);
-    
-    panel.addSlider("Min Threshold Cycle Val", "MIN_THRESHOLD_CYCLE", 10, 0, 255, true);
-    panel.addSlider("Max Threshold Cycle Val", "MAX_THRESHOLD_CYCLE", 80, 0, 255, true);
-    panel.addSlider("Threshold Cycle Speed per frame", "THRESHOLD_CYCLE_SPEED", 3, 1, 10, true);
-    
-    //the 4 warp points
-//    for (int i=0; i<4; i++){
-//        if (i==0) panel.addLabel("Top Left Warp");
-//        if (i==1) panel.addLabel("Top Right Warp");
-//        if (i==2) panel.addLabel("Bottom Right Warp");
-//        if (i==3) panel.addLabel("Bottom Left Warp");
-//        float xVal = i==0 || i==3 ? 0 : 1;
-//        float yVal = i<2 ? 0 : 1;
-//        panel.addSlider("X Prc", "CAM_WARP_X_"+ofToString(i), xVal, 0, 1, false);
-//        panel.addSlider("Y Prc", "CAM_WARP_Y_"+ofToString(i), yVal, 0, 1, false);
-//    }
-    
-    
+    //---------------
+    //Cam Position
     
     panel.addPanel("Cam Position", 1, false);
     panel.setWhichPanel("Cam Position");
     panel.setWhichColumn(0);
     
-    panel.addSlider("Threshold", "CAM_THRESHOLD", 31, 0, 255, true);
+    panel.addLabel("sets left camera");
     panel.addToggle("cam 0 on left", "CAM_0_ON_LEFT", true);
+    
+    panel.addLabel("flipping the images");
     panel.addToggle("flip cams Horizontal", "CAMS_FLIP_HORZ", true);
     panel.addToggle("flip cams Vertical", "CAMS_FLIP_VERT", false);
     panel.addToggle("invert grey image", "CAM_INVERT_GREY", false);
+    
+    panel.addLabel("positioning the cams");
     panel.addSlider("left cam rotate", "CAM_LEFT_ROT", 0, -5, 5, false);
     panel.addSlider("right cam rotate", "CAM_RIGHT_ROT", 0, -5, 5, false);
     panel.addSlider("cam 0 x adjust", "CAM_0_X", 8.9, -100, 100, false);
     panel.addSlider("cam 0 y adjust", "CAM_0_Y", -5, -100, 100, false);
     panel.addSlider("cam 1 x adjust", "CAM_1_X", -7.3, -100, 100, false);
     panel.addSlider("cam 1 y adjust", "CAM_1_Y", 5.4, -100, 100, false);
+    
+    panel.addLabel("swaps the values");
     panel.addToggle("flip cam adjusts", "CAM_FLIP_ADJUSTS", false);
     
-    //calibrating the cups
-    panel.addSlider("cup left X", "CUPS_LEFT_X", 195.6, -100, gameWidth, false);
-    panel.addSlider("cup right X", "CUPS_RIGHT_X", 2453.1, 0, gameWidth+100, false);
-    panel.addSlider("cup top Y", "CUPS_TOP_Y", -80, -100, gameHeight, false);
-    panel.addSlider("cup bottom Y", "CUPS_BOTTOM_Y", 810, 0, gameHeight+100, false);
     
-    
-    panel.addSlider("cup x adjust left", "CUPS_ADJUST_X_LEFT", 53.3, -300, 300, false);
-    panel.addSlider("cup top y adjust left", "CUPS_ADJUST_Y_TOP_LEFT", 33.3, -300, 300, false);
-    panel.addSlider("cup bot y adjust left", "CUPS_ADJUST_Y_BOT_LEFT", -30, -300, 300, false);
-    panel.addSlider("cup x adjust right", "CUPS_ADJUST_X_RIGHT", 63.3, -300, 300, false);
-    panel.addSlider("cup top y adjust right", "CUPS_ADJUST_Y_TOP_RIGHT", 10, -300, 300, false);
-    panel.addSlider("cup bot y adjust right", "CUPS_ADJUST_Y_BOT_RIGHT", -60, -300, 300, false);
-    
+    //---------------
     //Blob settings
+    
     panel.addPanel("Blobs", 1, false);
     panel.setWhichPanel("Blobs");
     panel.setWhichColumn(0);
@@ -194,28 +180,61 @@ void ofApp::setupPanel(){
     panel.addSlider("max offset for same blob", "BLOB_MAX_TRACKING_DIST", 350, 10, 500, false);
     panel.addSlider("max area prc change", "BLOB_MAX_AREA_PRC_CHANGE", 0.5, 0, 1, false);
     
-    //fucksing with the right screen
-    panel.addPanel("Screen Adjust", 1, false);
-    panel.setWhichPanel("Screen Adjust");
+    
+    //---------------
+    //Cup Settings
+    
+    panel.addPanel("Cup Settings 1", 1, false);
+    panel.setWhichPanel("Cup Settings 1");
     panel.setWhichColumn(0);
     
-    panel.addSlider("left screen x adjust", "LEFT_SCREEN_X_ADJUST", -4.5, -100, 100, false);
-    panel.addSlider("left screen y adjust", "LEFT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
-    panel.addSlider("left screen rotation", "LEFT_SCREEN_ROTATION", 0.1, -15, 15, false);
+    panel.addLabel("Basic cup info");
+    panel.addSlider("cup X Offset", "CAM_X_OFFSET", 0, -100, 100, false);
+    panel.addSlider("cup Y Offset", "CAM_Y_OFFSET", 0, -100, 100, false);
     
-    panel.addSlider("right screen x adjust", "RIGHT_SCREEN_X_ADJUST", -4.5, -100, 100, false);
-    panel.addSlider("right screen y adjust", "RIGHT_SCREEN_Y_ADJUST", 6.7, -100, 100, false);
-    panel.addSlider("right screen rotation", "RIGHT_SCREEN_ROTATION", 0.1, -15, 15, false);
+    panel.addSlider("Frames before killing cup", "FRAMES_WITH_NO_CUP", 30, 1, 100, true);
     
-    //throwing idle settings onto this screen too
-    panel.addLabel("");
+    
+    panel.addLabel("Automatic region thresholding");
+    panel.addToggle("Threshold cycle empy regions", "CAM_THRESHOLD_CYCLE", false);
+    panel.addSlider("Min Threshold Cycle Val", "MIN_THRESHOLD_CYCLE", 10, 0, 255, true);
+    panel.addSlider("Max Threshold Cycle Val", "MAX_THRESHOLD_CYCLE", 80, 0, 255, true);
+    panel.addSlider("Threshold Cycle Speed per frame", "THRESHOLD_CYCLE_SPEED", 3, 1, 10, true);
+    panel.addSlider("Threshold Cycle padding dist", "CAM_THRESHOLD_CYCLE_PADDING", 20, 0, 40, false);
+    
+    panel.addLabel("probably don't use this");
+    panel.addToggle("Use Auto Threshold (ARToolKit)", "CAM_AUTO_THRESHOLD", false);
+    panel.addSlider("Threshold", "CAM_THRESHOLD", 31, 0, 255, true);
+    
+    //---------------
+    //Cup Settings 2
+    
+    panel.addPanel("Cup Settings 2", 1, false);
+    panel.setWhichPanel("Cup Settings 2");
+    panel.setWhichColumn(0);
+    
+    
+    panel.addSlider("cup left X", "CUPS_LEFT_X", 195.6, -100, gameWidth, false);
+    panel.addSlider("cup right X", "CUPS_RIGHT_X", 2453.1, 0, gameWidth+100, false);
+    panel.addSlider("cup top Y", "CUPS_TOP_Y", -80, -100, gameHeight, false);
+    panel.addSlider("cup bottom Y", "CUPS_BOTTOM_Y", 810, 0, gameHeight+100, false);
+    
+    
+    panel.addSlider("cup x adjust left", "CUPS_ADJUST_X_LEFT", 53.3, -300, 300, false);
+    panel.addSlider("cup top y adjust left", "CUPS_ADJUST_Y_TOP_LEFT", 33.3, -300, 300, false);
+    panel.addSlider("cup bot y adjust left", "CUPS_ADJUST_Y_BOT_LEFT", -30, -300, 300, false);
+    panel.addSlider("cup x adjust right", "CUPS_ADJUST_X_RIGHT", 63.3, -300, 300, false);
+    panel.addSlider("cup top y adjust right", "CUPS_ADJUST_Y_TOP_RIGHT", 10, -300, 300, false);
+    panel.addSlider("cup bot y adjust right", "CUPS_ADJUST_Y_BOT_RIGHT", -60, -300, 300, false);
+    
     panel.addLabel("idle settings");
     
     panel.addSlider("min cup move", "IDLE_MOVE_THRESH", 2, 1, 25, false);
     panel.addSlider("min cup rotate", "IDLE_ROTATE_THRESH", 0.2, 0.1, PI, false);
 
-    
+    //---------------
     //Thresholding
+    
     panel.addPanel("Threshold Zone Top", 1, false);
     panel.setWhichPanel("Threshold Zone Top");
     panel.setWhichColumn(0);
@@ -234,7 +253,9 @@ void ofApp::setupPanel(){
     }
     
     
+    //---------------
     //Some generic sldiers to hook into while testing
+    
     panel.addPanel("Generic Testing", 1, false);
     panel.setWhichPanel("Generic Testing");
     panel.setWhichColumn(0);

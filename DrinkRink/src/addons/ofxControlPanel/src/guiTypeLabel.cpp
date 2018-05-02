@@ -23,6 +23,7 @@ void guiTypeLabel::setText( string text )
 void guiTypeLabel::render(){
 	ofPushStyle();
 	glPushMatrix();
+    ofTranslate(0,6);  //andy edit
 	guiBaseObject::renderText();
 	glPopMatrix();
 	ofPopStyle();

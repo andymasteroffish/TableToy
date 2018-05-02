@@ -50,7 +50,7 @@ You can click and drag the control panel around which is really useful to actual
 
 IMPORTANT: you must click "save" on the top of the control panel to save your changes!
 
-A lot of the settings in here are from when we did cup tracking and may not be relevant
+A lot of the settings in here are from when we did cup tracking and may not be relevant. I don't think you'll need to go past the first three pages.
 
 If you get things feeling good in the calibration scene, the other scenes should more or less work.
 
@@ -58,12 +58,14 @@ I'm putting a "!" by settings that you are likely to need to mess with
 
 
 *********************
-Page 1 - Cam Setup
+Page 1 - Basic Setup
 *********************
 
-Honestly, don't both changing anything here.
+display scale, display adjust x & display adjust y are for moving aorund the entire image. Your probably don't need to mess with these
 
-The only thing worth messing with here is turning on "Threshold Cycle Empty Regions" if you are trying to use cups
+!! Take BG Pic - takes a new backgorund pic. Make sure the bar is empty.
+
+!! Adjusting Projector Seam - all these setting are for getting the two projectors to line up. If things are really weird, try setting them all to 0 and starting there. The calibration scene has a bunch of circles going down the middle to help with this.
 
 
 *********************
@@ -86,8 +88,6 @@ Invert Grey Image - This was for dealing with white or back tracking markers. Yo
 
 Flip Cam Adjusts - this flips the values of the above adjust and rotate values. Useful if you need to check or uncheck Cam 0 On Left 
 
-Ignore all of the cup settings after "flip cam adjusts"
-
 
 *********************
 Page 3 - Blobs
@@ -105,23 +105,21 @@ Max Area Prc Change - Maximum percentage change in area a blob can have in a sin
 
 
 *********************
-Page 4 - Screen Adjust
+Page 4 & 5 - Cup Settings
 *********************
 
-!! All these setting are for getting the two projectors to line up. If things are really weird, try setting them all to 0 and starting there. The calibration scene has a bunch of circles going down the middle to help with this.
-
-Ignore the idle settings on this screen. Those were for cups.
+Ignore these if you aren't trying to get cups to work.
 
 
 *********************
-Page 5 & 6 - Threshold regions
+Page 6 & 7 - Threshold regions
 *********************
 
-Ignore this shit!
+Ignore this shit! It's for cups!
 
 
 *********************
-Page 7 - Generic Testing
+Page 8 - Generic Testing
 *********************
 
 These were just generic sliders used while testing new scenes. They have no purpose in the final build

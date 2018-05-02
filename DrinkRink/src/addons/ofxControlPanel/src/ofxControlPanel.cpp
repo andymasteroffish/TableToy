@@ -421,7 +421,7 @@ guiTypeLabel * ofxControlPanel::addLabel( string text )
 	
 	guiTypeLabel* tmp = new guiTypeLabel();
 	tmp->setup( text );
-	tmp->setDimensions( 200, 0 );
+	tmp->setDimensions( 200, 6 );  //Andy edit . was (200, 0)
 	
 	panels[currentPanel]->addElement(tmp);
 	
