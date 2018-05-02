@@ -80,6 +80,7 @@
 		570975C4208A8CC400A9A240 /* DeepPathScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 570975C2208A8CC400A9A240 /* DeepPathScene.cpp */; settings = {ASSET_TAGS = (); }; };
 		5723E7771D4564C200643B1D /* TDHomeHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7751D4564C200643B1D /* TDHomeHit.cpp */; };
 		5723E77B1D4674F700643B1D /* TitleCardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5723E7791D4674F700643B1D /* TitleCardScene.cpp */; };
+		572DCFFA209A5327007CFD34 /* EyeBaby.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 572DCFF8209A5327007CFD34 /* EyeBaby.cpp */; settings = {ASSET_TAGS = (); }; };
 		57451D322098E15900952452 /* WigglerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57451D302098E15900952452 /* WigglerScene.cpp */; settings = {ASSET_TAGS = (); }; };
 		57451D362098F42A00952452 /* WigglerBGShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57451D342098F42A00952452 /* WigglerBGShape.cpp */; settings = {ASSET_TAGS = (); }; };
 		5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574569791D199DAA006E45D0 /* TDFireball.cpp */; };
@@ -422,6 +423,8 @@
 		5723E7761D4564C200643B1D /* TDHomeHit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDHomeHit.h; sourceTree = "<group>"; };
 		5723E7791D4674F700643B1D /* TitleCardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleCardScene.cpp; sourceTree = "<group>"; };
 		5723E77A1D4674F700643B1D /* TitleCardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCardScene.h; sourceTree = "<group>"; };
+		572DCFF8209A5327007CFD34 /* EyeBaby.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EyeBaby.cpp; sourceTree = "<group>"; };
+		572DCFF9209A5327007CFD34 /* EyeBaby.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EyeBaby.hpp; sourceTree = "<group>"; };
 		57451D302098E15900952452 /* WigglerScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WigglerScene.cpp; sourceTree = "<group>"; };
 		57451D312098E15900952452 /* WigglerScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WigglerScene.hpp; sourceTree = "<group>"; };
 		57451D342098F42A00952452 /* WigglerBGShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WigglerBGShape.cpp; sourceTree = "<group>"; };
@@ -1237,6 +1240,8 @@
 			children = (
 				5779D0C4208E3E7E00ADAA4C /* EyeScene.hpp */,
 				5779D0C3208E3E7E00ADAA4C /* EyeScene.cpp */,
+				572DCFF9209A5327007CFD34 /* EyeBaby.hpp */,
+				572DCFF8209A5327007CFD34 /* EyeBaby.cpp */,
 			);
 			name = Eye;
 			sourceTree = "<group>";
@@ -1698,6 +1703,7 @@
 				0AF37B1D1B840F4000A9CFF7 /* guiTypeVideo.cpp in Sources */,
 				0AF37B0F1B840F4000A9CFF7 /* guiTypeChartPlotter.cpp in Sources */,
 				0AF37B3D1B840FA600A9CFF7 /* treeidmap.cpp in Sources */,
+				572DCFFA209A5327007CFD34 /* EyeBaby.cpp in Sources */,
 				0AF37AAB1B840E5D00A9CFF7 /* TowerRepeller.cpp in Sources */,
 				0AF37A881B840D9A00A9CFF7 /* ofxCvContourFinder.cpp in Sources */,
 				5745697B1D199DAA006E45D0 /* TDFireball.cpp in Sources */,

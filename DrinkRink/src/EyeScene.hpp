@@ -12,10 +12,8 @@
 #include "ofMain.h"
 #include "Scene.h"
 
-#include "Tower.h"
-#include "TowerRock.h"
 
-#include "StreamBackgroundShape.h"
+#include "EyeBaby.hpp"
 
 class EyeScene : public Scene{
 public:
@@ -53,6 +51,12 @@ public:
     float baseScale;
     float curScale;
     
+    vector<EyeBaby> babies;
+    float blobNodeSize;
+    
+    vector<ofVec2f> spawnPoints;
+    float timeBetweenSpawns;
+    float spawnTimer;
     
 };
 

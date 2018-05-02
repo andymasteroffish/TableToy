@@ -38,6 +38,21 @@ void EyeScene::setupCustom(){
     
     baseScale = 1;
     
+    blobNodeSize = 20;
+    
+    timeBetweenSpawns = 0.4;
+    spawnTimer = timeBetweenSpawns;
+    
+    float spawnSpacing = 50;
+    for (int y=0; y<gameHeight+spawnSpacing; y+=spawnSpacing){
+        ofVec2f pos(-spawnSpacing, y);
+        spawnPoints.push_back(pos);
+    }
+    for (int x=0; x<gameWidth+spawnSpacing; x+=spawnSpacing){
+        ofVec2f pos(x, gameHeight+spawnSpacing);
+        spawnPoints.push_back(pos);
+    }
+    
 }
 
 //--------------------------------------------------------------------------------------------
@@ -53,6 +68,12 @@ void EyeScene::setupPanelValues(ofxControlPanel * panel){
 void EyeScene::resetCustom(){
     cupTracker->useCups = false;
     vid.play();
+    
+    babies.clear();
+    
+    EyeBaby baby;
+    baby.setup(400, 600);
+    babies.push_back(baby);
 
     
 }
@@ -114,6 +135,41 @@ void EyeScene::updateCustom(){
     float scaleMod = 1 + sin(ofGetElapsedTimef() * 0.3) * scaleRange;
     curScale = baseScale * scaleMod;
     
+    
+    
+    //spawn the babies
+    spawnTimer += deltaTime;
+    if (spawnTimer > timeBetweenSpawns){
+        spawnTimer = 0;
+        int randID = ofRandom(spawnPoints.size());
+        EyeBaby baby;
+        baby.setup(spawnPoints[randID].x, spawnPoints[randID].y);
+        babies.push_back(baby);
+    }
+    
+    //check the baby feelers
+    for (int i=0; i<babies.size(); i++){
+        for (int b=0; b<cupTracker->blobs.size(); b++){
+            for (int p=0; p<cupTracker->blobs[b].points.size(); p++){
+                babies[i].checkFeelers(cupTracker->blobs[b].points[p].x, cupTracker->blobs[b].points[p].y, blobNodeSize);
+            }
+        }
+    }
+    //update the babies
+    for (int i=0; i<babies.size(); i++){
+        babies[i].update(deltaTime);
+    }
+    
+    //kill the babies
+    float killRange = 100;
+    for (int i=babies.size()-1; i>=0; i--){
+        if (babies[i].pos.x < -killRange || babies[i].pos.x > gameWidth + killRange || babies[i].pos.y < -killRange || babies[i].pos.y > gameHeight+killRange){
+            babies.erase(babies.begin() + i);
+        }
+    }
+    //cout<<"num babbie "<<babies.size()<<endl;
+    
+    
 }
 
 
@@ -156,11 +212,29 @@ void EyeScene::drawCustom(){
     drawEye(0,0, 120, ofGetElapsedTimef(), 0);
     ofPopMatrix();
     
+    //the babies
+    for (int i=0; i<babies.size(); i++){
+        drawEye(babies[i].pos.x, babies[i].pos.y, 15, -ofGetElapsedTimef(), -5);
+    }
     
     eyeShader.end();
     
     
     ofDisableDepthTest();
+    
+    //testing
+    ofSetColor(255, 0, 0, 150);
+    for (int i=0; i<cupTracker->blobs.size(); i++){
+        for (int p=0; p<cupTracker->blobs[i].points.size(); p++){
+            float thisX = cupTracker->blobs[i].points[p].x;
+            float thisY = cupTracker->blobs[i].points[p].y;
+            ofCircle(thisX, thisY, blobNodeSize);
+        }
+    }
+    
+//    for (int i=0; i<babies.size(); i++){
+//        babies[i].debugDraw();
+//    }
     
 }
 
