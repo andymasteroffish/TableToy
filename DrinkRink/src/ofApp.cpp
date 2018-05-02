@@ -502,6 +502,7 @@ void ofApp::keyPressed(int key){
         showCupDebug = !showCupDebug;
     }
     if (key == 'm'){
+        showPanel = false;
         scrollScenes();
     }
     if (key == 'p'){
@@ -517,6 +518,7 @@ void ofApp::keyPressed(int key){
     
     if (key == '/' || key == '?'){
         setScene(SCENE_CALIBRATION);
+        showPanel = true;
     }
    
     
