@@ -223,14 +223,14 @@ void EyeScene::drawCustom(){
     ofDisableDepthTest();
     
     //testing
-    ofSetColor(255, 0, 0, 150);
-    for (int i=0; i<cupTracker->blobs.size(); i++){
-        for (int p=0; p<cupTracker->blobs[i].points.size(); p++){
-            float thisX = cupTracker->blobs[i].points[p].x;
-            float thisY = cupTracker->blobs[i].points[p].y;
-            ofCircle(thisX, thisY, blobNodeSize);
-        }
-    }
+//    ofSetColor(255, 0, 0, 150);
+//    for (int i=0; i<cupTracker->blobs.size(); i++){
+//        for (int p=0; p<cupTracker->blobs[i].points.size(); p++){
+//            float thisX = cupTracker->blobs[i].points[p].x;
+//            float thisY = cupTracker->blobs[i].points[p].y;
+//            ofCircle(thisX, thisY, blobNodeSize);
+//        }
+//    }
     
 //    for (int i=0; i<babies.size(); i++){
 //        babies[i].debugDraw();
