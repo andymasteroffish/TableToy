@@ -36,7 +36,7 @@ void StreamBlobScene::setupPanelValues(ofxControlPanel * panel){
     panel->setWhichColumn(0);
     
     panel->addSlider("blob force", "STREAM_BLOB_FORCE", 0.4, 0, 2, false);
-    panel->addToggle("show contours", "STREAM_SHOW_BLOBS", false);
+    //panel->addToggle("show contours", "STREAM_SHOW_BLOBS", false);
     
     panel->addSlider("blob Hue", "STREAM_BLOB_HUE", 250, 0, 255, true);
     panel->addSlider("blob Saturation", "STREAM_BLOB_SAT", 196, 0, 255, true);
@@ -61,7 +61,7 @@ void StreamBlobScene::resetCustom(){
 //--------------------------------------------------------------------------------------------
 void StreamBlobScene::checkPanelValuesCustom(ofxControlPanel * panel){
     blobForce = panel->getValueF("STREAM_BLOB_FORCE");
-    drawDebugBobs = panel->getValueB("STREAM_SHOW_BLOBS");
+    //drawDebugBobs = panel->getValueB("STREAM_SHOW_BLOBS");
     
     blobCol.setHsb(panel->getValueI("STREAM_BLOB_HUE"), panel->getValueI("STREAM_BLOB_SAT"), panel->getValueI("STREAM_BLOB_BRI"));
     blobCol.a = panel->getValueI("STREAM_BLOB_ALPHA");
@@ -158,6 +158,7 @@ void StreamBlobScene::drawCustom(){
     }
     
     
+    //THIS IS CRASHING SOMETIMES! USSUALY WHEN A HAND GOES OFF THE TOP OF THE SCREEN
     //styalized blobs
     float alpha = blobCol.a + sin(ofGetElapsedTimef() * alphaPulseSpeed) * alphaPulseRange;
     alpha = CLAMP(alpha, 0, 255);

@@ -61,7 +61,9 @@ void Scene::update(float _deltaTime, ofxControlPanel * panel){
     field.clear();
     
     //make sure cups and towers match
-    checkCups();
+    if (cupTracker->useCups){
+        checkCups();
+    }
     
     //have the towers do their thing on the field
     for (int i=towers.size()-1; i>=0; i--){
